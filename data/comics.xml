@@ -4,21 +4,21 @@
 	title="Tutelandia en Español"
 	author="Tute"
 	generic_uri="http://picayune.uclick.com/comics/sptut/%Y/sptut%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="sppep"
 	class="simple"
 	title="Pepe en Español"
 	author="Moco"
 	generic_uri="http://picayune.uclick.com/comics/sppep/%Y/sppep%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="spch"
 	class="simple"
 	title="Calvin y Hobbes en Español"
 	author="Bill Watterson"
 	generic_uri="http://picayune.uclick.com/comics/spch/%Y/spch%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="spgat"
 	class="simple"
@@ -43,42 +43,42 @@
 	title="James Bond en Español"
 	author="Ian Fleming"
 	generic_uri="http://picayune.uclick.com/comics/spjb/%Y/spjb%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="spca"
 	class="simple"
 	title="Cathy en Español"
 	author="Cathy Guisewite"
 	generic_uri="http://picayune.uclick.com/comics/spca/%Y/spca%y%m%d.gif">
-		<restrict>Sundays</restrict> 
+		<restrict>7</restrict> 
 </comic>
 <comic id="spft"
 	class="simple"
 	title="FoxTrot en Español"
 	author="Bill Amend"
 	generic_uri="http://picayune.uclick.com/comics/spft/%Y/spft%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="spmb"
 	class="simple"
 	title="Modesty Blaise en Español"
 	author="Peter O'Donnell"
 	generic_uri="http://picayune.uclick.com/comics/spmb/%Y/spmb%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="sppoc"
 	class="simple"
 	title="Pooch Café en Español"
 	author="Paul Gilligan"
 	generic_uri="http://picayune.uclick.com/comics/sppoc/%Y/sppoc%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="spzi"
 	class="simple"
 	title="Ziggy en Español"
 	author="Tom Wilson &amp; Tom II"
 	generic_uri="http://picayune.uclick.com/comics/spzi/%Y/spzi%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="be"
 	class="simple"
@@ -91,28 +91,28 @@
 	title="Overboard en Español"
 	author="Chip Dunham"
 	generic_uri="http://picayune.uclick.com/comics/spob/%Y/spob%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="gh"
 	class="simple"
 	title="Garfield en Español"
 	author="Jim Davis"
 	generic_uri="http://picayune.uclick.com/comics/gh/%Y/gh%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="spmut"
 	class="simple"
 	title="Mutt &amp; Jeff en Español"
 	author="Pierre S. De Beaumont"
 	generic_uri="http://picayune.uclick.com/comics/spmut/%Y/spmut%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="tmntf"
 	class="simple"
 	title="9 to 5"
 	author="Harley Schwadron"
 	generic_uri="http://picayune.uclick.com/comics/tmntf/%Y/tmntf%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="ad"
 	class="simple"
@@ -149,7 +149,7 @@
 	title="Ask Shagg"
 	author="Peter Guren"
 	generic_uri="http://picayune.uclick.com/comics/crask/%Y/crask%y%m%d.gif">
-		<restrict>Sundays</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="ba"
 	class="simple"
@@ -198,19 +198,19 @@
 	title="Born Lucky"
 	author="Bruce Plante"
 	generic_uri="http://picayune.uclick.com/comics/bol/%Y/bol%y%m%d.gif">
-		<restrict>Monday</restrict>
-		<restrict>Tuesday</restrict>
-		<restrict>Wednesday</restrict>
-		<restrict>Thursday</restrict>
-		<restrict>Friday</restrict>
-		<restrict>Saturday</restrict>
+		<restrict>1</restrict>
+		<restrict>2</restrict>
+		<restrict>3</restrict>
+		<restrict>4</restrict>
+		<restrict>5</restrict>
+		<restrict>6</restrict>
 </comic>
 <comic id="tmbot"
 	class="simple"
 	title="Bottom Liners"
 	author="Eric &amp; Bill Teitelbaum"
 	generic_uri="http://picayune.uclick.com/comics/tmbot/%Y/tmbot%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="tmbou"
 	class="simple"
@@ -253,11 +253,11 @@
 	title="Captain RibMan"
 	author="John Sprengelmeyer &amp; Rich Davis"
 	generic_uri="http://picayune.uclick.com/comics/tmcap/%Y/tmcap%y%m%d.gif">
-		<restrict>Monday</restrict>
-		<restrict>Wednesday</restrict>
-		<restrict>Friday</restrict>
-		<restrict>Saturday</restrict>
-		<restrict>Sunday</restrict>
+		<restrict>1</restrict>
+		<restrict>3</restrict>
+		<restrict>5</restrict>
+		<restrict>6</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="ca"
 	class="simple"
@@ -276,7 +276,7 @@
 	title="CEO Dad"
 	author="Tom Stern &amp; Phyllis Hofberg Bruskin"
 	generic_uri="http://picayune.uclick.com/comics/crceo/%Y/crceo%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="co"
 	class="simple"
@@ -319,12 +319,12 @@
 	title="Doodles"
 	author="Steve Sack &amp; Craig Macintosh"
 	generic_uri="http://picayune.uclick.com/comics/tmdoo/%Y/tmdoo%y%m%d.gif">
-		<restrict>Monday</restrict>
-		<restrict>Tuesday</restrict>
-		<restrict>Wednesday</restrict>
-		<restrict>Thursday</restrict>
-		<restrict>Friday</restrict>
-		<restrict>Saturday</restrict>
+		<restrict>1</restrict>
+		<restrict>2</restrict>
+		<restrict>3</restrict>
+		<restrict>4</restrict>
+		<restrict>5</restrict>
+		<restrict>6</restrict>
 </comic>
 <comic id="tmdic"
 	class="simple"
@@ -337,12 +337,12 @@
 	title="Deep Cover"
 	author="Tim Eagan"
 	generic_uri="http://picayune.uclick.com/comics/deep/%Y/deep%y%m%y.gif">
-		<restrict>Monday</restrict>
-		<restrict>Tuesday</restrict>
-		<restrict>Wednesday</restrict>
-		<restrict>Friday</restrict>
-		<restrict>Saturday</restrict>
-		<restrict>Sunday</restrict>
+		<restrict>1</restrict>
+		<restrict>2</restrict>
+		<restrict>3</restrict>
+		<restrict>5</restrict>
+		<restrict>6</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="fw"
 	class="simple"
@@ -379,25 +379,25 @@
 	title="For Heavens Sake"
 	author="Mike Morgan"
 	generic_uri="http://picayune.uclick.com/comics/crfhs/%Y/crfhs%y%m%d.gif">
-		<restrict>Monday</restrict>
-		<restrict>Wednesday</restrict>
-		<restrict>Thursday</restrict>
-		<restrict>Friday</restrict>
-		<restrict>Saturday</restrict>
-		<restrict>Sunday</restrict> </comic>
+		<restrict>1</restrict>
+		<restrict>3</restrict>
+		<restrict>4</restrict>
+		<restrict>5</restrict>
+		<restrict>6</restrict>
+		<restrict>7</restrict> </comic>
 <comic id="ft"
 	class="simple"
 	title="FoxTrot"
 	author="Bill Amend"
 	generic_uri="http://picayune.uclick.com/comics/ft/%Y/ft%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="tmfba"
 	class="simple"
 	title="Fred Basset"
 	author="Alex Graham"
 	generic_uri="http://picayune.uclick.com/comics/tmfba/%Y/tmfba%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="tmlol"
 	class="simple"
@@ -410,8 +410,8 @@
 	title="Wapsi Square"
 	author="Paul Taylor"
 	generic_uri="http://wapsisquare.com/comics/%Y%m%d.gif">
-		<restrict>Saturday</restrict>
-		<restrict>Sunday</restrict>
+		<restrict>6</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="tmgas"
 	class="simple"
@@ -449,7 +449,7 @@
 	title="Hubert and Abby"
 	author="Mel Henze"
 	generic_uri="http://picayune.uclick.com/comics/haa/%Y/haa%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="tmhou"
 	class="simple"
@@ -486,7 +486,7 @@
 	title="Gil Thorp"
 	author="Neal Rubin &amp; Frank McLaughlin"
 	generic_uri="http://picayune.uclick.com/comics/tmgil/%Y/tmgil%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="tmkud"
 	class="simple"
@@ -517,12 +517,12 @@
 	title="Idiot Box"
 	author="Matt Bors"
 	generic_uri="http://picayune.uclick.com/comics/ibox/%Y/ibox%y%m%d.gif">
-		<restrict>Monday</restrict>
-		<restrict>Wednesday</restrict>
-		<restrict>Thursday</restrict>
-		<restrict>Friday</restrict>
-		<restrict>Saturday</restrict>
-		<restrict>Sunday</restrict>
+		<restrict>1</restrict>
+		<restrict>3</restrict>
+		<restrict>4</restrict>
+		<restrict>5</restrict>
+		<restrict>6</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="tmloo"
 	class="simple"
@@ -565,7 +565,7 @@
 	title="MikeDonovan.com"
 	author="Mike Donovan"
 	generic_uri="http://picayune.uclick.com/comics/mike/%Y/mike%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="tmmix"
 	class="simple"
@@ -590,7 +590,7 @@
 	title="Natural Selection"
 	author="Russ Wallace"
 	generic_uri="http://picayune.uclick.com/comics/crns/%Y/crns%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="mul"
 	class="simple"
@@ -638,14 +638,14 @@
 	class="simple"
 	title="Oddly Enough"
 	author="Chris Kemp"
-	generic_uri="http://picayune.uclick.com/comics/oe/%Y/oe%y%m%d.gif"> <restrict>Sunday</restrict>
+	generic_uri="http://picayune.uclick.com/comics/oe/%Y/oe%y%m%d.gif"> <restrict>7</restrict>
 </comic>
 <comic id="neu"
 	class="simple"
 	title="NEUROTICA"
 	author="Big Al the Gal"
 	generic_uri="http://picayune.uclick.com/comics/neu/%Y/neu%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="poc"
 	class="simple"
@@ -676,7 +676,7 @@
 	title="The Quigmans"
 	author="Buddy Hickerson"
 	generic_uri="http://picayune.uclick.com/comics/tmqui/%Y/tmqui%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="rl"
 	class="simple"
@@ -713,22 +713,22 @@
 	title="Shoecabbage"
 	author="Teresa Dowlatshahi &amp; David Stanford"
 	generic_uri="http://picayune.uclick.com/comics/shcab/%Y/shcab%y%m%d.gif">
-		<restrict>Tuesday</restrict>
-		<restrict>Thursday</restrict>
-		<restrict>Saturday</restrict>
-		<restrict>Sunday</restrict>
+		<restrict>2</restrict>
+		<restrict>4</restrict>
+		<restrict>6</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="slow"
 	class="simple"
 	title="Slowpoke"
 	author="Jen Sorensen"
 	generic_uri="http://picayune.uclick.com/comics/slow/%Y/slow%y%m%d.gif">
-		<restrict>Tuesday</restrict>
-		<restrict>Wednesday</restrict>
-		<restrict>Thursday</restrict>
-		<restrict>Friday</restrict>
-		<restrict>Saturday</restrict>
-		<restrict>Sunday</restrict>
+		<restrict>2</restrict>
+		<restrict>3</restrict>
+		<restrict>4</restrict>
+		<restrict>5</restrict>
+		<restrict>6</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="crspe"
 	class="simple"
@@ -741,7 +741,7 @@
 	title="State of the Union"
 	author="Carl Moore"
 	generic_uri="http://picayune.uclick.com/comics/crsou/%Y/crsou%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="ss"
 	class="simple"
@@ -760,7 +760,7 @@
 	title="Sylvia"
 	author="Nicole Hollander"
 	generic_uri="http://picayune.uclick.com/comics/tmsyl/%Y/tmsyl%y%m%d.gif">
-		<restrict>Sunday</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="tm"
 	class="simple"
@@ -779,13 +779,12 @@
 	title="(th)ink"
 	author="Keith Knight"
 	generic_uri="http://picayune.uclick.com/comics/think/%Y/think%y%m%d.gif">
-		<restrict>Monday</restrict>
-		<restrict>Tuesday</restrict>
-		<restrict>Wednesday</restrict>
-		<restrict>Thursday</restrict>
-		<restrict>Friday</restrict>
-		<restrict>Saturday</restrict>
-		<restrict>Sunday</restrict>
+	<restrict>2</restrict>
+	<restrict>3</restrict>
+	<restrict>4</restrict>
+	<restrict>5</restrict>
+	<restrict>6</restrict>
+	<restrict>7</restrict>
 </comic>
 <comic id="cpthk"
 	class="simple"
@@ -798,24 +797,24 @@
 	title="Tiny Sepuku"
 	author="Ken Cursoe"
 	generic_uri="http://picayune.uclick.com/comics/tiny/%Y/tiny%y%m%y.gif">
-		<restrict>Monday</restrict>
-		<restrict>Tuesday</restrict>
-		<restrict>Wednesday</restrict>
-		<restrict>Friday</restrict>
-		<restrict>Saturday</restrict>
-		<restrict>Sunday</restrict>
+		<restrict>1</restrict>
+		<restrict>2</restrict>
+		<restrict>3</restrict>
+		<restrict>5</restrict>
+		<restrict>6</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="td"
 	class="simple"
 	title="Tom the Dancing Bug"
 	author="Ruben Bolling"
 	generic_uri="http://picayune.uclick.com/comics/td/%Y/td%y%m%d.gif">
-		<restrict>Monday</restrict>
-		<restrict>Tuesday</restrict>
-		<restrict>Wednesday</restrict>
-		<restrict>Thursday</restrict>
-		<restrict>Friday</restrict>
-		<restrict>Sunday</restrict>
+		<restrict>1</restrict>
+		<restrict>2</restrict>
+		<restrict>3</restrict>
+		<restrict>4</restrict>
+		<restrict>5</restrict>
+		<restrict>7</restrict>
 </comic>
 <comic id="wes"
 	class="simple"

@@ -500,8 +500,7 @@ buoh_load_user_comic_list (Buoh *buoh)
 			g_error(_("Cannot create buoh directory %s!\n"), user_dir_path);
 			return;
 		}
-	}
-	else {
+	} else {
 		gnome_vfs_directory_close (dir_handle);
 	}
 	   
@@ -514,8 +513,6 @@ buoh_load_user_comic_list (Buoh *buoh)
 				  GNOME_VFS_OPEN_WRITE | GNOME_VFS_OPEN_TRUNCATE, TRUE, 0644);
 		gnome_vfs_write (handle, "<?xml version=\"1.0\"?><comic_list></comic_list>",
 				 46, NULL);
-			 
-		gnome_vfs_close (handle);
 	}
 
 	gnome_vfs_close (handle);
@@ -551,7 +548,7 @@ buoh_load_user_comic_list (Buoh *buoh)
 
 				id_supported = comic_get_id (comic);
 
-				if (g_ascii_strcasecmp (id_supported, id) == 0) {
+				if (g_str_equal (id_supported, id)) {
 					gtk_list_store_set (GTK_LIST_STORE (supported_list),
 							    &iter,
 							    COMIC_USER_COLUMN,
@@ -580,7 +577,7 @@ buoh_load_user_comic_list (Buoh *buoh)
 static void
 buoh_load_supported_comic_list (Buoh *buoh)
 {
-	ComicSimple       *comic;
+	ComicSimple       *comic = NULL;
 	BuohPrivate       *private;
 	GtkTreeIter       iter;
 	GtkWidget         *tree_view;
@@ -588,9 +585,10 @@ buoh_load_supported_comic_list (Buoh *buoh)
 	GtkCellRenderer   *renderer;
 	GtkTreeViewColumn *column;
 	xmlDocPtr         doc;
-	xmlNodePtr        root;
-	xmlNodePtr        node;
-	gchar             *id, *title, *author, *uri, *supported_comic_path;
+	xmlNodePtr        root, node, child;
+	gchar             *id, *class, *title, *author, *uri, *supported_comic_path;
+	gchar             *restriction;
+	GDateWeekday      restriction_date;
 	
 	g_return_if_fail (IS_BUOH (buoh));
 
@@ -650,26 +648,50 @@ buoh_load_supported_comic_list (Buoh *buoh)
 	while (node != NULL) {
 		if (g_str_equal (node->name, "comic")) {
 			/* New comic */
-			id     = xmlGetProp (node, "id");
-			title  = xmlGetProp (node, "title");
-			author = xmlGetProp (node, "author");
-			uri    = xmlGetProp (node, "generic_uri");
-				    
-			comic = comic_simple_new_with_info (id, title, author, uri);
+			class  = xmlGetProp (node, "class");
 
-			gtk_list_store_append (comic_list, &iter);
-			gtk_list_store_set (comic_list, &iter,
-					    COMIC_USER_COLUMN, FALSE,
-					    TITLE_COLUMN, title,
-					    AUTHOR_COLUMN, author,
-					    COMIC_COLUMN, (gpointer) comic,
-					    -1);
+			/* Comic simple */
+			if (g_str_equal (class, "simple")) {
+				id     = xmlGetProp (node, "id");
+				title  = xmlGetProp (node, "title");
+				author = xmlGetProp (node, "author");
+				uri    = xmlGetProp (node, "generic_uri");
 
-			g_free (id);
-			g_free (title);
-			g_free (author);
-			g_free (uri);
+//				g_print ("%s - %s\n", title, author);
+
+				comic = comic_simple_new_with_info (id, title, author, uri);
+
+				/* Read the restrictions */
+				child = node->children->next;
+				while (child != NULL) {
+					if (g_str_equal (child->name, "restrict")) {
+						restriction      = xmlNodeGetContent (child);
+						restriction_date = atoi (restriction);
+						
+						comic_simple_set_restriction (comic,
+									      restriction_date);
+					}
+					child = child->next;
+				}
+
+				gtk_list_store_append (comic_list, &iter);
+				gtk_list_store_set (comic_list, &iter,
+						    COMIC_USER_COLUMN, FALSE,
+						    TITLE_COLUMN, title,
+						    AUTHOR_COLUMN, author,
+						    COMIC_COLUMN, (gpointer) comic,
+						    -1);
+
+				g_free (id);
+				g_free (title);
+				g_free (author);
+				g_free (uri);
+			}
+
+			g_free (class);
+			
 		}
+
 		node = node->next;
 	}
 
@@ -786,10 +808,14 @@ void
 buoh_set_current_comic (Buoh *buoh, Comic *comic)
 {
 	BuohPrivate *private;
+	GtkWidget   *image;
+	GdkPixbuf   *pixbuf;
 
 	g_return_if_fail (IS_BUOH (buoh));
 
 	private = BUOH_GET_PRIVATE (buoh);
+
+	image = glade_xml_get_widget (private->gui, "comic_image");
 
 	private->current_comic = comic;
 	
@@ -993,6 +1019,8 @@ buoh_gui_load_comic (gpointer gdata)
 
 	comic = buoh_get_current_comic (buoh);
 
+	buoh_set_current_comic (buoh, comic);
+
 	uri = comic_get_uri (comic);
 	if (!uri)
 		return FALSE;
@@ -1046,7 +1074,7 @@ buoh_gui_load_comic (gpointer gdata)
 			result = gnome_vfs_read (read_handle, buffer,
 						 BYTES_TO_PROCESS, &bytes_read);
 		}
-			 
+
 		if (result != GNOME_VFS_ERROR_EOF)
 			g_print ("Error %d - %s\n", result,
 				 gnome_vfs_result_to_string (result));

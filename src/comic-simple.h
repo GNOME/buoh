@@ -64,7 +64,7 @@ void   comic_simple_set_title (Comic *comic, const gchar *title);
 void   comic_simple_set_author (Comic *comic, const gchar *author);
 
 void   comic_simple_set_generic_uri (Comic *comic, const gchar *generic_uri);
-
+void   comic_simple_set_restriction (ComicSimple *comic, GDateWeekday day);
 void   comic_simple_go_next (Comic *comic);
 void   comic_simple_go_previous (Comic *comic);
 

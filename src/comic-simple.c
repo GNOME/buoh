@@ -67,8 +67,9 @@ enum {
 
 
 struct _ComicSimplePrivate {
-	gchar *generic_uri;
-	GDate *date;
+	gchar    *generic_uri;
+	GDate    *date;
+	gboolean restrictions[8];
 };
 
 GType
@@ -100,6 +101,7 @@ static void
 comic_simple_init (ComicSimple *comic)
 {
 	ComicSimplePrivate *private;
+	gint               i;
 	   
 	g_return_if_fail (IS_COMIC_SIMPLE (comic));
 
@@ -107,6 +109,9 @@ comic_simple_init (ComicSimple *comic)
 
 	private->generic_uri = NULL;
 	private->date        = NULL;
+
+ 	for (i = 0; i < 7; i++)
+		private->restrictions[i] = FALSE;
 }
 
 static void
@@ -198,6 +203,21 @@ comic_simple_set_generic_uri (Comic *comic,
 
 	g_object_set (G_OBJECT (comic),
 		      "generic_uri", generic_uri, NULL);
+}
+
+void
+comic_simple_set_restriction (ComicSimple *comic,
+			      GDateWeekday day)
+{
+	ComicSimplePrivate *private;
+
+	g_return_if_fail (IS_COMIC_SIMPLE (comic));
+
+	private = COMIC_SIMPLE_GET_PRIVATE (comic);
+
+	/* TODO: Check: At least one day should be valid */
+	private->restrictions[day] = TRUE;
+
 }
 
 static void
@@ -293,6 +313,7 @@ comic_simple_get_last_uri (Comic *comic)
 	struct tm          *gmt;
 	time_t              now;
 	ComicSimplePrivate *private;
+	GDateWeekday       weekday;
 	   
 	private = COMIC_SIMPLE_GET_PRIVATE (comic);
 
@@ -305,6 +326,13 @@ comic_simple_get_last_uri (Comic *comic)
 	date = g_date_new ();
 	g_date_set_time (date, mktime (gmt));
 	private->date = date;
+
+	/* Check the restrictions */
+	weekday = g_date_get_weekday (private->date);
+	while (private->restrictions[weekday] == TRUE) {
+		g_date_subtract_days (private->date, 1);
+		weekday = g_date_get_weekday (private->date);
+	}
 	   
 	return comic_simple_get_uri_from_date (COMIC_SIMPLE (comic));
 }
@@ -343,12 +371,19 @@ void
 comic_simple_go_next (Comic *comic)
 {
 	ComicSimplePrivate *private;
+	GDateWeekday       weekday;
 	   
 	private = COMIC_SIMPLE_GET_PRIVATE (comic);
 
-	/* TODO: Check if a date is valid for a comic */
 	g_date_add_days (private->date, 1);
 
+	/* Check the restrictions */
+	weekday = g_date_get_weekday (private->date);
+	while (private->restrictions[weekday] == TRUE) {
+		g_date_add_days (private->date, 1);
+		weekday = g_date_get_weekday (private->date);
+	}
+	
 	return;
 }
 
@@ -356,11 +391,18 @@ void
 comic_simple_go_previous (Comic *comic)
 {
 	ComicSimplePrivate *private;
-	   
+	GDateWeekday       weekday;
+	
 	private = COMIC_SIMPLE_GET_PRIVATE (comic);
 
-	/* TODO: Check if a date is valid for a comic */
 	g_date_subtract_days (private->date, 1);
 
+	/* Check the restrictions */
+	weekday = g_date_get_weekday (private->date);
+	while (private->restrictions[weekday] == TRUE) {
+		g_date_subtract_days (private->date, 1);
+		weekday = g_date_get_weekday (private->date);
+	}
+	
 	return;
 }
