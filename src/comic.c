@@ -360,9 +360,9 @@ comic_set_property (GObject      *object,
 		private->id = g_value_dup_string (value);
 		break;		
 	case PROP_PIXBUF:
-		if (private->pixbuf) g_object_unref (private->pixbuf);
+/*		if (G_IS_OBJECT (private->pixbuf))
+		g_object_unref (private->pixbuf);*/
 		private->pixbuf = g_value_get_object (value);
-		g_object_ref (private->pixbuf);
 		break;
 	default:
 		break;

@@ -657,8 +657,6 @@ buoh_load_supported_comic_list (Buoh *buoh)
 				author = xmlGetProp (node, "author");
 				uri    = xmlGetProp (node, "generic_uri");
 
-//				g_print ("%s - %s\n", title, author);
-
 				comic = comic_simple_new_with_info (id, title, author, uri);
 
 				/* Read the restrictions */
@@ -809,7 +807,6 @@ buoh_set_current_comic (Buoh *buoh, Comic *comic)
 {
 	BuohPrivate *private;
 	GtkWidget   *image;
-	GdkPixbuf   *pixbuf;
 
 	g_return_if_fail (IS_BUOH (buoh));
 
@@ -840,7 +837,7 @@ static void
 buoh_comic_show (Buoh *buoh)
 {
 	BuohPrivate *private;
-	GdkPixbuf   *pixbuf, *new_pixbuf;
+	GdkPixbuf   *pixbuf, *old_pixbuf;
 	GtkWidget   *comic_image;
 
 	g_return_if_fail (IS_BUOH (buoh));
@@ -848,19 +845,17 @@ buoh_comic_show (Buoh *buoh)
 	private = BUOH_GET_PRIVATE (buoh);
 
 	comic_image = buoh_get_widget (buoh, "comic_image");
-	
+
 	pixbuf = comic_get_pixbuf (private->current_comic);
+
+	private->scale = 1.0;
+
+	old_pixbuf = gtk_image_get_pixbuf (GTK_IMAGE (comic_image));
+	g_object_unref (old_pixbuf);
 	
-	new_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
-					      gdk_pixbuf_get_width (pixbuf) * private->scale,
-					      gdk_pixbuf_get_height (pixbuf) * private->scale,
-					      GDK_INTERP_BILINEAR);
-	   
-	gtk_image_set_from_pixbuf (GTK_IMAGE (comic_image), new_pixbuf);
+	gtk_image_set_from_pixbuf (GTK_IMAGE (comic_image), pixbuf);
 
-	g_object_unref (new_pixbuf);
-
-	gtk_widget_show (comic_image);
+//	gtk_widget_show (comic_image);
 }
 
 /* Callback attached to the pixbuf loader */
@@ -1010,10 +1005,10 @@ buoh_gui_load_comic (gpointer gdata)
 	GtkImage         *comic_image;
 	GtkWidget        *comic_view, *comic_list, *widget;
 	GtkWidget        *window;
-	gchar            *uri;
+	gchar            *uri, *page;
 	Comic            *comic;
 	GdkCursor        *cursor;
-	gchar            *page;
+	GnomeVFSURI*     vfs_uri;
 
 	buoh = BUOH (gdata);
 
@@ -1021,9 +1016,22 @@ buoh_gui_load_comic (gpointer gdata)
 
 	buoh_set_current_comic (buoh, comic);
 
-	uri = comic_get_uri (comic);
-	if (!uri)
+	comic_image = GTK_IMAGE (buoh_get_widget (buoh, "comic_image"));
+
+	uri     = comic_get_uri (comic);
+	vfs_uri = gnome_vfs_uri_new (uri);
+
+	/* Check the uri */
+	if (!gnome_vfs_uri_exists (vfs_uri)) {
+		buoh_gui_toolbar_buttons_set_sensitive (buoh, TRUE);
+		buoh_gui_normal_size_set_sensitive (buoh, FALSE);
+		buoh_gui_comic_next_set_sensitive (buoh, (comic_is_the_last (comic)));
+		
+		gtk_image_set_from_stock (comic_image, "gtk-missing-image",
+					  GTK_ICON_SIZE_BUTTON);
+		gnome_vfs_uri_unref (vfs_uri);
 		return FALSE;
+	}
 
 	/* Set the page number */
 	page = comic_get_page (comic);
@@ -1042,19 +1050,17 @@ buoh_gui_load_comic (gpointer gdata)
 		comic_view = buoh_get_widget (buoh, "comic_view");
 		comic_list = buoh_get_widget (buoh, "user_comic_list");
 		cursor = gdk_cursor_new (GDK_WATCH);
-
+		
 		if (!GTK_WIDGET_REALIZED (comic_view))
 			gtk_widget_realize (GTK_WIDGET (comic_view));
-
-
+		
 		gdk_window_set_cursor (comic_view->window, cursor);
 		gtk_widget_set_sensitive (comic_list, FALSE);
-			 
+		
 		/* New pixbuf loader */
 		pixbuf_loader = gdk_pixbuf_loader_new ();
 		
 		/* Connect callback to signal of pixbuf update */
-		comic_image = GTK_IMAGE (buoh_get_widget (buoh, "comic_image"));
 		g_signal_connect (G_OBJECT (pixbuf_loader), "area-updated",
 				  G_CALLBACK (loading_comic),
 				  (gpointer) comic_image);
@@ -1068,6 +1074,7 @@ buoh_gui_load_comic (gpointer gdata)
 			gdk_pixbuf_loader_write (pixbuf_loader,
 						 (guchar *) buffer,
 						 bytes_read, NULL);
+			
 			while (gtk_events_pending ())
 				gtk_main_iteration ();
 
@@ -1078,11 +1085,11 @@ buoh_gui_load_comic (gpointer gdata)
 		if (result != GNOME_VFS_ERROR_EOF)
 			g_print ("Error %d - %s\n", result,
 				 gnome_vfs_result_to_string (result));
-
+		
 		window = buoh_get_widget (buoh, "main_window");
 
 		buoh_window_resize (window, gdk_pixbuf_loader_get_pixbuf (pixbuf_loader));
-			 
+		
 		gdk_pixbuf_loader_close (pixbuf_loader, NULL);
 		gnome_vfs_close (read_handle);
 
@@ -1100,13 +1107,13 @@ buoh_gui_load_comic (gpointer gdata)
 
 		buoh_comic_show (buoh);
 	}
-
+	
+	gnome_vfs_uri_unref (vfs_uri);
 	g_free (page);
 	g_free (uri);
 
 	return FALSE;
 }
-
 
 /* Callback attached to user comic list */
 static void

@@ -1,3 +1,10 @@
+2005-03-04  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/comic.c: Fixed a huge memory leak when loading the pixbuf.
+
+	* src/buoh.c: Check if the URI exists before fetching a comic (no more
+	not founded errors!)
+
 2005-03-02  Esteban Sanchez  <steve-o@linups.org>
 
 	* src/comic-simple.[ch]: Added an attribute that indicates if the comic

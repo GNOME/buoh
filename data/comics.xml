@@ -59,13 +59,6 @@
 	generic_uri="http://picayune.uclick.com/comics/spft/%Y/spft%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
-<comic id="spmb"
-	class="simple"
-	title="Modesty Blaise en Español"
-	author="Peter O'Donnell"
-	generic_uri="http://picayune.uclick.com/comics/spmb/%Y/spmb%y%m%d.gif">
-		<restrict>7</restrict>
-</comic>
 <comic id="sppoc"
 	class="simple"
 	title="Pooch Café en Español"
@@ -149,7 +142,12 @@
 	title="Ask Shagg"
 	author="Peter Guren"
 	generic_uri="http://picayune.uclick.com/comics/crask/%Y/crask%y%m%d.gif">
-		<restrict>7</restrict>
+		<restrict>1</restrict>
+		<restrict>2</restrict>
+		<restrict>3</restrict>
+		<restrict>4</restrict>
+		<restrict>5</restrict>
+		<restrict>6</restrict>
 </comic>
 <comic id="ba"
 	class="simple"
@@ -236,28 +234,11 @@
 	author="Tim Rickard"
 	generic_uri="http://picayune.uclick.com/comics/tmrkt/%Y/tmrkt%y%m%d.gif">
 </comic>
-<comic id="ch"
-	class="simple"
-	title="Calvin and Hobbes"
-	author="Bill Watterson"
-	generic_uri="http://picayune.uclick.com/comics/ch/1%Y/ch%y%m%d.gif">
-</comic>
 <comic id="cand"
 	class="simple"
 	title="Candorville"
 	author="Darrin Bell"
 	generic_uri="http://picayune.uclick.com/comics/cand/%Y/cand%y%m%d.gif">
-</comic>
-<comic id="tmcap"
-	class="simple"
-	title="Captain RibMan"
-	author="John Sprengelmeyer &amp; Rich Davis"
-	generic_uri="http://picayune.uclick.com/comics/tmcap/%Y/tmcap%y%m%d.gif">
-		<restrict>1</restrict>
-		<restrict>3</restrict>
-		<restrict>5</restrict>
-		<restrict>6</restrict>
-		<restrict>7</restrict>
 </comic>
 <comic id="ca"
 	class="simple"
@@ -336,7 +317,7 @@
 	class="simple"
 	title="Deep Cover"
 	author="Tim Eagan"
-	generic_uri="http://picayune.uclick.com/comics/deep/%Y/deep%y%m%y.gif">
+	generic_uri="http://picayune.uclick.com/comics/deep/%Y/deep%y%m%d.gif">
 		<restrict>1</restrict>
 		<restrict>2</restrict>
 		<restrict>3</restrict>
@@ -349,6 +330,13 @@
 	title="The 5th Wave"
 	author="Rich Tennant"
 	generic_uri="http://images.ucomics.com/comics/fw/%Y/fw%y%m%d.gif">
+		<restrict>1</restrict>
+                <restrict>2</restrict>
+                <restrict>3</restrict>
+                <restrict>4</restrict>
+                <restrict>5</restrict>
+                <restrict>6</restrict>
+
 </comic>
 <comic id="dp"
 	class="simple"
@@ -374,17 +362,6 @@
 	author="Peter Waldner"
 	generic_uri="http://picayune.uclick.com/comics/crfd/%Y/crfd%y%m%d.gif">
 </comic>
-<comic id="crfhs"
-	class="simple"
-	title="For Heavens Sake"
-	author="Mike Morgan"
-	generic_uri="http://picayune.uclick.com/comics/crfhs/%Y/crfhs%y%m%d.gif">
-		<restrict>1</restrict>
-		<restrict>3</restrict>
-		<restrict>4</restrict>
-		<restrict>5</restrict>
-		<restrict>6</restrict>
-		<restrict>7</restrict> </comic>
 <comic id="ft"
 	class="simple"
 	title="FoxTrot"
@@ -517,9 +494,8 @@
 	title="Idiot Box"
 	author="Matt Bors"
 	generic_uri="http://picayune.uclick.com/comics/ibox/%Y/ibox%y%m%d.gif">
-		<restrict>1</restrict>
+		<restrict>2</restrict>
 		<restrict>3</restrict>
-		<restrict>4</restrict>
 		<restrict>5</restrict>
 		<restrict>6</restrict>
 		<restrict>7</restrict>
@@ -591,12 +567,6 @@
 	author="Russ Wallace"
 	generic_uri="http://picayune.uclick.com/comics/crns/%Y/crns%y%m%d.gif">
 		<restrict>7</restrict>
-</comic>
-<comic id="mul"
-	class="simple"
-	title="Mullets"
-	author="Rick Stromoski &amp; Steve McGarry"
-	generic_uri="http://picayune.uclick.com/comics/mul/%Y/mul%y%m%d.gif">
 </comic>
 <comic id="crmom"
 	class="simple"
@@ -708,16 +678,6 @@
 	author="Chris Cassatt &amp; Gary Brookins"
 	generic_uri="http://picayune.uclick.com/comics/tmsho/%Y/tmsho%y%m%d.gif">
 </comic>
-<comic id="shcab"
-	class="simple"
-	title="Shoecabbage"
-	author="Teresa Dowlatshahi &amp; David Stanford"
-	generic_uri="http://picayune.uclick.com/comics/shcab/%Y/shcab%y%m%d.gif">
-		<restrict>2</restrict>
-		<restrict>4</restrict>
-		<restrict>6</restrict>
-		<restrict>7</restrict>
-</comic>
 <comic id="slow"
 	class="simple"
 	title="Slowpoke"
@@ -796,7 +756,7 @@
 	class="simple"
 	title="Tiny Sepuku"
 	author="Ken Cursoe"
-	generic_uri="http://picayune.uclick.com/comics/tiny/%Y/tiny%y%m%y.gif">
+	generic_uri="http://picayune.uclick.com/comics/tiny/%Y/tiny%y%m%d.gif">
 		<restrict>1</restrict>
 		<restrict>2</restrict>
 		<restrict>3</restrict>
