@@ -98,6 +98,14 @@ static void buoh_gui_show_comic_properties (GtkWidget *widget, gpointer *data);
 static void buoh_gui_load_comic_from_treeview (GtkTreeSelection *selection,
 					       gpointer *data);
 
+static GtkWidget *buoh_gui_popup_menu_create (Buoh *buoh);
+gboolean   buoh_gui_comic_list_button_pressed (GtkWidget *widget,
+					       GdkEvent *event,
+					       gpointer *gdata);
+
+static void on_popup_properties_activate (GtkWidget *widget, gpointer *gdata);
+static void on_popup_delete_activate (GtkWidget *widget, gpointer *gdata);
+static void on_popup_copy_uri_activate (GtkWidget *widget, gpointer *gdata);
 
 /* Buoh Class */
 static GObjectClass *parent_class = NULL;
@@ -118,6 +126,26 @@ struct _BuohPrivate
 	Comic    *current_comic;
 	gdouble   scale;
 };
+
+/* popup menu values */
+GtkActionEntry popup_menu_items [] = {
+	{ "Properties",  GTK_STOCK_PROPERTIES, N_("_Properties"),
+	  NULL, NULL, G_CALLBACK (on_popup_properties_activate) },
+	{ "CopyURI",     GTK_STOCK_COPY,       N_("_Copy comic URI"),
+	  NULL, NULL, G_CALLBACK (on_popup_copy_uri_activate) }, 
+	{ "Delete",      GTK_STOCK_DELETE,     N_("_Delete"),
+	  NULL, NULL, G_CALLBACK (on_popup_delete_activate) }
+};
+
+const gchar *ui_description =
+        "<ui>"
+        "  <popup name='MainMenu'>"
+        "    <menuitem action='Properties'/>"
+        "    <menuitem action='CopyURI'/>"
+        "    <separator/>"
+        "    <menuitem action='Delete'/>"
+        "  </popup>"
+        "</ui>";
 
 GType
 buoh_get_type ()
@@ -417,6 +445,12 @@ buoh_gui_setup (Buoh *buoh)
 			  G_CALLBACK (buoh_gui_load_comic_from_treeview),
 			  (gpointer) buoh);
 
+	/* Popup menu on the comic list  */
+//popup_menu = popup_menu_create (tree_view);
+	g_signal_connect (G_OBJECT (tree_view), "button_press_event",
+			  G_CALLBACK (buoh_gui_comic_list_button_pressed),
+			  (gpointer) buoh);
+	
 	/* Properties menu button */
 	widget = glade_xml_get_widget (private->gui, "menu_properties");
 	g_signal_connect (G_OBJECT (widget), "activate",
@@ -1440,4 +1474,88 @@ buoh_gui_menu_about_activate (GtkWidget *widget, gpointer *gdata)
 
 	if (pixbuf)
 		g_object_unref (pixbuf);
+}
+
+/* Create new menu for the popup*/
+static GtkWidget *
+buoh_gui_popup_menu_create (Buoh *buoh)
+{
+	GtkUIManager   *ui_manager;
+	GtkActionGroup *action_group;
+	GtkWidget      *popup_menu;
+	GtkWidget      *tree_view;
+
+	tree_view = buoh_get_widget (buoh, "user_comic_list");
+
+	action_group = gtk_action_group_new ("MenuActions");
+	gtk_action_group_add_actions (action_group, popup_menu_items,
+				      G_N_ELEMENTS (popup_menu_items),
+				      buoh);
+
+	ui_manager = gtk_ui_manager_new ();
+	gtk_ui_manager_insert_action_group (ui_manager, action_group, 0);
+
+	if (!gtk_ui_manager_add_ui_from_string (ui_manager, ui_description,
+						-1, NULL))
+		return NULL;
+
+	g_object_set_data (G_OBJECT (tree_view), "ui-manager", ui_manager);
+	popup_menu = gtk_ui_manager_get_widget (ui_manager, "/MainMenu");
+
+	return popup_menu;	
+}
+
+gboolean
+buoh_gui_comic_list_button_pressed (GtkWidget *widget, GdkEvent *event, gpointer *gdata)
+{
+	Buoh             *buoh;
+	GtkWidget        *tree_view;
+	GtkWidget        *popup_menu;
+	GtkTreeSelection *selection;
+	GdkEventButton   *event_button;
+	gint              button, event_time;
+
+	tree_view = widget;
+	buoh = (Buoh *) gdata;
+	popup_menu = buoh_gui_popup_menu_create (buoh);
+	event_button = (GdkEventButton *) event;
+
+	if (event_button->button == 3) {
+		
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree_view));
+		
+		if (event_button) {
+			button     = event_button->button;
+			event_time = event_button->time;
+		} else {
+			button = 0;
+			event_time = gtk_get_current_event_time ();
+		}		
+
+		gtk_menu_popup (GTK_MENU (popup_menu), NULL, NULL, NULL, (gpointer) buoh,
+				button, event_time);
+	}
+	return FALSE;      
+}
+
+/* popup menu callbacks */
+static void
+on_popup_properties_activate (GtkWidget *widget, gpointer *gdata)
+{
+	Buoh             *buoh;
+	
+	buoh = BUOH (gdata);
+	g_return_if_fail (IS_BUOH (buoh));
+	
+       	buoh_gui_show_comic_properties (widget, (gpointer) buoh);
+}
+
+static void
+on_popup_delete_activate (GtkWidget *widget, gpointer *gdata)
+{
+}
+
+static void
+on_popup_copy_uri_activate (GtkWidget *widget, gpointer *gdata)
+{
 }

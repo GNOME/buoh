@@ -150,7 +150,3 @@ buoh_gui_new_dialog_ok_clicked (GtkWidget *widget, gpointer *gdata)
 
 	return;
 }
-
-
-
-
