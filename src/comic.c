@@ -324,7 +324,7 @@ GdkPixbuf *
 comic_get_pixbuf (Comic *comic)
 {
 	GdkPixbuf *pixbuf;
-	   
+
 	g_return_val_if_fail (IS_COMIC (comic), NULL);
 
 	g_object_get (G_OBJECT (comic), "pixbuf", &pixbuf, NULL);
@@ -360,9 +360,10 @@ comic_set_property (GObject      *object,
 		private->id = g_value_dup_string (value);
 		break;		
 	case PROP_PIXBUF:
-/*		if (G_IS_OBJECT (private->pixbuf))
-		g_object_unref (private->pixbuf);*/
+		if (private->pixbuf)
+			g_object_unref (private->pixbuf);
 		private->pixbuf = g_value_get_object (value);
+		g_object_ref (g_value_get_object (value));
 		break;
 	default:
 		break;

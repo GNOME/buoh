@@ -37,6 +37,7 @@
 	title="Fred Basset en Español"
 	author="Alex Graham"
 	generic_uri="http://picayune.uclick.com/comics/spfba/%Y/spfba%y%m%d.gif">
+	<restrict>7</restrict>
 </comic>
 <comic id="spjb"
 	class="simple"
@@ -374,7 +375,6 @@
 	title="Fred Basset"
 	author="Alex Graham"
 	generic_uri="http://picayune.uclick.com/comics/tmfba/%Y/tmfba%y%m%d.gif">
-		<restrict>7</restrict>
 </comic>
 <comic id="tmlol"
 	class="simple"
