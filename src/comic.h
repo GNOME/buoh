@@ -40,15 +40,16 @@ struct _Comic {
 struct _ComicClass {
 	GObjectClass parent_class;
 
-	/* Point to comic_get_uri function which has to be redefined by the child class*/
+	/* Point to functions that has to be redefined by the child class*/
 	gchar    *(* get_uri) (Comic *comic);
 	void      (* go_next) (Comic *comic);
 	void      (* go_previous) (Comic *comic);
 	gboolean  (* is_the_last) (Comic *comic);
+	gchar    *(* get_page) (Comic *comic);
 };
 
 /* Public methods */
-GType comic_get_type      (void);
+GType comic_get_type (void);
 
 Comic *comic_new ();
 
@@ -70,4 +71,5 @@ void comic_set_pixbuf_from_file (Comic *comic, const gchar *filename);
 gchar *comic_get_title (Comic *comic);
 gchar *comic_get_author (Comic *comic);
 gchar *comic_get_id (Comic *comic);
+gchar *comic_get_page (Comic *comic);
 GdkPixbuf *comic_get_pixbuf (Comic *comic);

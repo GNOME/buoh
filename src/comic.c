@@ -209,6 +209,14 @@ comic_get_uri (Comic *comic)
 		return NULL;
 }
 
+gchar *
+comic_get_page (Comic *comic)
+{
+	if (COMIC_GET_CLASS (comic)->get_uri)
+		return (COMIC_GET_CLASS (comic)->get_page)(comic);
+	else
+		return NULL;
+}
 void
 comic_go_next (Comic *comic)
 {

@@ -792,6 +792,7 @@ buoh_set_current_comic (Buoh *buoh, Comic *comic)
 	private = BUOH_GET_PRIVATE (buoh);
 
 	private->current_comic = comic;
+	
 }
 
 /* Get the comic that is displayed */
@@ -821,17 +822,18 @@ buoh_comic_show (Buoh *buoh)
 	private = BUOH_GET_PRIVATE (buoh);
 
 	comic_image = buoh_get_widget (buoh, "comic_image");
-
+	
 	pixbuf = comic_get_pixbuf (private->current_comic);
-	   
+	
 	new_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
 					      gdk_pixbuf_get_width (pixbuf) * private->scale,
 					      gdk_pixbuf_get_height (pixbuf) * private->scale,
 					      GDK_INTERP_BILINEAR);
 	   
 	gtk_image_set_from_pixbuf (GTK_IMAGE (comic_image), new_pixbuf);
+
 	g_object_unref (new_pixbuf);
-	   
+
 	gtk_widget_show (comic_image);
 }
 
@@ -980,11 +982,12 @@ buoh_gui_load_comic (gpointer gdata)
 	guint            buffer[BYTES_TO_PROCESS];
 	GdkPixbufLoader  *pixbuf_loader;
 	GtkImage         *comic_image;
-	GtkWidget        *comic_view, *comic_list;
+	GtkWidget        *comic_view, *comic_list, *widget;
 	GtkWidget        *window;
 	gchar            *uri;
 	Comic            *comic;
 	GdkCursor        *cursor;
+	gchar            *page;
 
 	buoh = BUOH (gdata);
 
@@ -993,7 +996,15 @@ buoh_gui_load_comic (gpointer gdata)
 	uri = comic_get_uri (comic);
 	if (!uri)
 		return FALSE;
-	   
+
+	/* Set the page number */
+	page = comic_get_page (comic);
+
+	widget = buoh_get_widget (buoh, "pager_tb_button");
+	gtk_button_set_label (GTK_BUTTON (widget), page);
+	gtk_widget_show (widget);
+	
+	/* Open the comic from URI */
 	result = gnome_vfs_open (&read_handle, uri, GNOME_VFS_OPEN_READ);
 
 	if (result != GNOME_VFS_OK) {
@@ -1006,6 +1017,7 @@ buoh_gui_load_comic (gpointer gdata)
 
 		if (!GTK_WIDGET_REALIZED (comic_view))
 			gtk_widget_realize (GTK_WIDGET (comic_view));
+
 
 		gdk_window_set_cursor (comic_view->window, cursor);
 		gtk_widget_set_sensitive (comic_list, FALSE);
@@ -1060,6 +1072,8 @@ buoh_gui_load_comic (gpointer gdata)
 
 		buoh_comic_show (buoh);
 	}
+
+	g_free (page);
 	g_free (uri);
 
 	return FALSE;
