@@ -1,3 +1,7 @@
+2005-03-11  Pablo Arroyo  <zioma@linups.org>
+
+	* src/buoh.c: popup menu for the user comic list.
+
 2005-03-07  Esteban Sanchez  <steve-o@linups.org>
 
 	* src/buoh.c: MAX_SCALE and MIN_SCALE reduced.
