@@ -42,8 +42,8 @@
 #define ZOOM_IN_FACTOR  1.5
 #define ZOOM_OUT_FACTOR (1.0 / ZOOM_IN_FACTOR)
 
-#define MIN_SCALE (ZOOM_OUT_FACTOR * ZOOM_OUT_FACTOR * ZOOM_OUT_FACTOR)
-#define MAX_SCALE (ZOOM_IN_FACTOR * ZOOM_IN_FACTOR * ZOOM_IN_FACTOR)
+#define MIN_SCALE (ZOOM_OUT_FACTOR * ZOOM_OUT_FACTOR)
+#define MAX_SCALE (ZOOM_IN_FACTOR * ZOOM_IN_FACTOR)
 
 #define BYTES_TO_PROCESS 1024
 
@@ -837,7 +837,7 @@ static void
 buoh_comic_show (Buoh *buoh)
 {
 	BuohPrivate *private;
-	GdkPixbuf   *pixbuf, *old_pixbuf;
+	GdkPixbuf   *pixbuf, *new_pixbuf;
 	GtkWidget   *comic_image;
 
 	g_return_if_fail (IS_BUOH (buoh));
@@ -848,34 +848,55 @@ buoh_comic_show (Buoh *buoh)
 
 	pixbuf = comic_get_pixbuf (private->current_comic);
 
-	private->scale = 1.0;
-
-	old_pixbuf = gtk_image_get_pixbuf (GTK_IMAGE (comic_image));
-	g_object_unref (old_pixbuf);
+	new_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
+					      gdk_pixbuf_get_width (pixbuf) * private->scale,
+					      gdk_pixbuf_get_height (pixbuf) * private->scale,
+					      GDK_INTERP_BILINEAR);
+	g_object_unref (pixbuf);
 	
-	gtk_image_set_from_pixbuf (GTK_IMAGE (comic_image), pixbuf);
+	gtk_image_set_from_pixbuf (GTK_IMAGE (comic_image), new_pixbuf);
 
-//	gtk_widget_show (comic_image);
+	g_object_unref (new_pixbuf);
 }
 
 /* Callback attached to the pixbuf loader */
 static void
-loading_comic (GtkWidget *widget, gint x,
-	       gint y, gint width,
-	       gint height, gpointer *gdata)
+loading_comic (GtkWidget *widget, gint x, gint y,
+	       gint width, gint height, gpointer *gdata)
 {
 	GtkImage         *comic_image;
 	GdkPixbufLoader  *pixbuf_loader;
-	   
+	GdkPixbuf        *pixbuf, *new_pixbuf;
+	Buoh             *buoh;
+	BuohPrivate *private;
+	
+	buoh = BUOH (gdata);
+
+	g_return_if_fail (IS_BUOH (buoh));
+	
 	pixbuf_loader = GDK_PIXBUF_LOADER (widget);
-
+	
 	g_return_if_fail (GDK_IS_PIXBUF_LOADER (pixbuf_loader));
-	   
-	comic_image = GTK_IMAGE (gdata);
+	
+	private = BUOH_GET_PRIVATE (buoh);
+	
+	comic_image = GTK_IMAGE (glade_xml_get_widget (private->gui, "comic_image"));
+	
+	pixbuf = gdk_pixbuf_loader_get_pixbuf (pixbuf_loader);
 
-	g_return_if_fail (GTK_IS_IMAGE (comic_image));
-
-	gtk_image_set_from_pixbuf (comic_image, gdk_pixbuf_loader_get_pixbuf (pixbuf_loader));
+	/* Zoom if there is a scale */
+	if (private->scale != 1.0) {
+		new_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
+					      gdk_pixbuf_get_width (pixbuf) * private->scale,
+					      gdk_pixbuf_get_height (pixbuf) * private->scale,
+					      GDK_INTERP_BILINEAR);
+		
+		gtk_image_set_from_pixbuf (comic_image, new_pixbuf);
+		
+		g_object_unref (new_pixbuf);
+	} else {
+		gtk_image_set_from_pixbuf (comic_image, pixbuf);
+	}
 }
 
 /* Set the sensitiveness of the zoom in button */
@@ -997,6 +1018,7 @@ static gboolean
 buoh_gui_load_comic (gpointer gdata)
 {
 	Buoh             *buoh;
+	BuohPrivate      *private;
 	GnomeVFSHandle   *read_handle;
 	GnomeVFSResult   result;
 	GnomeVFSFileSize bytes_read;
@@ -1012,6 +1034,8 @@ buoh_gui_load_comic (gpointer gdata)
 
 	buoh = BUOH (gdata);
 
+	private = BUOH_GET_PRIVATE (buoh);
+	
 	comic = buoh_get_current_comic (buoh);
 
 	buoh_set_current_comic (buoh, comic);
@@ -1032,7 +1056,7 @@ buoh_gui_load_comic (gpointer gdata)
 		gnome_vfs_uri_unref (vfs_uri);
 		return FALSE;
 	}
-
+	
 	/* Set the page number */
 	page = comic_get_page (comic);
 
@@ -1063,7 +1087,7 @@ buoh_gui_load_comic (gpointer gdata)
 		/* Connect callback to signal of pixbuf update */
 		g_signal_connect (G_OBJECT (pixbuf_loader), "area-updated",
 				  G_CALLBACK (loading_comic),
-				  (gpointer) comic_image);
+				  (gpointer) buoh);
 
 		/* Read the file */
 		result = gnome_vfs_read (read_handle, buffer,
@@ -1089,22 +1113,25 @@ buoh_gui_load_comic (gpointer gdata)
 		window = buoh_get_widget (buoh, "main_window");
 
 		buoh_window_resize (window, gdk_pixbuf_loader_get_pixbuf (pixbuf_loader));
-		
+
 		gdk_pixbuf_loader_close (pixbuf_loader, NULL);
 		gnome_vfs_close (read_handle);
 
 		comic_set_pixbuf (comic, gdk_pixbuf_loader_get_pixbuf (pixbuf_loader));
-
-		gtk_widget_set_sensitive (comic_list, TRUE);
-		gdk_cursor_unref (cursor);
-		gdk_window_set_cursor (comic_view->window, NULL);
-
 		g_object_unref (pixbuf_loader);
 
+		gtk_widget_set_sensitive (comic_list, TRUE);
+		gdk_window_set_cursor (comic_view->window, NULL);
+		gdk_cursor_unref (cursor);
+
 		buoh_gui_toolbar_buttons_set_sensitive (buoh, TRUE);
-		buoh_gui_normal_size_set_sensitive (buoh, FALSE);
 		buoh_gui_comic_next_set_sensitive (buoh, (comic_is_the_last (comic)));
 
+		if (private->scale == 1.0)
+			buoh_gui_normal_size_set_sensitive (buoh, FALSE);
+		else
+			buoh_gui_normal_size_set_sensitive (buoh, FALSE);
+		    
 		buoh_comic_show (buoh);
 	}
 	
