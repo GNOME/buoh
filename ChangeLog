@@ -1,3 +1,17 @@
+2005-02-28  Esteban Sanchez  <steve-o@linups.org>
+
+	* help/comics.txt: Deleted
+
+	* data/comics.xml: Added all the comics that were on comics.txt
+	
+	* interfaces/buoh.glade: Added a button that shows the current page (in
+	comic simples will be the date) of the current comic.
+
+	* src/comic.[ch], comic-simple.[ch]: Added a function that returns the
+	current page (date).
+	
+	* src/buoh.c: Code to show the page of the comic.
+
 2005-02-25  Esteban Sanchez  <steve-o@linups.org>
 
 	* data/comics.xml: Added a attribute id that identifies a comic.

@@ -46,10 +46,9 @@ static void comic_simple_get_property (GObject      *object,
 				       GValue       *value,
 				       GParamSpec   *pspec);
 gchar * comic_simple_get_uri (Comic *comic);
-
 gchar * comic_simple_get_last_uri (Comic *comic);
-
 gchar * comic_simple_get_uri_from_date (ComicSimple *comic);
+gchar * comic_simple_get_isodate (Comic *comic);
 
 static GObjectClass *parent_class = NULL;
 
@@ -122,7 +121,8 @@ comic_simple_class_init (ComicSimpleClass *klass)
 	comic_class->go_previous = comic_simple_go_previous;
 	comic_class->go_next = comic_simple_go_next;
 	comic_class->is_the_last = comic_simple_is_the_last;
-
+	comic_class->get_page = comic_simple_get_isodate;
+	
 	g_type_class_add_private (klass, sizeof (ComicSimplePrivate));
 
 	object_class->set_property = comic_simple_set_property;
@@ -295,13 +295,13 @@ comic_simple_get_last_uri (Comic *comic)
 	ComicSimplePrivate *private;
 	   
 	private = COMIC_SIMPLE_GET_PRIVATE (comic);
-	   
-	if (private->date != NULL)
-		g_date_free (private->date);
 
 	now = time (NULL);
 	gmt = gmtime (&now);
-	   
+	
+	if (private->date != NULL)
+		g_date_free (private->date);
+  
 	date = g_date_new ();
 	g_date_set_time (date, mktime (gmt));
 	private->date = date;
@@ -322,6 +322,21 @@ comic_simple_get_uri (Comic *comic)
 	else
 		return comic_simple_get_uri_from_date (COMIC_SIMPLE (comic));
 	   
+}
+
+gchar *
+comic_simple_get_isodate (Comic *comic)
+{
+	ComicSimplePrivate *private;
+	gchar              isodate[50];
+
+	private = COMIC_SIMPLE_GET_PRIVATE (comic);
+
+	g_date_strftime (isodate, 50,
+			 "%Y-%m-%d",
+			 private->date);
+
+	return g_strdup (isodate);
 }
 
 void
