@@ -1,3 +1,13 @@
+2005-03-02  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/comic-simple.[ch]: Added an attribute that indicates if the comic
+	restrictions. It's an array[8] of boolean values, the index is a
+	GDateWeekday.
+	
+	* src/buoh.c (buoh_load_supported_comic_list): Load the restrictions from
+	XML file.
+	- Some memory liberated.
+
 2005-02-28  Esteban Sanchez  <steve-o@linups.org>
 
 	* help/comics.txt: Deleted
