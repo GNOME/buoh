@@ -1,0 +1,10 @@
+[Desktop Entry]
+_Name=Buoh Comics Reader
+_Comment=Read your favourite comics
+Exec=buoh
+Icon=buoh64x64.png
+Terminal=0
+Type=Application
+Categories=Application;Utility;
+StartupNotify=true
+Encoding=UTF-8

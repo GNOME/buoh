@@ -1,0 +1,299 @@
+2005-02-25  Esteban Sanchez  <steve-o@linups.org>
+
+	* data/comics.xml: Added a attribute id that identifies a comic.
+
+	* src/comic.[ch]: added id attribute, get and set of this attribute.
+
+	* src/callbacks.c: Moved a lot of functions that should be privates to
+	buoh.c
+
+	* src/buoh.c: buoh_gui_show_comic (ambiguous) renamed to loading_comic.
+	Some functions commented. On exit the user comic list is saved to a XML
+	file in home dir. Some code cleanup.
+
+	* interfaces/buoh.glade: Added a Bookmarks menu. Removed some menu
+	buttons.
+
+	* help/comics.txt: Reviewed and edited to have generic uris.
+
+	* help/comics.xml: Removed
+
+2005-02-21  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/buoh.c: Hide the tabs of the notebook in the code, it's just 
+	to see the tabs in the Glade editor.
+
+	* interfaces/buoh.glade: Changed the TextView to a GtkLabel because
+	GtkLabel supports pango (text rendering) with easier methods.
+
+2005-02-19  Esteban Sanchez  <steve-o@linups.org>
+
+	* interfaces/buoh.glade: Added a notebook widget that holds in
+	one tab the GtkImage, and in another tab a GtkTextView. In this
+	TextView there are a welcome message.
+		
+	* src/buoh.c: When loading buoh show the welcome message and when
+	a comic is activate show the image.
+	- Sort the list by title (look at buoh_gui_setup).
+
+2005-02-19  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/buoh.c: Added a column to the supported list that indicates if
+	a comic is on the user list. Connected a signal when this column
+	is toggled and show/hide the comic in the user list.
+
+	* interfaces/buoh.glade: Remove add button on add dialog, cancel
+	button changed to close button.
+
+2005-02-18  Esteban Sanchez  <steve-o@linups.org>
+
+	* interfaces/buoh.glade: Created a new dialog to add a comic. It will
+	show a list of supported comic and a user will select one to add to
+	his list. Added a menu button to add a comic. enamed some widgets.
+	
+	* src/buoh.[hc]: Renamed buoh_load_comic_list to
+	buoh_load_supported_comic_list.
+	- Added a function (buoh_load_user_comic_list) that load the user 
+	comic list. Here it's created the ~/.buoh/ directory. NOTE: if you
+	want to have some comic copy comics.xml to ~/.buoh/
+	- Added a function that connect the signals of the add dialog.
+	- Changed the list store. Now it's used by both tree_views. Added
+	a column that says if a user has the comic on his list.
+	
+2005-02-16  Pablo Arroyo <zioma@linups.org>
+
+	* src/buoh.c (buoh_comic_zoom): Cast to float scale when the zoom is 1:1
+
+	* src/buoh.c: Set sensitive/unsensitive the toolbar buttons and menu
+	items. Also changed the MAX/MIN zoom scaling values.
+	
+	* src/comic[-simple].[hc] (comic_is_the_last): Check if the comic is the
+	last one.
+
+2005-02-15  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/callbacks.c: Moved a lot of callbacks to buoh class.
+
+	* src/buoh.c: Added callbacks to previous and next. Need a lot of love
+
+	* src/comic.h: Added go_next and go_prev functions.
+
+	* src/comic-simple.c: Added a Gdate pointer in the class.
+	comic_simple_get_uri_from_date function now returns the URI based on
+	that Gdate, so needs no parameters.
+	Added redefinition of go_previous and go_next.
+
+	* interfaces/buoh.glade, src/callbacks.c: Removed the horizontal pane,
+	it was not useful
+
+2005-02-13  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/buoh.c: Set the values of the zoom's macros to a more logical
+	number, nobody will need to zoom to an atomic level :P
+
+	* src/callbacks.c: Show the comic properties on the properties window.
+	Fixed typo in the function name (buoh_window_resize)
+
+	* interfaces/buoh.glade: Properties widgets renamed.
+
+2005-02-13  Carlos Garcia Campos <carlosgc@gnome.org>
+
+	* interfaces/buoh.glade: Added a toolbar. Added Go menu and View menu.
+
+	* src/buoh.[ch]: Added zoom support
+
+	* src/comic-simple.c: Get gmt time instead of local time
+
+	* src/comic.[ch]: Keep a pointer to the pixbuf in the comic
+
+2005-02-11  Carlos Garcia Campos <carlosgc@gnome.org>
+
+	* src/callbacks.c: used gtk_show_about_dialog for showing the about
+	dialog. Resize the main window when it's smaller than the comic. Fixed
+	memory leak when a comic is selected
+
+2005-02-10  Esteban Sanchez  <steve-o@linups.org>
+	
+	* TODO: Added the file with a simple list of things to do. Write on it
+	all the things we should do.
+
+	* src/buoh.desktop.in: Added the program icon, it shows it in the
+	GNOME menu.
+
+	* pixmaps/Makefile.am : Defined icondir to install the icon.
+
+	* data/: Created this directory that will store info about supported
+	comics (comics.xml). This file whill be installed under
+	$PREFIX/buoh/comics
+
+	* data/comics.xml: Copied from help/
+
+	* help/comics.xml: Moved to data/
+	
+	* src/buoh.c (buoh_load_comic_list): The path to xml file is build
+	using the COMICS_DIR macro.
+
+2005-02-09  Carlos Garcia Campos <carlosgc@gnome.org>
+
+	* interfaces/buoh.glade: named viewport widget as comic_view. Changed
+	the shadow of the tree_view to ETCHED_IN
+
+	* src/callbacks.c: do not allow to select a comic until the current
+	one is loaded. Used a watch cursor for a better feedback. 
+
+	* src/buoh.c, src/callbacks.c, src/comic-simple.[ch], comic.c[h]:
+	s/Comic_Simple/ComicSimple. Some code cleanups
+
+2005-02-08  Pablo Arroyo <zioma@linups.org>
+
+	* src/comic.[ch]: make const the gchar* variables of the setters.
+	* src/comic-simple.[ch]: make const the gchar* variables of the
+	setters.
+	* many.[ch]: fixed some warnings.
+
+2005-02-08  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/callbacks.c (buoh_gui_load_comic): Programs had a segmentation
+	fault because gnome_vfs_close() only should be called when the file
+	was opened without errors.
+	(buoh_gui_new_activate): Remove innecesary GTK_WINDOW cast on
+	gtk_widget_show
+	(buoh_gui_show_comic): Rename of the function, it was
+	buoh_gui_loading_comic
+	(buoh_gui_new_dialog_ok_clicked): Warnings removed
+
+2005-02-07  Carlos Garcia Campos <carlosgc@gnome.org>
+
+	* buoh.[ch]: keep a pointer to the current comic in the bouh class.
+	Added a get / set function for getting / setting the current comic.
+
+	* callbacks.c: use the tree_selection changed signal instead of the
+	cursor-changed treeview's. Load the pixbuf out of the selection change
+	function for a better feedback.
+
+2005-02-07  Carlos Garcia Campos <carlosgc@gnome.org>
+
+	* autom4te.cache, src/.deps: Really removed unnecessary directories
+
+2005-02-05  Carlos Garcia Campos <carlosgc@gnome.org>
+
+	* src/buoh.c: fixed some memory leaks
+
+2005-02-05  Esteban Sanchez  <steve-o@linups.org>
+
+        * buoh.glade: Scrolled window policy set to automatic
+
+2005-02-05  Carlos Garcia Campos <carlosgc@gnome.org>
+
+	* Makefile.in, aclocal.m4, config.h, config.status, intltool-*,
+	libtool, mkinstalldirs, stamp-h1, autom4te.cache/*, po/Makefile.in,
+	po/POTFILES, src/Makefile.in, src/.deps/*: removed unnecessary files
+
+2005-02-05  Esteban Sanchez  <steve-o@linups.org>
+	* src/buoh.c (buoh_load_comic_list): solved typo bug on reading xml
+	property (generic_urL -> generic_urI).
+
+2005-02-05  Pablo Arroyo <zioma@linups.org>
+	
+	* help/comics.xml: new xml structure. 
+	* src/buoh.c (buoh_load_comic_list): added the xml read comics from "comic.xml", it access it in ../help/ directory <- we must change it. 
+	* src/buoh.c (buoh_gui_properties_window_setup): now you can close the window.
+	* src/callbacks.c (buoh_gui_hide_window): hide the window passed in gdata or in widget if gdata is NULL (usefull for connect the delete-event and the close buttons).
+	* many.[hc]: some minor changes on code not acording to the buoh style :). 
+
+2005-02-04  Pablo Arroyo <zioma@linups.org>
+
+	* interface/buoh.glade: added the new_dialog_window
+	* src/callbacks.c: (buho_gui_new_dialog_*): this functions implements the new dialog window actions.
+	* src/buoh.c: (buoh_gui_new_comic_dialog_setup): conect the signals for the new window.
+	* src/buoh.c: (buo_load_comic_simple): add a simple comic to the treeview.
+	
+2005-02-04  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/callbacks.c (buoh_gui_show_comic_properties): Added this callback that shows a window with the comic properties. The window is not HIG-compliant at this moment. By the way, it's not useful either :P
+	* interfaces/buoh.glade: Added that window and the "New comic" dialog, where zioma is working.
+	* src/comic-simple.c: Fixed a stupid bug that maked inheritance not working.
+
+2005-02-03  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/interface.[hc]: Deleted because they were not useful.
+	* src/buoh.[hc] (buoh_get_widget): New function that return the widget indicated by the parameter. It will solve zioma's problem with the "new dialog".
+	* src/callbacks.c (buoh_gui_load_comic_from_treeview): This function is connected to the tree view (comic list) and change the label to the comic name. It get the file using Gnome-VFS and load it into a GdkPixbufLoader.
+	(buoh_gui_loading_comic): Finally! Buoh can download and show a comic! This function update the Image that stores the comic.
+	* help/comics.txt: Change the example URLs of the comics to a generic URI, with date formats.
+	* interface/buoh.glade: Updated the window to allow scrolling on the
+	image when it's huge.
+
+2005-02-02  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/comic.[ch]: Updated for being an abstract class. Take a look at struct _ComicClass in header file. It defines a function pointer that child classes have to change to the real function.
+	* src/buoh.c (buoh_load_comic_list): Added this function which will load from a file (XML?) info about supported comics and show it in the Tree View.
+	* src/comic-simple.[hc]: Created the "Comic Simple" class, child of Comic class. This class would implement the comics which URLs depends of date.
+
+2005-02-01  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/comic.[hc]: Created the Comic class. This class will support inheritance and specialization for that comics that differs on the way to fetch them.
+
+2005-01-31  Esteban Sanchez  <steve-o@linups.org>
+
+	* src/Makefile.in: Stupid slash (\) in a line was doing buoh not to compile properly.
+	* src/callbacks.c (buoh_gui_menu_about_activate): Change gnome_about (deprecated) to gtk_about widget, which is clearer and easier. It is GTK 2.6, so please upgrade your development libraries!!
+	* src/buoh.h: Deleted buoh_new_gui because it was a silly function. His functionallity was added into buoh_gui_setup.	
+	* src/main.c: Minor changes to update it to the change in buoh object.
+
+2005-01-24  Moisés Belchín  <moises@dondetepique.com>
+
+	* AUTHORS: I officially add myself to buoh project.
+
+2004-11-23  Esteban Sánchez  <steve-o@linups.org>
+
+	* src/buoh.c: Free of errors and warnings and finish the prototype of the Buoh object. Now we have to think about this object. Do we need the buoh_set_gui and buoh_gui_setup? I think that one of this function should be private and called from the other function.
+	* src/main.c: Created our first instance of the Buoh object. Congratulations! :D Now, what should we do whit our object?
+
+2004-11-22  Esteban Sánchez  <steve-o@linups.org>
+
+	* src/main.c: Updated to use the Buoh object. There is still a lot of work in this file.
+	* src/interface.c: Clear this file, because the gui_setup and gui_new is related to the Buoh class. So it was moved to buoh.[hc]
+	* src/buoh.[hc]: Created this file to declare the Buoh object.
+
+2004-11-14  Esteban Sánchez  <steve-o@linups.org>
+
+	* interfaces/buoh.glade: Changes on the menu (mainly name of buttons). Changed atribute "Encojer" (don't know in english) on the widgets which are inside of a container (Vpaned and Hpaned).	
+	* src/interface.c: Minor changes
+
+2004-11-14  Pablo Arroyo Loma <zioma@linups.org>
+
+	* src/callbacks.c: menu about added.
+	* pixmaps/: two pixmaps added (16x16 and 64x64).
+
+2004-11-13  Esteban Sánchez <steve-o@linups.org>
+
+	* buoh.glade: make again because it was corrupted.
+
+2004-11-08  Pablo Arroyo Loma  <zioma@linups.org>
+
+	* buoh.glade: moved to interface/ and src/interface.c src/Makefile.am Makefile.am configure.in and po/POTFILES were updated to solve this change.
+	* interface/Makefile.am: added.
+	
+2004-11-07  Esteban Sánchez <steve-o@linups.org>
+
+	* src/Makefile.am: Updated buoh_SOURCES to reference interface.* and callbacks.*
+	* interface.c: Used g_return_if_fail instead of "if (foo == NULL) return NULL".
+
+2004-11-07  Pablo Arroyo Loma  <zioma@linups.org>
+
+	* src/main.c: moved the interface creation to "src/interface.c" archive.
+	* src/interface.h: changed the function "buoh_gui_start" to "buoh_gui_setup" and add "buoh_gui_new" declaration.
+	* src/interface.c: file added with "buoh_gui_start" implementation and three signals connected in "buoh_gui_setup".
+	* src/callbacks.h: file added with "buoh_exit" and "comic_new" function declarations.
+	* src/callbacks.c: file added with implementation of "buoh_exit".
+
+2004-11-04  Esteban Sánchez <steve-o@linups.org>
+
+	* main.c: Added the glade_xml_new.
+	* main.c: Set the title of the window. All these things should go in the src/interface.h as a procedure.
+
+2004-10-20  Esteban Sánchez <steve-o@linups.org>
+
+	* Add file src/interface.h where is defined a "typedef struct GladeXML". This struct helds a pointer to the GladeXML resource
+

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<comic_list>
+	<comic id="sptut" class="simple" title="Tutelandia en Espanol" author ="Tute" generic_uri="http://picayune.uclick.com/comics/sptut/%Y/sptut%y%m%d.gif" restrictions="Sundays" />
+	<comic id="sppep" class="simple" title="Pepe en Espanol" author="Moco" generic_uri="http://picayune.uclick.com/comics/sppep/%Y/sppep%y%m%d.gif" restrictions="Sundays" />
+	<comic id="spch" class="simple" title="Calvin y Hobbes en Espanol" author="Bill Watterson" generic_uri="http://picayune.uclick.com/comics/spch/%Y/spch%y%m%d.gif" restrictions="Sundays" />
+	<comic id="spgat" class="simple" title="Gaturro en Espanol" author="Nik" generic_uri="http://picayune.uclick.com/comics/spgat/%Y/spgat%y%m%d.gif" />
+	<comic id="cond" class="simple" title="Condorito en Espanol" author="World Features, Inc." generic_uri="http://picayune.uclick.com/comics/cond/%Y/cond%y%m%d.gif"/>
+</comic_list>
