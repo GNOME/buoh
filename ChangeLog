@@ -1,5 +1,9 @@
 2005-03-11  Esteban Sanchez  <steve-o@linups.org>
 
+	* src/buoh.c (on_popup_delete_activate): Implemented.
+
+2005-03-11  Esteban Sanchez  <steve-o@linups.org>
+
 	* src/buoh.c: Change the notebook to the image only when the
 	uri exists.
 	(buoh_gui_show_comic_properties): redefined, now it receives a Buoh object

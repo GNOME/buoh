@@ -331,7 +331,7 @@ buoh_gui_setup (Buoh *buoh)
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (comic_list),
 					      TITLE_COLUMN, GTK_SORT_ASCENDING);
 	tree_view = glade_xml_get_widget (private->gui, "user_comic_list");
-	   
+	
 	g_object_unref (comic_list);
 
 	/* Hide the tabs on the notebook */
@@ -963,7 +963,7 @@ buoh_window_resize (Buoh * buoh)
 	gint        pb_width, pb_height;
 	gint        win_width, win_height;
 	gint        width, height;
-	gint        margin;
+	gint        margin = 50;
 	GdkPixbuf   *pixbuf;
 	GtkWidget   *widget, *window;
 
@@ -1515,6 +1515,32 @@ on_popup_properties_activate (GtkWidget *widget, gpointer *gdata)
 static void
 on_popup_delete_activate (GtkWidget *widget, gpointer *gdata)
 {
+	Buoh             *buoh;
+	GtkTreeView      *tree_view;
+	GtkTreeModel     *user_comic_list, *supported_comic_list;
+	GtkTreeSelection *selection;
+	GtkTreeIter      filter_iter, child_iter;
+
+	/* FIXME: It has some strange behaviour */
+	buoh = BUOH (gdata);
+	g_return_if_fail (IS_BUOH (buoh));
+
+	tree_view = GTK_TREE_VIEW (buoh_get_widget (buoh, "user_comic_list"));
+	selection = gtk_tree_view_get_selection (tree_view);
+
+	user_comic_list      = gtk_tree_view_get_model (tree_view);
+	supported_comic_list = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (user_comic_list));
+
+	gtk_tree_selection_get_selected (selection, &user_comic_list, &filter_iter);
+
+	gtk_tree_model_filter_convert_iter_to_child_iter (GTK_TREE_MODEL_FILTER (user_comic_list),
+							  &child_iter, &filter_iter);
+	
+	gtk_list_store_set (GTK_LIST_STORE (supported_comic_list),
+			    &child_iter,
+			    COMIC_USER_COLUMN,
+			    FALSE,
+			    -1);
 }
 
 static void
