@@ -1,6 +1,10 @@
-2005-03-11  Esteban Sanchez  <steve-o@linups.org>
+2005-04-07  Esteban Sanchez  <steve-o@linups.org>
 
-	* src/buoh.c (on_popup_delete_activate): Implemented.
+	* src/buoh.c: Some reorder of the code.
+	(buoh_gui_copy_uri_to_clipboard): New function that copies the URI
+	of the selected comic to the clipboard
+	(buoh_gui_popup_copy_uri_cb): Implemented.
+	(buoh_gui_popup_delete_cb): Implemented.
 
 2005-03-11  Esteban Sanchez  <steve-o@linups.org>
 
