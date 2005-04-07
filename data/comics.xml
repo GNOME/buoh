@@ -800,5 +800,26 @@
 	author="Tom Wilson &amp; Tom II"
 	generic_uri="http://picayune.uclick.com/comics/zi/%Y/zi%y%m%d.gif">
 </comic>
+<comic id="boredandevil"
+        class="simple"
+        title="Bored and evil"
+        author="Robert Koch"
+        generic_uri="http://www.boredandevil.com/strips/%Y-%m-%d.gif">
+		<restrict>2</restrict>
+                <restrict>4</restrict>
+                <restrict>6</restrict>
+                <restrict>7</restrict>
 
+</comic>
+<comic id="brunothebandit"
+        class="simple"
+        title="Bruno the Bandit"
+        author="Ian McDonald"
+        generic_uri="http://brunothebandit.com/comics/%Y%m%da.gif">
+                <restrict>2</restrict>
+                <restrict>4</restrict>
+                <restrict>6</restrict>
+                <restrict>7</restrict>
+
+</comic>
 </comic_list>
