@@ -294,15 +294,23 @@ comic_simple_is_the_last (Comic *comic)
 	struct tm          *gmt;
 	time_t              now;
 	ComicSimplePrivate *private;
+	GDateWeekday       weekday;
 	   
 	private = COMIC_SIMPLE_GET_PRIVATE (comic);
 	   
 	now = time (NULL);
 	gmt = gmtime (&now);
-	   
+	
 	date = g_date_new ();
 	g_date_set_time (date, mktime (gmt));
-
+	
+	/* Check the restrictions */
+	weekday = g_date_get_weekday (date);
+	while (private->restrictions[weekday] == TRUE) {
+		g_date_subtract_days (date, 1);
+		weekday = g_date_get_weekday (date);
+	}
+	
 	return (gboolean) g_date_compare (private->date, date);
 }
 
