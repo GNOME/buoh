@@ -1,3 +1,7 @@
+2005-06-13  Esteban Sanchez  <steve-o@linups.org>
+
+	* data/comics.xml: "Pooch Cafe in Spanish" is now published on Sundays
+
 2005-04-10  Esteban Sanchez  <steve-o@linups.org>
 
 	* src/comic-simple.c: (comic_simple_is_the_last): Now it check the
