@@ -65,7 +65,6 @@
 	title="Pooch Café en Español"
 	author="Paul Gilligan"
 	generic_uri="http://picayune.uclick.com/comics/sppoc/%Y/sppoc%y%m%d.gif">
-		<restrict>7</restrict>
 </comic>
 <comic id="spzi"
 	class="simple"
