@@ -15,7 +15,7 @@
  */
  
 /* Author: Pablo Arroyo Loma (zioma) <zioma@linups.org>
- *         Esteban Sánchez (steve-o) <steve-o@linups.org>
+ *         Esteban Sánchez (steve-o) <esteban@steve-o.org>
  */      
 
 #include <glib-object.h>

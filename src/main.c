@@ -15,7 +15,7 @@
  */
  
 /* Authors: Pablo Arroyo Loma (zioma) <zioma@linups.org>
- *          Esteban Sanchez Munoz (steve-o) <steve-o@linups.org>
+ *          Esteban Sanchez Munoz (steve-o) <esteban@steve-o.org>
  */
 
 #ifdef HAVE_CONFIG_H

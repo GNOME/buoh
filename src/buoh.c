@@ -15,7 +15,7 @@
  */
 
 /* Authors: Pablo Arroyo Loma (zioma) <zioma@linups.org>
- *          Esteban Sanchez Munoz (steve-o) <steve-o@linups.org>
+ *          Esteban Sanchez Munoz (steve-o) <esteban@steve-o.org>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -1148,8 +1148,7 @@ loading_comic_resize (GtkWidget *widget, gint width, gint height, gpointer *gdat
 
 	widget1 = glade_xml_get_widget (private->gui, "frame1");
 	gtk_widget_size_request (widget1, &requisition);
-	g_debug ("%d x %d\n", requisition.width, requisition.height);
-		
+	
 	window = glade_xml_get_widget (private->gui, "main_window");
 	
 	gtk_window_get_size (GTK_WINDOW (window),
@@ -1158,13 +1157,11 @@ loading_comic_resize (GtkWidget *widget, gint width, gint height, gpointer *gdat
 	new_width = win_width;
 	new_height = win_height;
 
-	g_debug ("Old size: %d x %d", new_width, new_height);
 	if (win_width < width + requisition.width)
 		new_width = width + requisition.width + 25;
 	if (win_height < height)
 		new_height = height + 80; /* FIXME: vertical margin */
 
-	g_debug ("New size: %d x %d", new_width, new_height);
 	if ((new_width != win_width) || (new_height != win_height))
 		gtk_window_resize (GTK_WINDOW (window), new_width, new_height);
 }
@@ -1264,7 +1261,6 @@ buoh_gui_load_comic (gpointer gdata)
 		g_signal_connect (G_OBJECT (private->pixbuf_loader), "area-updated",
 				  G_CALLBACK (loading_comic),
 				  (gpointer) buoh);
-
 		g_signal_connect (G_OBJECT (private->pixbuf_loader), "size-prepared",
 				  G_CALLBACK (loading_comic_resize),
 				  (gpointer) buoh);
@@ -1518,7 +1514,7 @@ buoh_gui_menu_about_activate_cb (GtkWidget *widget, gpointer *gdata)
 	GdkPixbuf          *pixbuf;
 	gchar              *pixbuf_path;
 	static const gchar *authors[] = {
-		"Esteban Sánchez Muñoz <steve-o@linups.org>",
+		"Esteban Sánchez Muñoz <esteban@steve-o.org>",
 		"Pablo Arroyo Loma <zioma@linups.org>",
 		NULL
 	};
