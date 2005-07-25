@@ -1,72 +1,50 @@
 AC_PREREQ(2.52)
-AC_INIT(src/main.c)
+AC_INIT(buoh, 0.0.1)
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
 dnl Useful to call aclocal after 'make'
 AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS")
 
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(buoh, 0.0.1)
 AM_MAINTAINER_MODE
 
 AC_PROG_INTLTOOL([0.11])
 
 AC_ISC_POSIX
 AC_PROG_CC
+AM_PROG_CC_STDC
 AC_STDC_HEADERS
-#AC_CHECK_HEADERS(sys/sockio.h sys/socket.h)
-dnl AC_ARG_PROGRAM
 AM_PROG_LIBTOOL
 
-GNOME_COMPILE_WARNINGS(yes)
-CFLAGS="$CFLAGS $WARN_CFLAGS"
+GNOME_COMMON_INIT
+GNOME_COMPILE_WARNINGS
+GNOME_MAINTAINER_MODE_DEFINES
+
+AM_GLIB_GNU_GETTEXT
 
 dnl ******************************************
 dnl ** pkg-config dependacy checks          **
 dnl ******************************************
 
-LIBGNOMEUI_REQUIRED=2.0.0
-LIBGNOME_REQUIRED=2.0.0
+LIBGNOMEUI_REQUIRED=2.6.0
 GTK_REQUIRED=2.6.0
 LIBGLADE_REQUIRED=2.0.0
-GCONF_REQUIRED=1.1.11
 
 PKG_CHECK_MODULES(BUOH, 
 		  libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED 
-		  libgnome-2.0   >= $LIBGNOME_REQUIRED 
 		  gtk+-2.0       >= $GTK_REQUIRED 
-		  libglade-2.0   >= $LIBGLADE_REQUIRED 
-		  gconf-2.0      >= $GCONF_REQUIRED)
+		  libglade-2.0   >= $LIBGLADE_REQUIRED) 
 AC_SUBST(BUOH_CFLAGS)
 AC_SUBST(BUOH_LIBS)
 
 dnl
 dnl Translations
 dnl
-GETTEXT_PACKAGE=buoh
+GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE",[The gettext package])
 ALL_LINGUAS=""
 AM_GLIB_GNU_GETTEXT
-
-AC_SUBST(CFLAGS)
-AC_SUBST(CPPFLAGS)
-AC_SUBST(LDFLAGS)
-
-dnl
-dnl Debugging flags
-dnl
-#set_debug=no
-#AC_ARG_ENABLE(debug,
-#[  --enable-debug       Lots of noisy debug messages],
-#set_debug="$enableval")
-#
-#AC_MSG_CHECKING(if debug messages are enabled)
-#if test "$set_debug" != "no"; then
-#        AC_MSG_RESULT(yes)
-#        CFLAGS="-DGRD_DEBUG $CFLAGS"
-#else
-#        AC_MSG_RESULT(no)
-#fi
 
 # Honor aclocal flags
   ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"

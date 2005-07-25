@@ -1,5 +1,9 @@
 2005-07-25  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* configure.in, src/Makefile.am: Cleanup
+
+2005-07-25  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* src/buoh-add-comic-dialog.[ch]:
 	* src/buoh-comic-list.[ch]:
 	* src/buoh-properties-dialog.[ch]:
