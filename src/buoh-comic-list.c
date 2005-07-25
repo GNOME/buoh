@@ -90,7 +90,7 @@ buoh_comic_list_selection_changed (GtkTreeSelection *selection, gpointer gdata)
 				    -1);
 		
 		buoh_view_set_comic (comic_list->priv->view,
-				     COMIC (comic));
+				     BUOH_COMIC (comic));
 	} else {
 		buoh_view_clear (comic_list->priv->view);
 	}

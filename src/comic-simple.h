@@ -12,19 +12,20 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
- 
-/* Author: Pablo Arroyo Loma (zioma) <zioma@linups.org>
- *         Esteban Sánchez (steve-o) <esteban@steve-o.org>
+ *
+ *  Author: Pablo Arroyo Loma (zioma) <zioma@linups.org>
+ *          Esteban Sánchez (steve-o) <esteban@steve-o.org>
  */      
 
 #include <glib-object.h>
 
-#ifndef TYPE_COMIC
-#include "comic.h"
-#endif
+#include "buoh-comic.h"
 
-/* Definicion de los CAST entre objetos y clases */
+G_BEGIN_DECLS
+
+typedef struct _ComicSimple      ComicSimple;
+typedef struct _ComicSimpleClass ComicSimpleClass;
+
 #define TYPE_COMIC_SIMPLE	    (comic_simple_get_type ())
 #define COMIC_SIMPLE(o)		    (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_COMIC_SIMPLE, ComicSimple))
 #define COMIC_SIMPLE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), TYPE_ComicSimple, ComicSimpleClass))
@@ -32,26 +33,21 @@
 #define IS_COMIC_SIMPLE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), TYPE_COMIC_SIMPLE))
 #define COMIC_SIMPLE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), TYPE_COMIC_SIMPLE, ComicSimpleClass))
 
-typedef struct _ComicSimple      ComicSimple;
-typedef struct _ComicSimpleClass ComicSimpleClass;
 
-/* ComicSimple Object */
 struct _ComicSimple {
-	Comic parent;
+	BuohComic parent;
 };
 
-/* ComicSimple Class */
 struct _ComicSimpleClass {
-	ComicClass parent_class;
+	BuohComicClass parent_class;
 
 	/* Point to the real comic_get_uri function */
-//	   gchar * (* get_uri) ();
+/*	   gchar * (* get_uri) ();*/
 };
 
-/* Public methods */
 GType  comic_simple_get_type      (void);
 
-ComicSimple  *comic_simple_new ();
+ComicSimple  *comic_simple_new (void);
 
 
 ComicSimple  *comic_simple_new_with_info (const gchar *id,
@@ -59,13 +55,15 @@ ComicSimple  *comic_simple_new_with_info (const gchar *id,
 					  const gchar *author,
 					  const gchar *main_uri);
 
-void   comic_simple_set_title (Comic *comic, const gchar *title);
+void   comic_simple_set_title (BuohComic *comic, const gchar *title);
 
-void   comic_simple_set_author (Comic *comic, const gchar *author);
+void   comic_simple_set_author (BuohComic *comic, const gchar *author);
 
-void   comic_simple_set_generic_uri (Comic *comic, const gchar *generic_uri);
+void   comic_simple_set_generic_uri (BuohComic *comic, const gchar *generic_uri);
 void   comic_simple_set_restriction (ComicSimple *comic, GDateWeekday day);
-void   comic_simple_go_next (Comic *comic);
-void   comic_simple_go_previous (Comic *comic);
+void   comic_simple_go_next (BuohComic *comic);
+void   comic_simple_go_previous (BuohComic *comic);
 
-gboolean comic_simple_is_the_last (Comic *comic);
+gboolean comic_simple_is_the_last (BuohComic *comic);
+
+G_END_DECLS;

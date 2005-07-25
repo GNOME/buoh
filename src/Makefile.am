@@ -10,7 +10,7 @@ INCLUDES = 						\
 bin_PROGRAMS = buoh
 
 buoh_SOURCES = 							\
-	comic.h comic.c						\
+	buoh-comic.h buoh-comic.c				\
 	comic-simple.h comic-simple.c				\
 	buoh-window.h buoh-window.c				\
 	buoh-view.h buoh-view.c					\

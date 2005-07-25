@@ -25,7 +25,7 @@
 #include "buoh-properties-dialog.h"
 
 struct _BuohPropertiesDialogPrivate {
-	Comic *comic;
+	BuohComic *comic;
 };
 
 #define BUOH_PROPERTIES_DIALOG_GET_PRIVATE(object) \
@@ -91,9 +91,9 @@ buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass)
 }
 
 void
-buoh_properties_dialog_set_comic (BuohPropertiesDialog *dialog, Comic *comic)
+buoh_properties_dialog_set_comic (BuohPropertiesDialog *dialog, BuohComic *comic)
 {
-	g_return_if_fail (IS_COMIC (comic));
+	g_return_if_fail (BUOH_IS_COMIC (comic));
 
 	dialog->priv->comic = comic;
 
