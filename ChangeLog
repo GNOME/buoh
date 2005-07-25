@@ -1,3 +1,20 @@
+2005-07-25  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-add-comic-dialog.[ch]:
+	* src/buoh-comic-list.[ch]:
+	* src/buoh-properties-dialog.[ch]:
+	* src/buoh-view.[ch]:
+	* src/buoh-window.[ch]:
+	* src/Makefile.am:
+
+	New files added for the new design
+
+	* interfaces/buoh.glade: Some UI changes needed for the new design.
+	Some widgets are created now in the code.
+
+	* src/buoh.[ch], src/comic.h, src/main.c: Change to an OO design. Many
+	code cleanups and fix some memory leaks. 
+
 2005-06-28  Esteban Sanchez  <esteban@steve-o.org>
 
 	* buoh.c, buoh.h, callbacks.c, callbacks.h, comic.c, comic.h,

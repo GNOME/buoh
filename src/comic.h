@@ -18,7 +18,14 @@
  *         Esteban Sánchez (steve-o) <esteban@steve-o.org>
  */      
 
+#ifndef COMIC_H
+#define COMIC_H
+
 #include <glib-object.h>
+
+
+
+G_BEGIN_DECLS
 
 /* Definicion de los CAST entre objetos y clases */
 #define TYPE_COMIC						(comic_get_type ())
@@ -73,3 +80,7 @@ gchar *comic_get_author (Comic *comic);
 gchar *comic_get_id (Comic *comic);
 gchar *comic_get_page (Comic *comic);
 GdkPixbuf *comic_get_pixbuf (Comic *comic);
+
+G_END_DECLS
+
+#endif /* !COMIC_H */
