@@ -1,5 +1,9 @@
 2005-07-25  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* TODO: Updated
+
+2005-07-25  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* src/buoh-comic.[ch]: Added
 	* src/comic.[ch]: Removed
 	* src/Makefile.am:
