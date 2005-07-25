@@ -1,13 +1,13 @@
-[ ] Control Gnome-vfs errors
-[X] Update properties dialog when clicked "Edit -> Properties"
-[ ] Cache the comics
-[X] Memory leaks when loading comics!
-[X] Go back & forward on a comic
-[ ] Add restrictions to a comic (i.e. a comic can not be published on Sunday)
-[X] Enable/disable toolbar buttons
-   [X] Zoom in/out/normal
-   [X] Next when it's today
-[ ] Make a function to parse XML files.
-[/] Give funcionallity when adding a comic (now its callback is hide_window)
-  [X] Add to the tree view
-  [ ] Add to user XML file
+[ ] Add Language property to comics
+[ ] Comic Manager
+[ ] Properties comic dialog
+[ ] Improve the comic loaging stuff
+[ ] Remove Edit menu
+[ ] HIGification
+[ ] Improve welcome and error messages
+[ ] Disable comic list during comic loading
+[ ] Save to disk the comics selected by the user
+[ ] Cache system
+[ ] Improve the feedback: statusbar
+[ ] Debug system
+
