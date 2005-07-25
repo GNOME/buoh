@@ -1,5 +1,20 @@
 2005-07-25  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* src/buoh-comic.[ch]: Added
+	* src/comic.[ch]: Removed
+	* src/Makefile.am:
+	* src/buoh-comic-list.c:
+	* src/buoh-properties-dialog.[ch]:
+	* src/buoh-view.[ch]:
+	* src/buoh-window.c:
+	* src/buoh.c:
+	* src/comic-simple.[ch]:
+
+	s/Comic/BuohComic/ 
+	More code cleanup
+	
+2005-07-25  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* configure.in, src/Makefile.am: Cleanup
 
 2005-07-25  Carlos Garcia Campos  <carlosgc@gnome.org>

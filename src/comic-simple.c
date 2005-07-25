@@ -28,8 +28,6 @@
 
 #include "comic-simple.h"
 
-#define PARENT_TYPE TYPE_COMIC
-
 #define COMIC_SIMPLE_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE((obj), TYPE_COMIC_SIMPLE, ComicSimplePrivate))
 
 static void comic_simple_init         (ComicSimple *);
@@ -45,12 +43,12 @@ static void comic_simple_get_property (GObject      *object,
 				       guint         prop_id,
 				       GValue       *value,
 				       GParamSpec   *pspec);
-gchar * comic_simple_get_uri (Comic *comic);
-gchar * comic_simple_get_last_uri (Comic *comic);
-gchar * comic_simple_get_uri_from_date (ComicSimple *comic);
-gchar * comic_simple_get_isodate (Comic *comic);
+static gchar *comic_simple_get_uri (BuohComic *comic);
+static gchar *comic_simple_get_last_uri (BuohComic *comic);
+static gchar *comic_simple_get_uri_from_date (ComicSimple *comic);
+static gchar *comic_simple_get_isodate (BuohComic *comic);
 
-static GObjectClass *parent_class = NULL;
+static BuohComicClass *parent_class = NULL;
 
 typedef struct _ComicSimplePrivate ComicSimplePrivate;
 
@@ -90,7 +88,7 @@ comic_simple_get_type ()
 			(GInstanceInitFunc) comic_simple_init
 		};
 
-		type = g_type_register_static (PARENT_TYPE, "ComicSimple",
+		type = g_type_register_static (BUOH_TYPE_COMIC, "ComicSimple",
 					       &info, 0);
 	}
 
@@ -118,7 +116,7 @@ static void
 comic_simple_class_init (ComicSimpleClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	ComicClass *comic_class = (ComicClass *) klass;
+	BuohComicClass *comic_class = (BuohComicClass *) klass;
 
 	parent_class = g_type_class_peek_parent (klass);
 
@@ -174,7 +172,6 @@ comic_simple_new ()
 	comic = g_object_new (TYPE_COMIC_SIMPLE, NULL);
 
 	return COMIC_SIMPLE (comic);
-	   
 }
 
 
@@ -196,7 +193,7 @@ comic_simple_new_with_info (const gchar *id,
 }
 
 void
-comic_simple_set_generic_uri (Comic *comic,
+comic_simple_set_generic_uri (BuohComic   *comic,
 			      const gchar *generic_uri)
 {
 	g_return_if_fail (IS_COMIC_SIMPLE (comic));
@@ -226,7 +223,7 @@ comic_simple_set_property (GObject      *object,
 			   const GValue *value,
 			   GParamSpec   *pspec)
 {
-	Comic *comic = COMIC (object);
+	ComicSimple *comic = COMIC_SIMPLE (object);
 	ComicSimplePrivate *private;
 	   
 	g_return_if_fail (IS_COMIC_SIMPLE (comic));
@@ -288,7 +285,7 @@ comic_simple_get_uri_from_date (ComicSimple *comic)
 }
 
 gboolean
-comic_simple_is_the_last (Comic *comic)
+comic_simple_is_the_last (BuohComic *comic)
 {
 	GDate              *date;
 	struct tm          *gmt;
@@ -315,7 +312,7 @@ comic_simple_is_the_last (Comic *comic)
 }
 
 gchar *
-comic_simple_get_last_uri (Comic *comic)
+comic_simple_get_last_uri (BuohComic *comic)
 {
 	GDate              *date;
 	struct tm          *gmt;
@@ -346,7 +343,7 @@ comic_simple_get_last_uri (Comic *comic)
 }
 
 gchar *
-comic_simple_get_uri (Comic *comic)
+comic_simple_get_uri (BuohComic *comic)
 {
 	ComicSimplePrivate *private;
 	   
@@ -361,7 +358,7 @@ comic_simple_get_uri (Comic *comic)
 }
 
 gchar *
-comic_simple_get_isodate (Comic *comic)
+comic_simple_get_isodate (BuohComic *comic)
 {
 	ComicSimplePrivate *private;
 	gchar              isodate[50];
@@ -376,7 +373,7 @@ comic_simple_get_isodate (Comic *comic)
 }
 
 void
-comic_simple_go_next (Comic *comic)
+comic_simple_go_next (BuohComic *comic)
 {
 	ComicSimplePrivate *private;
 	GDateWeekday       weekday;
@@ -396,7 +393,7 @@ comic_simple_go_next (Comic *comic)
 }
 
 void
-comic_simple_go_previous (Comic *comic)
+comic_simple_go_previous (BuohComic *comic)
 {
 	ComicSimplePrivate *private;
 	GDateWeekday       weekday;

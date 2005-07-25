@@ -526,7 +526,7 @@ static void
 buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gdata)
 {
 	BuohWindow *window = BUOH_WINDOW (gdata);
-	Comic      *comic = NULL;
+	BuohComic  *comic = NULL;
 
 	switch (buoh_view_get_status (window->priv->view)) {
 	case VIEW_STATE_INIT:
@@ -547,7 +547,7 @@ static void
 buoh_window_view_comic_change_cb (GObject *object, GParamSpec *arg, gpointer gdata)
 {
 	BuohWindow     *window = BUOH_WINDOW (gdata);
-	Comic          *comic = NULL;
+	BuohComic      *comic = NULL;
 	BuohViewStatus  status;
 
 	status = buoh_view_get_status (window->priv->view);
@@ -564,7 +564,7 @@ static void
 buoh_window_view_zoom_change_cb (GObject *object, GParamSpec *arg, gpointer gdata)
 {
 	BuohWindow *window = BUOH_WINDOW (gdata);
-	Comic      *comic = NULL;
+	BuohComic  *comic = NULL;
 
 	g_object_get (G_OBJECT (window->priv->view),
 		      "comic", &comic, NULL);
@@ -602,7 +602,7 @@ static void
 buoh_window_popup_properties_cb (GtkWidget *widget, gpointer gdata)
 {
 	BuohWindow *window = BUOH_WINDOW (gdata);
-	Comic      *comic = NULL;
+	BuohComic  *comic = NULL;
 
 	g_object_get (G_OBJECT (window->priv->view),
 		      "comic", &comic,
@@ -629,7 +629,7 @@ buoh_window_popup_delete_cb (GtkWidget *widget, gpointer gdata)
 	BuohWindow   *window = BUOH_WINDOW (gdata);
 	GtkTreeModel *model = buoh_get_comics_model (BUOH);
 	GtkTreeIter   iter;
-	Comic        *comic, *current_comic;
+	BuohComic    *comic, *current_comic;
 	gchar        *comic_id, *id;
 	gboolean      valid;
 
@@ -638,7 +638,7 @@ buoh_window_popup_delete_cb (GtkWidget *widget, gpointer gdata)
 		      NULL);
 
 	if (current_comic) {
-		comic_id = comic_get_id (current_comic);
+		comic_id = buoh_comic_get_id (current_comic);
 
 		valid = gtk_tree_model_get_iter_first (model, &iter);
 
@@ -646,7 +646,7 @@ buoh_window_popup_delete_cb (GtkWidget *widget, gpointer gdata)
 			gtk_tree_model_get (model, &iter,
 					    COMIC_LIST_COMIC, &comic,
 					    -1);
-			id = comic_get_id (comic);
+			id = buoh_comic_get_id (comic);
 
 			if (g_ascii_strcasecmp (comic_id, id) == 0) {
 				buoh_comic_list_clear_selection (window->priv->comic_list);
@@ -669,7 +669,7 @@ static void
 buoh_window_popup_copy_uri_cb (GtkWidget *widget, gpointer gdata)
 {
 	BuohWindow *window = BUOH_WINDOW (gdata);
-	Comic      *comic = NULL;
+	BuohComic  *comic = NULL;
 	gchar      *uri;
 
 	g_object_get (G_OBJECT (window->priv->view),
@@ -677,7 +677,7 @@ buoh_window_popup_copy_uri_cb (GtkWidget *widget, gpointer gdata)
 		      NULL);
 
 	if (comic) {
-		uri = comic_get_uri (comic);
+		uri = buoh_comic_get_uri (comic);
 		g_debug ("Copy %s to clipboard\n", uri);
 
 		gtk_clipboard_set_text (gtk_clipboard_get (GDK_NONE), uri,

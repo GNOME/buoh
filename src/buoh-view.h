@@ -22,7 +22,7 @@
 #include <glib-object.h>
 #include <gtk/gtknotebook.h>
 
-#include "comic.h"
+#include "buoh-comic.h"
 
 G_BEGIN_DECLS
 
@@ -68,8 +68,8 @@ void           buoh_view_zoom_in         (BuohView *view);
 void           buoh_view_zoom_out        (BuohView *view);
 void           buoh_view_normal_size     (BuohView *view);
 
-void           buoh_view_set_comic       (BuohView *view, Comic *comic);
-Comic         *buoh_view_get_comic       (BuohView *view);
+void           buoh_view_set_comic       (BuohView *view, BuohComic *comic);
+BuohComic     *buoh_view_get_comic       (BuohView *view);
 
 BuohViewStatus buoh_view_get_status      (BuohView *view);
 void           buoh_view_clear           (BuohView *view);

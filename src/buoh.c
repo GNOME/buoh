@@ -31,7 +31,7 @@
 
 #include "buoh.h"
 #include "buoh-window.h"
-#include "comic.h"
+#include "buoh-comic.h"
 #include "comic-simple.h"
 
 struct _BuohPrivate {
@@ -129,7 +129,7 @@ buoh_create_model_from_file (Buoh *buoh)
 	xmlNodePtr    root;
 	xmlNodePtr    node;
 	xmlNodePtr    child;
-	Comic        *comic;
+	BuohComic    *comic;
 	gchar        *id, *class, *title, *author, *uri;
 	gboolean      visible;
 	gchar        *restriction;
@@ -174,7 +174,7 @@ buoh_create_model_from_file (Buoh *buoh)
 				author = xmlGetProp (node, "author");
 				uri    = xmlGetProp (node, "generic_uri");
 
-				comic = COMIC (comic_simple_new_with_info (id, title, author, uri));
+				comic = BUOH_COMIC (comic_simple_new_with_info (id, title, author, uri));
 
 				/* Read the restrictions */
 				child = node->children->next;

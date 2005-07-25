@@ -22,7 +22,7 @@
 #include <glib-object.h>
 #include <gtk/gtkdialog.h>
 
-#include "comic.h"
+#include "buoh-comic.h"
 
 G_BEGIN_DECLS
 
@@ -50,7 +50,7 @@ GType      buoh_properties_dialog_get_type  (void);
 GtkWidget *buoh_properties_dialog_new       (void);
 
 void       buoh_properties_dialog_set_comic (BuohPropertiesDialog *dialog,
-					     Comic                *comic);
+					     BuohComic            *comic);
 
 G_END_DECLS
 

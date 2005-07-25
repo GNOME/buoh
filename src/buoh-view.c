@@ -40,7 +40,7 @@ enum {
 
 struct _BuohViewPrivate {
 	GtkWidget       *viewport;
-	Comic           *comic;
+	BuohComic       *comic;
 	gdouble          scale;
 	GdkPixbufLoader *pixbuf_loader;
 	gchar           *message;
@@ -227,7 +227,7 @@ buoh_view_class_init (BuohViewClass *klass)
 					 g_param_spec_object ("comic",
 							      "Comic",
 							      "The current comic",
-							      TYPE_COMIC,
+							      BUOH_TYPE_COMIC,
 							      G_PARAM_READWRITE));
 	g_object_class_install_property (object_class,
 					 PROP_SCALE,
@@ -301,7 +301,7 @@ buoh_view_set_property (GObject       *object,
 			g_object_unref (view->priv->comic);
 		}
 
-		view->priv->comic = COMIC (g_value_dup_object (value));
+		view->priv->comic = BUOH_COMIC (g_value_dup_object (value));
 
 		break;
 	case PROP_SCALE:
@@ -413,7 +413,7 @@ buoh_view_load_comic (gpointer gdata)
 	GdkCursor        *cursor;
 	gchar            *uri;
 
-	uri = comic_get_uri (view->priv->comic);
+	uri = buoh_comic_get_uri (view->priv->comic);
 
 	/* Open the comic from URI */
 	result = gnome_vfs_open (&read_handle, uri, GNOME_VFS_OPEN_READ);
@@ -473,7 +473,7 @@ buoh_view_load_comic (gpointer gdata)
 		gdk_pixbuf_loader_close (view->priv->pixbuf_loader, NULL);
 		gnome_vfs_close (read_handle);
 
-		comic_set_pixbuf (view->priv->comic,
+		buoh_comic_set_pixbuf (view->priv->comic,
 				  gdk_pixbuf_loader_get_pixbuf (view->priv->pixbuf_loader));
 		
 		g_object_unref (view->priv->pixbuf_loader);
@@ -499,7 +499,7 @@ buoh_view_check_comic_uri (BuohView *view)
 	gchar       *uri;
 	gboolean     result;
 
-	uri = comic_get_uri (view->priv->comic);
+	uri = buoh_comic_get_uri (view->priv->comic);
 	vfs_uri = gnome_vfs_uri_new (uri);
 	g_free (uri);
 
@@ -519,7 +519,7 @@ buoh_view_update_image (BuohView *view)
 	widget = gtk_bin_get_child (GTK_BIN (view->priv->viewport));
 	if (GTK_IS_IMAGE (widget)) {
 		if (view->priv->comic) {
-			pixbuf = comic_get_pixbuf (view->priv->comic);
+			pixbuf = buoh_comic_get_pixbuf (view->priv->comic);
 
 			if (!pixbuf) {
 				if (buoh_view_check_comic_uri (view)) {
@@ -580,7 +580,7 @@ buoh_view_zoom (BuohView *view, gdouble factor, gboolean relative)
 	gdouble scale;
 
 	g_return_if_fail (BUOH_IS_VIEW (view));
-	g_return_if_fail (IS_COMIC (view->priv->comic));
+	g_return_if_fail (BUOH_IS_COMIC (view->priv->comic));
 
 	if (relative)
 		scale = view->priv->scale * factor;
@@ -631,19 +631,19 @@ buoh_view_normal_size (BuohView *view)
 }
 
 void
-buoh_view_set_comic (BuohView *view, Comic *comic)
+buoh_view_set_comic (BuohView *view, BuohComic *comic)
 {
-	g_return_if_fail (IS_COMIC (comic));
+	g_return_if_fail (BUOH_IS_COMIC (comic));
 
 	g_object_set (G_OBJECT (view),
 		      "comic", comic,
 		      NULL);
 }
 
-Comic *
+BuohComic *
 buoh_view_get_comic (BuohView *view)
 {
-	Comic *comic = NULL;
+	BuohComic *comic = NULL;
 
 	g_object_get (G_OBJECT (view),
 		      "comic", &comic,
