@@ -10,9 +10,13 @@ LDADD =				\
 bin_PROGRAMS = buoh
 
 buoh_SOURCES = \
-	callbacks.c callbacks.h\
 	comic.h comic.c\
 	comic-simple.h comic-simple.c\
+	buoh-window.h buoh-window.c\
+	buoh-view.h buoh-view.c\
+	buoh-comic-list.h buoh-comic-list.c\
+	buoh-properties-dialog.h buoh-properties-dialog.c\
+	buoh-add-comic-dialog.h buoh-add-comic-dialog.c\
 	buoh.h buoh.c\
 	main.c
 
