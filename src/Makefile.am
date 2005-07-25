@@ -1,31 +1,30 @@
-INCLUDES = 							\
-	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"                \
-	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED         \
-	-DGNOME_DISABLE_DEPRECATED      \
-	@BUOH_CFLAGS@
+INCLUDES = 						\
+	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
+	$(BUOH_CFLAGS)					\
+	$(WARN_CFLAGS)					\
+	$(DISABLE_DEPRECATED)
 
-LDADD =				\
-	$(BUOH_LIBS)	
+#LDADD =				\
+#	$(BUOH_LIBS)	
 
 bin_PROGRAMS = buoh
 
-buoh_SOURCES = \
-	comic.h comic.c\
-	comic-simple.h comic-simple.c\
-	buoh-window.h buoh-window.c\
-	buoh-view.h buoh-view.c\
-	buoh-comic-list.h buoh-comic-list.c\
-	buoh-properties-dialog.h buoh-properties-dialog.c\
-	buoh-add-comic-dialog.h buoh-add-comic-dialog.c\
-	buoh.h buoh.c\
+buoh_SOURCES = 							\
+	comic.h comic.c						\
+	comic-simple.h comic-simple.c				\
+	buoh-window.h buoh-window.c				\
+	buoh-view.h buoh-view.c					\
+	buoh-comic-list.h buoh-comic-list.c			\
+	buoh-properties-dialog.h buoh-properties-dialog.c	\
+	buoh-add-comic-dialog.h buoh-add-comic-dialog.c		\
+	buoh.h buoh.c						\
 	main.c
 
-buoh_LDADD = @BUOH_LIBS@
+buoh_LDADD = $(BUOH_LIBS)
 
-EXTRA_DIST  = \
-	buoh.desktop.in 
+EXTRA_DIST  = buoh.desktop.in 
 
-DISTCLEANFILES = \
+DISTCLEANFILES = 		\
 		buoh.desktop	\
 		*.bak
 
