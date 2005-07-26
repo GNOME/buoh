@@ -2,7 +2,7 @@
 [ ] Comic Manager
 [ ] Properties comic dialog
 [ ] Improve the comic loaging stuff
-[ ] Remove Edit menu
+[X] Remove Edit menu
 [ ] HIGification
 [ ] Improve welcome and error messages
 [ ] Disable comic list during comic loading
@@ -10,4 +10,4 @@
 [ ] Cache system
 [ ] Improve the feedback: statusbar
 [ ] Debug system
-
+[X] Disable Comic -> properties when no comic selected
