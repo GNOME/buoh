@@ -55,60 +55,65 @@ static void buoh_window_class_init                  (BuohWindowClass *klass);
 static void buoh_window_finalize                    (GObject *object);
 
 /* Callbacks */
-static void buoh_window_menu_quit_cb                (GtkMenuItem     *menuitem,
-						     gpointer         gdata);
-static void buoh_window_menu_add_cb                 (GtkMenuItem     *menuitem,
-						     gpointer         gdata);
-static void buoh_window_menu_zoom_in_cb             (GtkMenuItem     *menuitem,
-						     gpointer         gdata);
-static void buoh_window_menu_zoom_out_cb            (GtkMenuItem     *menuitem,
-						     gpointer         gdata);
-static void buoh_window_menu_normal_size_cb         (GtkMenuItem     *menuitem,
-						     gpointer         gdata);
-static void buoh_window_menu_about_cb               (GtkMenuItem     *menuitem,
-						     gpointer         gdata);
-static void buoh_window_toolbar_zoom_in_cb          (GtkToolButton   *toolbutton,
-						     gpointer         gdata);
-static void buoh_window_toolbar_zoom_out_cb         (GtkToolButton   *toolbutton,
-						     gpointer         gdata);
-static void buoh_window_toolbar_normal_size_cb      (GtkToolButton   *toolbutton,
-						     gpointer         gdata);
-static void buoh_window_toolbar_previous_cb         (GtkToolButton   *toolbutton,
-						     gpointer         gdata);
-static void buoh_window_toolbar_next_cb             (GtkToolButton   *toolbutton,
-						     gpointer         gdata);
-static void buoh_window_view_status_change_cb       (GObject         *object,
-						     GParamSpec      *arg,
-						     gpointer         gdata);
-static void buoh_window_view_comic_change_cb        (GObject         *object,
-						     GParamSpec      *arg,
-						     gpointer         gdata);
-static void buoh_window_view_zoom_change_cb         (GObject         *object,
-						     GParamSpec      *arg,
-						     gpointer         gdata);
-static gboolean buoh_window_comic_list_button_press_cb (GtkWidget *widget,
+static void buoh_window_menu_quit_cb                   (GtkMenuItem    *menuitem,
+							gpointer        gdata);
+static void buoh_window_menu_add_cb                    (GtkMenuItem    *menuitem,
+							gpointer        gdata);
+static void buoh_window_menu_properties_cb             (GtkMenuItem    *menuitem,
+							gpointer        gdata);
+static void buoh_window_menu_zoom_in_cb                (GtkMenuItem    *menuitem,
+							gpointer        gdata);
+static void buoh_window_menu_zoom_out_cb               (GtkMenuItem    *menuitem,
+							gpointer        gdata);
+static void buoh_window_menu_normal_size_cb            (GtkMenuItem    *menuitem,
+							gpointer        gdata);
+static void buoh_window_menu_about_cb                  (GtkMenuItem    *menuitem,
+							gpointer        gdata);
+static void buoh_window_toolbar_zoom_in_cb             (GtkToolButton  *toolbutton,
+							gpointer        gdata);
+static void buoh_window_toolbar_zoom_out_cb            (GtkToolButton  *toolbutton,
+							gpointer        gdata);
+static void buoh_window_toolbar_normal_size_cb         (GtkToolButton  *toolbutton,
+							gpointer        gdata);
+static void buoh_window_toolbar_previous_cb            (GtkToolButton  *toolbutton,
+							gpointer        gdata);
+static void buoh_window_toolbar_next_cb                (GtkToolButton  *toolbutton,
+							gpointer        gdata);
+static void buoh_window_view_status_change_cb          (GObject        *object,
+							GParamSpec     *arg,
+							gpointer        gdata);
+static void buoh_window_view_comic_change_cb           (GObject        *object,
+							GParamSpec     *arg,
+							gpointer        gdata);
+static void buoh_window_view_zoom_change_cb            (GObject        *object,
+							GParamSpec     *arg,
+							gpointer        gdata);
+static gboolean buoh_window_comic_list_button_press_cb (GtkWidget      *widget,
 							GdkEventButton *event,
-							gpointer gdata);
-static void     buoh_window_popup_properties_cb        (GtkWidget *widget, gpointer gdata);
-static void     buoh_window_popup_delete_cb            (GtkWidget *widget, gpointer gdata);
-static void     buoh_window_popup_copy_uri_cb          (GtkWidget *widget, gpointer gdata);
+							gpointer        gdata);
+static void     buoh_window_popup_properties_cb        (GtkWidget      *widget,
+							gpointer        gdata);
+static void     buoh_window_popup_delete_cb            (GtkWidget      *widget,
+							gpointer        gdata);
+static void     buoh_window_popup_copy_uri_cb          (GtkWidget      *widget,
+							gpointer        gdata);
 
 /* Sensitivity */
-static void buoh_window_set_sensitive               (BuohWindow      *window,
-						     const gchar     *name,
-						     gboolean         sensitive);
-static void buoh_window_previous_set_sensitive      (BuohWindow      *window,
-						     gboolean         sensitive);
-static void buoh_window_next_set_sensitive          (BuohWindow      *window,
-						     gboolean         sensitive);
-static void buoh_window_zoom_in_set_sensitive       (BuohWindow      *window,
-						     gboolean         sensitive);
-static void buoh_window_zoom_out_set_sensitive      (BuohWindow      *window,
-						     gboolean         sensitive);
-static void buoh_window_normal_size_set_sensitive   (BuohWindow      *window,
-						     gboolean         sensitive);
-static void buoh_window_comic_actions_set_sensitive (BuohWindow      *window,
-						     gboolean         sensitive);
+static void buoh_window_set_sensitive               (BuohWindow        *window,
+						     const gchar       *name,
+						     gboolean           sensitive);
+static void buoh_window_previous_set_sensitive      (BuohWindow        *window,
+						     gboolean           sensitive);
+static void buoh_window_next_set_sensitive          (BuohWindow        *window,
+						     gboolean           sensitive);
+static void buoh_window_zoom_in_set_sensitive       (BuohWindow        *window,
+						     gboolean           sensitive);
+static void buoh_window_zoom_out_set_sensitive      (BuohWindow        *window,
+						     gboolean           sensitive);
+static void buoh_window_normal_size_set_sensitive   (BuohWindow        *window,
+						     gboolean           sensitive);
+static void buoh_window_comic_actions_set_sensitive (BuohWindow        *window,
+						     gboolean           sensitive);
 
 /* popup menu values */
 static GtkActionEntry popup_menu_items [] = {
@@ -235,6 +240,10 @@ buoh_window_init (BuohWindow *buoh_window)
 	widget = glade_xml_get_widget (buoh_window->priv->gui, "menu_add");
 	g_signal_connect (G_OBJECT (widget), "activate",
 			  G_CALLBACK (buoh_window_menu_add_cb),
+			  (gpointer) buoh_window);
+	widget = glade_xml_get_widget (buoh_window->priv->gui, "menu_properties");
+	g_signal_connect (G_OBJECT (widget), "activate",
+			  G_CALLBACK (buoh_window_menu_properties_cb),
 			  (gpointer) buoh_window);
 	widget = glade_xml_get_widget (buoh_window->priv->gui, "menu_zoom_in");
 	g_signal_connect (G_OBJECT (widget), "activate",
@@ -365,6 +374,31 @@ buoh_window_menu_add_cb (GtkMenuItem *menuitem, gpointer gdata)
 	}
 
 	gtk_widget_show (window->priv->add_dialog);
+}
+
+static void
+buoh_window_menu_properties_cb (GtkMenuItem *menuitem, gpointer gdata)
+{
+	BuohWindow *window = BUOH_WINDOW (gdata);
+	BuohComic  *comic = NULL;
+
+	g_object_get (G_OBJECT (window->priv->view),
+		      "comic", &comic,
+		      NULL);
+
+	if (comic) {
+		if (!window->priv->properties) {
+			window->priv->properties = buoh_properties_dialog_new ();
+			buoh_properties_dialog_set_comic (BUOH_PROPERTIES_DIALOG (window->priv->properties),
+							  comic);
+			g_object_add_weak_pointer (G_OBJECT (window->priv->properties),
+						   (gpointer *) &(window->priv->properties));
+			gtk_window_set_transient_for (GTK_WINDOW (window->priv->properties),
+						      GTK_WINDOW (window));
+		}
+
+		gtk_widget_show (window->priv->properties);
+	}
 }
 
 static void
@@ -520,6 +554,7 @@ buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 	buoh_window_zoom_in_set_sensitive (window, sensitive);
 	buoh_window_zoom_out_set_sensitive (window, sensitive);
 	buoh_window_normal_size_set_sensitive (window, sensitive);
+	buoh_window_set_sensitive (window, "menu_properties", sensitive);
 }
 
 static void

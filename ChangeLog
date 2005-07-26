@@ -1,5 +1,11 @@
 2005-07-26  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* src/buoh-window.c: Add callback for the properties comic menu item
+
+	* TODO: updated
+
+2005-07-26  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* interfaces/buoh.glade: Remove Edit menu. Move Properties menuitem
 	from Edit to Comic menu
 
