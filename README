@@ -1,0 +1,17 @@
+-- What is Buoh? --
+Buoh aims to help the comic lovers by providing an easy way of browsing and reading their favourites online comic stripes.
+
+
+Web: http://forge.novell.com/modules/xfmod/project/?buoh
+
+Mailing list: buoh-dev@forge.novell.com - For discussions about the
+	                                  development of Buoh itself.
+
+
+-- License --
+Buoh is distributed under the GNU General Public License (GPL), as described
+in the 'COPYING' file.
+
+-- Installation --
+See the 'INSTALL' file
+
