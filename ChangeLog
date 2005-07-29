@@ -1,3 +1,8 @@
+2005-07-29  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-view.c: Remove buoh_view_check_comic_uri, it's slow and we
+	don't really need it
+
 2005-07-27  Esteban Sanchez <esteban@steve-o.org>
 
 	* NEWS, AUTHORS, MANTAINERS, README: Updated
