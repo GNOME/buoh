@@ -195,7 +195,10 @@ buoh_comic_list_new (void)
 	GtkWidget *buoh_comic_list;
 
 	buoh_comic_list = GTK_WIDGET (g_object_new (BUOH_TYPE_COMIC_LIST,
-						    "label", _("Comic List"), /* FIXME: markup */
+						    "label", _("Comic list"),
+						    "shadow_type", GTK_SHADOW_NONE,
+						    "border-width", 5, 
+/* FIXME: markup */
 						    NULL));
 	return buoh_comic_list;
 }
