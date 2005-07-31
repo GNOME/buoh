@@ -13,6 +13,7 @@ buoh_SOURCES = 							\
 	buoh-comic.h buoh-comic.c				\
 	comic-simple.h comic-simple.c				\
 	buoh-window.h buoh-window.c				\
+	buoh-comic-loader.h buoh-comic-loader.c			\
 	buoh-view.h buoh-view.c					\
 	buoh-comic-list.h buoh-comic-list.c			\
 	buoh-properties-dialog.h buoh-properties-dialog.c	\
