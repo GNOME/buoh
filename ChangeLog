@@ -1,3 +1,8 @@
+2005-07-31  Esteban Sanchez  <esteban@steve-o.org>
+
+	* src/buoh-comic-list.c: Change label to "Comic list".
+	Remove the shadow of the GtkFrame and added a border.
+
 2005-07-30  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* src/Makefile.am:
