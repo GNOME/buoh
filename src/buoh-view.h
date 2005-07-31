@@ -37,16 +37,11 @@ typedef struct _BuohViewPrivate BuohViewPrivate;
 #define BUOH_IS_VIEW_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_VIEW))
 #define BUOH_VIEW_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_VIEW, BuohViewClass))
 
-#define BUOH_TYPE_VIEW_STATUS     (buoh_view_status_get_type())
-#define BUOH_VIEW_STATUS_CLASS    (g_type_class_peek (BUOH_TYPE_VIEW_STATUS))
-
-typedef enum {
-	VIEW_STATE_INIT,
-	VIEW_STATE_ERROR,
-	VIEW_STATE_EMPTY,
-	VIEW_STATE_LOADED,
-	VIEW_STATE_LOADING
-} BuohViewStatus;
+enum {
+	VIEW_PAGE_IMAGE,
+	VIEW_PAGE_MESSAGE,
+	VIEW_PAGE_EMPTY
+};
 
 struct _BuohView {
 	GtkNotebook      parent;
@@ -71,7 +66,6 @@ void           buoh_view_normal_size     (BuohView *view);
 void           buoh_view_set_comic       (BuohView *view, BuohComic *comic);
 BuohComic     *buoh_view_get_comic       (BuohView *view);
 
-BuohViewStatus buoh_view_get_status      (BuohView *view);
 void           buoh_view_clear           (BuohView *view);
 
 G_END_DECLS

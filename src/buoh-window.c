@@ -79,8 +79,9 @@ static void buoh_window_toolbar_previous_cb            (GtkToolButton  *toolbutt
 							gpointer        gdata);
 static void buoh_window_toolbar_next_cb                (GtkToolButton  *toolbutton,
 							gpointer        gdata);
-static void buoh_window_view_status_change_cb          (GObject        *object,
-							GParamSpec     *arg,
+static void buoh_window_view_change_current_page_cb    (BuohView       *view,
+							GtkNotebookPage *p,
+							gint            page,
 							gpointer        gdata);
 static void buoh_window_view_comic_change_cb           (GObject        *object,
 							GParamSpec     *arg,
@@ -199,8 +200,8 @@ buoh_window_init (BuohWindow *buoh_window)
 
 	/* buoh view */
 	buoh_window->priv->view = BUOH_VIEW (buoh_view_new ());
-	g_signal_connect (G_OBJECT (buoh_window->priv->view), "notify::status",
-			  G_CALLBACK (buoh_window_view_status_change_cb),
+	g_signal_connect (G_OBJECT (buoh_window->priv->view), "switch-page",
+			  G_CALLBACK (buoh_window_view_change_current_page_cb),
 			  (gpointer) buoh_window);
 	g_signal_connect (G_OBJECT (buoh_window->priv->view), "notify::comic",
 			  G_CALLBACK (buoh_window_view_comic_change_cb),
@@ -558,23 +559,24 @@ buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 }
 
 static void
-buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gdata)
+buoh_window_view_change_current_page_cb (BuohView *view, GtkNotebookPage *p,
+					 gint page, gpointer gdata)
 {
 	BuohWindow *window = BUOH_WINDOW (gdata);
 	BuohComic  *comic = NULL;
 
-	switch (buoh_view_get_status (window->priv->view)) {
-	case VIEW_STATE_INIT:
-	case VIEW_STATE_ERROR:
-	case VIEW_STATE_EMPTY:
-		buoh_window_comic_actions_set_sensitive (window, FALSE);
-		break;
-	default:
-		g_object_get (G_OBJECT (window->priv->view),
+	g_debug ("Page: %d", page);
+	
+	switch (page) {
+	case VIEW_PAGE_IMAGE:
+		g_object_get (G_OBJECT (view),
 			      "comic", &comic, NULL);
 
 		buoh_window_comic_actions_set_sensitive (window,
 							 (comic) ? TRUE : FALSE);
+		break;
+	default:
+		buoh_window_comic_actions_set_sensitive (window, FALSE);
 	}
 }
 
@@ -583,10 +585,8 @@ buoh_window_view_comic_change_cb (GObject *object, GParamSpec *arg, gpointer gda
 {
 	BuohWindow     *window = BUOH_WINDOW (gdata);
 	BuohComic      *comic = NULL;
-	BuohViewStatus  status;
 
-	status = buoh_view_get_status (window->priv->view);
-	if (status == VIEW_STATE_LOADED || status == VIEW_STATE_LOADING) {
+	if (gtk_notebook_get_current_page (GTK_NOTEBOOK (window->priv->view)) == VIEW_PAGE_IMAGE) {
 		g_object_get (G_OBJECT (window->priv->view),
 			      "comic", &comic, NULL);
 

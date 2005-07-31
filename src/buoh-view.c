@@ -24,27 +24,21 @@
 #include <libgnomevfs/gnome-vfs.h>
 
 #include "buoh-view.h"
+#include "buoh-comic-loader.h"
 
 enum {
         PROP_0,
         PROP_COMIC,
-        PROP_SCALE,
-        PROP_STATUS
-};
-
-enum {
-        VIEW_PAGE_IMAGE,
-        VIEW_PAGE_MESSAGE,
-        VIEW_PAGE_EMPTY
+        PROP_SCALE
 };
 
 struct _BuohViewPrivate {
         GtkWidget       *viewport;
         BuohComic       *comic;
         gdouble          scale;
-        GdkPixbufLoader *pixbuf_loader;
         gchar           *message;
-        BuohViewStatus   status;
+	guint            load_monitor;
+	BuohComicLoader *comic_loader;
 };
 
 #define BUOH_VIEW_GET_PRIVATE(object) \
@@ -77,23 +71,17 @@ static void bouh_view_comic_changed_cb       (GObject       *object,
                                               gpointer       gdata);
 
 static void buoh_view_update                 (BuohView      *view);
-static gboolean buoh_view_update_image       (gpointer       gdata);
+static void buoh_view_update_image           (BuohView      *view);
 static void buoh_view_update_message         (BuohView      *view);
 
 static void buoh_view_zoom                   (BuohView      *view,
                                               gdouble        factor,
                                               gboolean       relative);
 
+static void buoh_view_clear_image            (BuohView      *view);
 static void buoh_view_set_image_from_pixbuf  (BuohView      *view,
-                                              GtkWidget     *image,
                                               GdkPixbuf     *pixbuf);
-static void buoh_view_loading_comic          (GtkWidget     *widget,
-                                              gint           x,
-                                              gint           y,
-                                              gint           width,
-                                              gint           height,
-                                              gpointer      *gdata);
-static gboolean buoh_view_load_comic         (BuohView      *view);
+static void buoh_view_load_comic             (BuohView      *view);
 
 GType
 buoh_view_get_type ()
@@ -120,27 +108,6 @@ buoh_view_get_type ()
         return type;
 }
 
-GType
-buoh_view_status_get_type (void)
-{
-        static GType type = 0;
-        
-        if (!type) {
-                static const GEnumValue values[] = {
-                        { VIEW_STATE_INIT,    "VIEW_STATE_INIT",    "init" },
-                        { VIEW_STATE_ERROR,   "VIEW_STATE_ERROR",   "error" },
-                        { VIEW_STATE_EMPTY,   "VIEW_STATE_EMPTY",   "empty" },
-                        { VIEW_STATE_LOADED,  "VIEW_STATE_LOADED",  "loaded" },
-                        { VIEW_STATE_LOADING, "VIEW_STATE_LOADING", "loading" },
-                        { 0, NULL, NULL }
-                };
-                
-                type = g_enum_register_static ("BuohViewStatus", values);
-        }
-        
-        return type;
-}
-
 static void
 buoh_view_init (BuohView *buoh_view)
 {
@@ -152,9 +119,9 @@ buoh_view_init (BuohView *buoh_view)
         
         buoh_view->priv->scale = 1.0;
         buoh_view->priv->comic = NULL;
-        buoh_view->priv->status = VIEW_STATE_INIT;
-        buoh_view->priv->pixbuf_loader = NULL;
-        
+	buoh_view->priv->load_monitor = 0;
+	buoh_view->priv->comic_loader = buoh_comic_loader_new ();
+
         /* View port */
         swindow = gtk_scrolled_window_new (NULL, NULL);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
@@ -239,14 +206,6 @@ buoh_view_class_init (BuohViewClass *klass)
                                                               MAX_ZOOM_SCALE,
                                                               1.0,
                                                               G_PARAM_READWRITE));
-        g_object_class_install_property (object_class,
-                                         PROP_STATUS,
-                                         g_param_spec_enum ("status",
-                                                            "Status",
-                                                            "Current View status",
-                                                            BUOH_TYPE_VIEW_STATUS,
-                                                            VIEW_STATE_INIT,
-                                                            G_PARAM_READWRITE));
 
         object_class->finalize = buoh_view_finalize;
 }
@@ -265,6 +224,11 @@ buoh_view_finalize (GObject *object)
                 view->priv->message = NULL;
         }
 
+	if (view->priv->load_monitor > 0) {
+		g_source_remove (view->priv->load_monitor);
+		view->priv->load_monitor = 0;
+	}
+
         if (G_OBJECT_CLASS (parent_class)->finalize)
                 (* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
@@ -279,10 +243,10 @@ buoh_view_destroy (GtkObject *object)
                 view->priv->comic = NULL;
         }
 
-        if (view->priv->pixbuf_loader) {
-                g_object_unref (view->priv->pixbuf_loader);
-                view->priv->pixbuf_loader = NULL;
-        }
+	if (view->priv->comic_loader) {
+		g_object_unref (view->priv->comic_loader);
+		view->priv->comic_loader = NULL;
+	}
 
         if (GTK_OBJECT_CLASS (parent_class)->destroy)
                 (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -309,10 +273,6 @@ buoh_view_set_property (GObject       *object,
                 view->priv->scale = g_value_get_double (value);
 
                 break;
-        case PROP_STATUS:
-                view->priv->status = g_value_get_enum (value);
-
-                break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
         }
@@ -335,10 +295,6 @@ buoh_view_get_property (GObject       *object,
                 g_value_set_double (value, view->priv->scale);
 
                 break;
-        case PROP_STATUS:
-                g_value_set_enum (value, view->priv->status);
-
-                break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
         }
@@ -358,7 +314,7 @@ buoh_view_new (void)
 static void
 bouh_view_comic_changed_cb (GObject *object, GParamSpec *arg, gpointer gdata)
 {
-        BuohView *view = BUOH_VIEW (object);
+        BuohView  *view = BUOH_VIEW (object);
 
         gtk_notebook_set_current_page (GTK_NOTEBOOK (view), VIEW_PAGE_IMAGE);
         
@@ -366,172 +322,147 @@ bouh_view_comic_changed_cb (GObject *object, GParamSpec *arg, gpointer gdata)
 }
 
 static void
-buoh_view_set_image_from_pixbuf (BuohView *view, GtkWidget *image, GdkPixbuf *pixbuf)
+buoh_view_clear_image (BuohView *view)
+{
+	GtkWidget *image;
+
+	image = gtk_bin_get_child (GTK_BIN (view->priv->viewport));
+	gtk_image_clear (GTK_IMAGE (image));
+	gtk_widget_show (image);
+}
+
+static void
+buoh_view_set_image_from_pixbuf (BuohView *view, GdkPixbuf *pixbuf)
 {
         GdkPixbuf *new_pixbuf;
+	GtkWidget *image;
 
-        new_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
-                                              gdk_pixbuf_get_width (pixbuf) * view->priv->scale,
-                                              gdk_pixbuf_get_height (pixbuf) * view->priv->scale,
-                                              GDK_INTERP_BILINEAR);
-        g_object_unref (pixbuf);
+	g_return_if_fail (GDK_IS_PIXBUF (pixbuf));
+	
+	image = gtk_bin_get_child (GTK_BIN (view->priv->viewport));
+	
+	if (view->priv->scale != 1.0) {
+		new_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
+						      gdk_pixbuf_get_width (pixbuf) * view->priv->scale,
+						      gdk_pixbuf_get_height (pixbuf) * view->priv->scale,
+						      GDK_INTERP_BILINEAR);
+		
+		gtk_image_set_from_pixbuf (GTK_IMAGE (image), new_pixbuf);
 
-        gtk_image_set_from_pixbuf (GTK_IMAGE (image), new_pixbuf);
-
-        g_object_unref (new_pixbuf);
+		g_object_unref (new_pixbuf);
+	} else {
+		gtk_image_set_from_pixbuf (GTK_IMAGE (image), pixbuf);
+	}
 
         gtk_widget_show (image);
 }
 
-static void
-buoh_view_loading_comic (GtkWidget *widget, gint x, gint y,
-                         gint width, gint height, gpointer *gdata)
+static gboolean 
+buoh_view_comic_load_monitor (gpointer gdata)
 {
-        BuohView  *view = BUOH_VIEW (gdata);
-        GtkWidget *image;
-        GdkPixbuf *pixbuf;
+	BuohView *view = BUOH_VIEW (gdata);
+	static GdkCursor *cursor = NULL;
+	
+	switch (view->priv->comic_loader->status) {
+	case LOADER_STATE_READY:
+		return TRUE;
+	case LOADER_STATE_RUNNING:
+		/* Watch cursor */
+		if (!cursor) {
+			cursor = gdk_cursor_new (GDK_WATCH);
+			if (!GTK_WIDGET_REALIZED (view->priv->viewport))
+				gtk_widget_realize (GTK_WIDGET (view->priv->viewport));
+			gdk_window_set_cursor (view->priv->viewport->window, cursor);
+		}
+	
+		if (GDK_IS_PIXBUF (view->priv->comic_loader->pixbuf)) {
+			g_mutex_lock (view->priv->comic_loader->pixbuf_mutex);
+			buoh_view_set_image_from_pixbuf (view, g_object_ref (view->priv->comic_loader->pixbuf));
+			g_mutex_unlock (view->priv->comic_loader->pixbuf_mutex);
+		}
 
-        image = gtk_bin_get_child (GTK_BIN (view->priv->viewport));
-        pixbuf = gdk_pixbuf_loader_get_pixbuf (view->priv->pixbuf_loader);
+		return TRUE;
+	case LOADER_STATE_FINISHED:
+		if (GDK_IS_PIXBUF (view->priv->comic_loader->pixbuf)) {
+			g_mutex_lock (view->priv->comic_loader->pixbuf_mutex);
+			buoh_view_set_image_from_pixbuf (view, view->priv->comic_loader->pixbuf);
+			buoh_comic_set_pixbuf (view->priv->comic, view->priv->comic_loader->pixbuf);
+			g_mutex_unlock (view->priv->comic_loader->pixbuf_mutex);
+		}
+	case LOADER_STATE_STOPPING:
+		if (cursor) {
+			gdk_window_set_cursor (view->priv->viewport->window, NULL);
+			gdk_cursor_unref (cursor);
+			cursor = NULL;
+		}
 
-        if (view->priv->scale != 1.0) {
-                buoh_view_set_image_from_pixbuf (view, image, pixbuf);
-        } else {
-                gtk_image_set_from_pixbuf (GTK_IMAGE (image), pixbuf);
-                /* FIXME; unref pixbuf??? */
-                gtk_widget_show (image);
-        }
+		g_debug ("Monitor exit");
+		
+		return FALSE;
+	case LOADER_STATE_FAILED:
+		if (view->priv->message) {
+			g_free (view->priv->message);
+		}
+
+		view->priv->message = g_strdup ("Error loading comic");
+		gtk_notebook_set_current_page (GTK_NOTEBOOK (view), VIEW_PAGE_MESSAGE);
+		buoh_view_update_message (view);
+
+		g_debug ("Monitor exit");
+		
+		return FALSE;
+	default:
+		g_debug ("Monitor exit");
+		
+		return FALSE;
+		
+	}		
 }
 
-static gboolean
+static void
 buoh_view_load_comic (BuohView *view)
 {
-        GnomeVFSHandle   *read_handle;
-        GnomeVFSResult    result;
-        GnomeVFSFileSize  bytes_read;
-        guint             buffer[2048];
-        GdkCursor        *cursor;
-        gchar            *uri;
+	GdkPixbuf *pixbuf;
+	gchar     *uri;
 
-        uri = buoh_comic_get_uri (view->priv->comic);
+	if (view->priv->comic_loader->status == LOADER_STATE_RUNNING) {
+		g_debug ("Load already running");
+		buoh_comic_loader_stop (view->priv->comic_loader);
+		g_debug ("waiting thread");
+		g_thread_join (view->priv->comic_loader->thread);
+		g_debug ("died");
+	}
 
-        /* Open the comic from URI */
-        result = gnome_vfs_open (&read_handle, uri, GNOME_VFS_OPEN_READ);
+	/* Finish the load monitor */
+	while (gtk_events_pending ())
+		gtk_main_iteration ();
 
-        if (result != GNOME_VFS_OK) {
-                g_print ("Error %d - %s\n", result,
-                         gnome_vfs_result_to_string (result));
-                
-                g_free (uri);
-
-                return FALSE;
-        } else {
-                g_object_set (G_OBJECT (view),
-                              "status", VIEW_STATE_LOADING,
-                              NULL);
-                
-                /* Watch cursor */
-                cursor = gdk_cursor_new (GDK_WATCH);
-                if (!GTK_WIDGET_REALIZED (view->priv->viewport))
-                        gtk_widget_realize (GTK_WIDGET (view->priv->viewport));
-                gdk_window_set_cursor (view->priv->viewport->window, cursor);
-
-                if (GDK_IS_PIXBUF_LOADER (view->priv->pixbuf_loader)) {
-                        gdk_pixbuf_loader_close (view->priv->pixbuf_loader, NULL);
-                        g_object_unref (view->priv->pixbuf_loader);
-                        view->priv->pixbuf_loader = NULL;
-                }
-                view->priv->pixbuf_loader = gdk_pixbuf_loader_new ();
-                
-                /* Connect callback to signal of pixbuf update */
-                g_signal_connect (G_OBJECT (view->priv->pixbuf_loader), "area-updated",
-                                  G_CALLBACK (buoh_view_loading_comic),
-                                  (gpointer) view);
-                /* TODO */
-                /*g_signal_connect (G_OBJECT (view->priv->pixbuf_loader), "size-prepared",
-                  G_CALLBACK (buoh_view_loading_comic_resize),
-                  (gpointer) view);*/
-
-                /* Reading the file */
-                result = gnome_vfs_read (read_handle, buffer,
-                                         2048, &bytes_read);
-                
-                while ((result != GNOME_VFS_ERROR_EOF) &&
-                       (result == GNOME_VFS_OK)) {
-
-                        gdk_pixbuf_loader_write (view->priv->pixbuf_loader,
-                                                 (guchar *) buffer,
-                                                 bytes_read, NULL);
-
-                        while (gtk_events_pending ())
-                                gtk_main_iteration ();
-
-                        result = gnome_vfs_read (read_handle, buffer,
-                                                 2048, &bytes_read);
-                }
-
-                if (result != GNOME_VFS_ERROR_EOF)
-                        g_print ("Error %d - %s\n", result,
-                                 gnome_vfs_result_to_string (result));
-
-                gdk_pixbuf_loader_close (view->priv->pixbuf_loader, NULL);
-                gnome_vfs_close (read_handle);
-
-                buoh_comic_set_pixbuf (view->priv->comic,
-                                       gdk_pixbuf_loader_get_pixbuf (view->priv->pixbuf_loader));
-                
-                g_object_unref (view->priv->pixbuf_loader);
-                view->priv->pixbuf_loader = NULL;
-                
-                gdk_window_set_cursor (view->priv->viewport->window, NULL);
-                gdk_cursor_unref (cursor);
-
-                g_object_set (G_OBJECT (view),
-                              "status", VIEW_STATE_LOADED,
-                              NULL);
-        }
-
-        g_free (uri);
-        
-        return TRUE;
+	pixbuf = buoh_comic_get_pixbuf (view->priv->comic);
+	if (pixbuf) {
+		buoh_view_set_image_from_pixbuf (view, pixbuf);
+	} else {
+		uri = buoh_comic_get_uri (view->priv->comic);
+		buoh_comic_loader_run (view->priv->comic_loader, uri);
+		g_free (uri);
+		view->priv->load_monitor =
+			g_timeout_add (60,
+				       (GSourceFunc)buoh_view_comic_load_monitor,
+				       (gpointer)view);
+	}
 }
 
-static gboolean
-buoh_view_update_image (gpointer gdata)
+static void
+buoh_view_update_image (BuohView *view)
 {
-        BuohView  *view = BUOH_VIEW (gdata);
         GtkWidget *widget;
-        GdkPixbuf *pixbuf;
 
         widget = gtk_bin_get_child (GTK_BIN (view->priv->viewport));
         if (GTK_IS_IMAGE (widget)) {
                 if (view->priv->comic) {
-                        pixbuf = buoh_comic_get_pixbuf (view->priv->comic);
-
-                        if (!pixbuf) {
-                                if (!buoh_view_load_comic (view)) {
-                                        if (view->priv->message) {
-                                                g_free (view->priv->message);
-                                        }
-                                        
-                                        view->priv->message = g_strdup ("Error loading comic");
-                                        gtk_notebook_set_current_page (GTK_NOTEBOOK (view), VIEW_PAGE_MESSAGE);
-                                        buoh_view_update_message (view);
-                                        g_object_set (G_OBJECT (view),
-                                                      "status", VIEW_STATE_ERROR,
-                                                      NULL);
-                                }
-                        } else {
-                                buoh_view_set_image_from_pixbuf (view, widget, pixbuf);
-
-                                g_object_set (G_OBJECT (view),
-                                              "status", VIEW_STATE_LOADED,
-                                              NULL);
-                        }
+			buoh_view_clear_image (view);
+			buoh_view_load_comic (view);
                 }
         }
-
-        return FALSE;
 }
 
 static void
@@ -555,7 +486,7 @@ buoh_view_update (BuohView *view)
         g_return_if_fail (BUOH_IS_VIEW (view));
 
         if (gtk_notebook_get_current_page (GTK_NOTEBOOK (view)) == VIEW_PAGE_IMAGE) {
-                g_idle_add (buoh_view_update_image, (gpointer) view);
+		buoh_view_update_image (view);
         } else if (gtk_notebook_get_current_page (GTK_NOTEBOOK (view)) == VIEW_PAGE_MESSAGE) {
                 buoh_view_update_message (view);
         }
@@ -639,18 +570,8 @@ buoh_view_get_comic (BuohView *view)
         return comic;
 }
 
-BuohViewStatus
-buoh_view_get_status (BuohView *view)
-{
-        return view->priv->status;
-}
-
 void
 buoh_view_clear (BuohView *view)
 {
         gtk_notebook_set_current_page (GTK_NOTEBOOK (view), VIEW_PAGE_EMPTY);
-        
-        g_object_set (G_OBJECT (view),
-                      "status", VIEW_STATE_EMPTY,
-                      NULL);
 }

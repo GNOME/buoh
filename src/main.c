@@ -108,9 +108,14 @@ main (gint argc, gchar **argv)
 		return 1;
 	}
 
+	/* Init threads */
+	if (!g_thread_supported ()) {
+		g_thread_init (NULL);
+	}
+
 	buoh = buoh_new ();
 	buoh_create_main_window (buoh);
-		   
+
 	gtk_main ();
 	   
 	return 0;
