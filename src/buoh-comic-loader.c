@@ -91,6 +91,17 @@ buoh_comic_loader_finalize (GObject *object)
 		loader->uri = NULL;
 	}
 
+	switch (loader->status) {
+	case LOADER_STATE_RUNNING:
+		buoh_comic_loader_stop (loader);
+		/* Do not break! */
+	case LOADER_STATE_STOPPING:
+		g_thread_join (loader->thread);
+		break;
+	default:
+		break;
+	}
+	
 	if (loader->thread_mutex) {
 		g_mutex_free (loader->thread_mutex);
 		loader->thread_mutex = NULL;
