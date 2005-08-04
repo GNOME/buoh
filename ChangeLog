@@ -1,3 +1,9 @@
+2005-08-04  Esteban Sanchez  <esteban@steve-o.org>
+
+	* src/buoh-comic-loader.c: Resolve a bug on threads
+	when the application was closed and a comic was
+	already loading.
+
 2005-07-31  Esteban Sanchez  <esteban@steve-o.org>
 
 	* src/buoh-comic-list.c: Change label to "Comic list".
