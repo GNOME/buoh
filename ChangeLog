@@ -1,3 +1,21 @@
+2005-08-05  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* AUTHORS: Added myself
+
+	* TODO: Updated
+
+	* configure.in: We depends now on GTK+ 2.7.0
+
+	* src/Makefile.am:
+	* src/buoh-view-message.[ch]: Added
+	* src/buoh-view.[ch]: Remove view status
+
+	Add new widget for the messages view.
+
+	* src/buoh-comic-list.c: Remove frame border and use markup in the
+	title label. Implement size_request and size_allocate in order to get
+	some extra width for the list.
+
 2005-08-04  Esteban Sanchez  <esteban@steve-o.org>
 
 	* src/buoh-comic-loader.c: Resolve a bug on threads

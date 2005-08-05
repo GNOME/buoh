@@ -181,8 +181,6 @@ buoh_window_init (BuohWindow *buoh_window)
 	gtk_window_set_icon_from_file (GTK_WINDOW (buoh_window), icon_path, NULL);
 	g_free (icon_path);
 
-	gtk_window_set_default_size (GTK_WINDOW (buoh_window), 600, 300);
-
 	/* Reparent window */
 	widget = glade_xml_get_widget (buoh_window->priv->gui, "main_box");
 	parent = glade_xml_get_widget (buoh_window->priv->gui, "main_window");
@@ -209,13 +207,15 @@ buoh_window_init (BuohWindow *buoh_window)
 	g_signal_connect (G_OBJECT (buoh_window->priv->view), "notify::scale",
 			  G_CALLBACK (buoh_window_view_zoom_change_cb),
 			  (gpointer) buoh_window);
-	gtk_paned_add2 (GTK_PANED (widget), GTK_WIDGET (buoh_window->priv->view));
+	gtk_paned_pack2 (GTK_PANED (widget), GTK_WIDGET (buoh_window->priv->view),
+			 TRUE, FALSE);
 	gtk_widget_show (GTK_WIDGET (buoh_window->priv->view));
 
 	/* buoh comic list */
 	buoh_window->priv->comic_list = BUOH_COMIC_LIST (buoh_comic_list_new ());
 	buoh_comic_list_set_view (buoh_window->priv->comic_list, buoh_window->priv->view);
-	gtk_paned_add1 (GTK_PANED (widget), GTK_WIDGET (buoh_window->priv->comic_list));
+	gtk_paned_pack1 (GTK_PANED (widget), GTK_WIDGET (buoh_window->priv->comic_list),
+			 FALSE, TRUE);
 	gtk_widget_show (GTK_WIDGET (buoh_window->priv->comic_list));
 
 	action_group = gtk_action_group_new ("MenuActions");
@@ -440,7 +440,7 @@ buoh_window_menu_about_cb (GtkMenuItem *menuitem, gpointer gdata)
 	};
 	
 	pixbuf_path = g_build_filename (PIXMAPS_DIR, "buoh64x64.png", NULL);
-	pixbuf = gdk_pixbuf_new_from_file_at_size (pixbuf_path, 64, 64, NULL);
+	pixbuf = gdk_pixbuf_new_from_file_at_size (pixbuf_path, 48, 48, NULL);
 	g_free (pixbuf_path);
 	
 	gtk_show_about_dialog (GTK_WINDOW (window),
@@ -565,8 +565,6 @@ buoh_window_view_change_current_page_cb (BuohView *view, GtkNotebookPage *p,
 	BuohWindow *window = BUOH_WINDOW (gdata);
 	BuohComic  *comic = NULL;
 
-	g_debug ("Page: %d", page);
-	
 	switch (page) {
 	case VIEW_PAGE_IMAGE:
 		g_object_get (G_OBJECT (view),
