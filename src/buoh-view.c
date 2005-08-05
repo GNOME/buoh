@@ -24,6 +24,7 @@
 #include <libgnomevfs/gnome-vfs.h>
 
 #include "buoh-view.h"
+#include "buoh-view-message.h"
 #include "buoh-comic-loader.h"
 
 enum {
@@ -34,9 +35,12 @@ enum {
 
 struct _BuohViewPrivate {
         GtkWidget       *viewport;
+
+	GtkWidget       *message;
+	
         BuohComic       *comic;
         gdouble          scale;
-        gchar           *message;
+	
 	guint            load_monitor;
 	BuohComicLoader *comic_loader;
 };
@@ -143,20 +147,30 @@ buoh_view_init (BuohView *buoh_view)
         gtk_widget_show (swindow);
 
         /* Message view */
-        buoh_view->priv->message = g_strdup (_("Welcome to <b>Buoh</b>, a comics reader for GNOME.\n"
-                                               "The panel on the left shows your favourite comics. In "
-                                               "the right the comic will be displayed when a comic is "
-                                               "selected. To add or remove a comic select Add on the menu."));
-        label = gtk_label_new (NULL);
-        gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
-        g_object_set (G_OBJECT (label),
-                      "xalign", 0.5,
-                      "yalign", 0.5,
-                      NULL);
-        gtk_label_set_markup (GTK_LABEL (label), buoh_view->priv->message);
-        gtk_notebook_insert_page (GTK_NOTEBOOK (buoh_view), label,
+	swindow = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
+					GTK_POLICY_NEVER,
+					GTK_POLICY_NEVER);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (swindow),
+					     GTK_SHADOW_NONE);
+	buoh_view->priv->message = buoh_view_message_new ();
+	buoh_view_message_set_title (BUOH_VIEW_MESSAGE (buoh_view->priv->message),
+				     _("Buoh Comics Reader"));
+	buoh_view_message_set_text (BUOH_VIEW_MESSAGE (buoh_view->priv->message),
+				    _("Welcome to <b>Buoh</b>, the comics browser for GNOME Desktop.\n"
+				      "The list on the left panel contains your favourite comics, "
+				      "to add or remove comics to the list click on Comic -> Add. "
+				      "Just select a comic from the list, and it will be displayed "
+				      "on the right side. Thanks for using Buoh."));
+	buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (buoh_view->priv->message),
+				    "buoh64x64.png");
+	gtk_container_add (GTK_CONTAINER (swindow),
+			   buoh_view->priv->message);
+	gtk_widget_show (buoh_view->priv->message);
+	
+        gtk_notebook_insert_page (GTK_NOTEBOOK (buoh_view), swindow,
                                   NULL, VIEW_PAGE_MESSAGE);
-        gtk_widget_show (label);
+        gtk_widget_show (swindow);
 
         /* Empty view */
         label = gtk_label_new (NULL);
@@ -164,6 +178,7 @@ buoh_view_init (BuohView *buoh_view)
                                   NULL, VIEW_PAGE_EMPTY);
         gtk_widget_show (label);
 
+	
         gtk_notebook_set_current_page (GTK_NOTEBOOK (buoh_view), VIEW_PAGE_MESSAGE);
 
         /* Callbacks */
@@ -218,11 +233,6 @@ buoh_view_finalize (GObject *object)
         g_return_if_fail (BUOH_IS_VIEW (object));
 
         g_debug ("buoh-view finalize\n");
-
-        if (view->priv->message) {
-                g_free (view->priv->message);
-                view->priv->message = NULL;
-        }
 
 	if (view->priv->load_monitor > 0) {
 		g_source_remove (view->priv->load_monitor);
@@ -400,11 +410,15 @@ buoh_view_comic_load_monitor (gpointer gdata)
 		
 		return FALSE;
 	case LOADER_STATE_FAILED:
-		if (view->priv->message) {
-			g_free (view->priv->message);
-		}
-
-		view->priv->message = g_strdup ("Error loading comic");
+		buoh_view_message_set_title (BUOH_VIEW_MESSAGE (view->priv->message),
+					     _("Error Loading Comic"));
+		buoh_view_message_set_text (BUOH_VIEW_MESSAGE (view->priv->message),
+					    _("There has been an error when loading the comic. "
+					      "It use to be due to an error on the remote server. "
+					      "Please, try again later."));
+		buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (view->priv->message),
+					    GTK_STOCK_DIALOG_ERROR);
+		
 		gtk_notebook_set_current_page (GTK_NOTEBOOK (view), VIEW_PAGE_MESSAGE);
 		buoh_view_update_message (view);
 
@@ -472,9 +486,7 @@ buoh_view_update_message (BuohView *view)
 
         if (view->priv->message) {
                 widget = gtk_notebook_get_nth_page (GTK_NOTEBOOK (view), VIEW_PAGE_MESSAGE);
-                if (GTK_IS_LABEL (widget)) {
-                        gtk_label_set_text (GTK_LABEL (widget),
-                                            view->priv->message);
+                if (BUOH_IS_VIEW_MESSAGE (widget)) {
                         gtk_widget_show (widget);
                 }
         }

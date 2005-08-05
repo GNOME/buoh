@@ -154,10 +154,6 @@ buoh_comic_loader_run_thread (gpointer gdata)
 
 	g_debug ("comic_load_thread");
 
-/*	g_mutex_lock (loader->status_mutex);
-	loader->status = LOADER_STATE_RUNNING;
-	g_mutex_unlock (loader->status_mutex);*/
-
 	result = gnome_vfs_open (&read_handle, loader->uri, GNOME_VFS_OPEN_READ);
 	g_free (loader->uri);
 	loader->uri = NULL;

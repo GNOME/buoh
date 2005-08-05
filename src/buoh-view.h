@@ -53,7 +53,6 @@ struct _BuohViewClass {
 };
 
 GType          buoh_view_get_type        (void);
-GType          buoh_view_status_get_type (void);
 GtkWidget     *buoh_view_new             (void);
 
 gboolean       buoh_view_is_min_zoom     (BuohView *view);

@@ -1,13 +1,13 @@
 [ ] Add Language property to comics
 [ ] Comic Manager
 [ ] Properties comic dialog
-[ ] Improve the comic loaging stuff
+[\] Improve the comic loaging stuff
 [X] Remove Edit menu
 [ ] HIGification
-[ ] Improve welcome and error messages
-[ ] Disable comic list during comic loading
+[X] Improve welcome and error messages
 [ ] Save to disk the comics selected by the user
 [ ] Cache system
 [ ] Improve the feedback: statusbar
 [ ] Debug system
 [X] Disable Comic -> properties when no comic selected
+[ ] Comic List: ellipsise
