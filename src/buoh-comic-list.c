@@ -146,6 +146,10 @@ buoh_comic_list_init (BuohComicList *buoh_comic_list)
 					       
 	buoh_comic_list->priv->tree_view = gtk_tree_view_new_with_model (buoh_comic_list->priv->model);
 	renderer = gtk_cell_renderer_text_new ();
+	g_object_set (G_OBJECT (renderer),
+		      "ellipsize-set", TRUE,
+		      "ellipsize", PANGO_ELLIPSIZE_END,
+		      NULL);
 	column = gtk_tree_view_column_new_with_attributes (_("Title"), renderer,
 							   "text", COMIC_LIST_TITLE,
 							   NULL);

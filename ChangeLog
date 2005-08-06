@@ -1,5 +1,11 @@
 2005-08-06  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* src/buoh-comic-list.c: Ellipsisation
+
+	* TODO: Updated
+
+2005-08-06  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* configure.in: We depend now on GTK+ 2.7.0
 
 2005-08-05  Carlos Garcia Campos  <carlosgc@gnome.org>
