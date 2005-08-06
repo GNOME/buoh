@@ -27,7 +27,7 @@ dnl ** pkg-config dependacy checks          **
 dnl ******************************************
 
 LIBGNOMEUI_REQUIRED=2.6.0
-GTK_REQUIRED=2.6.0
+GTK_REQUIRED=2.7.0
 LIBGLADE_REQUIRED=2.0.0
 
 PKG_CHECK_MODULES(BUOH, 
