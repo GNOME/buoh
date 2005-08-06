@@ -1,10 +1,12 @@
+2005-08-06  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* configure.in: We depend now on GTK+ 2.7.0
+
 2005-08-05  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* AUTHORS: Added myself
 
 	* TODO: Updated
-
-	* configure.in: We depends now on GTK+ 2.7.0
 
 	* src/Makefile.am:
 	* src/buoh-view-message.[ch]: Added
