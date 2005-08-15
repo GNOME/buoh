@@ -24,6 +24,7 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <glib/gstdio.h>
 #include <gtk/gtk.h>
 #include <libxml/tree.h>
 #include <libxml/encoding.h>
@@ -49,8 +50,13 @@ static void buoh_init                   (Buoh      *buoh);
 static void buoh_class_init             (BuohClass *klass);
 static void buoh_finalize               (GObject   *object);
 
-static GList        *buoh_parse_selected         (Buoh *buoh);
-static GtkTreeModel *buoh_create_model_from_file (Buoh *buoh);
+static GList        *buoh_parse_selected         (Buoh         *buoh);
+static GtkTreeModel *buoh_create_model_from_file (Buoh         *buoh);
+static void          buoh_save_comic_list        (GtkTreeModel *model,
+						  GtkTreePath  *arg1,
+						  GtkTreeIter  *arg2,
+						  gpointer      gdata);
+static void          buoh_create_user_dir        (Buoh         *buoh);
 
 GType
 buoh_get_type ()
@@ -190,7 +196,9 @@ buoh_create_model_from_file (Buoh *buoh)
 				}
 
 				/* Visible */
-				if (g_list_find_custom (selected, id, (GCompareFunc)g_ascii_strcasecmp)) {
+				if (selected &&
+				    g_list_find_custom (selected, id,
+							(GCompareFunc)g_ascii_strcasecmp)) {
 					visible = TRUE;
 				} else {
 					visible = FALSE;
@@ -219,10 +227,104 @@ buoh_create_model_from_file (Buoh *buoh)
 
 	xmlFreeDoc (doc);
 
-	g_list_foreach (selected, (GFunc)g_free, NULL);
-	g_list_free (selected);
+	if (selected) {
+		g_list_foreach (selected, (GFunc)g_free, NULL);
+		g_list_free (selected);
+	}
 
 	return GTK_TREE_MODEL (model);
+}
+
+static gboolean
+buoh_comic_list_visible (GtkTreeModel *model,
+			 GtkTreeIter  *iter,
+			 gpointer      gdata)
+{
+	gboolean visible = FALSE;
+
+	gtk_tree_model_get (model, iter, COMIC_LIST_VISIBLE, &visible, -1);
+
+	return visible;
+}
+
+static void
+buoh_save_comic_list (GtkTreeModel *model,
+		      GtkTreePath  *arg1,
+		      GtkTreeIter  *arg2,
+		      gpointer      gdata)
+{
+	Buoh             *buoh = BUOH_BUOH (gdata);
+	xmlTextWriterPtr  writer;
+	gchar            *filename;
+	GtkTreeModel     *filter;
+	GtkTreeIter       iter;
+	gboolean          valid;
+	BuohComic        *comic;
+	gchar            *id;
+	
+	g_debug ("Buoh comic model changed");
+
+	filter = gtk_tree_model_filter_new (buoh->priv->comic_list, NULL);
+	gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
+						buoh_comic_list_visible,
+						NULL, NULL);
+	
+	filename = g_build_filename (buoh->priv->datadir, "comics.xml", NULL);
+	writer = xmlNewTextWriterFilename (filename, 0);
+	g_free (filename);
+
+	xmlTextWriterStartDocument (writer, NULL, NULL, NULL);
+	xmlTextWriterStartElement (writer, BAD_CAST "comic_list");
+
+	valid = gtk_tree_model_get_iter_first (filter, &iter);
+	while (valid) {
+		gtk_tree_model_get (filter, &iter,
+				    COMIC_LIST_COMIC,
+				    &comic, -1);
+		id = buoh_comic_get_id (comic);
+		
+		xmlTextWriterStartElement (writer, BAD_CAST "comic");
+		xmlTextWriterWriteAttribute (writer,
+					     BAD_CAST "id",
+					     BAD_CAST id);
+		xmlTextWriterEndElement (writer);
+		
+		g_free (id);
+
+		valid = gtk_tree_model_iter_next (filter, &iter);
+	}
+
+	g_object_unref (filter);
+	
+	xmlTextWriterEndElement (writer);
+	xmlTextWriterEndDocument (writer);
+	xmlFreeTextWriter (writer);
+}
+
+static void
+buoh_create_user_dir (Buoh *buoh)
+{
+	gchar       *filename;
+	const gchar *contents = "<?xml version=\"1.0\"?>\n<comic_list>\n</comic_list>\n";
+
+	if (!g_file_test (buoh->priv->datadir, G_FILE_TEST_IS_DIR)) {
+		g_debug ("User directory doesn't exist, creating it ...");
+		if (g_mkdir (buoh->priv->datadir, 0755) != 0) {
+			g_error ("Cannot create user's directory");
+		}
+	}
+	
+	filename = g_build_filename (buoh->priv->datadir, "comics.xml", NULL);
+
+	if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
+		g_debug ("User comics file doesn't exist, creating it ...");
+		if (!g_file_set_contents (filename, contents, -1, NULL)) {
+			g_free (filename);
+			g_error ("Cannot create user's comics list file");
+		}
+	}
+
+	g_free (filename);
 }
 
 static void
@@ -231,9 +333,14 @@ buoh_init (Buoh *buoh)
 	buoh->priv = BUOH_GET_PRIVATE (buoh);
 
 	buoh->priv->datadir = g_build_filename (g_get_home_dir (), ".buoh", NULL);
+	buoh_create_user_dir (buoh);
+	
 	buoh->priv->comic_list = buoh_create_model_from_file (buoh);
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (buoh->priv->comic_list),
 					      COMIC_LIST_TITLE, GTK_SORT_ASCENDING);
+	g_signal_connect (G_OBJECT (buoh->priv->comic_list), "row-changed",
+			  G_CALLBACK (buoh_save_comic_list),
+			  (gpointer) buoh);
 }
 
 static void
@@ -258,8 +365,6 @@ buoh_finalize (GObject *object)
 
 	g_debug ("buoh finalize\n");
 
-	/* TODO: save to disk selected comics */
-	
 	if (buoh->priv->datadir) {
 		g_free (buoh->priv->datadir);
 		buoh->priv->datadir = NULL;
