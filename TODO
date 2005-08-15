@@ -5,7 +5,7 @@
 [X] Remove Edit menu
 [ ] HIGification
 [X] Improve welcome and error messages
-[ ] Save to disk the comics selected by the user
+[X] Save to disk the comics selected by the user
 [ ] Cache system
 [ ] Improve the feedback: statusbar
 [ ] Debug system

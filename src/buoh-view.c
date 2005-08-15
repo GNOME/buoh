@@ -316,7 +316,7 @@ buoh_view_new (void)
         GtkWidget *buoh_view;
 
         buoh_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW,
-                                              "show-tabs", FALSE, 
+                                              "show-tabs", FALSE,
                                               NULL));
         return buoh_view;
 }

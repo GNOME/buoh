@@ -1,3 +1,13 @@
+2005-08-15  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* TODO: Updated
+
+	* configure.in: Add explicit GLIB requirement to configure
+
+	* src/buoh.c: Save to disk comics seleted by the user
+
+	* src/main.c: Move user directory creation from main to buoh
+
 2005-08-06  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* src/buoh-comic-list.c: Ellipsisation
