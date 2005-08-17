@@ -1,3 +1,9 @@
+2005-08-15  Esteban Sánchez <esteban@steve-o.org>
+	
+	* interface/buoh-window.c: PNG is better than JPEG
+	
+	* TODO: Export as PNG closed (fast, is'nt it?)
+
 2005-08-15  Esteban Sanchez <esteban@steve-o.org>
 
 	* interface/buoh.glade: Added "Save a copy" menu
