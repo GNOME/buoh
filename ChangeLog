@@ -7,6 +7,8 @@
 
 	* po/Makefile.in.in: Removed
 
+	* TODO: Added export as PNG
+
 2005-08-15  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* TODO: Updated
