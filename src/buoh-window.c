@@ -402,9 +402,8 @@ buoh_window_menu_save_cb (GtkMenuItem *menuitem, gpointer gdata)
 	
 	/* TODO: Png format */
 	filter = gtk_file_filter_new ();
-	gtk_file_filter_add_pattern (filter, "*.jpg");
-	gtk_file_filter_add_pattern (filter, "*.jpeg");
-	gtk_file_filter_set_name (filter, _("JPEG Images"));
+	gtk_file_filter_add_pattern (filter, "*.png");
+	gtk_file_filter_set_name (filter, _("PNG Images"));
 		
 	chooser = gtk_file_chooser_dialog_new (_("Save comic"),
 					       GTK_WINDOW (window),
@@ -423,7 +422,7 @@ buoh_window_menu_save_cb (GtkMenuItem *menuitem, gpointer gdata)
 	comic     = buoh_view_get_comic (window->priv->view);
 	name      = buoh_comic_get_title (comic);
 	page      = buoh_comic_get_page (comic);
-	suggested = g_strconcat (name, " (", page, ").jpeg", NULL);
+	suggested = g_strconcat (name, " (", page, ").png", NULL);
 	pixbuf   = buoh_comic_get_pixbuf (comic);
 	
 	gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (chooser),
@@ -439,7 +438,7 @@ buoh_window_menu_save_cb (GtkMenuItem *menuitem, gpointer gdata)
 
 			error = NULL;
 			
-			if (!gdk_pixbuf_save (pixbuf, filename, "jpeg", &error, NULL)) {
+			if (!gdk_pixbuf_save (pixbuf, filename, "png", &error, NULL)) {
 				successful = FALSE;
 
 				dialog = gtk_message_dialog_new (GTK_WINDOW (chooser),
