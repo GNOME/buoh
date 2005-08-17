@@ -11,3 +11,4 @@
 [ ] Debug system
 [X] Disable Comic -> properties when no comic selected
 [X] Comic List: ellipsise
+[ ] Save a comic as PNG

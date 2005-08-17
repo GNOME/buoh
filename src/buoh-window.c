@@ -59,6 +59,8 @@ static void buoh_window_menu_quit_cb                   (GtkMenuItem    *menuitem
 							gpointer        gdata);
 static void buoh_window_menu_add_cb                    (GtkMenuItem    *menuitem,
 							gpointer        gdata);
+static void buoh_window_menu_save_cb                   (GtkMenuItem    *menuitem,
+							gpointer        gdata);
 static void buoh_window_menu_properties_cb             (GtkMenuItem    *menuitem,
 							gpointer        gdata);
 static void buoh_window_menu_zoom_in_cb                (GtkMenuItem    *menuitem,
@@ -242,6 +244,10 @@ buoh_window_init (BuohWindow *buoh_window)
 	g_signal_connect (G_OBJECT (widget), "activate",
 			  G_CALLBACK (buoh_window_menu_add_cb),
 			  (gpointer) buoh_window);
+	widget = glade_xml_get_widget (buoh_window->priv->gui, "menu_save");
+	g_signal_connect (G_OBJECT (widget), "activate",
+			  G_CALLBACK (buoh_window_menu_save_cb),
+			  (gpointer) buoh_window);
 	widget = glade_xml_get_widget (buoh_window->priv->gui, "menu_properties");
 	g_signal_connect (G_OBJECT (widget), "activate",
 			  G_CALLBACK (buoh_window_menu_properties_cb),
@@ -375,6 +381,94 @@ buoh_window_menu_add_cb (GtkMenuItem *menuitem, gpointer gdata)
 	}
 
 	gtk_widget_show (window->priv->add_dialog);
+}
+
+static void
+buoh_window_menu_save_cb (GtkMenuItem *menuitem, gpointer gdata)
+{
+	GtkWidget     *chooser;
+	GtkFileFilter *filter;
+	gchar         *suggested;
+	gchar         *name;
+	gchar         *page;
+	gchar         *filename = NULL;
+	static gchar  *folder = NULL;
+	BuohWindow    *window = BUOH_WINDOW (gdata);
+	BuohComic     *comic;
+	GdkPixbuf     *pixbuf;
+	GtkWidget     *dialog;
+	gboolean      successful;
+	GError        *error;
+	
+	/* TODO: Png format */
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_add_pattern (filter, "*.jpg");
+	gtk_file_filter_add_pattern (filter, "*.jpeg");
+	gtk_file_filter_set_name (filter, _("JPEG Images"));
+		
+	chooser = gtk_file_chooser_dialog_new (_("Save comic"),
+					       GTK_WINDOW (window),
+					       GTK_FILE_CHOOSER_ACTION_SAVE,
+					       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					       GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+					       NULL);
+	gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (chooser), TRUE);
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (chooser), filter);
+
+	if (folder) {
+		gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (chooser),
+                                                         folder);
+	}
+	
+	comic     = buoh_view_get_comic (window->priv->view);
+	name      = buoh_comic_get_title (comic);
+	page      = buoh_comic_get_page (comic);
+	suggested = g_strconcat (name, " (", page, ").jpeg", NULL);
+	pixbuf   = buoh_comic_get_pixbuf (comic);
+	
+	gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (chooser),
+					   suggested);
+	do {
+		if (gtk_dialog_run (GTK_DIALOG (chooser)) == GTK_RESPONSE_ACCEPT) {
+			filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (chooser));
+			
+			if (folder != NULL)
+				g_free (folder);
+			
+			folder = gtk_file_chooser_get_current_folder_uri (GTK_FILE_CHOOSER (chooser));
+
+			error = NULL;
+			
+			if (!gdk_pixbuf_save (pixbuf, filename, "jpeg", &error, NULL)) {
+				successful = FALSE;
+
+				dialog = gtk_message_dialog_new (GTK_WINDOW (chooser),
+								 GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
+								 GTK_MESSAGE_ERROR,
+								 GTK_BUTTONS_CLOSE,
+								 _("Unable to save comic"));
+
+				gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+									  error->message);
+				gtk_dialog_run (GTK_DIALOG (dialog));
+
+				gtk_widget_destroy (dialog);
+				g_error_free (error);
+			} else {
+				successful = TRUE;
+			}
+			
+			g_free (filename);
+		} else {
+			successful = TRUE;
+		}
+	} while (!successful);
+	
+	g_object_unref (pixbuf);
+	g_free (name);
+	g_free (page);
+	g_free (suggested);
+	gtk_widget_destroy (chooser);
 }
 
 static void
@@ -556,6 +650,7 @@ buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 	buoh_window_zoom_out_set_sensitive (window, sensitive);
 	buoh_window_normal_size_set_sensitive (window, sensitive);
 	buoh_window_set_sensitive (window, "menu_properties", sensitive);
+	buoh_window_set_sensitive (window, "menu_save", sensitive);
 }
 
 static void
