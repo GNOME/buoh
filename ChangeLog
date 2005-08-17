@@ -1,4 +1,9 @@
-2005-08-15  Esteban Sánchez <esteban@steve-o.org>
+2005-08-17  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-window.c: Disable save a copy menu item respect to lockdown
+	gconf key
+
+2005-08-17  Esteban Sánchez <esteban@steve-o.org>
 	
 	* interface/buoh-window.c: PNG is better than JPEG
 	

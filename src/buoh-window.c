@@ -26,6 +26,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <glade/glade.h>
+#include <gconf/gconf-client.h>
 
 #include "buoh.h"
 #include "buoh-window.h"
@@ -47,6 +48,8 @@ struct _BuohWindowPrivate {
 
 #define BUOH_WINDOW_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_WINDOW, BuohWindowPrivate))
+
+#define GCONF_LOCKDOWN_SAVE "/desktop/gnome/lockdown/disable_save_to_disk"
 
 static GtkWindowClass *parent_class = NULL;
 
@@ -643,13 +646,25 @@ buoh_window_normal_size_set_sensitive (BuohWindow *window, gboolean sensitive)
 static void
 buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 {
+	static GConfClient *client = NULL;
+	gboolean            save_disabled = FALSE;
+	
 	buoh_window_previous_set_sensitive (window, sensitive);
 	buoh_window_next_set_sensitive (window, sensitive);
 	buoh_window_zoom_in_set_sensitive (window, sensitive);
 	buoh_window_zoom_out_set_sensitive (window, sensitive);
 	buoh_window_normal_size_set_sensitive (window, sensitive);
 	buoh_window_set_sensitive (window, "menu_properties", sensitive);
-	buoh_window_set_sensitive (window, "menu_save", sensitive);
+
+	if (!client) {
+		client = gconf_client_get_default ();
+	}
+
+	if (gconf_client_get_bool (client, GCONF_LOCKDOWN_SAVE, NULL)) {
+		save_disabled = TRUE;
+	}
+	
+	buoh_window_set_sensitive (window, "menu_save", (save_disabled) ?  FALSE : sensitive);
 }
 
 static void
@@ -684,6 +699,7 @@ buoh_window_view_comic_change_cb (GObject *object, GParamSpec *arg, gpointer gda
 
 		buoh_window_comic_actions_set_sensitive (window,
 							 (comic) ? TRUE : FALSE);
+		
 	}
 }
 
