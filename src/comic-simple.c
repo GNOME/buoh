@@ -366,7 +366,7 @@ comic_simple_get_isodate (BuohComic *comic)
 	private = COMIC_SIMPLE_GET_PRIVATE (comic);
 
 	g_date_strftime (isodate, 50,
-			 "%c",
+			 "%x",
 			 private->date);
 
 	return g_strdup (isodate);
