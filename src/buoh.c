@@ -91,7 +91,7 @@ buoh_parse_selected (Buoh *buoh)
 	xmlNodePtr  root;
 	xmlNodePtr  node;
 	gchar      *selected;
-	gchar      *id;
+	xmlChar    *id;
 	
 	selected = g_build_filename (buoh->priv->datadir, "comics.xml", NULL);
 
@@ -111,11 +111,11 @@ buoh_parse_selected (Buoh *buoh)
 	node = root->xmlChildrenNode;
 
 	while (node) {
-		if (g_ascii_strcasecmp (node->name, "comic") == 0) {
+		if (g_ascii_strcasecmp ((const gchar*) node->name, "comic") == 0) {
 			/* New comic */
-			id = xmlGetProp (node, "id");
-			list = g_list_append (list, g_strdup (id));
-			g_free (id);
+			id = xmlGetProp (node, (xmlChar *) "id");
+			list = g_list_append (list, g_strdup ((gchar *)id));
+			xmlFree (id);
 		}
 
 		node = node->next;
@@ -136,9 +136,9 @@ buoh_create_model_from_file (Buoh *buoh)
 	xmlNodePtr    node;
 	xmlNodePtr    child;
 	BuohComic    *comic;
-	gchar        *id, *class, *title, *author, *uri;
+	xmlChar      *id, *class, *title, *author, *uri;
 	gboolean      visible;
-	gchar        *restriction;
+	xmlChar      *restriction;
 	GDateWeekday  restriction_date;
 	gchar        *filename;
 	GList        *selected = NULL;
@@ -169,25 +169,29 @@ buoh_create_model_from_file (Buoh *buoh)
 	node = root->xmlChildrenNode;
 
 	while (node) {
-		if (g_ascii_strcasecmp (node->name, "comic") == 0) {
+		if (g_ascii_strcasecmp ((const gchar *)node->name, "comic") == 0) {
 			/* New comic */
-			class  = xmlGetProp (node, "class");
+			class  = xmlGetProp (node, (xmlChar *) "class");
 
 			/* Comic simple */
-			if (g_ascii_strcasecmp (class, "simple") == 0) {
-				id     = xmlGetProp (node, "id");
-				title  = xmlGetProp (node, "title");
-				author = xmlGetProp (node, "author");
-				uri    = xmlGetProp (node, "generic_uri");
+			if (g_ascii_strcasecmp ((const gchar *)class, "simple") == 0) {
+				id     = xmlGetProp (node, (xmlChar *) "id");
+				title  = xmlGetProp (node, (xmlChar *) "title");
+				author = xmlGetProp (node, (xmlChar *) "author");
+				uri    = xmlGetProp (node, (xmlChar *) "generic_uri");
 
-				comic = BUOH_COMIC (comic_simple_new_with_info (id, title, author, uri));
+				comic = BUOH_COMIC (comic_simple_new_with_info (
+							    (gchar *)id,
+							    (gchar *)title,
+							    (gchar *)author,
+							    (gchar *)uri));
 
 				/* Read the restrictions */
 				child = node->children->next;
 				while (child) {
-					if (g_ascii_strcasecmp (child->name, "restrict") == 0) {
+					if (g_ascii_strcasecmp ((const gchar *) child->name, "restrict") == 0) {
 						restriction      = xmlNodeGetContent (child);
-						restriction_date = atoi (restriction);
+						restriction_date = atoi ((gchar *)restriction);
 
 						comic_simple_set_restriction (COMIC_SIMPLE (comic),
 									      restriction_date);
