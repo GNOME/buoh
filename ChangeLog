@@ -1,4 +1,8 @@
-2005-08-17  Esteban Sanchez <esteban@steve-o.org>
+2005-08-18  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh.c: Fix compile warnings with the pedantic gcc 4
+
+2005-08-18  Esteban Sanchez <esteban@steve-o.org>
 	
 	* src/comic-simple.c: Change format of date in get_isodate to "%x" 
 	that is the preferred representation in the current locale.
