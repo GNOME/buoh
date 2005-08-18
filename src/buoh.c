@@ -115,7 +115,7 @@ buoh_parse_selected (Buoh *buoh)
 			/* New comic */
 			id = xmlGetProp (node, (xmlChar *) "id");
 			list = g_list_append (list, g_strdup ((gchar *)id));
-			xmlFree (id);
+			g_free (id);
 		}
 
 		node = node->next;
