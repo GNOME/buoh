@@ -1,5 +1,9 @@
 2005-08-18  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* src/buoh.c: We prefer g_free instead of xmlFree
+
+2005-08-18  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* src/buoh.c: Fix compile warnings with the pedantic gcc 4
 
 2005-08-18  Esteban Sanchez <esteban@steve-o.org>
