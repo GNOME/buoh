@@ -31,13 +31,15 @@ enum {
 	PROP_0,
 	PROP_TITLE,
 	PROP_AUTHOR,
+	PROP_LANGUAGE,
 	PROP_ID,
-	        PROP_PIXBUF
+	PROP_PIXBUF
 };
 
 struct _BuohComicPrivate {
 	gchar     *author;
 	gchar     *title;
+	gchar     *language;
 	gchar     *id;
 	GdkPixbuf *pixbuf;
 };
@@ -90,10 +92,11 @@ buoh_comic_init (BuohComic *buoh_comic)
 	   
 	buoh_comic->priv = BUOH_COMIC_GET_PRIVATE (buoh_comic);
 	
-	buoh_comic->priv->author = NULL;
-	buoh_comic->priv->title  = NULL;
-	buoh_comic->priv->id     = NULL;
-	buoh_comic->priv->pixbuf = NULL;
+	buoh_comic->priv->author   = NULL;
+	buoh_comic->priv->title    = NULL;
+	buoh_comic->priv->language = NULL;
+	buoh_comic->priv->id       = NULL;
+	buoh_comic->priv->pixbuf   = NULL;
 }
 
 static void
@@ -122,6 +125,15 @@ buoh_comic_class_init (BuohComicClass *klass)
 							      "Name of the author",
 							      NULL,
 							      G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+					 PROP_LANGUAGE,
+					 g_param_spec_string ("language",
+							      "Language",
+							      "Language of the comic",
+							      NULL,
+							      G_PARAM_READWRITE));
+
+	
 	g_object_class_install_property (object_class,
 					 PROP_ID,
 					 g_param_spec_string ("id",
@@ -157,6 +169,11 @@ buoh_comic_finalize (GObject *object)
 		comic->priv->title = NULL;
 	}
 
+	if (comic->priv->language) {
+		g_free (comic->priv->language);
+		comic->priv->language = NULL;
+	}
+
 	if (comic->priv->pixbuf) {
 		g_object_unref (comic->priv->pixbuf);
 		comic->priv->pixbuf = NULL;
@@ -184,6 +201,11 @@ buoh_comic_set_property (GObject      *object,
 		g_free (comic->priv->author);
 		comic->priv->author = g_value_dup_string (value);
 		
+		break;
+	case PROP_LANGUAGE:
+		g_free (comic->priv->language);
+		comic->priv->language = g_value_dup_string (value);
+
 		break;
 	case PROP_ID:
 		g_free (comic->priv->id);
@@ -219,6 +241,10 @@ buoh_comic_get_property (GObject      *object,
 		g_value_set_string (value, comic->priv->author);
 		
 		break;
+	case PROP_LANGUAGE:
+		g_value_set_string (value, comic->priv->language);
+
+		break;
 	case PROP_ID:
 		g_value_set_string (value, comic->priv->id);
 		
@@ -245,7 +271,8 @@ buoh_comic_new ()
 BuohComic *
 buoh_comic_new_with_info (const gchar *id,
 			  const gchar *title,
-			  const gchar *author)
+			  const gchar *author,
+			  const gchar *language)
 {
 	BuohComic *comic;
 
@@ -255,6 +282,7 @@ buoh_comic_new_with_info (const gchar *id,
 		      "id", id,
 		      "title", title,
 		      "author", author,
+		      "language", language,
 		      NULL);
 
 	return comic;
@@ -322,6 +350,14 @@ buoh_comic_set_author (BuohComic *comic, const gchar *author)
 }
 
 void
+buoh_comic_set_language (BuohComic *comic, const gchar *language)
+{
+	g_return_if_fail (BUOH_IS_COMIC (comic));
+
+	g_object_set (G_OBJECT (comic), "language", language, NULL);
+}
+
+void
 buoh_comic_set_id (BuohComic *comic, const gchar *id)
 {
 	g_return_if_fail (BUOH_IS_COMIC (comic));
@@ -374,6 +410,18 @@ buoh_comic_get_author (BuohComic *comic)
 	g_object_get (G_OBJECT (comic), "author", &author, NULL);
 
 	return author;
+}
+
+gchar *
+buoh_comic_get_language (BuohComic *comic)
+{
+	gchar *language = NULL;
+
+	g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
+
+	g_object_get (G_OBJECT (comic), "language", &language, NULL);
+
+	return language;
 }
 
 gchar *

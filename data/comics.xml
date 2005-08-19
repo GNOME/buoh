@@ -3,6 +3,7 @@
 	class="simple"
 	title="Tutelandia en Español"
 	author="Tute"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/sptut/%Y/sptut%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -10,6 +11,7 @@
 	class="simple"
 	title="Pepe en Español"
 	author="Moco"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/sppep/%Y/sppep%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -17,6 +19,7 @@
 	class="simple"
 	title="Calvin y Hobbes en Español"
 	author="Bill Watterson"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/spch/%Y/spch%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -24,18 +27,21 @@
 	class="simple"
 	title="Gaturro en Español"
 	author="Nik"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/spgat/%Y/spgat%y%m%d.gif">
 </comic>
 <comic id="cond"
 	class="simple"
 	title="Condorito en Español"
 	author="World Features, Inc."
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/cond/%Y/cond%y%m%d.gif">
 </comic>
 <comic id="spfba"
 	class="simple"
 	title="Fred Basset en Español"
 	author="Alex Graham"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/spfba/%Y/spfba%y%m%d.gif">
 	<restrict>7</restrict>
 </comic>
@@ -43,6 +49,7 @@
 	class="simple"
 	title="James Bond en Español"
 	author="Ian Fleming"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/spjb/%Y/spjb%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -50,6 +57,7 @@
 	class="simple"
 	title="Cathy en Español"
 	author="Cathy Guisewite"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/spca/%Y/spca%y%m%d.gif">
 		<restrict>7</restrict> 
 </comic>
@@ -57,6 +65,7 @@
 	class="simple"
 	title="FoxTrot en Español"
 	author="Bill Amend"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/spft/%Y/spft%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -64,12 +73,14 @@
 	class="simple"
 	title="Pooch Café en Español"
 	author="Paul Gilligan"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/sppoc/%Y/sppoc%y%m%d.gif">
 </comic>
 <comic id="spzi"
 	class="simple"
 	title="Ziggy en Español"
 	author="Tom Wilson &amp; Tom II"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/spzi/%Y/spzi%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -77,12 +88,14 @@
 	class="simple"
 	title="Baldo en Español"
 	author="Hector D. Cantu &amp; Carlos Castellanos"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/be/%Y/be%y%m%d.gif">
 </comic>
 <comic id="spob"
 	class="simple"
 	title="Overboard en Español"
 	author="Chip Dunham"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/spob/%Y/spob%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -90,6 +103,7 @@
 	class="simple"
 	title="Garfield en Español"
 	author="Jim Davis"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/gh/%Y/gh%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -97,6 +111,7 @@
 	class="simple"
 	title="Mutt &amp; Jeff en Español"
 	author="Pierre S. De Beaumont"
+	language="Spanish"
 	generic_uri="http://picayune.uclick.com/comics/spmut/%Y/spmut%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -104,6 +119,7 @@
 	class="simple"
 	title="9 to 5"
 	author="Harley Schwadron"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmntf/%Y/tmntf%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -111,36 +127,42 @@
 	class="simple"
 	title="Adam@Home"
 	author="Brian Basset"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/ad/%Y/ad%y%m%d.gif">
 </comic>
 <comic id="cragn"
 	class="simple"
 	title="Agnes"
 	author="Tony Cochran"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/cragn/%Y/cragn%y%m%d.gif">
 </comic>
 <comic id="crcap"
 	class="simple"
 	title="Andy Capp"
 	author="Reg Smythe"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crcap/%Y/crcap%y%m%d.gif">
 </comic>
 <comic id="tmani"
 	class="simple"
 	title="Animal Crackers"
 	author="Fred Wagner"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmani/%Y/tmani%y%m%d.gif">
 </comic>
 <comic id="tmann"
 	class="simple"
 	title="Annie"
 	author="Jay Maeder &amp; Ted Slampyak"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmann/%Y/tmann%y%m%d.gif">
 </comic>
 <comic id="crask"
 	class="simple"
 	title="Ask Shagg"
 	author="Peter Guren"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crask/%Y/crask%y%m%d.gif">
 		<restrict>1</restrict>
 		<restrict>2</restrict>
@@ -153,48 +175,56 @@
 	class="simple"
 	title="Baldo"
 	author="Hector D. Cantu &amp; Carlos Castellanos"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/ba/%Y/ba%y%m%d.gif">
 </comic>
 <comic id="crbal"
 	class="simple"
 	title="Ballard Street"
 	author="Jerry Van Amerongen"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crbal/%Y/crbal%y%m%d.gif">
 </comic>
 <comic id="crbc"
 	class="simple"
 	title="B.C."
 	author="Johnny Hart"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crbc/%Y/crbc%y%m%d.gif">
 </comic>
 <comic id="bt"
 	class="simple"
 	title="Big Top"
 	author="Rob Harrell"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/bt/%Y/bt%y%m%d.gif">
 </comic>
 <comic id="bob"
 	class="simple"
 	title="Bob the Squirrel"
 	author="Frank Page"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/bob/%Y/bob%y%m%d.gif">
 </comic>
 <comic id="bon"
 	class="simple"
 	title="Bo Nanas"
 	author="John Kovaleski"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/bon/%Y/bon%y%m%d.gif">
 </comic>
 <comic id="bo"
 	class="simple"
 	title="The Boondocks"
 	author="Aaron McGruder"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/bo/%Y/bo%y%m%d.gif">
 </comic>
 <comic id="bol"
 	class="simple"
 	title="Born Lucky"
 	author="Bruce Plante"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/bol/%Y/bol%y%m%d.gif">
 		<restrict>1</restrict>
 		<restrict>2</restrict>
@@ -207,6 +237,7 @@
 	class="simple"
 	title="Bottom Liners"
 	author="Eric &amp; Bill Teitelbaum"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmbot/%Y/tmbot%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -214,48 +245,56 @@
 	class="simple"
 	title="Bound and Gagged"
 	author="Dana Summers"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmbou/%Y/tmbou%y%m%d.gif">
 </comic>
 <comic id="tmbre"
 	class="simple"
 	title="Brenda Starr"
 	author="June Brigman &amp; Mary Schmich"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmbre/%Y/tmbre%y%m%d.gif">
 </comic>
 <comic id="tmbro"
 	class="simple"
 	title="Broom Hilda"
 	author="Russell Myers"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmbro/%Y/tmbro%y%m%d.gif">
 </comic>
 <comic id="tmrkt"
 	class="simple"
 	title="Brewster Rockit: Space Guy"
 	author="Tim Rickard"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmrkt/%Y/tmrkt%y%m%d.gif">
 </comic>
 <comic id="cand"
 	class="simple"
 	title="Candorville"
 	author="Darrin Bell"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/cand/%Y/cand%y%m%d.gif">
 </comic>
 <comic id="ca"
 	class="simple"
 	title="Cathy"
 	author="Cathy Guisewite"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/ca/%Y/ca%y%m%d.gif">
 </comic>
 <comic id="tmcat"
 	class="simple"
 	title="Cats With Hands"
 	author="Joe Martin"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmcat/%Y/tmcat%y%m%d.gif">
 </comic>
 <comic id="crceo"
 	class="simple"
 	title="CEO Dad"
 	author="Tom Stern &amp; Phyllis Hofberg Bruskin"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crceo/%Y/crceo%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -263,42 +302,49 @@
 	class="simple"
 	title="Cornered"
 	author="Mike Baldwin"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/co/%Y/co%y%m%d.gif">
 </comic>
 <comic id="tmcom"
 	class="simple"
 	title="Compu-toon"
 	author="Charles Boyce"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmcom/%Y/tmcom%y%m%d.gif">
 </comic>
 <comic id="cl"
 	class="simple"
 	title="Close to Home"
 	author="John McPherson"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/cl/%Y/cl%y%m%d.gif">
 </comic>
 <comic id="cle"
 	class="simple"
 	title="Cleats"
 	author="Bill Hinds"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/cle/%Y/cle%y%m%d.gif">
 </comic>
 <comic id="cbw"
 	class="simple"
 	title="Clear Blue Water"
 	author="Karen Montague-Reyes"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/cbw/%Y/cbw%y%m%d.gif">
 </comic>
 <comic id="db"
 	class="simple"
 	title="Doonesbury"
 	author="Garry Trudeau"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/db/%Y/db%y%m%d.gif">
 </comic>
 <comic id="tmdoo"
 	class="simple"
 	title="Doodles"
 	author="Steve Sack &amp; Craig Macintosh"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmdoo/%Y/tmdoo%y%m%d.gif">
 		<restrict>1</restrict>
 		<restrict>2</restrict>
@@ -311,12 +357,14 @@
 	class="simple"
 	title="Dick Tracy"
 	author="Dick Locher &amp; Michael Killian"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmdic/%Y/tmdic%y%m%d.gif">
 </comic>
 <comic id="deep"
 	class="simple"
 	title="Deep Cover"
 	author="Tim Eagan"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/deep/%Y/deep%y%m%d.gif">
 		<restrict>1</restrict>
 		<restrict>2</restrict>
@@ -329,6 +377,7 @@
 	class="simple"
 	title="The 5th Wave"
 	author="Rich Tennant"
+	language="English"
 	generic_uri="http://images.ucomics.com/comics/fw/%Y/fw%y%m%d.gif">
 		<restrict>1</restrict>
                 <restrict>2</restrict>
@@ -342,30 +391,35 @@
 	class="simple"
 	title="The Duplex"
 	author="Glenn McCoy"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/dp/%Y/dp%y%m%d.gif">
 </comic>
 <comic id="crflo"
 	class="simple"
 	title="Flo and Friends"
 	author="John Gibel &amp; Jenny Campbell"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crflo/%Y/crflo%y%m%d.gif">
 </comic>
 <comic id="fb"
 	class="simple"
 	title="For Better or For Worse"
 	author="Lynn Johnston"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/fb/%Y/fb%y%m%d.gif">
 </comic>
 <comic id="crfd"
 	class="simple"
 	title="Flight Deck"
 	author="Peter Waldner"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crfd/%Y/crfd%y%m%d.gif">
 </comic>
 <comic id="ft"
 	class="simple"
 	title="FoxTrot"
 	author="Bill Amend"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/ft/%Y/ft%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -373,18 +427,21 @@
 	class="simple"
 	title="Fred Basset"
 	author="Alex Graham"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmfba/%Y/tmfba%y%m%d.gif">
 </comic>
 <comic id="tmlol"
 	class="simple"
 	title="Lola"
 	author="Steve Dickenson &amp; Todd Clark"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmlol/%Y/tmlol%y%m%d.gif">
 </comic>
 <comic id="wapsi"
 	class="simple"
 	title="Wapsi Square"
 	author="Paul Taylor"
+	language="English"
 	generic_uri="http://wapsisquare.com/comics/%Y%m%d.gif">
 		<restrict>6</restrict>
 		<restrict>7</restrict>
@@ -393,30 +450,35 @@
 	class="simple"
 	title="Gasoline Alley"
 	author="Jim Scancarelli"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmgas/%Y/tmgas%y%m%d.gif">
 </comic>
 <comic id="ga"
 	class="simple"
 	title="Garfield"
 	author="Jim Davis"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/ga/%Y/ga%y%m%d.gif">
 </comic>
 <comic id="fu"
 	class="simple"
 	title="The Fusco Brothers"
 	author="J.C. Duffy"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/fu/%Y/fu%y%m%d.gif">
 </comic>
 <comic id="fa"
 	class="simple"
 	title="Frank &amp; Ernest"
 	author="Bob Thaves"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/fa/%Y/fa%y%m%d.jpg">
 </comic>
 <comic id="eld"
 	class="simple"
 	title="Elderberries"
 	author="Phil Frank &amp; Joe Troise"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/eld/%Y/eld%y%m%d.gif">
 </comic>
 
@@ -424,6 +486,7 @@
 	class="simple"
 	title="Hubert and Abby"
 	author="Mel Henze"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/haa/%Y/haa%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -431,36 +494,42 @@
 	class="simple"
 	title="Housebroken"
 	author="Steve Watkins"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmhou/%Y/tmhou%y%m%d.gif">
 </comic>
 <comic id="crher"
 	class="simple"
 	title="Herb and Jamaal"
 	author="Stephen Bentley"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crher/%Y/crher%y%m%d.gif">
 </comic>
 <comic id="tmhel"
 	class="simple"
 	title="Helen, Sweetheart of the Internet"
 	author="Peter Zale"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmhel/%Y/tmhel%y%m%d.gif">
 </comic>
 <comic id="crhea"
 	class="simple"
 	title="Heathcliff"
 	author="George Gately"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crhea/%Y/crhea%y%m%d.gif">
 </comic>
 <comic id="hc"
 	class="simple"
 	title="Heart of the City"
 	author="Mark Tatulli"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/hc/%Y/hc%y%m%d.gif">
 </comic>
 <comic id="tmgil"
 	class="simple"
 	title="Gil Thorp"
 	author="Neal Rubin &amp; Frank McLaughlin"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmgil/%Y/tmgil%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -468,30 +537,35 @@
 	class="simple"
 	title="Kudzu"
 	author="Doug Marlette"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmkud/%Y/tmkud%y%m%d.gif">
 </comic>
 <comic id="lc"
 	class="simple"
 	title="La Cucaracha"
 	author="Lalo Alcaraz"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/lc/%Y/lc%y%m%d.gif">
 </comic>
 <comic id="crlib"
 	class="simple"
 	title="Liberty Meadows"
 	author="Frank Cho"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crlib/%Y/crlib%y%m%d.gif">
 </comic>
 <comic id="bl"
 	class="simple"
 	title="In the Bleachers"
 	author="Steve Moore"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/bl/%Y/bl%y%m%d.gif">
 </comic>
 <comic id="ibox"
 	class="simple"
 	title="Idiot Box"
 	author="Matt Bors"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/ibox/%Y/ibox%y%m%d.gif">
 		<restrict>2</restrict>
 		<restrict>3</restrict>
@@ -503,42 +577,49 @@
 	class="simple"
 	title="Loose Parts"
 	author="Dave Blazek"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmloo/%Y/tmloo%y%m%d.gif">
 </comic>
 <comic id="lost"
 	class="simple"
 	title="Lost Sheep"
 	author="Dan Thompson"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/lost/%Y/lost%y%m%d.gif">
 </comic>
 <comic id="luc"
 	class="simple"
 	title="Lucky Cow"
 	author="Mark Pett"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/luc/%Y/luc%y%m%d.gif">
 </comic>
 <comic id="tmmee"
 	class="simple"
 	title="Meehan Streak"
 	author="Kieran Meehan"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmmee/%Y/tmmee%y%m%d.gif">
 </comic>
 <comic id="mb"
 	class="simple"
 	title="Mister Boffo"
 	author="Joe Martin"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/mb/%Y/mb%y%m%d.gif">
 </comic>
 <comic id="tmmid"
 	class="simple"
 	title="The Middletons"
 	author="Ralph Dunagin &amp; Dana Summers"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmmid/%Y/tmmid%y%m%d.gif">
 </comic>
 <comic id="mike"
 	class="simple"
 	title="MikeDonovan.com"
 	author="Mike Donovan"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/mike/%Y/mike%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -546,24 +627,28 @@
 	class="simple"
 	title="Mixed Media"
 	author="Scott Willis &amp; Jack Ohman"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmmix/%Y/tmmix%y%m%d.gif">
 </comic>
 <comic id="nq"
 	class="simple"
 	title="Non Sequitur"
 	author="Wiley Miller"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/nq/%Y/nq%y%m%d.gif">
 </comic>
 <comic id="cpnst"
 	class="simple"
 	title="Nest Heads"
 	author="John Allen"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/cpnst/%Y/cpnst%y%m%d.gif">
 </comic>
 <comic id="crns"
 	class="simple"
 	title="Natural Selection"
 	author="Russ Wallace"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crns/%Y/crns%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -571,48 +656,56 @@
 	class="simple"
 	title="Momma"
 	author="Mell Lazarus"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crmom/%Y/crmom%y%m%d.gif">
 </comic>
 <comic id="ob"
 	class="simple"
 	title="Overboard"
 	author="Chip Dunham"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/ob/%Y/ob%y%m%d.gif">
 </comic>
 <comic id="wppic"
 	class="simple"
 	title="Pickles"
 	author="Brian Crane"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/wppic/%Y/wppic%y%m%d.gif">
 </comic>
 <comic id="wpgen"
 	class="simple"
 	title="Out of the Gene Pool"
 	author="Matt Janz"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/wpgen/%Y/wpgen%y%m%d.gif">
 </comic>
 <comic id="crtoc"
 	class="simple"
 	title="The Other Coast"
 	author="Adrian Raeside"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crtoc/%Y/crtoc%y%m%d.gif">
 </comic>
 <comic id="crobh"
 	class="simple"
 	title="One Big Happy"
 	author="Rick Detorie"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crobh/%Y/crobh%y%m%d.gif">
 </comic>
 <comic id="oe"
 	class="simple"
 	title="Oddly Enough"
 	author="Chris Kemp"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/oe/%Y/oe%y%m%d.gif"> <restrict>7</restrict>
 </comic>
 <comic id="neu"
 	class="simple"
 	title="NEUROTICA"
 	author="Big Al the Gal"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/neu/%Y/neu%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -620,30 +713,35 @@
 	class="simple"
 	title="Pooch Café"
 	author="Paul Gilligan"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/poc/%Y/poc%y%m%d.gif">
 </comic>
 <comic id="pop"
 	class="simple"
 	title="Pop Culture"
 	author="Steve McGarry"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/pop/%Y/pop%y%m%d.gif">
 </comic>
 <comic id="pr"
 	class="simple"
 	title="Preteena"
 	author="Allison Barrows"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/pr/%Y/pr%y%m%d.gif">
 </comic>
 <comic id="prc"
 	class="simple"
 	title="Prickly City"
 	author="Scott Stantis"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/prc/%Y/prc%y%m%d.gif">
 </comic>
 <comic id="tmqui"
 	class="simple"
 	title="The Quigmans"
 	author="Buddy Hickerson"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmqui/%Y/tmqui%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -651,36 +749,42 @@
 	class="simple"
 	title="Real Life Adventures"
 	author="Gary Wise &amp; Lance Aldrich"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/rl/%Y/rl%y%m%d.gif">
 </comic>
 <comic id="tmplu"
 	class="simple"
 	title="Pluggers"
 	author="Gary Brookins"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmplu/%Y/tmplu%y%m%d.gif">
 </comic>
 <comic id="wpred"
 	class="simple"
 	title="Red and Rover"
 	author="Brian Basset"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/wpred/%Y/wpred%y%m%d.gif">
 </comic>
 <comic id="crrub"
 	class="simple"
 	title="Rubes"
 	author="Leigh Rubin"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crrub/%Y/crrub%y%m%d.gif">
 </comic>
 <comic id="tmsho"
 	class="simple"
 	title="Shoe"
 	author="Chris Cassatt &amp; Gary Brookins"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmsho/%Y/tmsho%y%m%d.gif">
 </comic>
 <comic id="slow"
 	class="simple"
 	title="Slowpoke"
 	author="Jen Sorensen"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/slow/%Y/slow%y%m%d.gif">
 		<restrict>2</restrict>
 		<restrict>3</restrict>
@@ -693,12 +797,14 @@
 	class="simple"
 	title="Speed Bump"
 	author="Dave Coverly"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crspe/%Y/crspe%y%m%d.gif">
 </comic>
 <comic id="crsou"
 	class="simple"
 	title="State of the Union"
 	author="Carl Moore"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crsou/%Y/crsou%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -706,18 +812,21 @@
 	class="simple"
 	title="Stone Soup"
 	author="Jan Eliot"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/ss/%Y/ss%y%m%d.gif">
 </comic>
 <comic id="crstr"
 	class="simple"
 	title="Strange Brew" 
 	author="John Deering"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crstr/%Y/crstr%y%m%d.gif">
 </comic>
 <comic id="tmsyl"
 	class="simple"
 	title="Sylvia"
 	author="Nicole Hollander"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tmsyl/%Y/tmsyl%y%m%d.gif">
 		<restrict>7</restrict>
 </comic>
@@ -725,18 +834,21 @@
 	class="simple"
 	title="Tank McNamara"
 	author="Jeff Millar &amp; Bill Hinds"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tm/%Y/tm%y%m%d.gif">
 </comic>
 <comic id="wplif"
 	class="simple"
 	title="That's Life"
 	author="Mike Twohy"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/wplif/%Y/wplif%y%m%d.gif">
 </comic>
 <comic id="think"
 	class="simple"
 	title="(th)ink"
 	author="Keith Knight"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/think/%Y/think%y%m%d.gif">
 	<restrict>2</restrict>
 	<restrict>3</restrict>
@@ -749,12 +861,14 @@
 	class="simple"
 	title="Through Thick and Thin"
 	author="Ralph Smith"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/cpthk/%Y/cpthk%y%m%d.gif">
 </comic>
 <comic id="tiny"
 	class="simple"
 	title="Tiny Sepuku"
 	author="Ken Cursoe"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/tiny/%Y/tiny%y%m%d.gif">
 		<restrict>1</restrict>
 		<restrict>2</restrict>
@@ -767,6 +881,7 @@
 	class="simple"
 	title="Tom the Dancing Bug"
 	author="Ruben Bolling"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/td/%Y/td%y%m%d.gif">
 		<restrict>1</restrict>
 		<restrict>2</restrict>
@@ -779,30 +894,35 @@
 	class="simple"
 	title="Willy n Ethel"
 	author="Joe Martin"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/wes/%Y/wes%y%m%d.gif">
 </comic>
 <comic id="crwiz"
 	class="simple"
 	title="Wizard of Id"
 	author="Brant Parker &amp; Johnny Hart"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crwiz/%Y/crwiz%y%m%d.gif">
 </comic>
 <comic id="crzhi"
 	class="simple"
 	title="Zack Hill"
 	author="John Deering"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/crzhi/%Y/crzhi%y%m%d.gif">
 </comic>
 <comic id="zi"
 	class="simple"
 	title="Ziggy"
 	author="Tom Wilson &amp; Tom II"
+	language="English"
 	generic_uri="http://picayune.uclick.com/comics/zi/%Y/zi%y%m%d.gif">
 </comic>
 <comic id="boredandevil"
         class="simple"
         title="Bored and evil"
         author="Robert Koch"
+	language="English"
         generic_uri="http://www.boredandevil.com/strips/%Y-%m-%d.gif">
 		<restrict>2</restrict>
                 <restrict>4</restrict>
@@ -814,6 +934,7 @@
         class="simple"
         title="Bruno the Bandit"
         author="Ian McDonald"
+	language="English"
         generic_uri="http://brunothebandit.com/comics/%Y%m%da.gif">
                 <restrict>2</restrict>
                 <restrict>4</restrict>

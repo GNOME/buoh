@@ -71,7 +71,7 @@ buoh_properties_dialog_init (BuohPropertiesDialog *dialog)
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Comic Properties"));
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
-	gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+	gtk_container_set_border_width (GTK_CONTAINER (dialog), 12);
 	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 12);
 
 	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE,
@@ -93,11 +93,97 @@ buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass)
 void
 buoh_properties_dialog_set_comic (BuohPropertiesDialog *dialog, BuohComic *comic)
 {
+	GtkWidget *table;
+	GtkWidget *label_title, *label_title_val;
+	GtkWidget *label_author, * label_author_val;
+	GtkWidget *label_uri, *label_uri_val;
+	GtkWidget *label_language, *label_language_val;
+	gchar     *title, *author, *uri, *language;
+	
 	g_return_if_fail (BUOH_IS_COMIC (comic));
 
 	dialog->priv->comic = comic;
 
-	/* TODO: fill the dialog */
+	table = gtk_table_new (4, 2, FALSE);
+	
+	label_title = gtk_label_new (NULL);
+	gtk_label_set_markup (GTK_LABEL (label_title), "<b>Title:</b>");
+	gtk_misc_set_alignment (GTK_MISC (label_title), 0, 0.5);
+
+	label_author = gtk_label_new (NULL);
+	gtk_label_set_markup (GTK_LABEL (label_author), "<b>Author:</b>");
+	gtk_misc_set_alignment (GTK_MISC (label_author), 0, 0.5);
+
+	label_uri = gtk_label_new (NULL);	
+	gtk_label_set_markup (GTK_LABEL (label_uri), "<b>Link:</b>");
+	gtk_misc_set_alignment (GTK_MISC (label_uri), 0, 0.5);
+
+	label_language = gtk_label_new (NULL);	
+	gtk_label_set_markup (GTK_LABEL (label_language), "<b>Language:</b>");
+	gtk_misc_set_alignment (GTK_MISC (label_language), 0, 0.5);
+
+	g_object_get (comic,
+		      "title", &title,
+		      "author", &author,
+		      "language", &language, NULL);
+
+	uri = buoh_comic_get_uri (comic);
+	
+	label_title_val = gtk_label_new (title);
+	gtk_label_set_selectable (GTK_LABEL (label_title_val), TRUE);
+	gtk_misc_set_alignment (GTK_MISC (label_title_val), 0, 0.5);
+	g_free (title);
+	
+	label_author_val = gtk_label_new (author);
+	gtk_label_set_selectable (GTK_LABEL (label_author_val), TRUE);
+	gtk_misc_set_alignment (GTK_MISC (label_author_val), 0, 0.5);
+	g_free (author);
+	
+	label_uri_val = gtk_label_new (uri);
+	gtk_label_set_selectable (GTK_LABEL (label_uri_val), TRUE);
+	gtk_misc_set_alignment (GTK_MISC (label_uri_val), 0, 0.5);
+	gtk_label_set_width_chars (GTK_LABEL (label_uri_val), 35);
+	gtk_label_set_ellipsize (GTK_LABEL (label_uri_val), PANGO_ELLIPSIZE_END);	
+	g_free (uri);
+	
+	label_language_val = gtk_label_new (language);
+	gtk_label_set_selectable (GTK_LABEL (label_language_val), TRUE);
+	gtk_misc_set_alignment (GTK_MISC (label_language_val), 0, 0.5);	
+	g_free (language);
+	
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_title),
+			  0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_title_val),
+			  1, 2, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_author),
+			  0, 1, 1, 2, GTK_FILL, GTK_FILL, 0, 0 );
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_author_val),
+			  1, 2, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_uri),
+			  0, 1, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_uri_val),
+			  1, 2, 2, 3, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_language),
+			  0, 1, 3, 4, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_language_val),
+			  1, 2, 3, 4, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+
+	gtk_table_set_row_spacings (GTK_TABLE (table), 6);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+		
+	gtk_widget_show (label_title);
+	gtk_widget_show (label_title_val);
+	gtk_widget_show (label_author);
+	gtk_widget_show (label_author_val);
+	gtk_widget_show (label_uri);
+	gtk_widget_show (label_uri_val);
+	gtk_widget_show (label_language);
+	gtk_widget_show (label_language_val);
+
+	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (dialog)->vbox),
+				     GTK_WIDGET (table));
+
+	gtk_widget_show (table);	
 }
 
 GtkWidget *
