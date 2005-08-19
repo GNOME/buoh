@@ -53,6 +53,7 @@ ComicSimple  *comic_simple_new (void);
 ComicSimple  *comic_simple_new_with_info (const gchar *id,
 					  const gchar *title,
 					  const gchar *author,
+					  const gchar *language,
 					  const gchar *main_uri);
 
 void   comic_simple_set_title (BuohComic *comic, const gchar *title);

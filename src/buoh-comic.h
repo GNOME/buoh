@@ -58,7 +58,8 @@ GType      buoh_comic_get_type      (void);
 BuohComic *buoh_comic_new           (void);
 BuohComic *buoh_comic_new_with_info (const gchar *id,
 				     const gchar *title,
-				     const gchar *author);
+				     const gchar *author,
+				     const gchar *language);
 
 /*gboolean comic_is_the_last (Comic *comic);*/
 
@@ -69,6 +70,8 @@ void       buoh_comic_set_title            (BuohComic   *comic,
 					    const gchar *title);
 void       buoh_comic_set_author           (BuohComic   *comic,
 					    const gchar *author);
+void       buoh_comic_set_language         (BuohComic   *comic,
+					    const gchar *language);
 void       buoh_comic_set_id               (BuohComic   *comic,
 					    const gchar *id);
 void       buoh_comic_set_pixbuf           (BuohComic   *comic,
@@ -78,6 +81,7 @@ void       buoh_comic_set_pixbuf_from_file (BuohComic   *comic,
 gchar     *buoh_comic_get_uri              (BuohComic   *comic);
 gchar     *buoh_comic_get_title            (BuohComic   *comic);
 gchar     *buoh_comic_get_author           (BuohComic   *comic);
+gchar     *buoh_comic_get_language         (BuohComic   *comic);
 gchar     *buoh_comic_get_id               (BuohComic   *comic);
 gchar     *buoh_comic_get_page             (BuohComic   *comic);
 gchar     *buoh_buoh_comic_get_uri         (BuohComic   *comic);

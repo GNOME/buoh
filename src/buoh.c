@@ -136,7 +136,7 @@ buoh_create_model_from_file (Buoh *buoh)
 	xmlNodePtr    node;
 	xmlNodePtr    child;
 	BuohComic    *comic;
-	xmlChar      *id, *class, *title, *author, *uri;
+	xmlChar      *id, *class, *title, *author, *language, *uri;
 	gboolean      visible;
 	xmlChar      *restriction;
 	GDateWeekday  restriction_date;
@@ -163,6 +163,7 @@ buoh_create_model_from_file (Buoh *buoh)
 				    G_TYPE_BOOLEAN,
 				    G_TYPE_STRING,
 				    G_TYPE_STRING,
+				    G_TYPE_STRING,
 				    G_TYPE_POINTER,
 				    -1);
 	
@@ -175,15 +176,17 @@ buoh_create_model_from_file (Buoh *buoh)
 
 			/* Comic simple */
 			if (g_ascii_strcasecmp ((const gchar *)class, "simple") == 0) {
-				id     = xmlGetProp (node, (xmlChar *) "id");
-				title  = xmlGetProp (node, (xmlChar *) "title");
-				author = xmlGetProp (node, (xmlChar *) "author");
-				uri    = xmlGetProp (node, (xmlChar *) "generic_uri");
+				id       = xmlGetProp (node, (xmlChar *) "id");
+				title    = xmlGetProp (node, (xmlChar *) "title");
+				author   = xmlGetProp (node, (xmlChar *) "author");
+				language = xmlGetProp (node, (xmlChar *) "language");
+				uri      = xmlGetProp (node, (xmlChar *) "generic_uri");
 
 				comic = BUOH_COMIC (comic_simple_new_with_info (
 							    (gchar *)id,
 							    (gchar *)title,
 							    (gchar *)author,
+							    (gchar *)language,
 							    (gchar *)uri));
 
 				/* Read the restrictions */
@@ -213,12 +216,14 @@ buoh_create_model_from_file (Buoh *buoh)
 						    COMIC_LIST_VISIBLE, visible,
 						    COMIC_LIST_TITLE, title,
 						    COMIC_LIST_AUTHOR, author,
+						    COMIC_LIST_LANGUAGE, language,
 						    COMIC_LIST_COMIC, (gpointer) comic,
 						    -1);
 
 				g_free (id);
 				g_free (title);
 				g_free (author);
+				g_free (language);
 				g_free (uri);
 			}
 

@@ -60,7 +60,8 @@ enum {
 enum {
 	PROP_,
 	PROP_TITLE,
-	PROP_AUTHOR
+	PROP_AUTHOR,
+	PROP_LANGUAGE
 };
 
 
@@ -179,15 +180,20 @@ ComicSimple *
 comic_simple_new_with_info (const gchar *id,
 			    const gchar *title,
 			    const gchar *author,
+			    const gchar *language,
 			    const gchar *generic_uri)
 {
 	ComicSimple        *comic;
 
 	comic = comic_simple_new ();
 
-	g_object_set (G_OBJECT (comic), "id", id,
-		      "title", title, "author", author,
-		      "generic_uri", generic_uri, NULL);
+	g_object_set (G_OBJECT (comic),
+		      "id", id,
+		      "title", title,
+		      "author", author,
+		      "language", language,
+		      "generic_uri", generic_uri,
+		      NULL);
 	   
 	return COMIC_SIMPLE (comic);
 }
