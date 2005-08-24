@@ -1,3 +1,8 @@
+2005-08-24  Esteban Sanchez <esteban@steve-o.org>
+
+	* data/comics.xml: Added five new comics, please check the
+	restrictions.
+
 2005-08-19  Pablo Arroyo <zioma@linups.org>
 
 	* src/buoh-properties-dialog.c: Now it shows some properties of the
