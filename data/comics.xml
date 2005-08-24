@@ -942,4 +942,39 @@
                 <restrict>7</restrict>
 
 </comic>
+<comic id="superosity"
+        class="simple"
+        title="Superosity"
+        author="Chris Crosby"
+        language="English"
+        generic_uri="http://www.superosity.com/comics/sup%Y%m%d.gif">
+</comic>
+<comic id="goats"
+        class="simple"
+        title="Goats"
+        author="Jonathan Rosenberg"
+        language="English"
+        generic_uri="http://www.goats.com/comix/0508/goats%y%m%d.png">
+</comic>
+<comic id="wigu"
+        class="simple"
+        title="Wigu"
+        author="Jeffrey Rowland"
+        language="English"
+        generic_uri="http://www.wigu.com/strips/%Y%m%d.png">
+</comic>
+<comic id="scarygoround"
+        class="simple"
+        title="Scary go round"
+        author="John Allison"
+        language="English"
+        generic_uri="http://www.scarygoround.com/strips/20050824.png">
+</comic>
+<comic id="bruno"
+        class="simple"
+        title="Bruno"
+        author="Christopher Baldwin"
+        language="English"
+        generic_uri="http://www.brunostrip.com/%Ypics/%Y%m%d.gif">
+</comic>
 </comic_list>
