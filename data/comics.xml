@@ -936,8 +936,6 @@
         author="Ian McDonald"
 	language="English"
         generic_uri="http://brunothebandit.com/comics/%Y%m%da.gif">
-                <restrict>2</restrict>
-                <restrict>4</restrict>
                 <restrict>6</restrict>
                 <restrict>7</restrict>
 
@@ -968,7 +966,9 @@
         title="Scary go round"
         author="John Allison"
         language="English"
-        generic_uri="http://www.scarygoround.com/strips/20050824.png">
+        generic_uri="http://www.scarygoround.com/strips/%Y%m%d.png">
+		<restrict>6</restrict>
+                <restrict>7</restrict>
 </comic>
 <comic id="bruno"
         class="simple"
@@ -976,5 +976,48 @@
         author="Christopher Baldwin"
         language="English"
         generic_uri="http://www.brunostrip.com/%Ypics/%Y%m%d.gif">
+</comic>
+<comic id="littledee"
+        class="simple"
+        title="Little Dee"
+        author="Christopher Baldwin"
+        language="English"
+        generic_uri="http://www.littledee.net/2005pics/%T%m%d.gif">
+	<restrict>7</restrict>
+</comic>
+<comic id="sorethumbs"
+        class="simple"
+        title="Sore Thumbs"
+        author="Chris Crosby"
+        language="English"
+        generic_uri="http://www.sorethumbsonline.com/comics/st%Y%m%d.gif">
+        <restrict>2</restrict>
+        <restrict>4</restrict>
+        <restrict>6</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="owlie"
+        class="simple"
+        title="Owlie"
+        author="Mike Leffel and Bob Scott"
+        language="English"
+        generic_uri="http://www.owliecomics.com/comics/owl%Y%m%d.png">
+</comic>
+<comic id="soar"
+        class="simple"
+        title="Soap on a Rope"
+        author="Bob Roberds"
+        language="English"
+        generic_uri="http://www.soaprope.com/comics/soar%Y%m%d.gif">
+	<restrict>6</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="greystoneinn"
+        class="simple"
+        title="Greystone inn"
+        author="Brad J. Guigar"
+        language="English"
+        generic_uri="http://www.greystoneinn.net/comics/%Y%m%d.gif">
+        <restrict>7</restrict>
 </comic>
 </comic_list>
