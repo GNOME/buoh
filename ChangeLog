@@ -1,5 +1,10 @@
 2005-08-24  Esteban Sanchez <esteban@steve-o.org>
 
+	* data/comics.xml: Added other five new comics. Reviewed the
+	restrictions of some comics. Solved bug with "Scary go round". 
+
+2005-08-24  Esteban Sanchez <esteban@steve-o.org>
+
 	* data/comics.xml: Added five new comics, please check the
 	restrictions.
 
