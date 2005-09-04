@@ -1,4 +1,8 @@
-2005-08-24  Esteban Sanchez <esteban@steve-o.org>
+2005-09-04  Esteban Sanchez <esteban@steve-o.org>
+
+	* po/PORTILES.in: Updated with new files
+
+2005-08-31  Esteban Sanchez <esteban@steve-o.org>
 
 	* data/comics.xml: Added other five new comics. Reviewed the
 	restrictions of some comics. Solved bug with "Scary go round". 
