@@ -2,5 +2,8 @@
 # Please keep this file sorted alphabetically.
 interfaces/buoh.glade
 src/buoh.c
-src/callbacks.c
-src/main.c
+src/buoh-add-comic-dialog.c
+src/buoh-comic-list.c
+src/buoh-properties-dialog.c
+src/buoh-view.c
+src/buoh-window.c
