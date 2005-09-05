@@ -406,7 +406,7 @@ buoh_view_comic_load_monitor (gpointer gdata)
 			cursor = NULL;
 		}
 
-		g_debug ("Monitor exit");
+		g_debug ("Monitor exit (stopping/finished)");
 		
 		return FALSE;
 	case LOADER_STATE_FAILED:
@@ -422,11 +422,11 @@ buoh_view_comic_load_monitor (gpointer gdata)
 		gtk_notebook_set_current_page (GTK_NOTEBOOK (view), VIEW_PAGE_MESSAGE);
 		buoh_view_update_message (view);
 
-		g_debug ("Monitor exit");
+		g_debug ("Monitor exit (failed)");
 		
 		return FALSE;
 	default:
-		g_debug ("Monitor exit");
+		g_debug ("Monitor exit (unknown)");
 		
 		return FALSE;
 		
