@@ -17,18 +17,37 @@
  */
 
 #include <libgnomevfs/gnome-vfs.h>
+#include <string.h>
 
 #include "buoh-comic-loader.h"
 
 static GObjectClass *parent_class = NULL;
 
-static void buoh_comic_loader_init                   (BuohComicLoader      *loader);
-static void buoh_comic_loader_class_init             (BuohComicLoaderClass *klass);
-static void buoh_comic_loader_finalize               (GObject              *object);
+static void     buoh_comic_loader_init           (BuohComicLoader      *loader);
+static void     buoh_comic_loader_class_init     (BuohComicLoaderClass *klass);
+static void     buoh_comic_loader_finalize       (GObject              *object);
 
-static void     buoh_comic_loader_update     (GdkPixbufLoader *pixbuf_loader, gint x, gint y,
-					      gint width, gint height, gpointer *gdata);
-static gpointer buoh_comic_loader_run_thread (gpointer gdata);
+static void     buoh_comic_loader_update         (GdkPixbufLoader      *pixbuf_loader,
+						  gint                  x,
+						  gint                  y,
+						  gint                  width,
+						  gint                  height,
+						  gpointer              gdata);
+static void     buoh_comic_loader_open_finished  (GnomeVFSAsyncHandle  *handle,
+						  GnomeVFSResult        result,
+						  gpointer              gdata);
+static void     buoh_comic_loader_close_finished (GnomeVFSAsyncHandle  *handle,
+						  GnomeVFSResult        result,
+						  gpointer              gdata);
+static void     buoh_comic_loader_read_next      (GnomeVFSAsyncHandle  *handle,
+						  GnomeVFSResult        result,
+						  gpointer              buffer,
+						  GnomeVFSFileSize      bytes_requested,
+						  GnomeVFSFileSize      bytes_read,
+						  gpointer              gdata);
+static gpointer buoh_comic_loader_run_thread     (gpointer              gdata);
+
+#define BUFFER_SIZE 2048
 
 GType
 buoh_comic_loader_get_type ()
@@ -59,6 +78,11 @@ static void
 buoh_comic_loader_init (BuohComicLoader *loader)
 {
 	loader->uri = NULL;
+	loader->pixbuf_loader = NULL;
+	loader->buffer = NULL;
+	
+	loader->loop = NULL;
+	loader->handle = NULL;
 	
 	loader->thread_mutex = g_mutex_new ();
 	loader->pixbuf_mutex = g_mutex_new ();
@@ -117,6 +141,16 @@ buoh_comic_loader_finalize (GObject *object)
 		loader->status_mutex = NULL;
 	}
 
+	if (loader->buffer) {
+		g_free (loader->buffer);
+		loader->buffer = NULL;
+	}
+	
+	if (loader->loop) {
+		g_main_loop_unref (loader->loop);
+		loader->loop = NULL;
+	}
+
 	if (G_OBJECT_CLASS (parent_class)->finalize)
 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
@@ -133,7 +167,7 @@ buoh_comic_loader_new (void)
 
 static void
 buoh_comic_loader_update (GdkPixbufLoader *pixbuf_loader, gint x, gint y,
-			  gint width, gint height, gpointer *gdata)
+			  gint width, gint height, gpointer gdata)
 {
 	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
 
@@ -142,21 +176,12 @@ buoh_comic_loader_update (GdkPixbufLoader *pixbuf_loader, gint x, gint y,
 	g_mutex_unlock (loader->pixbuf_mutex);
 }
 
-static gpointer
-buoh_comic_loader_run_thread (gpointer gdata)
+static void
+buoh_comic_loader_open_finished (GnomeVFSAsyncHandle *handle,
+				 GnomeVFSResult       result,
+				 gpointer             gdata)
 {
-	BuohComicLoader  *loader = BUOH_COMIC_LOADER (gdata);
-	GnomeVFSHandle   *read_handle;
-	GnomeVFSResult    result;
-	GnomeVFSFileSize  bytes_read;
-	GdkPixbufLoader  *pixbuf_loader;
-	guint             buffer[2048];
-
-	g_debug ("comic_load_thread");
-
-	result = gnome_vfs_open (&read_handle, loader->uri, GNOME_VFS_OPEN_READ);
-	g_free (loader->uri);
-	loader->uri = NULL;
+	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
 
 	if (result != GNOME_VFS_OK) {
 		g_print ("Error %d - %s\n", result,
@@ -166,66 +191,138 @@ buoh_comic_loader_run_thread (gpointer gdata)
 		loader->status = LOADER_STATE_FAILED;
 		g_mutex_unlock (loader->status_mutex);
 
-		g_mutex_unlock (loader->thread_mutex);
+		gnome_vfs_async_cancel (handle);
 
-		return NULL;
+		if (g_main_loop_is_running (loader->loop)) {
+			g_debug ("g_main_loop_quit");
+			g_main_loop_quit (loader->loop);
+		}
+
+		g_debug ("state finished");
+
+		return;
 	}
 
-	pixbuf_loader = gdk_pixbuf_loader_new ();
-	g_signal_connect (G_OBJECT (pixbuf_loader), "area-updated",
+	g_debug ("resolved");
+
+	loader->pixbuf_loader = gdk_pixbuf_loader_new ();
+	g_signal_connect (G_OBJECT (loader->pixbuf_loader), "area-updated",
 			  G_CALLBACK (buoh_comic_loader_update),
 			  (gpointer) loader);
 
-	result = gnome_vfs_read (read_handle, buffer,
-				 2048, &bytes_read);
+	loader->buffer = g_malloc (BUFFER_SIZE);
+	gnome_vfs_async_read (handle, loader->buffer, BUFFER_SIZE,
+			      buoh_comic_loader_read_next,
+			      (gpointer) loader);
+}
 
-	while ((result != GNOME_VFS_ERROR_EOF) &&
-	       (result == GNOME_VFS_OK)) {
+static void
+buoh_comic_loader_close_finished (GnomeVFSAsyncHandle *handle,
+				  GnomeVFSResult       result,
+				  gpointer             gdata)
+{
+	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
 
-/*		g_usleep (1000000);*/
-
-		if (loader->status == LOADER_STATE_STOPPING) {
-			g_debug ("Stopping loader");
-			gdk_pixbuf_loader_close (pixbuf_loader, NULL);
-			g_object_unref (pixbuf_loader);
-			gnome_vfs_close (read_handle);
-
-			g_debug ("thread died");
-
-			g_mutex_unlock (loader->thread_mutex);
-
-			return NULL;
-		}
-		
-		gdk_pixbuf_loader_write (pixbuf_loader,
-					 (guchar *) buffer,
-					 bytes_read, NULL);
-
-		result = gnome_vfs_read (read_handle, buffer,
-					 2048, &bytes_read);
-	}
-
-	if (result != GNOME_VFS_ERROR_EOF)
-		g_print ("Error %d - %s\n", result,
-			 gnome_vfs_result_to_string (result));
-
-	gdk_pixbuf_loader_close (pixbuf_loader, NULL);
+	gdk_pixbuf_loader_close (loader->pixbuf_loader, NULL);
 
 	g_mutex_lock (loader->pixbuf_mutex);
-	loader->pixbuf = gdk_pixbuf_loader_get_pixbuf (pixbuf_loader);
+	loader->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader->pixbuf_loader);
 	g_mutex_unlock (loader->pixbuf_mutex);
 
-	g_object_unref (pixbuf_loader);
-	gnome_vfs_close (read_handle);
-
-	g_debug ("thread died");
+	g_object_unref (loader->pixbuf_loader);
+	loader->pixbuf_loader = NULL;
 
 	g_mutex_lock (loader->status_mutex);
 	loader->status = LOADER_STATE_FINISHED;
 	g_mutex_unlock (loader->status_mutex);
 
-	g_mutex_unlock (loader->thread_mutex);
+	if (g_main_loop_is_running (loader->loop))
+		g_main_loop_quit (loader->loop);
+}
+
+static void
+buoh_comic_loader_read_next (GnomeVFSAsyncHandle *handle,
+			     GnomeVFSResult       result,
+			     gpointer             buffer,
+			     GnomeVFSFileSize     bytes_requested,
+			     GnomeVFSFileSize     bytes_read,
+			     gpointer             gdata)
+{
+	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
+
+	if (loader->status == LOADER_STATE_STOPPING) {
+		g_debug ("Stopping loader");
+		
+		gdk_pixbuf_loader_close (loader->pixbuf_loader, NULL);
+		g_object_unref (loader->pixbuf_loader);
+		loader->pixbuf_loader = NULL;
+
+		g_free (buffer);
+
+		gnome_vfs_async_cancel (handle);
+
+		if (g_main_loop_is_running (loader->loop))
+			g_main_loop_quit (loader->loop);
+
+		return;
+	}
 	
+	switch (result) {
+	case GNOME_VFS_OK:
+		gdk_pixbuf_loader_write (loader->pixbuf_loader,
+					 (guchar *) buffer,
+					 bytes_read, NULL);
+		memset (loader->buffer, 0, BUFFER_SIZE);
+		gnome_vfs_async_read (handle, loader->buffer, BUFFER_SIZE,
+				      buoh_comic_loader_read_next,
+				      (gpointer) loader);
+		break;
+	case GNOME_VFS_ERROR_EOF:
+		gnome_vfs_async_close (handle,
+				       buoh_comic_loader_close_finished,
+				       (gpointer) loader);
+		g_free (loader->buffer);
+		loader->buffer = NULL;
+		break;
+	default:
+		g_print ("Error %d - %s\n", result,
+			 gnome_vfs_result_to_string (result));
+		g_free (loader->buffer);
+		loader->buffer = NULL;
+	}
+}
+
+static gpointer
+buoh_comic_loader_run_thread (gpointer gdata)
+{
+	BuohComicLoader  *loader = BUOH_COMIC_LOADER (gdata);
+	GMainContext     *context;
+
+	g_debug ("comic_load_thread");
+
+	context = g_main_context_new ();
+	loader->loop = g_main_loop_new (context, TRUE);
+
+	g_debug ("resolving . . .");
+	gnome_vfs_async_open (&loader->handle, loader->uri,
+			      GNOME_VFS_OPEN_READ,
+			      GNOME_VFS_PRIORITY_DEFAULT,
+			      buoh_comic_loader_open_finished,
+			      (gpointer) loader);
+	g_free (loader->uri);
+	loader->uri = NULL;
+
+	if (g_main_loop_is_running (loader->loop)) 
+		g_main_loop_run (loader->loop);
+
+	g_main_loop_unref (loader->loop);
+	loader->loop = NULL;
+	g_main_context_unref (context);
+
+	g_debug ("thread died");
+
+	g_mutex_unlock (loader->thread_mutex);
+
 	return NULL;
 }
 
@@ -257,9 +354,29 @@ buoh_comic_loader_run (BuohComicLoader *loader, const gchar *uri)
 void
 buoh_comic_loader_stop (BuohComicLoader *loader)
 {
-	g_debug ("buoh_comic_loader_stop");
-	
+	g_debug ("Stopping loader");
+
 	g_mutex_lock (loader->status_mutex);
 	loader->status = LOADER_STATE_STOPPING;
 	g_mutex_unlock (loader->status_mutex);
+
+	if (loader->pixbuf_loader) {
+		gdk_pixbuf_loader_close (loader->pixbuf_loader, NULL);
+		g_object_unref (loader->pixbuf_loader);
+		loader->pixbuf_loader = NULL;
+	}
+
+	if (loader->buffer) {
+		g_free (loader->buffer);
+		loader->buffer = NULL;
+	}
+
+	if (loader->handle) {
+		gnome_vfs_async_cancel (loader->handle);
+	}
+
+	if (loader->loop) {
+		if (g_main_loop_is_running (loader->loop))
+			g_main_loop_quit (loader->loop);
+	}
 }

@@ -48,15 +48,20 @@ typedef struct _BuohComicLoaderClass   BuohComicLoaderClass;
 struct _BuohComicLoader {
 	GObject    parent;
 
-	gchar     *uri;
+	GMainLoop           *loop;
+	GnomeVFSAsyncHandle *handle;
+
+	gchar           *uri;
+	gpointer         buffer;
+	GdkPixbufLoader *pixbuf_loader;
 	
-	GMutex    *thread_mutex;
-	GMutex    *pixbuf_mutex;
-	GMutex    *status_mutex;
+	GMutex          *thread_mutex;
+	GMutex          *pixbuf_mutex;
+	GMutex          *status_mutex;
 	
-	GThread   *thread;
-	GdkPixbuf *pixbuf;
-	guint      status;
+	GThread         *thread;
+	GdkPixbuf       *pixbuf;
+	guint            status;
 };
 
 struct _BuohComicLoaderClass {

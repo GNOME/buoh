@@ -28,6 +28,7 @@
 #include <libgnome/libgnome.h>
 #include <libgnomeui/libgnomeui.h>
 
+
 #include "buoh.h"
 
 gint
@@ -51,6 +52,6 @@ main (gint argc, gchar **argv)
 	buoh_create_main_window (buoh);
 
 	gtk_main ();
-	   
+
 	return 0;
 }

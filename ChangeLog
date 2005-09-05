@@ -1,3 +1,13 @@
+2005-09-05  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* TODO: Updated
+
+	* src/buoh-comic-loader.[ch]: Use async operations so that the loader
+	thread is not blocked anymore. We can stop the thread even if it is
+	resolving the url or reading data. In the future we will be able to
+	provide feedback when the loader is resolving, just before starting to
+	show the comic.
+	
 2005-09-04  Esteban Sanchez <esteban@steve-o.org>
 
 	* po/PORTILES.in: Updated with new files
