@@ -982,7 +982,7 @@
         title="Little Dee"
         author="Christopher Baldwin"
         language="English"
-        generic_uri="http://www.littledee.net/2005pics/%T%m%d.gif">
+        generic_uri="http://www.littledee.net/2005pics/%Y%m%d.gif">
 	<restrict>7</restrict>
 </comic>
 <comic id="sorethumbs"
