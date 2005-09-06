@@ -1,3 +1,3 @@
-comics_DATA = comics.xml 
+COMICSDATA = comics.xml 
 
 EXTRA_DIST = $(comics_DATA)

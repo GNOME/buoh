@@ -1,4 +1,4 @@
-pixmaps_DATA = 	  \
+PIXMAPSDATA = 	  \
 	   buoh64x64.png \
 	   buoh16x16.png 
 

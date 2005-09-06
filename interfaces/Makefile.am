@@ -1,4 +1,4 @@
-interfaces_DATA = buoh.glade
+INTERFACESDATA = buoh.glade
 
 CLEANFILES =            \
         *.bak           \
