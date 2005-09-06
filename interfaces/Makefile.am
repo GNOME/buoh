@@ -5,5 +5,5 @@ CLEANFILES =            \
         *.gladep
 
 EXTRA_DIST =                            \
-        $(interfaces_DATA)  
+        $(INTERFACESDATA)  
 
