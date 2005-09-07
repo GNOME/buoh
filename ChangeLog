@@ -1,3 +1,7 @@
+2005-09-07  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/Makefile.am: Fix build problems
+
 2005-09-06  Esteban Sanchez <esteban@steve-o.org>
 
 	* data/comics.xml: Fixed bug with "Little Dee".
