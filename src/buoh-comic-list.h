@@ -53,7 +53,6 @@ void       buoh_comic_list_set_view        (BuohComicList *comic_list,
 					    BuohView      *view);
 GtkWidget *buoh_comic_list_get_list        (BuohComicList *comic_list);
 void       buoh_comic_list_clear_selection (BuohComicList *comic_list);
-/*Comic     *buoh_comic_list_get_selection (BuohComicList *comic_list);*/
 
 G_END_DECLS
 

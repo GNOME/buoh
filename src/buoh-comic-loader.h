@@ -22,6 +22,7 @@
 #include <glib-object.h>
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <libgnomevfs/gnome-vfs.h>
 
 #include "buoh-comic.h"
 
@@ -51,17 +52,17 @@ struct _BuohComicLoader {
 	GMainLoop           *loop;
 	GnomeVFSAsyncHandle *handle;
 
-	gchar           *uri;
-	gpointer         buffer;
-	GdkPixbufLoader *pixbuf_loader;
+	gchar               *uri;
+	gpointer             buffer;
+	GdkPixbufLoader     *pixbuf_loader;
 	
-	GMutex          *thread_mutex;
-	GMutex          *pixbuf_mutex;
-	GMutex          *status_mutex;
+	GMutex              *thread_mutex;
+	GMutex              *pixbuf_mutex;
+	GMutex              *status_mutex;
 	
-	GThread         *thread;
-	GdkPixbuf       *pixbuf;
-	guint            status;
+	GThread             *thread;
+	GdkPixbuf           *pixbuf;
+	guint                status;
 };
 
 struct _BuohComicLoaderClass {
