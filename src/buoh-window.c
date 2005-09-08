@@ -292,6 +292,7 @@ buoh_window_init (BuohWindow *buoh_window)
 			  (gpointer) buoh_window);
 
 	buoh_window_comic_actions_set_sensitive (buoh_window, FALSE);
+	buoh_window_comic_save_to_disk_set_sensitive (buoh_window, FALSE);
 	
 	gtk_widget_show (GTK_WIDGET (buoh_window));
 }
