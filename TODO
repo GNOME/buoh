@@ -1,7 +1,7 @@
 [ ] Add Language property to comics
 [ ] Comic Manager
 [X] Properties comic dialog
-[\] Improve the comic loaging stuff
+[X Improve the comic loaging stuff
 [X] Remove Edit menu
 [ ] HIGification
 [X] Improve welcome and error messages
@@ -13,4 +13,4 @@
 [X] Comic List: ellipsise
 [X] Save a comic as PNG
 [ ] Move vfs errors from stdout to message_view
-[ ] Disable save a copy menu item when loading comics 
+[X] Disable save a copy menu item when loading comics 

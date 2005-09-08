@@ -37,11 +37,15 @@ typedef struct _BuohViewPrivate BuohViewPrivate;
 #define BUOH_IS_VIEW_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_VIEW))
 #define BUOH_VIEW_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_VIEW, BuohViewClass))
 
-enum {
-	VIEW_PAGE_IMAGE,
-	VIEW_PAGE_MESSAGE,
-	VIEW_PAGE_EMPTY
-};
+#define BUOH_TYPE_VIEW_STATUS           (buoh_view_status_get_type ())
+
+typedef enum {
+	STATE_MESSAGE_WELCOME,
+	STATE_MESSAGE_ERROR,
+	STATE_COMIC_LOADING,
+	STATE_COMIC_LOADED,
+	STATE_EMPTY
+} BuohViewStatus;
 
 struct _BuohView {
 	GtkNotebook      parent;
@@ -50,20 +54,33 @@ struct _BuohView {
 
 struct _BuohViewClass {
 	GtkNotebookClass   parent_class;
+	
+	void (* scale_changed) (BuohView *view);
 };
 
-GType          buoh_view_get_type        (void);
-GtkWidget     *buoh_view_new             (void);
+GType          buoh_view_get_type          (void);
+GType          buoh_view_status_get_type   (void);
+GtkWidget     *buoh_view_new               (void);
 
-gboolean       buoh_view_is_min_zoom     (BuohView *view);
-gboolean       buoh_view_is_max_zoom     (BuohView *view);
-gboolean       buoh_view_is_normal_size  (BuohView *view);
-void           buoh_view_zoom_in         (BuohView *view);
-void           buoh_view_zoom_out        (BuohView *view);
-void           buoh_view_normal_size     (BuohView *view);
+gboolean       buoh_view_is_min_zoom       (BuohView    *view);
+gboolean       buoh_view_is_max_zoom       (BuohView    *view);
+gboolean       buoh_view_is_normal_size    (BuohView    *view);
+void           buoh_view_zoom_in           (BuohView    *view);
+void           buoh_view_zoom_out          (BuohView    *view);
+void           buoh_view_normal_size       (BuohView    *view);
 
-void           buoh_view_set_comic       (BuohView *view, BuohComic *comic);
-BuohComic     *buoh_view_get_comic       (BuohView *view);
+BuohViewStatus buoh_view_get_status        (BuohView    *view);
+
+void           buoh_view_set_comic         (BuohView    *view,
+					    BuohComic   *comic);
+BuohComic     *buoh_view_get_comic         (BuohView    *view);
+
+void           buoh_view_set_message_title (BuohView    *view,
+					    const gchar *title);
+void           buoh_view_set_message_text  (BuohView    *view,
+					    const gchar *text);
+void           buoh_view_set_message_icon  (BuohView    *view,
+					    const gchar *icon);
 
 void           buoh_view_clear           (BuohView *view);
 
