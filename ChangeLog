@@ -1,3 +1,9 @@
+2005-09-09  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-comic-loader.[ch]: 
+	* src/buoh-view-comic.c:
+	Show gnome-vfs errors in the message error view instead of the console
+
 2005-09-08  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* src/buoh-window.c: Save a copy menu item disabled by default
