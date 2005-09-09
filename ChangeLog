@@ -1,3 +1,9 @@
+2005-09-09  Esteban Sanchez  <esteban@steve-o.org>
+	
+	* src/buoh-comic-maanger.[ch]: Added comic_list and current to the
+	private structure.  Get_next, get_last, get_previous,
+	get_current implemented.
+
 2005-09-09  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* src/buoh-comic-loader.[ch]: 

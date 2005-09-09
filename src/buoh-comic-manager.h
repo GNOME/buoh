@@ -46,46 +46,38 @@ struct _BuohComicManagerClass {
 	GObjectClass      parent_class;
 
 	/* Point to functions of the abstract class */
-	gchar     *(* get_page)       (BuohComicManager *comic_manager);
-	gchar     *(* get_uri)        (BuohComicManager *comic_manager);
 	BuohComic *(* get_next)       (BuohComicManager *comic_manager);
 	BuohComic *(* get_previous)   (BuohComicManager *comic_manager);
-	BuohComic *(* get_n_next)     (BuohComicManager *comic_manager, int n);
-	BuohComic *(* get_n_previous) (BuohComicManager *comic_manager, int n);
-	gboolean   (* is_the_last)    (BuohComicManager *comic_manager);
+	BuohComic *(* get_last)       (BuohComicManager *comic_manager);
+	BuohComic *(* get_first)      (BuohComicManager *comic_manager);
 	gboolean   (* is_the_first)   (BuohComicManager *comic_manager);
 };
 
 /* Public methods */
-GType             buoh_comic_manager_get_type      (void); 
+GType             buoh_comic_manager_get_type     (void); 
 
-void     buoh_comic_manager_go_next            (BuohComicManager   *comic);
-void     buoh_comic_manager_go_previous        (BuohComicManager   *comic);
-BuohComic *buoh_comic_manager_get_n_next       (BuohComicManager *comic_manager,
-						int n);
-BuohComic *buoh_comic_manager_get_n_previous   (BuohComicManager *comic_manager,
-						int n);
-BuohComic *buoh_comic_manager_get_next         (BuohComicManager *comic_manager);
-BuohComic *buoh_comic_manager_get_previous     (BuohComicManager *comic_manager);
+BuohComicManager * buoh_comic_manager_new (gchar *tipe,
+					   gchar *id,
+					   gchar *title,
+					   gchar *author,
+					   gchar *language,
+					   gchar *generic_uri);
 
-gboolean buoh_comic_manager_is_the_last        (BuohComicManager *comic_manager);
-gboolean buoh_comic_manager_is_the_first       (BuohComicManager *comic_manager);
+BuohComic        *buoh_comic_manager_get_next     (BuohComicManager *comic_manager);
+BuohComic        *buoh_comic_manager_get_previous (BuohComicManager *comic_manager);
 
-void     buoh_comic_manager_set_title          (BuohComicManager   *comic_manager,
-						const gchar *title);
-void     buoh_comic_manager_set_author         (BuohComicManager   *comic_manager,
-						const gchar *author);
-void     buoh_comic_manager_set_language       (BuohComicManager   *comic_manager,
-						const gchar *language);
-void     buoh_comic_manager_set_id             (BuohComicManager   *comic_manager,
-						const gchar *id);
-gchar   *buoh_comic_manager_get_uri            (BuohComicManager   *comic_manager);
-gchar   *buoh_comic_manager_get_title          (BuohComicManager   *comic_manager);
-gchar   *buoh_comic_manager_get_author         (BuohComicManager   *comic_manager);
-gchar   *buoh_comic_manager_get_language       (BuohComicManager   *comic_manager);
-gchar   *buoh_comic_manager_get_id             (BuohComicManager   *comic_manager);
-gchar   *buoh_comic_manager_get_page           (BuohComicManager   *comic_manager);
-gchar   *buoh_comic_manager_get_uri            (BuohComicManager   *comic_manager);
+BuohComic        *buoh_comic_manager_get_current  (BuohComicManager *comic_manager);
+BuohComic        *buoh_comic_manager_get_last     (BuohComicManager *comic_manager);
+
+gboolean          buoh_comic_manager_is_the_last  (BuohComicManager *comic_manager);
+gboolean          buoh_comic_manager_is_the_first (BuohComicManager *comic_manager);
+
+gchar            *buoh_comic_manager_get_uri      (BuohComicManager *comic_manager);
+gchar            *buoh_comic_manager_get_title    (BuohComicManager *comic_manager);
+gchar            *buoh_comic_manager_get_author   (BuohComicManager *comic_manager);
+gchar            *buoh_comic_manager_get_language (BuohComicManager *comic_manager);
+gchar            *buoh_comic_manager_get_id       (BuohComicManager *comic_manager);
+gchar            *buoh_comic_manager_get_page     (BuohComicManager *comic_manager);
 
 G_END_DECLS
 
