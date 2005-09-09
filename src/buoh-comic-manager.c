@@ -20,17 +20,20 @@
 #include <glib/gi18n.h>
 
 #include "buoh-comic-manager.h"
+#include "buoh-comic-manager-date.h"
 
 #define BUOH_COMIC_MANAGER_GET_PRIVATE(object) \
      	  (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_COMIC_MANAGER_TYPE, BuohComicManagerPrivate))
 
 enum {
 	PROP_0,
+	PROP_ID,
 	PROP_TITLE,
 	PROP_AUTHOR,
 	PROP_LANGUAGE,
-	PROP_ID,
-	PROP_GENERIC_URI
+	PROP_GENERIC_URI,
+	PROP_LIST,
+	PROP_CURRENT
 };
 
 struct _BuohComicManagerPrivate {
@@ -39,7 +42,8 @@ struct _BuohComicManagerPrivate {
 	gchar *language;
 	gchar *id;
 	gchar *generic_uri;
-	/* Comic list must be in the derivated class */
+	GList *comic_list;
+	GList *current;
 };
 
 static GObjectClass *parent_class = NULL;
@@ -57,7 +61,7 @@ static void buoh_comic_manager_set_property (GObject        *object,
 					     GParamSpec     *pspec);
 
 GType
-buoh_comic_manager_get_type ()
+buoh_comic_manager_get_type (void)
 {
 	static GType type = 0;
 
@@ -74,7 +78,7 @@ buoh_comic_manager_get_type ()
 			(GInstanceInitFunc) buoh_comic_manager_init
 		};
 
-		type = g_type_register_static (G_TYPE_OBJECT, "Comic Manager",
+		type = g_type_register_static (G_TYPE_OBJECT, "ComicManager",
 					       &info, G_TYPE_FLAG_ABSTRACT);
 	}
 	
@@ -91,6 +95,8 @@ buoh_comic_manager_init (BuohComicManager *comic_manager)
 	comic_manager->priv->language    = NULL;
 	comic_manager->priv->id          = NULL;
 	comic_manager->priv->generic_uri = NULL;
+	comic_manager->priv->current     = NULL;
+	comic_manager->priv->comic_list  = NULL;
 }
 
 static void
@@ -104,7 +110,14 @@ buoh_comic_manager_class_init (BuohComicManagerClass *klass)
 
 	object_class->set_property = buoh_comic_manager_set_property;
 	object_class->get_property = buoh_comic_manager_get_property;
-	   
+	
+	g_object_class_install_property (object_class,
+					 PROP_ID,
+					 g_param_spec_string ("id",
+							      "Id",
+							      "Identificator of the comic",
+							      NULL,
+							      G_PARAM_READWRITE));
 	g_object_class_install_property (object_class,
 					 PROP_TITLE,
 					 g_param_spec_string ("title",
@@ -128,14 +141,6 @@ buoh_comic_manager_class_init (BuohComicManagerClass *klass)
 							      G_PARAM_READWRITE));
 	
 	g_object_class_install_property (object_class,
-					 PROP_ID,
-					 g_param_spec_string ("id",
-							      "Id",
-							      "Identificator of the comic",
-							      NULL,
-							      G_PARAM_READWRITE));
-	
-	g_object_class_install_property (object_class,
 					 PROP_GENERIC_URI,
 					 g_param_spec_string ("generic_uri",
 							      "Generic URI",
@@ -143,7 +148,42 @@ buoh_comic_manager_class_init (BuohComicManagerClass *klass)
 							      NULL,
 							      G_PARAM_READWRITE));
 	
+	g_object_class_install_property (object_class,
+					 PROP_LIST,
+					 g_param_spec_pointer ("comic_list",
+							       "Comic list",
+							       "List with the comics",
+							       G_PARAM_READWRITE));
+
+	g_object_class_install_property (object_class,
+					 PROP_LIST,
+					 g_param_spec_pointer ("current",
+							       "Current comic",
+							       "Current comic in the list",
+							       G_PARAM_READWRITE));
+
 	object_class->finalize = buoh_comic_manager_finalize;
+}
+
+BuohComicManager *
+buoh_comic_manager_new (gchar *tipe,
+			gchar *id,
+			gchar *title,
+			gchar *author,
+			gchar *language,
+			gchar *generic_uri)
+{
+	if (g_ascii_strcasecmp (tipe, "date") == 0) {
+		return BUOH_COMIC_MANAGER (buoh_comic_manager_date_new (id,
+									title,
+									author, 
+									language,
+									generic_uri));
+	} else {
+		g_warning ("Invalid type %s for BuohComicManager (id: %s)\n",
+			   tipe, id);
+		return NULL; 
+	}
 }
 
 static void
@@ -179,7 +219,7 @@ buoh_comic_manager_set_property (GObject      *object,
 			         GParamSpec   *pspec)
 {
 	BuohComicManager *comic_manager = BUOH_COMIC_MANAGER (object);
-
+	
 	switch (prop_id) {
 	case PROP_TITLE:
 		g_free (comic_manager->priv->title);
@@ -204,6 +244,14 @@ buoh_comic_manager_set_property (GObject      *object,
 	case PROP_GENERIC_URI:
 		g_free (comic_manager->priv->generic_uri);
 		comic_manager->priv->generic_uri = g_value_dup_string (value);
+		
+		break;
+	case PROP_LIST:
+		comic_manager->priv->comic_list = g_value_get_pointer (value);
+		
+		break;
+	case PROP_CURRENT:
+		comic_manager->priv->current = g_value_get_pointer (value);
 		
 		break;
 	default:
@@ -238,118 +286,96 @@ buoh_comic_manager_get_property (GObject      *object,
 		break;
 	case PROP_GENERIC_URI:
 		g_value_set_string (value, comic_manager->priv->generic_uri);
+		
+		break;
+	case PROP_LIST:
+		g_value_set_pointer (value, comic_manager->priv->comic_list);
+		
+		break;
+	case PROP_CURRENT:
+		g_value_set_pointer (value, comic_manager->priv->current);
+		
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
 }
 
-gchar *
-buoh_comic_manager_get_uri (BuohComicManager *comic_manager)
+BuohComic *
+buoh_comic_manager_get_last (BuohComicManager *comic_manager)
 {
-	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_uri)
-		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_uri) (comic_manager);
-	else
+	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_last) {
+		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_last) (comic_manager);
+	} else {
 		return NULL;
-}
-
-gchar *
-buoh_comic_manager_get_page (BuohComicManager *comic_manager)
-{
-	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_uri)
-		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_page) (comic_manager);
-	else
-		return NULL;
+	}
 }
 
 BuohComic *
 buoh_comic_manager_get_next (BuohComicManager *comic_manager)
 {
-	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_next)
-		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_next) (comic_manager);
-	else
+	GList *current;
+	
+	/* Just for legibility */
+	current = comic_manager->priv->current;
+
+	if (g_list_next (current) != NULL) {
+		current = g_list_next (current);
+		return current->data;
+	} else {
 		return NULL;
+	}
 }
 
 BuohComic *
 buoh_comic_manager_get_previous (BuohComicManager *comic_manager)
 {
-	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_previous)
-		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_previous) (comic_manager);
-	else
-		return NULL;
+	GList *current;
+	
+	current = comic_manager->priv->current;
+
+	if (g_list_previous (current) != NULL) {
+		current = g_list_previous (current);
+		return current->data;
+	} else {
+		if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_previous) {
+			return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_previous) (comic_manager);
+		} else {
+			return NULL;
+		}
+	}
 }
 
 BuohComic *
-buoh_comic_manager_get_n_next (BuohComicManager *comic_manager,
-			       int n)
+buoh_comic_manager_get_current (BuohComicManager *comic_manager)
 {
-	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_next)
-		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_n_next) (comic_manager,
-									      n);
-	else
-		return NULL;
-}
-
-BuohComic *
-buoh_comic_manager_get_n_previous (BuohComicManager *comic_manager,
-			     	   int n)
-{
-	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_previous)
-		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_n_previous) (comic_manager,
-										 n);
-	else
-		return NULL;
+	if (comic_manager->priv->current != NULL) {
+		return comic_manager->priv->current->data;
+	} else {
+		if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_last)
+			return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_last) (comic_manager);
+		else
+			return NULL;
+	}
 }
 
 gboolean
 buoh_comic_manager_is_the_last (BuohComicManager *comic_manager)
 {
-	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->is_the_last)
-		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->is_the_last) (comic_manager);
-	else
-		return FALSE;
+	GList *current;
+	
+	current = comic_manager->priv->current;
+
+	return (current == g_list_last (comic_manager->priv->comic_list));
 }
 
 gboolean
 buoh_comic_manager_is_the_first (BuohComicManager *comic_manager)
 {
-	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->is_the_last)
-		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->is_the_first)(comic_manager);
+	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->is_the_first)
+		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->is_the_first) (comic_manager);
 	else
 		return FALSE;
-}
-
-void
-buoh_comic_manager_set_title (BuohComicManager *comic_manager, const gchar *title)
-{
-	g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
-	
-	g_object_set (G_OBJECT (comic_manager), "title", title, NULL);
-}
-
-void
-buoh_comic_manager_set_author (BuohComicManager *comic_manager, const gchar *author)
-{
-	g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
-
-	g_object_set (G_OBJECT (comic_manager), "author", author, NULL);
-}
-
-void
-buoh_comic_manager_set_language (BuohComicManager *comic_manager, const gchar *language)
-{
-	g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
-
-	g_object_set (G_OBJECT (comic_manager), "language", language, NULL);
-}
-
-void
-buoh_comic_manager_set_id (BuohComicManager *comic_manager, const gchar *id)
-{
-	g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
-
-	g_object_set (G_OBJECT (comic_manager), "id", id, NULL);
 }
 
 gchar *
