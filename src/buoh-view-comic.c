@@ -337,13 +337,20 @@ buoh_view_comic_load_monitor (gpointer gdata)
 			gdk_cursor_unref (cursor);
 			cursor = NULL;
 		}
-		
+
 		buoh_view_set_message_title (BUOH_VIEW (c_view->priv->view),
 					     _("Error Loading Comic"));
-		buoh_view_set_message_text (BUOH_VIEW (c_view->priv->view),
-					    _("There has been an error when loading the comic. "
-					      "It use to be due to an error on the remote server. "
-					      "Please, try again later."));
+		
+		if (c_view->priv->comic_loader->error) {
+			buoh_view_set_message_text (BUOH_VIEW (c_view->priv->view),
+						    c_view->priv->comic_loader->error->message);
+		} else {
+			buoh_view_set_message_text (BUOH_VIEW (c_view->priv->view),
+						    _("There has been an error when loading the comic. "
+						      "It use to be due to an error on the remote server. "
+						      "Please, try again later."));
+		}
+		
 		buoh_view_set_message_icon (BUOH_VIEW (c_view->priv->view),
 					    GTK_STOCK_DIALOG_ERROR);
 

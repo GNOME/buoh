@@ -46,6 +46,8 @@ typedef struct _BuohComicLoaderClass   BuohComicLoaderClass;
 #define BUOH_IS_COMIC_LOADER_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_COMIC_LOADER))
 #define BUOH_COMIC_LOADER_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_COMIC_LOADER, BuohComicLoaderClass))
 
+#define BUOH_COMIC_LOADER_ERROR (buoh_comic_loader_error_quark())
+
 struct _BuohComicLoader {
 	GObject    parent;
 
@@ -63,18 +65,20 @@ struct _BuohComicLoader {
 	GThread             *thread;
 	GdkPixbuf           *pixbuf;
 	guint                status;
+	GError              *error;
 };
 
 struct _BuohComicLoaderClass {
 	GObjectClass   parent_class;
 };
 
-GType            buoh_comic_loader_get_type (void);
-BuohComicLoader *buoh_comic_loader_new      (void);
+GType            buoh_comic_loader_get_type    (void);
+GQuark           buoh_comic_loader_error_quark (void);
+BuohComicLoader *buoh_comic_loader_new         (void);
 
-void             buoh_comic_loader_run      (BuohComicLoader *loader,
-					     const gchar     *uri);
-void             buoh_comic_loader_stop     (BuohComicLoader *loader);
+void             buoh_comic_loader_run         (BuohComicLoader *loader,
+						const gchar     *uri);
+void             buoh_comic_loader_stop        (BuohComicLoader *loader);
 
 G_END_DECLS
 
