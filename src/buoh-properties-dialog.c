@@ -127,8 +127,6 @@ buoh_properties_dialog_set_comic (BuohPropertiesDialog *dialog, BuohComic *comic
 		      "author", &author,
 		      "language", &language, NULL);
 
-	uri = buoh_comic_get_uri (comic);
-	
 	label_title_val = gtk_label_new (title);
 	gtk_label_set_selectable (GTK_LABEL (label_title_val), TRUE);
 	gtk_misc_set_alignment (GTK_MISC (label_title_val), 0, 0.5);
@@ -138,7 +136,8 @@ buoh_properties_dialog_set_comic (BuohPropertiesDialog *dialog, BuohComic *comic
 	gtk_label_set_selectable (GTK_LABEL (label_author_val), TRUE);
 	gtk_misc_set_alignment (GTK_MISC (label_author_val), 0, 0.5);
 	g_free (author);
-	
+
+	uri = buoh_comic_get_uri (comic);
 	label_uri_val = gtk_label_new (uri);
 	gtk_label_set_selectable (GTK_LABEL (label_uri_val), TRUE);
 	gtk_misc_set_alignment (GTK_MISC (label_uri_val), 0, 0.5);

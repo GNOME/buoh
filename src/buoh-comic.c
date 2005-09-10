@@ -306,33 +306,6 @@ buoh_comic_get_page (BuohComic *comic)
 		return NULL;
 }
 
-/*void
-buoh_comic_go_next (BuohComic *comic)
-{
-	if (BUOH_COMIC_GET_CLASS (comic)->go_next)
-		(BUOH_COMIC_GET_CLASS (comic)->go_next)(comic);
-	else
-		return;
-}
-
-void
-buoh_comic_go_previous (BuohComic *comic)
-{
-	if (BUOH_COMIC_GET_CLASS (comic)->go_previous)
-		(BUOH_COMIC_GET_CLASS (comic)->go_previous)(comic);
-	else
-		return;
-}
-
-gboolean
-buoh_comic_is_the_last (BuohComic *comic)
-{
-	if (BUOH_COMIC_GET_CLASS (comic)->is_the_last)
-		return (BUOH_COMIC_GET_CLASS (comic)->is_the_last)(comic);
-	else
-		return FALSE;
-}*/
-
 void
 buoh_comic_set_title (BuohComic *comic, const gchar *title)
 {
@@ -448,3 +421,34 @@ buoh_comic_get_pixbuf (BuohComic *comic)
 	return pixbuf;
 }
 
+GdkPixbuf *
+buoh_comic_get_thumbnail (BuohComic *comic)
+{
+	GdkPixbuf *pixbuf = NULL;
+	GdkPixbuf *thumbnail = NULL;
+	gint       c_width, c_height;
+	gint       d_width, d_height;
+
+	pixbuf = comic->priv->pixbuf;
+
+	if (pixbuf) {
+		c_width = gdk_pixbuf_get_width (pixbuf);
+		c_height = gdk_pixbuf_get_height (pixbuf);
+
+		if (c_width > c_height) {
+			d_width = 96;
+			d_height = c_height - (((c_width - d_width) * c_height) / c_width);
+		} else {
+			d_height = 96;
+			d_width = c_width - (((c_height - d_height) * c_width) / c_height);
+		}
+
+		thumbnail = gdk_pixbuf_scale_simple (pixbuf, d_width, d_height, GDK_INTERP_BILINEAR);
+
+		return thumbnail;
+	}
+
+	return NULL;
+}
+
+	

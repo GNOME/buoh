@@ -44,6 +44,11 @@ struct _BuohViewComicPrivate {
 	BuohComicLoader *comic_loader;
 };
 
+static GtkTargetEntry targets[] = {
+	{ "text/uri-list", 0, 0 },
+	{ "x-url/http",    0, 0 }
+};
+
 #define BUOH_VIEW_COMIC_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_VIEW_COMIC, BuohViewComicPrivate))
 
@@ -55,28 +60,39 @@ struct _BuohViewComicPrivate {
 
 static GtkViewportClass *parent_class = NULL;
 
-static void buoh_view_comic_init             (BuohViewComic *m_view);
-static void buoh_view_comic_class_init       (BuohViewComicClass *klass);
-static void buoh_view_comic_finalize         (GObject       *object);
-static void buoh_view_comic_set_property     (GObject       *object,
-					      guint          prop_id,
-					      const GValue  *value,
-					      GParamSpec    *pspec);
-static void buoh_view_comic_get_property     (GObject       *object,
-					      guint          prop_id,
-					      GValue        *value,
-					      GParamSpec    *pspec);
-static void bouh_view_comic_changed_comic_cb (GObject       *object,
-					      GParamSpec    *arg,
-					      gpointer       gdata);
-
-static void     buoh_view_comic_set_image_from_pixbuf (BuohViewComic *c_view,
-						       GdkPixbuf     *pixbuf);
-static gboolean buoh_view_comic_load_monitor          (gpointer       gdata);
-static void     buoh_view_comic_load                  (BuohViewComic *c_view);
-static void     buoh_view_comic_zoom                  (BuohViewComic *c_view,
-						       gdouble        factor,
-						       gboolean       relative);
+static void     buoh_view_comic_init                  (BuohViewComic *m_view);
+static void     buoh_view_comic_class_init            (BuohViewComicClass *klass);
+static void     buoh_view_comic_finalize              (GObject          *object);
+static void     buoh_view_comic_set_property          (GObject          *object,
+						       guint             prop_id,
+						       const GValue     *value,
+						       GParamSpec       *pspec);
+static void     buoh_view_comic_get_property          (GObject          *object,
+						       guint             prop_id,
+						       GValue           *value,
+						       GParamSpec       *pspec);
+static void     buoh_view_comic_drag_begin            (GtkWidget        *widget,
+						       GdkDragContext   *drag_context,
+						       gpointer          gdata);
+static void     buoh_view_comic_drag_data_get         (GtkWidget        *widget,
+						       GdkDragContext   *drag_context,
+						       GtkSelectionData *data,
+						       guint             info,
+						       guint             time,
+						       gpointer          gdata);
+static void     bouh_view_comic_changed_comic_cb      (GObject          *object,
+						       GParamSpec       *arg,
+						       gpointer          gdata);
+static void     bouh_view_comic_view_status_changed   (GObject          *object,
+						       GParamSpec       *arg,
+						       gpointer          gdata);
+static void     buoh_view_comic_set_image_from_pixbuf (BuohViewComic    *c_view,
+						       GdkPixbuf        *pixbuf);
+static gboolean buoh_view_comic_load_monitor          (gpointer          gdata);
+static void     buoh_view_comic_load                  (BuohViewComic    *c_view);
+static void     buoh_view_comic_zoom                  (BuohViewComic    *c_view,
+						       gdouble           factor,
+						       gboolean          relative);
 
 GType
 buoh_view_comic_get_type ()
@@ -124,6 +140,15 @@ buoh_view_comic_init (BuohViewComic *c_view)
 			  "notify::comic",
 			  G_CALLBACK (bouh_view_comic_changed_comic_cb),
 			  NULL);
+	g_signal_connect (G_OBJECT (c_view),
+			  "drag-begin",
+			  G_CALLBACK (buoh_view_comic_drag_begin),
+			  NULL);
+	g_signal_connect (G_OBJECT (c_view),
+			  "drag-data-get",
+			  G_CALLBACK (buoh_view_comic_drag_data_get),
+			  NULL);
+	
 
 	gtk_widget_show (GTK_WIDGET (c_view));
 }
@@ -244,8 +269,46 @@ buoh_view_comic_new (BuohView *view)
 					   "shadow-type", GTK_SHADOW_IN,
 					   NULL));
 	BUOH_VIEW_COMIC (c_view)->priv->view = view;
+	g_signal_connect (G_OBJECT (BUOH_VIEW_COMIC (c_view)->priv->view),
+			  "notify::status",
+			  G_CALLBACK (bouh_view_comic_view_status_changed),
+			  (gpointer) c_view);
 	
 	return c_view;
+}
+
+static void
+buoh_view_comic_drag_begin (GtkWidget *widget, GdkDragContext *drag_context,
+			    gpointer gdata)
+{
+	BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
+	GdkPixbuf     *thumbnail = NULL;
+
+	thumbnail = buoh_comic_get_thumbnail (c_view->priv->comic);
+
+	if (thumbnail) {
+		gtk_drag_source_set_icon_pixbuf (widget, thumbnail);
+		g_object_unref (thumbnail);
+	}
+}
+
+static void
+buoh_view_comic_drag_data_get (GtkWidget *widget, GdkDragContext *drag_context,
+			       GtkSelectionData *data, guint info, guint time,
+			       gpointer gdata)
+{
+	BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
+	gchar         *uri = NULL;
+
+	uri = buoh_comic_get_uri (c_view->priv->comic);
+	if (uri) {
+		gtk_selection_data_set (data,
+					data->target,
+					8,
+					(guchar *)uri,
+					strlen (uri));
+		g_free (uri);
+	}
 }
 
 static void
@@ -256,6 +319,24 @@ bouh_view_comic_changed_comic_cb (GObject *object, GParamSpec *arg, gpointer gda
 	gtk_image_clear (GTK_IMAGE (c_view->priv->image));
 	
 	buoh_view_comic_load (c_view);
+}
+
+static void
+bouh_view_comic_view_status_changed (GObject *object, GParamSpec *arg, gpointer gdata)
+{
+	BuohViewComic *c_view = BUOH_VIEW_COMIC (gdata);
+
+	if (buoh_view_get_status (c_view->priv->view) == STATE_COMIC_LOADED) {
+		gtk_drag_source_set (GTK_WIDGET (c_view),
+				     GDK_BUTTON1_MASK,
+				     targets,
+				     sizeof (targets) / sizeof (targets[0]),
+				     GDK_ACTION_COPY);
+	} else {
+		gtk_drag_source_unset (GTK_WIDGET (c_view));
+	}
+		
+
 }
 
 static void
@@ -382,13 +463,14 @@ buoh_view_comic_load (BuohViewComic *c_view)
 		g_debug ("died");
 	}
 
-	/* Finish the load monitor */
+	/* Finish the loader monitor */
 	while (gtk_events_pending ())
 		gtk_main_iteration ();
 
 	pixbuf = buoh_comic_get_pixbuf (c_view->priv->comic);
 	if (pixbuf) {
 		buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
+		g_object_unref (pixbuf);
 		g_object_set (G_OBJECT (c_view->priv->view),
 			      "status", STATE_COMIC_LOADED,
 			      NULL);
@@ -425,8 +507,10 @@ buoh_view_comic_zoom (BuohViewComic *c_view, gdouble factor, gboolean relative)
 		      NULL);
 	
 	pixbuf = buoh_comic_get_pixbuf (c_view->priv->comic);
-	if (pixbuf)
+	if (pixbuf) {
 		buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
+		g_object_unref (pixbuf);
+	}
 }
 
 gboolean
