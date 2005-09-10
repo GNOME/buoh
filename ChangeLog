@@ -1,3 +1,10 @@
+2005-09-10  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-comic.[ch]: Add a function to make comic thumbnails.
+
+	* src/buoh-view-comic.c: Allow drag and drop a comic from the buoh to
+	anywhere else
+
 2005-09-09  Esteban Sanchez  <esteban@steve-o.org>
 	
 	* src/buoh-comic-maanger.[ch]: Added comic_list and current to the

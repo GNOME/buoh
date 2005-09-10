@@ -61,8 +61,6 @@ BuohComic *buoh_comic_new_with_info (const gchar *id,
 				     const gchar *author,
 				     const gchar *language);
 
-/*gboolean comic_is_the_last (Comic *comic);*/
-
 void       buoh_comic_go_next              (BuohComic   *comic);
 void       buoh_comic_go_previous          (BuohComic   *comic);
 
@@ -86,6 +84,7 @@ gchar     *buoh_comic_get_id               (BuohComic   *comic);
 gchar     *buoh_comic_get_page             (BuohComic   *comic);
 gchar     *buoh_buoh_comic_get_uri         (BuohComic   *comic);
 GdkPixbuf *buoh_comic_get_pixbuf           (BuohComic   *comic);
+GdkPixbuf *buoh_comic_get_thumbnail        (BuohComic   *comic);
 
 G_END_DECLS
 
