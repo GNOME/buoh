@@ -17,15 +17,13 @@
 /* Authors: Pablo Arroyo Loma (zioma) <zioma@linups.org>
  *          Esteban Sanchez Munoz (steve-o) <esteban@steve-o.org>
  */
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
 
-#include <gnome.h>
-#include <glade/glade.h>
 #include <glib.h>
-#include <glib/gi18n-lib.h>
+#include <glib/gi18n.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <time.h>
 
+#include "buoh.h"
 #include "comic-simple.h"
 
 #define COMIC_SIMPLE_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE((obj), TYPE_COMIC_SIMPLE, ComicSimplePrivate))
@@ -285,7 +283,7 @@ comic_simple_get_uri_from_date (ComicSimple *comic)
 			 private->generic_uri,
 			 private->date);
 	   
-	g_debug ("uri: %s\n", uri);
+	buoh_debug ("uri: %s", uri);
 
 	return g_strdup (uri);
 }

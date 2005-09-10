@@ -161,7 +161,7 @@ buoh_add_comic_dialog_finalize (GObject *object)
 
 	g_return_if_fail (BUOH_IS_ADD_COMIC_DIALOG (object));
 
-	g_debug ("buoh-add-comic-dialog finalize\n");
+	buoh_debug ("buoh-add-comic-dialog finalize");
 
 	if (dialog->priv->gui) {
 		g_object_unref (dialog->priv->gui);

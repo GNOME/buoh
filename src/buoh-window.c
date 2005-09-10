@@ -316,7 +316,7 @@ buoh_window_finalize (GObject *object)
 	
 	g_return_if_fail (BUOH_IS_WINDOW (object));
 
-	g_debug ("buoh-window finalize\n");
+	buoh_debug ("buoh-window finalize");
 
 	if (buoh_window->priv->gui) {
 		g_object_unref (buoh_window->priv->gui);
@@ -794,7 +794,7 @@ buoh_window_popup_copy_uri_cb (GtkWidget *widget, gpointer gdata)
 
 	if (comic) {
 		uri = buoh_comic_get_uri (comic);
-		g_debug ("Copy %s to clipboard\n", uri);
+		buoh_debug ("Copy %s to clipboard", uri);
 
 		gtk_clipboard_set_text (gtk_clipboard_get (GDK_NONE), uri,
 					g_utf8_strlen (uri, -1));

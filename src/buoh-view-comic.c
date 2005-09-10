@@ -23,7 +23,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#include <string.h>
 
+#include "buoh.h"
 #include "buoh-view-comic.h"
 #include "buoh-comic-loader.h"
 
@@ -191,7 +193,7 @@ buoh_view_comic_finalize (GObject *object)
 {
 	BuohViewComic *c_view = BUOH_VIEW_COMIC (object);
 
-	g_debug ("buoh-view-comic finalize\n");
+	buoh_debug ("buoh-view-comic finalize");
 
 	if (c_view->priv->load_monitor > 0) {
 		g_source_remove (c_view->priv->load_monitor);
@@ -409,7 +411,7 @@ buoh_view_comic_load_monitor (gpointer gdata)
 			cursor = NULL;
 		}
 
-		g_debug ("Monitor exit (stopping/finished)");
+		buoh_debug ("Monitor exit (stopping/finished)");
 
 		return FALSE;
 	case LOADER_STATE_FAILED:
@@ -439,11 +441,11 @@ buoh_view_comic_load_monitor (gpointer gdata)
 			      "status", STATE_MESSAGE_ERROR,
 			      NULL);
 
-		g_debug ("Monitor exit (failed)");
+		buoh_debug ("Monitor exit (failed)");
 
 		return FALSE;
 	default:
-		g_debug ("Monitor exit (unknown)");
+		buoh_debug ("Monitor exit (unknown)");
 
 		return FALSE;
 	}
@@ -456,11 +458,11 @@ buoh_view_comic_load (BuohViewComic *c_view)
 	gchar     *uri;
 
 	if (c_view->priv->comic_loader->status == LOADER_STATE_RUNNING) {
-		g_debug ("Load already running");
+		buoh_debug ("Load already running");
 		buoh_comic_loader_stop (c_view->priv->comic_loader);
-		g_debug ("waiting thread");
+		buoh_debug ("waiting thread");
 		g_thread_join (c_view->priv->comic_loader->thread);
-		g_debug ("died");
+		buoh_debug ("died");
 	}
 
 	/* Finish the loader monitor */

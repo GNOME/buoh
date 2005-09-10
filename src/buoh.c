@@ -83,6 +83,26 @@ buoh_get_type ()
 	return type;
 }
 
+void
+buoh_debug (const gchar *format, ...)
+{
+#ifdef GNOME_ENABLE_DEBUG
+	va_list  args;
+	gchar   *string;
+
+	g_return_if_fail (format != NULL);
+	
+	va_start (args, format);
+	string = g_strdup_vprintf (format, args);
+	va_end (args);
+	
+	g_debug (string);
+
+	g_free (string);
+#endif
+	return;
+}
+
 static GList *
 buoh_parse_selected (Buoh *buoh)
 {
@@ -271,7 +291,7 @@ buoh_save_comic_list (GtkTreeModel *model,
 	BuohComic        *comic;
 	gchar            *id;
 	
-	g_debug ("Buoh comic model changed");
+	buoh_debug ("Buoh comic model changed");
 
 	filter = gtk_tree_model_filter_new (buoh->priv->comic_list, NULL);
 	gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
@@ -317,7 +337,7 @@ buoh_create_user_dir (Buoh *buoh)
 	const gchar *contents = "<?xml version=\"1.0\"?>\n<comic_list>\n</comic_list>\n";
 
 	if (!g_file_test (buoh->priv->datadir, G_FILE_TEST_IS_DIR)) {
-		g_debug ("User directory doesn't exist, creating it ...");
+		buoh_debug ("User directory doesn't exist, creating it ...");
 		if (g_mkdir (buoh->priv->datadir, 0755) != 0) {
 			g_error ("Cannot create user's directory");
 		}
@@ -326,7 +346,7 @@ buoh_create_user_dir (Buoh *buoh)
 	filename = g_build_filename (buoh->priv->datadir, "comics.xml", NULL);
 
 	if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
-		g_debug ("User comics file doesn't exist, creating it ...");
+		buoh_debug ("User comics file doesn't exist, creating it ...");
 		if (!g_file_set_contents (filename, contents, -1, NULL)) {
 			g_free (filename);
 			g_error ("Cannot create user's comics list file");
@@ -372,7 +392,7 @@ buoh_finalize (GObject *object)
 
 	g_return_if_fail (BUOH_IS_BUOH (object));
 
-	g_debug ("buoh finalize\n");
+	buoh_debug ("buoh finalize");
 
 	if (buoh->priv->datadir) {
 		g_free (buoh->priv->datadir);
@@ -413,7 +433,7 @@ buoh_exit_app (Buoh *buoh)
 	
 	gtk_main_quit ();
 
-	g_debug ("buoh exit\n");
+	buoh_debug ("buoh exit");
 }
 
 void

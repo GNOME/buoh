@@ -59,10 +59,13 @@ GType         buoh_get_type           (void);
 Buoh         *buoh_get_instance       (void);
 Buoh         *buoh_new                (void);
 
-void          buoh_exit_app           (Buoh *buoh);
+void          buoh_exit_app           (Buoh        *buoh);
 
-void          buoh_create_main_window (Buoh *buoh);
-GtkTreeModel *buoh_get_comics_model   (Buoh *buoh);
+void          buoh_create_main_window (Buoh        *buoh);
+GtkTreeModel *buoh_get_comics_model   (Buoh        *buoh);
+
+void          buoh_debug              (const gchar *format,
+				       ...);
 
 
 G_END_DECLS
