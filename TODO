@@ -7,10 +7,9 @@
 [X] Improve welcome and error messages
 [X] Save to disk the comics selected by the user
 [ ] Cache system
-[ ] Improve the feedback: statusbar
-[ ] Debug system
+[X] Debug system
 [X] Disable Comic -> properties when no comic selected
 [X] Comic List: ellipsise
 [X] Save a comic as PNG
-[ ] Move vfs errors from stdout to message_view
+[X] Move vfs errors from stdout to message_view
 [X] Disable save a copy menu item when loading comics 

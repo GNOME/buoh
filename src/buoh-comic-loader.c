@@ -19,6 +19,7 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include <string.h>
 
+#include "buoh.h"
 #include "buoh-comic-loader.h"
 
 static GObjectClass *parent_class = NULL;
@@ -120,7 +121,7 @@ buoh_comic_loader_finalize (GObject *object)
 {
 	BuohComicLoader *loader = BUOH_COMIC_LOADER (object);
 
-	g_debug ("comic-loader finalize\n");
+	buoh_debug ("comic-loader finalize");
 
 	if (loader->uri) {
 		g_free (loader->uri);
@@ -215,12 +216,12 @@ buoh_comic_loader_open_finished (GnomeVFSAsyncHandle *handle,
 		if (g_main_loop_is_running (loader->loop))
 			g_main_loop_quit (loader->loop);
 
-		g_debug ("state finished");
+		buoh_debug ("state finished");
 
 		return;
 	}
 
-	g_debug ("resolved");
+	buoh_debug ("resolved");
 
 	loader->pixbuf_loader = gdk_pixbuf_loader_new ();
 	g_signal_connect (G_OBJECT (loader->pixbuf_loader), "area-updated",
@@ -268,7 +269,7 @@ buoh_comic_loader_read_next (GnomeVFSAsyncHandle *handle,
 	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
 
 	if (loader->status == LOADER_STATE_STOPPING) {
-		g_debug ("Stopping loader");
+		buoh_debug ("Stopping loader");
 		
 		gdk_pixbuf_loader_close (loader->pixbuf_loader, NULL);
 		g_object_unref (loader->pixbuf_loader);
@@ -332,12 +333,12 @@ buoh_comic_loader_run_thread (gpointer gdata)
 	BuohComicLoader  *loader = BUOH_COMIC_LOADER (gdata);
 	GMainContext     *context;
 
-	g_debug ("comic_load_thread");
+	buoh_debug ("comic_load_thread");
 
 	context = g_main_context_new ();
 	loader->loop = g_main_loop_new (context, TRUE);
 
-	g_debug ("resolving . . .");
+	buoh_debug ("resolving . . .");
 	gnome_vfs_async_open (&loader->handle, loader->uri,
 			      GNOME_VFS_OPEN_READ,
 			      GNOME_VFS_PRIORITY_DEFAULT,
@@ -353,7 +354,7 @@ buoh_comic_loader_run_thread (gpointer gdata)
 	loader->loop = NULL;
 	g_main_context_unref (context);
 	
-	g_debug ("thread died");
+	buoh_debug ("thread died");
 
 	g_mutex_unlock (loader->thread_mutex);
 
@@ -390,7 +391,7 @@ buoh_comic_loader_run (BuohComicLoader *loader, const gchar *uri)
 void
 buoh_comic_loader_stop (BuohComicLoader *loader)
 {
-	g_debug ("Stopping loader");
+	buoh_debug ("Stopping loader");
 
 	g_mutex_lock (loader->status_mutex);
 	loader->status = LOADER_STATE_STOPPING;

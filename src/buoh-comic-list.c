@@ -93,7 +93,7 @@ buoh_comic_list_selection_changed (GtkTreeSelection *selection, gpointer gdata)
 		
 		buoh_view_set_comic (comic_list->priv->view,
 				     BUOH_COMIC (comic));
-		g_debug ("selection changed: set comic");
+		buoh_debug ("selection changed: set comic");
 	} else {
 		buoh_view_clear (comic_list->priv->view);
 	}
@@ -206,7 +206,7 @@ buoh_comic_list_finalize (GObject *object)
 	
 	g_return_if_fail (BUOH_IS_COMIC_LIST (object));
 
-	g_debug ("comic-list finalize\n");
+	buoh_debug ("comic-list finalize");
 
 	if (comic_list->priv->model) {
 		g_object_unref (comic_list->priv->model);

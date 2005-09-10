@@ -1,5 +1,22 @@
 2005-09-10  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* TODO: Updated
+
+	* configure.in: Add --enable-debug
+
+	* src/buoh-add-comic-dialog.c:
+	* src/buoh-comic-list.c:
+	* src/buoh-comic-loader.c:
+	* src/buoh-view-comic.c:
+	* src/buoh-window.c:
+	* src/comic-simple.c:
+	s/g_debug/buoh_debug
+
+	* src/buoh.[ch]: Add buoh_debug. It'll only show debug messages if
+	debug was enabled in configure
+
+2005-09-10  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* src/buoh-comic.[ch]: Add a function to make comic thumbnails.
 
 	* src/buoh-view-comic.c: Allow drag and drop a comic from the buoh to
