@@ -65,14 +65,14 @@ AC_SUBST(pixmapsdir)
 			
 	   
 if test "x${prefix}" = "xNONE"; then
-   AC_DEFINE_UNQUOTED(INTERFACES_DIR, "${ac_default_prefix}/${DATADIRNAME}/${PACKAGE}/interfaces", [Path where glade files will be installed])
-   interfacesdir="${ac_default_prefix}/${DATADIRNAME}/${PACKAGE}/interfaces"
+   AC_DEFINE_UNQUOTED(UI_DIR, "${ac_default_prefix}/${DATADIRNAME}/${PACKAGE}/ui", [Path where glade files will be installed])
+   uidir="${ac_default_prefix}/${DATADIRNAME}/${PACKAGE}/ui"
 else
-   AC_DEFINE_UNQUOTED(INTERFACES_DIR, "${prefix}/${DATADIRNAME}/${PACKAGE}/interfaces", [Path where glade files will be installed])
-   interfacesdir="${prefix}/${DATADIRNAME}/${PACKAGE}/interfaces"
+   AC_DEFINE_UNQUOTED(UI_DIR, "${prefix}/${DATADIRNAME}/${PACKAGE}/ui", [Path where glade files will be installed])
+   uidir="${prefix}/${DATADIRNAME}/${PACKAGE}/ui"
 fi
 
-AC_SUBST(interfacesdir)
+AC_SUBST(uidir)
 			
 if test "x${prefix}" = "xNONE"; then
    AC_DEFINE_UNQUOTED(COMICS_DIR, "${ac_default_prefix}/${DATADIRNAME}/${PACKAGE}/comics", [Path where data files will be installed])
@@ -89,8 +89,6 @@ AC_SUBST(comicsdir)
 AC_OUTPUT([
 Makefile
 po/Makefile.in
-interfaces/Makefile
-pixmaps/Makefile
 src/Makefile
 data/Makefile
 ])

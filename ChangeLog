@@ -1,3 +1,30 @@
+2005-09-11  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* Makefile.am: s/extra_DIST/EXTRA_DIST/. Remove pixmaps and interfaces
+	directories
+
+	* configure.in: s/interfacesdir/uidir/
+
+	* data/Makefile.am:
+	* src/Makefile.am:
+	* interfaces/Makefile.am: Removed
+	* pixmaps/Makefile.am: Removed
+	* data/buoh.desktop.in: Added
+	* src/buoh.desktop.in: Removed
+	* data/buoh.glade: Added
+	* interfaces/buoh.glade: Removed
+	* data/buoh*.png: Added
+	* pixmaps/buoh*.png: Removed
+	Move glade file, buoh.desktop.in and icons to data directory
+
+	* po/ChangeLog: Added
+
+	* po/POTFILES.in: s/interfaces/data/
+
+	* src/buoh-add-comic-dialog.c:
+	* src/buoh-window.c:
+	s/INTERFACES_DIR/UI_DIR/
+
 2005-09-10  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* TODO: Updated
