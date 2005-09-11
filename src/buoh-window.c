@@ -174,7 +174,7 @@ buoh_window_init (BuohWindow *buoh_window)
 
 	buoh_window->priv = BUOH_WINDOW_GET_PRIVATE (buoh_window);
 
-	glade_path = g_build_filename (INTERFACES_DIR, "buoh.glade", NULL);
+	glade_path = g_build_filename (UI_DIR, "buoh.glade", NULL);
 	buoh_window->priv->gui = glade_xml_new (glade_path, NULL, NULL);
 	g_free (glade_path);
 

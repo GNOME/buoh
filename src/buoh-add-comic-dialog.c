@@ -86,7 +86,7 @@ buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
 
 	dialog->priv->model = buoh_get_comics_model (BUOH);
 
-	glade_path = g_build_filename (INTERFACES_DIR, "buoh.glade", NULL);
+	glade_path = g_build_filename (UI_DIR, "buoh.glade", NULL);
 	dialog->priv->gui = glade_xml_new (glade_path, NULL, NULL);
 	g_free (glade_path);
 

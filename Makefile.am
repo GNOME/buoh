@@ -1,6 +1,6 @@
-SUBDIRS = src po interfaces pixmaps data
+SUBDIRS = src po data
 
-extra_DIST = \
+EXTRA_DIST = \
 	intltool-extract.in \
 	intltool-merge.in \
 	intltool-update.in \
