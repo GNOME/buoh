@@ -1,3 +1,8 @@
+2005-09-12  Esteban Sanchez <esteban@steve-o.org>
+
+	* configure.in, data/Makefile.am: Changed to been parsed successfully
+	with gnome-build.
+
 2005-09-11  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* Makefile.am: s/extra_DIST/EXTRA_DIST/. Remove pixmaps and interfaces
