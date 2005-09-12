@@ -56,12 +56,12 @@ struct _BuohComicManagerClass {
 /* Public methods */
 GType             buoh_comic_manager_get_type     (void); 
 
-BuohComicManager * buoh_comic_manager_new (gchar *tipe,
-					   gchar *id,
-					   gchar *title,
-					   gchar *author,
-					   gchar *language,
-					   gchar *generic_uri);
+BuohComicManager *buoh_comic_manager_new (const gchar *type,
+					  const gchar *id,
+					  const gchar *title,
+					  const gchar *author,
+					  const gchar *language,
+					  const gchar *generic_uri);
 
 BuohComic        *buoh_comic_manager_get_next     (BuohComicManager *comic_manager);
 BuohComic        *buoh_comic_manager_get_previous (BuohComicManager *comic_manager);
