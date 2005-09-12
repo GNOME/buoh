@@ -1,5 +1,11 @@
 2005-09-12  Esteban Sanchez <esteban@steve-o.org>
 
+	* src/buoh-comic-manager-date.[ch]: Added.
+	
+	* src/buoh-comic-manager.[ch]: Updated with minor changes to give the
+	main functionallity to the class.
+
+2005-09-12  Esteban Sanchez <esteban@steve-o.org>
 	* configure.in, data/Makefile.am: Changed to been parsed successfully
 	with gnome-build.
 
