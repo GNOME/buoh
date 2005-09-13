@@ -384,19 +384,20 @@ buoh_window_menu_add_cb (GtkMenuItem *menuitem, gpointer gdata)
 static void
 buoh_window_menu_save_cb (GtkMenuItem *menuitem, gpointer gdata)
 {
-	GtkWidget     *chooser;
-	GtkFileFilter *filter;
-	gchar         *suggested;
-	gchar         *name;
-	gchar         *page;
-	gchar         *filename = NULL;
-	static gchar  *folder = NULL;
-	BuohWindow    *window = BUOH_WINDOW (gdata);
-	BuohComic     *comic;
-	GdkPixbuf     *pixbuf;
-	GtkWidget     *dialog;
-	gboolean      successful;
-	GError        *error;
+	GtkWidget        *chooser;
+	GtkFileFilter    *filter;
+	gchar            *suggested;
+	gchar            *name;
+	gchar            *page;
+	gchar            *filename = NULL;
+	static gchar     *folder = NULL;
+	BuohWindow       *window = BUOH_WINDOW (gdata);
+	BuohComic        *comic;
+	BuohComicManager *cm;
+	GdkPixbuf        *pixbuf;
+	GtkWidget        *dialog;
+	gboolean          successful;
+	GError           *error;
 	
 	filter = gtk_file_filter_new ();
 	gtk_file_filter_add_pattern (filter, "*.png");
@@ -417,8 +418,9 @@ buoh_window_menu_save_cb (GtkMenuItem *menuitem, gpointer gdata)
 	}
 	
 	comic     = buoh_view_get_comic (window->priv->view);
-	name      = buoh_comic_get_title (comic);
-	page      = buoh_comic_get_page (comic);
+	cm        = buoh_comic_list_get_comic_manager (window->priv->comic_list);
+	name      = buoh_comic_manager_get_title (cm);
+	page      = buoh_comic_get_id (comic);
 	suggested = g_strconcat (name, " (", page, ").png", NULL);
 	pixbuf   = buoh_comic_get_pixbuf (comic);
 	
@@ -470,14 +472,14 @@ buoh_window_menu_save_cb (GtkMenuItem *menuitem, gpointer gdata)
 static void
 buoh_window_menu_properties_cb (GtkMenuItem *menuitem, gpointer gdata)
 {
-	BuohWindow *window = BUOH_WINDOW (gdata);
-	BuohComic  *comic = buoh_view_get_comic (window->priv->view);
+	BuohWindow       *window = BUOH_WINDOW (gdata);
+	BuohComicManager *cm = buoh_comic_list_get_comic_manager (window->priv->comic_list);
 
-	if (comic) {
+	if (cm) {
 		if (!window->priv->properties) {
 			window->priv->properties = buoh_properties_dialog_new ();
-			buoh_properties_dialog_set_comic (BUOH_PROPERTIES_DIALOG (window->priv->properties),
-							  comic);
+			buoh_properties_dialog_set_comic_manager (BUOH_PROPERTIES_DIALOG (window->priv->properties),
+								  cm);
 			g_object_add_weak_pointer (G_OBJECT (window->priv->properties),
 						   (gpointer *) &(window->priv->properties));
 			gtk_window_set_transient_for (GTK_WINDOW (window->priv->properties),
@@ -569,17 +571,33 @@ buoh_window_toolbar_normal_size_cb (GtkToolButton *toolbutton, gpointer gdata)
 static void
 buoh_window_toolbar_previous_cb (GtkToolButton *toolbutton, gpointer gdata)
 {
-	BuohWindow *window = BUOH_WINDOW (gdata);
+	BuohWindow       *window = BUOH_WINDOW (gdata);
+	BuohComicManager *comic_manager;
+	BuohComic        *comic;
+	
+	comic_manager = buoh_comic_list_get_comic_manager (window->priv->comic_list);
 
-	/* TODO */
+	comic = buoh_comic_manager_get_previous (comic_manager);
+
+	buoh_view_set_comic (window->priv->view, comic);
+	
+	/* TODO: Toolbar sensitive */
 }
 
 static void
 buoh_window_toolbar_next_cb (GtkToolButton *toolbutton, gpointer gdata)
 {
-	BuohWindow *window = BUOH_WINDOW (gdata);
+	BuohWindow       *window = BUOH_WINDOW (gdata);
+	BuohComicManager *comic_manager;
+	BuohComic        *comic;
+	
+	comic_manager = buoh_comic_list_get_comic_manager (window->priv->comic_list);
 
-	/* TODO */
+	comic = buoh_comic_manager_get_next (comic_manager);
+
+	buoh_view_set_comic (window->priv->view, comic);
+
+	/* TODO: Toolbar sensitive */
 }
 
 static void
@@ -727,14 +745,14 @@ buoh_window_comic_list_button_press_cb (GtkWidget *widget, GdkEventButton *event
 static void
 buoh_window_popup_properties_cb (GtkWidget *widget, gpointer gdata)
 {
-	BuohWindow *window = BUOH_WINDOW (gdata);
-	BuohComic  *comic = buoh_view_get_comic (window->priv->view);
+	BuohWindow       *window = BUOH_WINDOW (gdata);
+	BuohComicManager *cm = buoh_comic_list_get_comic_manager (window->priv->comic_list);
 
-	if (comic) {
+	if (cm) {
 		if (!window->priv->properties) {
 			window->priv->properties = buoh_properties_dialog_new ();
-			buoh_properties_dialog_set_comic (BUOH_PROPERTIES_DIALOG (window->priv->properties),
-							  comic);
+			buoh_properties_dialog_set_comic_manager (BUOH_PROPERTIES_DIALOG (window->priv->properties),
+								  cm);
 			g_object_add_weak_pointer (G_OBJECT (window->priv->properties),
 						   (gpointer *) &(window->priv->properties));
 			gtk_window_set_transient_for (GTK_WINDOW (window->priv->properties),
@@ -764,7 +782,7 @@ buoh_window_popup_delete_cb (GtkWidget *widget, gpointer gdata)
 
 		while (valid) {
 			gtk_tree_model_get (model, &iter,
-					    COMIC_LIST_COMIC, &comic,
+					    COMIC_LIST_COMIC_MANAGER, &comic,
 					    -1);
 			id = buoh_comic_get_id (comic);
 

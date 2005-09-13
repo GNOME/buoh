@@ -63,7 +63,7 @@ buoh_comic_manager_date_get_type (void)
 		};
 
 		type = g_type_register_static (BUOH_COMIC_MANAGER_TYPE,
-					       "ComicManagerDate",
+					       "BuohComicManagerDate",
 					       &info, 0);
 	}
 
@@ -113,13 +113,14 @@ buoh_comic_manager_date_finalize (GObject *object)
 	
 	if (comic_manager->priv->date != NULL) {
 		g_date_free (comic_manager->priv->date);
+		comic_manager->priv->date = NULL;
 	}
 	
 	if (G_OBJECT_CLASS (parent_class)->finalize)
 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
-BuohComicManagerDate *
+BuohComicManager *
 buoh_comic_manager_date_new (const gchar *id,
 			     const gchar *title,
 			     const gchar *author,
@@ -129,16 +130,13 @@ buoh_comic_manager_date_new (const gchar *id,
 	BuohComicManagerDate *comic_manager;
 	
 	comic_manager = BUOH_COMIC_MANAGER_DATE (g_object_new (BUOH_COMIC_MANAGER_DATE_TYPE,
-							       NULL));
-	g_object_set (G_OBJECT (BUOH_COMIC_MANAGER (comic_manager)),
-		      "id", id,
-		      "title", title,
-		      "author", author,
-		      "language", language,
-		      "generic_uri", generic_uri,
-		      NULL);
-	
-	return BUOH_COMIC_MANAGER_DATE (comic_manager);
+							       "id", id,
+							       "title", title,
+							       "author", author,
+							       "language", language,
+							       "generic_uri", generic_uri,NULL));
+
+	return BUOH_COMIC_MANAGER (comic_manager);
 }
 
 void
@@ -161,14 +159,17 @@ buoh_comic_manager_date_new_comic (BuohComicManagerDate *comic_manager)
 	g_object_get (G_OBJECT (comic_manager),
 		      "generic_uri", &uri_aux, NULL);
 	
-	g_date_strftime (id, ID_BUFFER,
-			 "%x", /* Date in locale preferred format */
-			 comic_manager->priv->date);
-	g_date_strftime (uri, URI_BUFFER,
-			 uri_aux,
-			 comic_manager->priv->date);
+	if (g_date_strftime (id, ID_BUFFER,
+			     "%x", /* Date in locale preferred format */
+			     comic_manager->priv->date) == 0)
+		buoh_debug ("Id buffer too short");
+	if (g_date_strftime (uri, URI_BUFFER,
+			     uri_aux,
+			     comic_manager->priv->date) ==0)
+		buoh_debug ("Uri buffer too short");
+	g_free (uri_aux);
 
-	g_debug ("uri: %s\n", uri);
+	buoh_debug ("uri: %s\n", uri);
 	
 	comic = buoh_comic_new_with_info (id, uri, comic_manager->priv->date);
 	
@@ -178,20 +179,20 @@ buoh_comic_manager_date_new_comic (BuohComicManagerDate *comic_manager)
 static BuohComic *
 buoh_comic_manager_date_get_next (BuohComicManager *comic_manager)
 {
-	GDateWeekday                 weekday;
-	BuohComic                   *comic;
-	BuohComicManagerDatePrivate *priv;
-	GList                       *comic_list;
+	GDateWeekday          weekday;
+	BuohComic            *comic;
+	BuohComicManagerDate *cmd;
+	GList                *comic_list;
 	
-	priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
+	cmd = BUOH_COMIC_MANAGER_DATE (comic_manager);
 
-	g_date_add_days (priv->date, 1);
+	g_date_add_days (cmd->priv->date, 1);
 	
 	/* Check the restrictions */
-	weekday = g_date_get_weekday (priv->date);
-	while (priv->restrictions[weekday] == TRUE) {
-		g_date_add_days (priv->date, 1);
-		weekday = g_date_get_weekday (priv->date);
+	weekday = g_date_get_weekday (cmd->priv->date);
+	while (cmd->priv->restrictions[weekday] == TRUE) {
+		g_date_add_days (cmd->priv->date, 1);
+		weekday = g_date_get_weekday (cmd->priv->date);
 	}
 	
 	g_object_get (G_OBJECT (comic_manager), 
@@ -210,20 +211,20 @@ buoh_comic_manager_date_get_next (BuohComicManager *comic_manager)
 static BuohComic *
 buoh_comic_manager_date_get_previous (BuohComicManager *comic_manager)
 {
-	GDateWeekday                 weekday;
-	BuohComic                   *comic;
-	BuohComicManagerDatePrivate *priv;
-	GList                       *comic_list;
+	GDateWeekday          weekday;
+	BuohComic            *comic;
+	BuohComicManagerDate *cmd;
+	GList                *comic_list;
 	
-	priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
+	cmd = BUOH_COMIC_MANAGER_DATE (comic_manager);
 
-	g_date_subtract_days (priv->date, 1);
+	g_date_subtract_days (cmd->priv->date, 1);
 	
 	/* Check the restrictions */
-	weekday = g_date_get_weekday (priv->date);
-	while (priv->restrictions[weekday] == TRUE) {
-		g_date_subtract_days (priv->date, 1);
-		weekday = g_date_get_weekday (priv->date);
+	weekday = g_date_get_weekday (cmd->priv->date);
+	while (cmd->priv->restrictions[weekday] == TRUE) {
+		g_date_subtract_days (cmd->priv->date, 1);
+		weekday = g_date_get_weekday (cmd->priv->date);
 	}
 	
 	g_object_get (G_OBJECT (comic_manager), 
