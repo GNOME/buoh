@@ -79,6 +79,9 @@ gchar            *buoh_comic_manager_get_language (BuohComicManager *comic_manag
 gchar            *buoh_comic_manager_get_id       (BuohComicManager *comic_manager);
 gchar            *buoh_comic_manager_get_page     (BuohComicManager *comic_manager);
 
+gint              buoh_comic_manager_compare      (gconstpointer     a,
+						   gconstpointer     b);
+
 G_END_DECLS
 
 #endif /* !BUOH_COMIC_MANAGER_H */

@@ -1,5 +1,14 @@
 2005-09-13  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* src/buoh-comic-manager-date.c: Do not insert a new comic every time,
+	only if it isn't in the list yet. Do not set as current always the
+	first item, but really the current one
+
+	* src/buoh-comic-manager.[ch]: s/PROP_LIST/PROP_CURRENT/ for the
+	current property. Add a function for comparing list items
+
+2005-09-13  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* src/buoh-properties-dialog.c: Remove finalize method. Fix build
 	problem
 

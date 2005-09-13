@@ -19,6 +19,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
+#include "buoh.h"
 #include "buoh-comic-manager.h"
 #include "buoh-comic-manager-date.h"
 
@@ -150,13 +151,13 @@ buoh_comic_manager_class_init (BuohComicManagerClass *klass)
 	
 	g_object_class_install_property (object_class,
 					 PROP_LIST,
-					 g_param_spec_pointer ("comic_list",
+					 g_param_spec_pointer ("list",
 							       "Comic list",
 							       "List with the comics",
 							       G_PARAM_READWRITE));
 
 	g_object_class_install_property (object_class,
-					 PROP_LIST,
+					 PROP_CURRENT,
 					 g_param_spec_pointer ("current",
 							       "Current comic",
 							       "Current comic in the list",
@@ -357,6 +358,7 @@ BuohComic *
 buoh_comic_manager_get_current (BuohComicManager *comic_manager)
 {
 	if (comic_manager->priv->current != NULL) {
+		buoh_debug ("get_current");
 		return comic_manager->priv->current->data;
 	} else {
 		if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_last) {
@@ -434,4 +436,19 @@ buoh_comic_manager_get_id (BuohComicManager *comic_manager)
 	return id;
 }
 
+gint
+buoh_comic_manager_compare (gconstpointer a, gconstpointer b)
+{
+	gchar     *id1, *id2;
+	gint       res;
 
+	id1 = buoh_comic_get_id (BUOH_COMIC (a));
+	id2 = buoh_comic_get_id (BUOH_COMIC (b));
+	
+	res = g_ascii_strcasecmp (id1, id2);
+
+	g_free (id1);
+	g_free (id2);
+
+	return res;
+}
