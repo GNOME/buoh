@@ -21,6 +21,7 @@
 #define BUOH_COMIC_H
 
 #include <glib-object.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 G_BEGIN_DECLS
 
@@ -56,34 +57,23 @@ struct _BuohComicClass {
 /* Public methods */
 GType      buoh_comic_get_type      (void); 
 BuohComic *buoh_comic_new           (void);
-BuohComic *buoh_comic_new_with_info (const gchar *id,
-				     const gchar *title,
-				     const gchar *author,
-				     const gchar *language);
+BuohComic *buoh_comic_new_with_info (const gchar *id, const gchar *uri,
+				     const GDate *date);
 
+void       buoh_comic_set_id                (BuohComic *comic, const gchar *id);
 void       buoh_comic_go_next              (BuohComic   *comic);
 void       buoh_comic_go_previous          (BuohComic   *comic);
-
-void       buoh_comic_set_title            (BuohComic   *comic,
-					    const gchar *title);
-void       buoh_comic_set_author           (BuohComic   *comic,
-					    const gchar *author);
-void       buoh_comic_set_language         (BuohComic   *comic,
-					    const gchar *language);
-void       buoh_comic_set_id               (BuohComic   *comic,
-					    const gchar *id);
 void       buoh_comic_set_pixbuf           (BuohComic   *comic,
 					    GdkPixbuf   *pixbuf);
+void	   buoh_comic_set_date             (BuohComic *comic,
+					    GDate *date);
 void       buoh_comic_set_pixbuf_from_file (BuohComic   *comic,
 					    const gchar *filename);
+
 gchar     *buoh_comic_get_uri              (BuohComic   *comic);
-gchar     *buoh_comic_get_title            (BuohComic   *comic);
-gchar     *buoh_comic_get_author           (BuohComic   *comic);
-gchar     *buoh_comic_get_language         (BuohComic   *comic);
 gchar     *buoh_comic_get_id               (BuohComic   *comic);
-gchar     *buoh_comic_get_page             (BuohComic   *comic);
-gchar     *buoh_buoh_comic_get_uri         (BuohComic   *comic);
 GdkPixbuf *buoh_comic_get_pixbuf           (BuohComic   *comic);
+GDate     *buoh_comic_get_date             (BuohComic   *comic);
 GdkPixbuf *buoh_comic_get_thumbnail        (BuohComic   *comic);
 
 G_END_DECLS

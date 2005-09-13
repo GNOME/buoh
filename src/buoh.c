@@ -33,7 +33,8 @@
 #include "buoh.h"
 #include "buoh-window.h"
 #include "buoh-comic.h"
-#include "comic-simple.h"
+#include "buoh-comic-manager.h"
+#include "buoh-comic-manager-date.h"
 
 struct _BuohPrivate {
 	BuohWindow   *window;
@@ -149,19 +150,20 @@ buoh_parse_selected (Buoh *buoh)
 static GtkTreeModel *
 buoh_create_model_from_file (Buoh *buoh)
 {
-	GtkListStore *model = NULL;
-	GtkTreeIter   iter;
-	xmlDocPtr     doc;
-	xmlNodePtr    root;
-	xmlNodePtr    node;
-	xmlNodePtr    child;
-	BuohComic    *comic;
-	xmlChar      *id, *class, *title, *author, *language, *uri;
-	gboolean      visible;
-	xmlChar      *restriction;
-	GDateWeekday  restriction_date;
-	gchar        *filename;
-	GList        *selected = NULL;
+	GtkListStore     *model = NULL;
+	GtkTreeIter       iter;
+	xmlDocPtr         doc;
+	xmlNodePtr        root;
+	xmlNodePtr        node;
+	xmlNodePtr        child;
+	BuohComic        *comic;
+	BuohComicManager *comic_manager;
+	xmlChar          *id, *class, *title, *author, *language, *uri;
+	gboolean          visible;
+	xmlChar          *restriction;
+	GDateWeekday      restriction_date;
+	gchar            *filename;
+	GList            *selected = NULL;
 
 	selected = buoh_parse_selected (buoh);
 
@@ -193,22 +195,24 @@ buoh_create_model_from_file (Buoh *buoh)
 		if (g_ascii_strcasecmp ((const gchar *)node->name, "comic") == 0) {
 			/* New comic */
 			class  = xmlGetProp (node, (xmlChar *) "class");
-
+			id       = xmlGetProp (node, (xmlChar *) "id");
+			title    = xmlGetProp (node, (xmlChar *) "title");
+			author   = xmlGetProp (node, (xmlChar *) "author");
+			language = xmlGetProp (node, (xmlChar *) "language");
+			uri      = xmlGetProp (node, (xmlChar *) "generic_uri");
+			
+			comic_manager = buoh_comic_manager_new ((gchar *)class,
+								(gchar *)id,
+								(gchar *)title,
+								(gchar *)author,
+								(gchar *)language,
+								(gchar *)uri);
+			
+			comic = buoh_comic_manager_get_last (comic_manager);
+			
 			/* Comic simple */
-			if (g_ascii_strcasecmp ((const gchar *)class, "simple") == 0) {
-				id       = xmlGetProp (node, (xmlChar *) "id");
-				title    = xmlGetProp (node, (xmlChar *) "title");
-				author   = xmlGetProp (node, (xmlChar *) "author");
-				language = xmlGetProp (node, (xmlChar *) "language");
-				uri      = xmlGetProp (node, (xmlChar *) "generic_uri");
-
-				comic = BUOH_COMIC (comic_simple_new_with_info (
-							    (gchar *)id,
-							    (gchar *)title,
-							    (gchar *)author,
-							    (gchar *)language,
-							    (gchar *)uri));
-
+			if (BUOH_IS_COMIC_MANAGER_DATE (comic_manager)){
+			
 				/* Read the restrictions */
 				child = node->children->next;
 				while (child) {
@@ -216,37 +220,35 @@ buoh_create_model_from_file (Buoh *buoh)
 						restriction      = xmlNodeGetContent (child);
 						restriction_date = atoi ((gchar *)restriction);
 
-						comic_simple_set_restriction (COMIC_SIMPLE (comic),
-									      restriction_date);
+						buoh_comic_manager_date_set_restriction (BUOH_COMIC_MANAGER_DATE (comic_manager),
+									     		 restriction_date);
 					}
 					child = child->next;
 				}
-
-				/* Visible */
-				if (selected &&
-				    g_list_find_custom (selected, id,
-							(GCompareFunc)g_ascii_strcasecmp)) {
-					visible = TRUE;
-				} else {
-					visible = FALSE;
-				}
-				
-				gtk_list_store_append (model, &iter);
-				gtk_list_store_set (model, &iter,
-						    COMIC_LIST_VISIBLE, visible,
-						    COMIC_LIST_TITLE, title,
-						    COMIC_LIST_AUTHOR, author,
-						    COMIC_LIST_LANGUAGE, language,
-						    COMIC_LIST_COMIC, (gpointer) comic,
-						    -1);
-
-				g_free (id);
-				g_free (title);
-				g_free (author);
-				g_free (language);
-				g_free (uri);
 			}
-
+			/* Visible */
+			if (selected &&
+			    g_list_find_custom (selected, id,
+						(GCompareFunc)g_ascii_strcasecmp)) {
+				visible = TRUE;
+			} else {
+				visible = FALSE;
+			}
+			
+			gtk_list_store_append (model, &iter);
+			gtk_list_store_set (model, &iter,
+					    COMIC_LIST_VISIBLE, visible,
+					    COMIC_LIST_TITLE, title,
+					    COMIC_LIST_AUTHOR, author,
+					    COMIC_LIST_LANGUAGE, language,
+					    COMIC_LIST_COMIC_MANAGER, (gpointer) comic_manager,
+					    -1);
+			
+			g_free (id);
+			g_free (title);
+			g_free (author);
+			g_free (language);
+			g_free (uri);
 			g_free (class);
 
 		}
@@ -288,7 +290,7 @@ buoh_save_comic_list (GtkTreeModel *model,
 	GtkTreeModel     *filter;
 	GtkTreeIter       iter;
 	gboolean          valid;
-	BuohComic        *comic;
+	BuohComicManager *comic_manager;
 	gchar            *id;
 	
 	buoh_debug ("Buoh comic model changed");
@@ -308,9 +310,9 @@ buoh_save_comic_list (GtkTreeModel *model,
 	valid = gtk_tree_model_get_iter_first (filter, &iter);
 	while (valid) {
 		gtk_tree_model_get (filter, &iter,
-				    COMIC_LIST_COMIC,
-				    &comic, -1);
-		id = buoh_comic_get_id (comic);
+				    COMIC_LIST_COMIC_MANAGER,
+				    &comic_manager, -1);
+		id = buoh_comic_manager_get_id (comic_manager);
 		
 		xmlTextWriterStartElement (writer, BAD_CAST "comic");
 		xmlTextWriterWriteAttribute (writer,

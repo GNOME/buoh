@@ -1,5 +1,5 @@
-[ ] Add Language property to comics
-[ ] Comic Manager
+[X] Add Language property to comics
+[X] Comic Manager
 [X] Properties comic dialog
 [X Improve the comic loaging stuff
 [X] Remove Edit menu
@@ -13,3 +13,6 @@
 [X] Save a comic as PNG
 [X] Move vfs errors from stdout to message_view
 [X] Disable save a copy menu item when loading comics 
+[ ] Update sensitive of previous and next buttons
+  [ ] When moving in a comic (first and last)
+  [ ] On an error (it should be possible to move back)

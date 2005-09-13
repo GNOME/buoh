@@ -78,7 +78,7 @@ buoh_comic_manager_get_type (void)
 			(GInstanceInitFunc) buoh_comic_manager_init
 		};
 
-		type = g_type_register_static (G_TYPE_OBJECT, "ComicManager",
+		type = g_type_register_static (G_TYPE_OBJECT, "BuohComicManager",
 					       &info, G_TYPE_FLAG_ABSTRACT);
 	}
 	
@@ -117,28 +117,28 @@ buoh_comic_manager_class_init (BuohComicManagerClass *klass)
 							      "Id",
 							      "Identificator of the comic",
 							      NULL,
-							      G_PARAM_READWRITE));
+							      G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
 	g_object_class_install_property (object_class,
 					 PROP_TITLE,
 					 g_param_spec_string ("title",
 							      "Title",
 							      "Title of the comic",
 							      NULL,
-							      G_PARAM_READWRITE));
+							      G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
 	g_object_class_install_property (object_class,
 					 PROP_AUTHOR,
 					 g_param_spec_string ("author",
 							      "Author",
 							      "Name of the author",
 							      NULL,
-							      G_PARAM_READWRITE));
+							      G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
 	g_object_class_install_property (object_class,
 					 PROP_LANGUAGE,
 					 g_param_spec_string ("language",
 							      "Language",
 							      "Language of the comic",
 							      NULL,
-							      G_PARAM_READWRITE));
+							      G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
 	
 	g_object_class_install_property (object_class,
 					 PROP_GENERIC_URI,
@@ -146,7 +146,7 @@ buoh_comic_manager_class_init (BuohComicManagerClass *klass)
 							      "Generic URI",
 							      "URI with date format",
 							      NULL,
-							      G_PARAM_READWRITE));
+							      G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
 	
 	g_object_class_install_property (object_class,
 					 PROP_LIST,
@@ -169,6 +169,7 @@ static void
 buoh_comic_manager_finalize (GObject *object)
 {
 	BuohComicManager *comic_manager = BUOH_COMIC_MANAGER (object);
+	GList            *aux;
 	
 	g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
 
@@ -196,7 +197,18 @@ buoh_comic_manager_finalize (GObject *object)
 		g_free (comic_manager->priv->generic_uri);
 		comic_manager->priv->generic_uri = NULL;
 	}
-
+	
+	if (comic_manager->priv->comic_list) {
+		aux = g_list_first (comic_manager->priv->comic_list);
+		while (aux != g_list_last (comic_manager->priv->comic_list)) {
+			g_object_unref (aux->data);
+			aux = g_list_next (aux);
+		}
+		g_object_unref (aux->data);
+		g_list_free (comic_manager->priv->comic_list);
+		comic_manager->priv->comic_list = NULL;
+	}
+	
 	if (G_OBJECT_CLASS (parent_class)->finalize)
 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }

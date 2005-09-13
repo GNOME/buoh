@@ -49,14 +49,14 @@ struct _BuohComicManagerDateClass {
 
 GType                 buoh_comic_manager_date_get_type      (void);
 
-BuohComicManagerDate *buoh_comic_manager_date_new (const gchar *id,
-						   const gchar *title,
-						   const gchar *author,
-						   const gchar *language,
-						   const gchar *generic_uri);
+BuohComicManager *buoh_comic_manager_date_new (const gchar *id,
+					       const gchar *title,
+					       const gchar *author,
+					       const gchar *language,
+					       const gchar *generic_uri);
 
 void buoh_comic_manager_date_set_restriction (BuohComicManagerDate *comic_manager,
-						   GDateWeekday day)
+					      GDateWeekday day)
 
 G_END_DECLS;
 

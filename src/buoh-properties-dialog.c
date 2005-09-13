@@ -26,7 +26,7 @@
 #include "buoh.h"
 
 struct _BuohPropertiesDialogPrivate {
-	BuohComic *comic;
+	BuohComicManager *comic_manager;
 };
 
 #define BUOH_PROPERTIES_DIALOG_GET_PRIVATE(object) \
@@ -68,7 +68,7 @@ buoh_properties_dialog_init (BuohPropertiesDialog *dialog)
 {
 	dialog->priv = BUOH_PROPERTIES_DIALOG_GET_PRIVATE (dialog);
 
-	dialog->priv->comic = NULL;
+	dialog->priv->comic_manager = NULL;
 
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Comic Properties"));
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
@@ -115,7 +115,8 @@ buoh_properties_dialog_finalize (GObject *object)
 }
 
 void
-buoh_properties_dialog_set_comic (BuohPropertiesDialog *dialog, BuohComic *comic)
+buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
+					  BuohComicManager *comic_manager)
 {
 	GtkWidget *table;
 	GtkWidget *label_title, *label_title_val;
@@ -123,10 +124,11 @@ buoh_properties_dialog_set_comic (BuohPropertiesDialog *dialog, BuohComic *comic
 	GtkWidget *label_uri, *label_uri_val;
 	GtkWidget *label_language, *label_language_val;
 	gchar     *title, *author, *uri, *language;
+	BuohComic *comic;
 	
-	g_return_if_fail (BUOH_IS_COMIC (comic));
+	g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
 
-	dialog->priv->comic = comic;
+	dialog->priv->comic_manager = comic_manager;
 
 	table = gtk_table_new (4, 2, FALSE);
 	
@@ -146,7 +148,8 @@ buoh_properties_dialog_set_comic (BuohPropertiesDialog *dialog, BuohComic *comic
 	gtk_label_set_markup (GTK_LABEL (label_language), "<b>Language:</b>");
 	gtk_misc_set_alignment (GTK_MISC (label_language), 0, 0.5);
 
-	g_object_get (comic,
+	comic = buoh_comic_manager_get_current (comic_manager);
+	g_object_get (comic_manager,
 		      "title", &title,
 		      "author", &author,
 		      "language", &language, NULL);

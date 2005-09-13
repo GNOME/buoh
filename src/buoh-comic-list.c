@@ -26,11 +26,12 @@
 #include "buoh-comic-list.h"
 
 struct _BuohComicListPrivate {
-	GtkWidget    *swindow;
-	GtkWidget    *tree_view;
-	GtkTreeModel *model;
+	GtkWidget        *swindow;
+	GtkWidget        *tree_view;
+	GtkTreeModel     *model;
+	BuohComicManager *comic_manager;
 	
-	BuohView     *view;
+	BuohView         *view;
 };
 
 #define BUOH_COMIC_LIST_GET_PRIVATE(object) \
@@ -84,15 +85,17 @@ buoh_comic_list_selection_changed (GtkTreeSelection *selection, gpointer gdata)
 	BuohComicList *comic_list = BUOH_COMIC_LIST (gdata);
 	GtkTreeModel  *model;
 	GtkTreeIter    iter;
-	GObject       *comic;
+	GObject       *comic_manager;
+	BuohComic     *comic;
 
 	if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
 		gtk_tree_model_get (model, &iter,
-				    COMIC_LIST_COMIC, &comic,
+				    COMIC_LIST_COMIC_MANAGER, &comic_manager,
 				    -1);
+		comic_list->priv->comic_manager = BUOH_COMIC_MANAGER (comic_manager);
+		comic = buoh_comic_manager_get_current (comic_list->priv->comic_manager);
 		
-		buoh_view_set_comic (comic_list->priv->view,
-				     BUOH_COMIC (comic));
+		buoh_view_set_comic (comic_list->priv->view, comic);
 		buoh_debug ("selection changed: set comic");
 	} else {
 		buoh_view_clear (comic_list->priv->view);
@@ -128,7 +131,7 @@ buoh_comic_list_init (BuohComicList *buoh_comic_list)
 
 	label = gtk_label_new (NULL);
 	
-	
+	buoh_comic_list->priv->comic_manager = NULL;
 	buoh_comic_list->priv->view = NULL;
 	
 	text_label = g_strdup_printf ("<b>%s</b>", _("Comic List"));
@@ -274,6 +277,12 @@ buoh_comic_list_clear_selection (BuohComicList *comic_list)
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (comic_list->priv->tree_view)));
 }
 
+BuohComicManager *
+buoh_comic_list_get_comic_manager (BuohComicList *comic_list)
+{
+	return comic_list->priv->comic_manager;
+}
+
 /*Comic *
 buoh_comic_list_get_selection (BuohComicList *comic_list)
 {
@@ -286,7 +295,7 @@ buoh_comic_list_get_selection (BuohComicList *comic_list)
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (comic_list->priv->tree_view));
 	if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
 		gtk_tree_model_get (user_comic_list, &iter,
-				    COMIC_LIST_COMIC, &comic,
+				    COMIC_LIST_COMIC_MANAGER, &comic,
 				    -1);
 		return comic;
 	}

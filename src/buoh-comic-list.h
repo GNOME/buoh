@@ -23,6 +23,7 @@
 #include <gtk/gtkframe.h>
 
 #include "buoh-view.h"
+#include "buoh-comic-manager.h"
 
 G_BEGIN_DECLS
 
@@ -46,13 +47,15 @@ struct _BuohComicListClass {
 	GtkFrameClass         parent_class;
 };
 
-GType      buoh_comic_list_get_type        (void);
-GtkWidget *buoh_comic_list_new             (void);
+GType             buoh_comic_list_get_type          (void);
+GtkWidget        *buoh_comic_list_new               (void);
 
-void       buoh_comic_list_set_view        (BuohComicList *comic_list,
-					    BuohView      *view);
-GtkWidget *buoh_comic_list_get_list        (BuohComicList *comic_list);
-void       buoh_comic_list_clear_selection (BuohComicList *comic_list);
+void              buoh_comic_list_set_view          (BuohComicList *comic_list,
+					    	     BuohView      *view);
+GtkWidget        *buoh_comic_list_get_list          (BuohComicList *comic_list);
+void              buoh_comic_list_clear_selection   (BuohComicList *comic_list);
+
+BuohComicManager *buoh_comic_list_get_comic_manager (BuohComicList *comic_list);
 
 G_END_DECLS
 
