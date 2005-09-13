@@ -1,23 +1,37 @@
+2005-09-13  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-properties-dialog.c: Remove finalize method. Fix build
+	problem
+
 2005-09-13  Esteban Sanchez  <esteban@steve-o.org>
 
 	* data/comics.xml: s/simple/date. Added some daily strips from spanish
 	newspapers.
+	
 	* src/Makefile.am: Added buoh-comic-manager* and removed
 	comic-simple.[ch] to buoh_SOURCES
+	
 	* src/buoh-comic-manager.[ch]: Changed some properties to
 	CONSTRUCT_ONLY. Free the comic list in the finalize.
+	
 	* src/buoh-comic-manager-date.[ch]: Updated with fixing of leaks, bugs
 	and other stuff.
+	
 	* src/buoh-comic-list.[ch]: Changed to store a BuohComicManager. Added
 	a get_comic_manager method.
+	
 	* src/buoh-comic.[ch]: Adapted to the new comic manager, now it's
 	nothing more than an URI, a pixbuf and a date.
+	
 	* src/buoh-properties-dialog.[ch]: Now it understand a comic manager
 	instead of a BuohComic.
+	
 	* src/buoh-window.c: Updated to use the comic manager. Give code to
 	previous and next buttons callbacks.
+	
 	* src/buoh.c: Create BuohComicManagers instead of BuohComic when
 	reading XML comics file.
+	
 	* TODO: Updated (new tasks added)
 	
 2005-09-13  Carlos Garcia Campos  <carlosgc@gnome.org>
