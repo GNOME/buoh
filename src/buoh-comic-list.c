@@ -173,6 +173,8 @@ buoh_comic_list_init (BuohComicList *buoh_comic_list)
 	gtk_widget_show (buoh_comic_list->priv->tree_view);
 
 	align = gtk_alignment_new (0.50, 0.50, 1.0, 1.0);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (align),
+				   0, 0, 6, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (align), 6);
 	gtk_container_add (GTK_CONTAINER (align), buoh_comic_list->priv->swindow);
 	gtk_widget_show (buoh_comic_list->priv->swindow);

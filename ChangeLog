@@ -1,3 +1,12 @@
+2005-09-13  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* data/buoh.glade: Removed dialogs
+
+	* src/buoh-add-comic-dialog.c: Remove glade
+	* src/buoh-comic-list.c:
+	* src/buoh-properties-dialog.c:
+	Some UI improvements
+
 2005-09-12  Esteban Sanchez <esteban@steve-o.org>
 
 	* src/buoh-comic-manager-date.[ch]: Added.
