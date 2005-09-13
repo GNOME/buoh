@@ -36,7 +36,6 @@ static GtkDialogClass *parent_class = NULL;
 
 static void buoh_properties_dialog_init       (BuohPropertiesDialog      *dialog);
 static void buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass);
-static void buoh_properties_dialog_finalize   (GObject                   *object);
 
 GType
 buoh_properties_dialog_get_type ()
@@ -87,31 +86,9 @@ buoh_properties_dialog_init (BuohPropertiesDialog *dialog)
 static void
 buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	
 	parent_class = g_type_class_peek_parent (klass);
 
 	g_type_class_add_private (klass, sizeof (BuohPropertiesDialogPrivate));
-
-	object_class->finalize = buoh_properties_dialog_finalize;
-}
-
-static void
-buoh_properties_dialog_finalize (GObject *object)
-{
-	BuohPropertiesDialog *dialog = BUOH_PROPERTIES_DIALOG (object);
-
-	g_return_if_fail (BUOH_IS_PROPERTIES_DIALOG (object));
-
-	buoh_debug ("buoh-properties-dialog finalize");
-
-	if (dialog->priv->comic) {
-		g_object_unref (dialog->priv->comic);
-		dialog->priv->comic = NULL;
-	}
-	
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
 void
