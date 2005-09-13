@@ -156,7 +156,6 @@ buoh_create_model_from_file (Buoh *buoh)
 	xmlNodePtr        root;
 	xmlNodePtr        node;
 	xmlNodePtr        child;
-	BuohComic        *comic;
 	BuohComicManager *comic_manager;
 	xmlChar          *id, *class, *title, *author, *language, *uri;
 	gboolean          visible;
@@ -208,8 +207,6 @@ buoh_create_model_from_file (Buoh *buoh)
 								(gchar *)language,
 								(gchar *)uri);
 			
-			comic = buoh_comic_manager_get_last (comic_manager);
-			
 			/* Comic simple */
 			if (BUOH_IS_COMIC_MANAGER_DATE (comic_manager)){
 			
@@ -226,6 +223,7 @@ buoh_create_model_from_file (Buoh *buoh)
 					child = child->next;
 				}
 			}
+			
 			/* Visible */
 			if (selected &&
 			    g_list_find_custom (selected, id,
