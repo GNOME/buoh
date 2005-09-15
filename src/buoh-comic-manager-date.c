@@ -138,7 +138,8 @@ buoh_comic_manager_date_new (const gchar *id,
 							       "title", title,
 							       "author", author,
 							       "language", language,
-							       "generic_uri", generic_uri,NULL));
+							       "generic_uri", generic_uri,
+							       NULL));
 
 	return BUOH_COMIC_MANAGER (comic_manager);
 }

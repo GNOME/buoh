@@ -1,0 +1,50 @@
+<ui>
+   <menubar name="MainMenu">
+      <menu name="ComicMenu" action="Comic">
+	 <menuitem name="ComicAddMenu" action="ComicAdd"/>
+	 <menuitem name="ComicRemoveMenu" action="ComicRemove"/>
+	 <separator/>
+	 <menuitem name="ComicSaveACopyMenu" action="ComicSaveACopy"/>
+	 <menuitem name="ComicCopyURIMenu" action="ComicCopyURI"/>
+	 <menuitem name="ComicPropertiesMenu" action="ComicProperties"/>
+	 <separator/>
+	 <menuitem name="ComicQuitMenu" action="ComicQuit"/>
+      </menu>
+
+      <menu name="ViewMenu" action="View">
+	 <menuitem name="ViewToolbarMenu" action="ViewToolbar"/>
+	 <separator/>
+	 <menuitem name="ViewZoomInMenu" action="ViewZoomIn"/>
+	 <menuitem name="ViewZoomOutMenu" action="ViewZoomOut"/>
+	 <menuitem name="ViewZoomNormalMenu" action="ViewZoomNormal"/>
+      </menu>
+
+      <menu name="GoMenu" action="Go">
+	 <menuitem name="GoPreviousMenu" action="GoPrevious"/>
+	 <menuitem name="GoNextMenu" action="GoNext"/>
+	 <separator/>
+	 <menuitem name="GoFirstMenu" action="GoFirst"/>
+	 <menuitem name="GoLastMenu" action="GoLast"/>
+      </menu>
+
+      <menu name="HelpMenu" action="Help">
+	 <menuitem name="HelpContentsMenu" action="HelpContents"/>
+	 <menuitem name="HelpAboutMenu" action="HelpAbout"/>
+      </menu>
+   </menubar>
+
+   <toolbar name="Toolbar">
+      <toolitem name="GoPreviousItem" action="GoPrevious"/>
+      <toolitem name="GoNextItem" action="GoNext"/>
+      <separator/>
+      <toolitem name="ViewZoomInItem" action="ViewZoomIn"/>
+      <toolitem name="ViewZoomOutItem" action="ViewZoomOut"/>
+      <toolitem name="ViewZoomNormalItem" action="ViewZoomNormal"/>
+   </toolbar>
+
+   <popup name="ListPopup">
+      <menuitem name="ComicAddList" action="ComicAdd"/>
+      <menuitem name="ComicRemoveList" action="ComicRemove"/>
+   </popup>
+</ui>
+

@@ -1,3 +1,26 @@
+2005-09-15 Pablo Arroyo <zioma@linups.org>
+
+	* src/buoh-window.c: Fix crash when deleting a comic list item
+
+2005-09-15  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* data/Makefile.am: s/buoh.glade/buoh-ui.xml/
+	* data/buoh.glade: Removed
+	* data/buoh-ui.xml: Added
+	Remove glade file and use the xml file needed for building the ui with
+	GtkUIManager
+
+	* src/buoh-view-comic.c:
+	* src/buoh-view-message.c:
+	Set view-comic and view-message widgets as focusables
+
+	* src/buoh-view.c: Grab focus into view-comic or view-message when the
+	view receive the focus depending on the view status. Get the focus
+	when receive a button press event
+
+	* src/buoh-window.c: Remove all glade dependecies and use GtkUIManager
+	to build the ui.
+	
 2005-09-13  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* src/buoh.c: We don't need the last comic for every manager when

@@ -28,7 +28,6 @@
 #include <libgnome/libgnome.h>
 #include <libgnomeui/libgnomeui.h>
 
-
 #include "buoh.h"
 
 gint
@@ -41,7 +40,7 @@ main (gint argc, gchar **argv)
 			    argc, argv,
 			    GNOME_PARAM_NONE);
 
-	g_set_application_name (_("Buoh Comics Reader"));
+	g_set_application_name (_("Buoh Comics Browser"));
 
 	/* Init threads */
 	if (!g_thread_supported ()) {
