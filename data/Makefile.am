@@ -3,7 +3,7 @@ pixmapsdir = $(pixmaps_dir)
 uidir = $(ui_dir)
 
 comics_DATA = comics.xml
-ui_DATA = buoh.glade
+ui_DATA = buoh-ui.xml
 pixmaps_DATA =     		\
              buoh64x64.png 	\
              buoh16x16.png

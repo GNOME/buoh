@@ -124,6 +124,8 @@ buoh_view_comic_get_type ()
 static void
 buoh_view_comic_init (BuohViewComic *c_view)
 {
+	GTK_WIDGET_SET_FLAGS (c_view, GTK_CAN_FOCUS);
+	
 	c_view->priv = BUOH_VIEW_COMIC_GET_PRIVATE (c_view);
 
 	c_view->priv->view = NULL;
@@ -162,7 +164,7 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
 
 	object_class->set_property = buoh_view_comic_set_property;
 	object_class->get_property = buoh_view_comic_get_property;
-	
+
 	parent_class = g_type_class_peek_parent (klass);
 
 	/* Properties */

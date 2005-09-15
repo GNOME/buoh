@@ -70,6 +70,8 @@ buoh_view_message_init (BuohViewMessage *m_view)
 	GtkWidget *align;
 	GtkWidget *hbox;
 	GtkWidget *vbox;
+
+	GTK_WIDGET_SET_FLAGS (m_view, GTK_CAN_FOCUS);
 	
 	m_view->priv = BUOH_VIEW_MESSAGE_GET_PRIVATE (m_view);
 

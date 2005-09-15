@@ -22,6 +22,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
+#include "buoh.h"
 #include "buoh-view.h"
 #include "buoh-view-comic.h"
 #include "buoh-view-message.h"
@@ -55,22 +56,25 @@ struct _BuohViewPrivate {
 static GtkNotebookClass *parent_class = NULL;
 static guint buoh_view_signals[N_SIGNALS];
 
-static void buoh_view_init              (BuohView      *buoh_view);
-static void buoh_view_class_init        (BuohViewClass *klass);
-static void buoh_view_set_property      (GObject       *object,
-					 guint          prop_id,
-					 const GValue  *value,
-					 GParamSpec    *pspec);
-static void buoh_view_get_property      (GObject       *object,
-					 guint          prop_id,
-					 GValue        *value,
-					 GParamSpec    *pspec);
-static void buoh_view_status_changed_cb (GObject       *object,
-					 GParamSpec    *arg,
-					 gpointer       gdata);
-static void buoh_view_scale_changed_cb  (GObject       *object,
-					 GParamSpec    *arg,
-					 gpointer       gdata);
+static void     buoh_view_init               (BuohView       *buoh_view);
+static void     buoh_view_class_init         (BuohViewClass  *klass);
+static void     buoh_view_set_property       (GObject        *object,
+					      guint           prop_id,
+					      const GValue   *value,
+					      GParamSpec     *pspec);
+static void     buoh_view_get_property       (GObject        *object,
+					      guint           prop_id,
+					      GValue         *value,
+					      GParamSpec     *pspec);
+static void     buoh_view_grab_focus         (GtkWidget      *widget);
+static gboolean buoh_view_button_press_event (GtkWidget      *widget,
+					      GdkEventButton *event);
+static void     buoh_view_status_changed_cb  (GObject        *object,
+					      GParamSpec     *arg,
+					      gpointer        gdata);
+static void     buoh_view_scale_changed_cb   (GObject        *object,
+					      GParamSpec     *arg,
+					      gpointer        gdata);
 
 GType
 buoh_view_get_type ()
@@ -123,7 +127,9 @@ buoh_view_init (BuohView *buoh_view)
 {
         GtkWidget *label;
         GtkWidget *swindow;
-        
+
+	GTK_WIDGET_SET_FLAGS (buoh_view, GTK_CAN_FOCUS);
+	
         buoh_view->priv = BUOH_VIEW_GET_PRIVATE (buoh_view);
 
 	buoh_view->priv->status = STATE_MESSAGE_WELCOME;
@@ -192,11 +198,15 @@ buoh_view_init (BuohView *buoh_view)
 static void
 buoh_view_class_init (BuohViewClass *klass)
 {
-        GObjectClass *object_class = G_OBJECT_CLASS (klass);
+        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
         object_class->set_property = buoh_view_set_property;
 	object_class->get_property = buoh_view_get_property;
-        
+
+	widget_class->grab_focus = buoh_view_grab_focus;
+	widget_class->button_press_event = buoh_view_button_press_event;
+
         parent_class = g_type_class_peek_parent (klass);
 
         g_type_class_add_private (klass, sizeof (BuohViewPrivate));
@@ -240,10 +250,10 @@ buoh_view_set_property (GObject       *object,
 }
 
 static void
-buoh_view_get_property (GObject       *object,
-                        guint          prop_id,
-                        GValue        *value,
-                        GParamSpec    *pspec)
+buoh_view_get_property (GObject    *object,
+                        guint       prop_id,
+                        GValue     *value,
+                        GParamSpec *pspec)
 {
         BuohView *view = BUOH_VIEW (object);
 
@@ -254,6 +264,35 @@ buoh_view_get_property (GObject       *object,
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
         }
+}
+
+static void
+buoh_view_grab_focus (GtkWidget *widget)
+{
+	BuohView *view = BUOH_VIEW (widget);
+
+	switch (view->priv->status) {
+	case STATE_MESSAGE_WELCOME:
+	case STATE_MESSAGE_ERROR:
+		gtk_widget_grab_focus (view->priv->message);
+		break;
+	case STATE_COMIC_LOADING:
+	case STATE_COMIC_LOADED:
+		gtk_widget_grab_focus (view->priv->comic);
+		break;
+	default:
+		break;
+	}
+}
+
+static gboolean
+buoh_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
+{
+	if (!GTK_WIDGET_HAS_FOCUS (widget)) {
+		gtk_widget_grab_focus (widget);
+	}
+
+	return FALSE;
 }
 
 GtkWidget *
@@ -328,7 +367,7 @@ buoh_view_zoom_out (BuohView *view)
 }
 
 void
-buoh_view_normal_size (BuohView *view)
+buoh_view_zoom_normal_size (BuohView *view)
 {
 	buoh_view_comic_normal_size (BUOH_VIEW_COMIC (view->priv->comic));
 }

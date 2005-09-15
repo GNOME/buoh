@@ -67,7 +67,7 @@ gboolean       buoh_view_is_max_zoom       (BuohView    *view);
 gboolean       buoh_view_is_normal_size    (BuohView    *view);
 void           buoh_view_zoom_in           (BuohView    *view);
 void           buoh_view_zoom_out          (BuohView    *view);
-void           buoh_view_normal_size       (BuohView    *view);
+void           buoh_view_zoom_normal_size  (BuohView    *view);
 
 BuohViewStatus buoh_view_get_status        (BuohView    *view);
 
