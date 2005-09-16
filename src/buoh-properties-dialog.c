@@ -190,6 +190,12 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	gtk_widget_show (table);	
 }
 
+BuohComicManager *
+buoh_properties_dialog_get_comic_manager (BuohPropertiesDialog *dialog)
+{
+	return dialog->priv->comic_manager;
+}
+
 GtkWidget *
 buoh_properties_dialog_new ()
 {
