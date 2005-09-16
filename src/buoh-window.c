@@ -41,7 +41,7 @@ struct _BuohWindowPrivate {
 	BuohView       *view;
 	BuohComicList  *comic_list;
 
-	GtkWidget      *properties;
+	GList          *properties;
 	GtkWidget      *add_dialog;
 };
 
@@ -73,6 +73,8 @@ static void buoh_window_view_zoom_change_cb             (BuohView       *view,
 							 gpointer        gdata);
 static gboolean buoh_window_comic_list_button_press_cb  (GtkWidget      *widget,
 							 GdkEventButton *event,
+							 gpointer        gdata);
+static void     buoh_window_properties_dialog_destroyed (GtkWidget      *dialog,
 							 gpointer        gdata);
 
 /* Action callbacks */
@@ -342,8 +344,11 @@ buoh_window_finalize (GObject *object)
 		buoh_window->priv->action_group = NULL;
 	}
 
+	
 	if (buoh_window->priv->properties) {
-		g_object_unref (buoh_window->priv->properties);
+		g_list_foreach (buoh_window->priv->properties,
+				(GFunc) g_object_unref, NULL);
+		g_list_free (buoh_window->priv->properties);
 		buoh_window->priv->properties = NULL;
 	}
 
@@ -538,23 +543,55 @@ buoh_window_cmd_comic_copy_location (GtkAction *action, gpointer gdata)
 }
 
 static void
+buoh_window_properties_dialog_destroyed (GtkWidget *dialog, gpointer gdata)
+{
+	BuohWindow *window = BUOH_WINDOW (gdata);
+
+	window->priv->properties = g_list_remove (window->priv->properties, dialog);
+}
+
+static void
 buoh_window_cmd_comic_properties (GtkAction *action, gpointer gdata)
 {
 	BuohWindow       *window = BUOH_WINDOW (gdata);
-	BuohComicManager *cm = buoh_comic_list_get_comic_manager (window->priv->comic_list);
+	BuohComicManager *cm  = buoh_comic_list_get_comic_manager (window->priv->comic_list);
+	BuohComicManager *cm2 = NULL;
+	GtkWidget        *dialog;
+	gchar            *id1, *id2;
+	GList            *l = NULL;
 
 	if (cm) {
-		if (!window->priv->properties) {
-			window->priv->properties = buoh_properties_dialog_new ();
-			buoh_properties_dialog_set_comic_manager (BUOH_PROPERTIES_DIALOG (window->priv->properties),
-								  cm);
-			g_object_add_weak_pointer (G_OBJECT (window->priv->properties),
-						   (gpointer *) &(window->priv->properties));
-			gtk_window_set_transient_for (GTK_WINDOW (window->priv->properties),
-						      GTK_WINDOW (window));
+		id1 = buoh_comic_manager_get_id (cm);
+		
+		for (l = window->priv->properties; l; l = g_list_next (l)) {
+			cm2 = buoh_properties_dialog_get_comic_manager (
+				BUOH_PROPERTIES_DIALOG (l->data));
+			id2 = buoh_comic_manager_get_id (cm2);
+			
+			if (g_ascii_strcasecmp (id1, id2) == 0) {
+				gtk_window_present (GTK_WINDOW (l->data));
+				
+				g_free (id1);
+				g_free (id2);
+				
+				return;
+			}
+			
+			g_free (id2);
 		}
 
-		gtk_widget_show (window->priv->properties);
+		g_free (id1);
+
+		dialog = buoh_properties_dialog_new ();
+		buoh_properties_dialog_set_comic_manager (BUOH_PROPERTIES_DIALOG (dialog), cm);
+		g_signal_connect (G_OBJECT (dialog), "destroy",
+				  G_CALLBACK (buoh_window_properties_dialog_destroyed),
+				  (gpointer) window);
+		gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (window));
+		
+		gtk_widget_show (dialog);
+
+		window->priv->properties = g_list_append (window->priv->properties, dialog);
 	}
 }
 

@@ -1,3 +1,10 @@
+2005-09-16  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-properties-dialog.[ch]: get_comic_manager method added
+
+	* src/buoh-window.c: Allow more than one properties dialog, one for
+	each comic manager in the list
+
 2005-09-15 Pablo Arroyo <zioma@linups.org>
 
 	* src/buoh-window.c: Fix crash when deleting a comic list item

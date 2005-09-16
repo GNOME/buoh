@@ -47,11 +47,12 @@ struct _BuohPropertiesDialogClass {
 	GtkDialogClass   parent_class;
 };
 
-GType      buoh_properties_dialog_get_type  (void);
-GtkWidget *buoh_properties_dialog_new       (void);
+GType             buoh_properties_dialog_get_type          (void);
+GtkWidget        *buoh_properties_dialog_new               (void);
 
-void       buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
-						     BuohComicManager     *comic);
+void              buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
+							    BuohComicManager     *comic);
+BuohComicManager *buoh_properties_dialog_get_comic_manager (BuohPropertiesDialog *dialog);
 
 G_END_DECLS
 
