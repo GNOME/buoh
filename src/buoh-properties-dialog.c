@@ -114,31 +114,31 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 
 	table = gtk_table_new (4, 2, FALSE);
 	
-	str = g_sprintf ("<b>%s:</b>", _("Title"));
+	str = g_strdup_printf ("<b>%s:</b>", _("Title"));
 	label_title = gtk_label_new (NULL);
 	gtk_label_set_markup (GTK_LABEL (label_title), str);
 	gtk_misc_set_alignment (GTK_MISC (label_title), 0, 0.5);
 	g_free (str);
 
-	str = g_sprintf ("<b>%s:</b>", _("Author"));
+	str = g_strdup_printf ("<b>%s:</b>", _("Author"));
 	label_author = gtk_label_new (NULL);
 	gtk_label_set_markup (GTK_LABEL (label_author), str);
 	gtk_misc_set_alignment (GTK_MISC (label_author), 0, 0.5);
 	g_free (str);
 
-	str = g_sprintf ("<b>%s:</b>", _("Link"));
+	str = g_strdup_printf ("<b>%s:</b>", _("Link"));
 	label_uri = gtk_label_new (NULL);	
 	gtk_label_set_markup (GTK_LABEL (label_uri), str);
 	gtk_misc_set_alignment (GTK_MISC (label_uri), 0, 0.5);
 	g_free (str);
 
-	str = g_sprintf ("<b>%s:</b>", _("Language"));
+	str = g_strdup_printf ("<b>%s:</b>", _("Language"));
 	label_language = gtk_label_new (NULL);	
 	gtk_label_set_markup (GTK_LABEL (label_language), str);
 	gtk_misc_set_alignment (GTK_MISC (label_language), 0, 0.5);
 	g_free (str);
 
-	str = g_sprintf ("<b>%s:</b>", _("Date of publication"));
+	str = g_strdup_printf ("<b>%s:</b>", _("Date of publication"));
 	label_date = gtk_label_new (NULL);	
 	gtk_label_set_markup (GTK_LABEL (label_date), str);
 	gtk_misc_set_alignment (GTK_MISC (label_date), 0, 0.5);
