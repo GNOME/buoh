@@ -174,13 +174,10 @@ buoh_comic_new_with_info (const gchar *id, const gchar *uri,
 {
 	BuohComic *comic;
 
-	comic = buoh_comic_new ();
-	
-	g_object_set (G_OBJECT (comic),
-		      "id", id,
-		      "uri", uri,
-		      "date", date,
-		      NULL);
+	comic = BUOH_COMIC (g_object_new (BUOH_TYPE_COMIC,
+					  "id", id,
+		      			  "uri", uri,
+					  "date", date, NULL));
 	
 	return comic;
 }

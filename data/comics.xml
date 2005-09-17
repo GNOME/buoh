@@ -1034,13 +1034,6 @@
         language="Spanish"
 	generic_uri="http://www.abc.es/humor/pic.asp?fl=min%d%m.jpg&amp;an=400&amp;ff=%Y%m%d">
 </comic>
-<comic id="martinmorales-abc"
-        class="date"
-        title="Martín Morales (ABC)"
-        author="Martín Morales"
-        language="Spanish"
-	generic_uri="http://www.abc.es/humor/pic.asp?fl=mm%d%m.jpg&amp;an=500&amp;ff=%Y%m%d">
-</comic>
 <comic id="mena-abc"
         class="date"
         title="Mena (ABC)"
@@ -1068,5 +1061,87 @@
         author="Ferreres"
         language="Spanish"
 	generic_uri="http://www.elperiodico.com/edicion/ed%y%m%d/cas/fotos/epp_nd/carp01/ferrerescas.gif">
+</comic>
+<comic id="megatonman"
+        class="date"
+        title="Megaton man"
+        author="Don Simpson"
+        language="English"
+        generic_uri="http://www.worldfamouscomics.com/megatonman/jpgs/mm%y%m%d.jpg">
+	<restrict>6</restrict>
+	<restrict>7</restrict>
+</comic>
+<comic id="tailipoe"
+        class="date"
+        title="Tailipoe"
+        author="Craig Boldman"
+        language="English"
+        generic_uri="http://www.worldfamouscomics.com/tailipoe/%Y/tp%Y%m%d.gif">
+        <restrict>1</restrict>
+        <restrict>3</restrict>
+        <restrict>4</restrict>
+        <restrict>5</restrict>
+        <restrict>6</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="notavailable"
+        class="date"
+        title="Not available comics"
+        author="Matt Feazell"
+        language="English"
+        generic_uri="http://www.worldfamouscomics.com/notavailable/%Y/na%Y%m%d.gif">
+        <restrict>1</restrict>
+        <restrict>2</restrict>
+        <restrict>4</restrict>
+        <restrict>5</restrict>
+        <restrict>6</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="hellocruelworld"
+        class="date"
+        title="Hello cruel world"
+        author="Ron Braun"
+        language="English"
+        generic_uri="http://www.worldfamouscomics.com/hellocruelworld/%Y/hcw%Y%m%d.gif">
+        <restrict>1</restrict>
+        <restrict>2</restrict>
+        <restrict>3</restrict>
+        <restrict>5</restrict>
+        <restrict>6</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="holycow"
+        class="date"
+        title="Holy cow"
+        author="George Broderick, Jr."
+        language="English"
+        generic_uri="http://www.worldfamouscomics.com/holycow/%Y/hc%Y%m%d.gif">
+        <restrict>1</restrict>
+        <restrict>2</restrict>
+        <restrict>3</restrict>
+        <restrict>4</restrict>
+        <restrict>6</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="lastkiss"
+        class="date"
+        title="Last kiss"
+        author="John Lustig"
+        language="English"
+        generic_uri="http://www.worldfamouscomics.com/lastkiss/%Y/lk%Y%m%d.gif">
+        <restrict>1</restrict>
+        <restrict>2</restrict>
+        <restrict>3</restrict>
+        <restrict>4</restrict>
+        <restrict>5</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="commisioned"
+        class="date"
+        title="Commissioned"
+        author="Obsidian"
+        language="English"
+        generic_uri="http://www.commissionedcomic.com/strips/%Y-%m-%d.jpg">
+        <restrict>7</restrict>
 </comic>
 </comic_list>
