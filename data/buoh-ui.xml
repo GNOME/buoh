@@ -46,5 +46,18 @@
       <menuitem name="ComicAddList" action="ComicAdd"/>
       <menuitem name="ComicRemoveList" action="ComicRemove"/>
    </popup>
+
+   <popup name="ViewPopup">
+      <menuitem name="ComicSaveACopyView" action="ComicSaveACopy"/>
+      <menuitem name="ComicCopyURIView" action="ComicCopyURI"/>
+      <menuitem name="ComicPropertiesView" action="ComicProperties"/>
+      <separator/>
+      <menuitem name="GoPreviousItemView" action="GoPrevious"/>
+      <menuitem name="GoNextItemView" action="GoNext"/>
+      <separator/>
+      <menuitem name="ViewZoomInItemView" action="ViewZoomIn"/>
+      <menuitem name="ViewZoomOutItemView" action="ViewZoomOut"/>
+      <menuitem name="ViewZoomNormalItemView" action="ViewZoomNormal"/>
+   </popup>
 </ui>
 
