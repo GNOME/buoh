@@ -74,6 +74,9 @@ static void buoh_window_view_zoom_change_cb             (BuohView       *view,
 static gboolean buoh_window_comic_list_button_press_cb  (GtkWidget      *widget,
 							 GdkEventButton *event,
 							 gpointer        gdata);
+static gboolean buoh_window_comic_view_button_press_cb  (GtkWidget      *widget,
+							 GdkEventButton *event,
+							 gpointer        gdata);
 static void     buoh_window_properties_dialog_destroyed (GtkWidget      *dialog,
 							 gpointer        gdata);
 
@@ -281,6 +284,9 @@ buoh_window_init (BuohWindow *buoh_window)
 			  (gpointer) buoh_window);
 	g_signal_connect (G_OBJECT (buoh_window->priv->view), "scale-changed",
 			  G_CALLBACK (buoh_window_view_zoom_change_cb),
+			  (gpointer) buoh_window);
+	g_signal_connect (G_OBJECT (buoh_window->priv->view), "button-press-event",
+			  G_CALLBACK (buoh_window_comic_view_button_press_cb),
 			  (gpointer) buoh_window);
 	gtk_paned_pack2 (GTK_PANED (paned), GTK_WIDGET (buoh_window->priv->view),
 			 TRUE, FALSE);
@@ -726,10 +732,12 @@ buoh_window_set_sensitive (BuohWindow *window, const gchar *name, gboolean sensi
 static void
 buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 {
-	buoh_window_set_sensitive (window, "GoPrevious", sensitive);
-	buoh_window_set_sensitive (window, "GoNext", sensitive);
-	buoh_window_set_sensitive (window, "GoFirst", sensitive);
-	buoh_window_set_sensitive (window, "GoLast", sensitive);
+	buoh_window_set_sensitive (window, "GoPrevious",      sensitive);
+	buoh_window_set_sensitive (window, "GoNext",          sensitive);
+	buoh_window_set_sensitive (window, "GoFirst",         sensitive);
+	buoh_window_set_sensitive (window, "GoLast",          sensitive);
+	buoh_window_set_sensitive (window, "ComicProperties", sensitive);
+	buoh_window_set_sensitive (window, "ComicCopyURI",    sensitive); 
 	buoh_window_set_sensitive (window, "ViewZoomIn",
 				   buoh_view_is_max_zoom (window->priv->view) ?
 				   FALSE : sensitive);
@@ -739,7 +747,6 @@ buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 	buoh_window_set_sensitive (window, "ViewZoomNormal",
 				   buoh_view_is_normal_size (window->priv->view) ?
 				   FALSE : sensitive);
-	buoh_window_set_sensitive (window, "ComicProperties", sensitive);
 }
 
 static void
@@ -831,3 +838,20 @@ buoh_window_comic_list_button_press_cb (GtkWidget *widget, GdkEventButton *event
 	return FALSE;
 }
 
+static gboolean
+buoh_window_comic_view_button_press_cb (GtkWidget *widget, GdkEventButton *event, gpointer gdata)
+{
+	BuohWindow *window = BUOH_WINDOW (gdata);
+	GtkWidget  *popup;
+
+	if (event->button == 3) {
+		popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ViewPopup");
+
+		gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL,
+				(gpointer) window,
+				event->button, event->time);
+		return TRUE;
+	}
+	
+	return FALSE;
+}
