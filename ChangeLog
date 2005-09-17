@@ -1,5 +1,9 @@
 2005-09-17  Esteban Sanchez  <esteban@steve-o.org>
 
+	* src/buoh-properties-dialog.c: Fix build problem (sorry!)
+
+2005-09-17  Esteban Sanchez  <esteban@steve-o.org>
+
 	* src/buoh-comic-manager.c: Better code for freeing the comic list.
 
 	* src/buoh-comic.c: Better code for object construction on new_with_info
