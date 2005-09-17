@@ -732,10 +732,26 @@ buoh_window_set_sensitive (BuohWindow *window, const gchar *name, gboolean sensi
 static void
 buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 {
-	buoh_window_set_sensitive (window, "GoPrevious",      sensitive);
-	buoh_window_set_sensitive (window, "GoNext",          sensitive);
-	buoh_window_set_sensitive (window, "GoFirst",         sensitive);
-	buoh_window_set_sensitive (window, "GoLast",          sensitive);
+	BuohComicManager *cm;
+
+	cm = buoh_comic_list_get_comic_manager (window->priv->comic_list);
+
+	buoh_window_set_sensitive (window, "GoPrevious",
+			   	   sensitive ?
+				   !buoh_comic_manager_is_the_first (cm) : 
+				   sensitive);
+	buoh_window_set_sensitive (window, "GoNext", 
+			   	   sensitive ?
+				   !buoh_comic_manager_is_the_last (cm) :
+				   sensitive);
+	buoh_window_set_sensitive (window, "GoFirst",
+				   sensitive ?
+				   !buoh_comic_manager_is_the_first (cm) :
+				   sensitive);
+	buoh_window_set_sensitive (window, "GoLast",
+				   sensitive ?
+				   !buoh_comic_manager_is_the_last (cm) :
+				   sensitive);
 	buoh_window_set_sensitive (window, "ComicProperties", sensitive);
 	buoh_window_set_sensitive (window, "ComicCopyURI",    sensitive); 
 	buoh_window_set_sensitive (window, "ViewZoomIn",
@@ -770,15 +786,25 @@ buoh_window_comic_save_to_disk_set_sensitive (BuohWindow *window, gboolean sensi
 static void
 buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gdata)
 {
-	BuohView   *view = BUOH_VIEW (object);
-	BuohWindow *window = BUOH_WINDOW (gdata);
-	BuohComic  *comic = NULL;
+	BuohView         *view = BUOH_VIEW (object);
+	BuohWindow       *window = BUOH_WINDOW (gdata);
+	BuohComic        *comic = NULL;
+	BuohComicManager *cm;
+
+	cm = buoh_comic_list_get_comic_manager (window->priv->comic_list);
 
 	switch (buoh_view_get_status (view)) {
 	case STATE_MESSAGE_WELCOME:
-	case STATE_MESSAGE_ERROR:
 	case STATE_EMPTY:
 		buoh_window_comic_actions_set_sensitive (window, FALSE);
+		buoh_window_comic_save_to_disk_set_sensitive (window, FALSE);
+		break;
+	case STATE_MESSAGE_ERROR:
+		buoh_window_comic_actions_set_sensitive (window, FALSE);
+		buoh_window_set_sensitive (window, "GoPrevious",
+					   !buoh_comic_manager_is_the_first (cm));
+		buoh_window_set_sensitive (window, "GoNext", 
+					   !buoh_comic_manager_is_the_last (cm));
 		buoh_window_comic_save_to_disk_set_sensitive (window, FALSE);
 		break;
 	case STATE_COMIC_LOADING:

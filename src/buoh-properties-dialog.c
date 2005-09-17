@@ -25,6 +25,8 @@
 #include "buoh-properties-dialog.h"
 #include "buoh.h"
 
+#define DATE_BUFFER 256
+
 struct _BuohPropertiesDialogPrivate {
 	BuohComicManager *comic_manager;
 };
@@ -100,8 +102,11 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	GtkWidget *label_author, * label_author_val;
 	GtkWidget *label_uri, *label_uri_val;
 	GtkWidget *label_language, *label_language_val;
-	gchar     *title, *author, *uri, *language;
+	GtkWidget *label_date, *label_date_val;
+	GDate     *comic_date;
+	gchar     *title, *author, *uri, *language, date[DATE_BUFFER];
 	BuohComic *comic;
+	gchar     *str;
 	
 	g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
 
@@ -109,21 +114,35 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 
 	table = gtk_table_new (4, 2, FALSE);
 	
+	str = g_sprintf ("<b>%s:</b>", _("Title"));
 	label_title = gtk_label_new (NULL);
-	gtk_label_set_markup (GTK_LABEL (label_title), "<b>Title:</b>");
+	gtk_label_set_markup (GTK_LABEL (label_title), str);
 	gtk_misc_set_alignment (GTK_MISC (label_title), 0, 0.5);
+	g_free (str);
 
+	str = g_sprintf ("<b>%s:</b>", _("Author"));
 	label_author = gtk_label_new (NULL);
-	gtk_label_set_markup (GTK_LABEL (label_author), "<b>Author:</b>");
+	gtk_label_set_markup (GTK_LABEL (label_author), str);
 	gtk_misc_set_alignment (GTK_MISC (label_author), 0, 0.5);
+	g_free (str);
 
+	str = g_sprintf ("<b>%s:</b>", _("Link"));
 	label_uri = gtk_label_new (NULL);	
-	gtk_label_set_markup (GTK_LABEL (label_uri), "<b>Link:</b>");
+	gtk_label_set_markup (GTK_LABEL (label_uri), str);
 	gtk_misc_set_alignment (GTK_MISC (label_uri), 0, 0.5);
+	g_free (str);
 
+	str = g_sprintf ("<b>%s:</b>", _("Language"));
 	label_language = gtk_label_new (NULL);	
-	gtk_label_set_markup (GTK_LABEL (label_language), "<b>Language:</b>");
+	gtk_label_set_markup (GTK_LABEL (label_language), str);
 	gtk_misc_set_alignment (GTK_MISC (label_language), 0, 0.5);
+	g_free (str);
+
+	str = g_sprintf ("<b>%s:</b>", _("Date of publication"));
+	label_date = gtk_label_new (NULL);	
+	gtk_label_set_markup (GTK_LABEL (label_date), str);
+	gtk_misc_set_alignment (GTK_MISC (label_date), 0, 0.5);
+	g_free (str);
 
 	comic = buoh_comic_manager_get_current (comic_manager);
 	g_object_get (comic_manager,
@@ -153,6 +172,16 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	gtk_label_set_selectable (GTK_LABEL (label_language_val), TRUE);
 	gtk_misc_set_alignment (GTK_MISC (label_language_val), 0, 0.5);	
 	g_free (language);
+
+	comic_date = buoh_comic_get_date (comic);
+	if (g_date_strftime (date, DATE_BUFFER,
+			     "%x", /* Date in locale preferred format */
+			     comic_date) == 0) {
+		buoh_debug ("Date buffer too short");
+	}
+	label_date_val = gtk_label_new (date);
+	gtk_label_set_selectable (GTK_LABEL (label_date_val), TRUE);
+	gtk_misc_set_alignment (GTK_MISC (label_date_val), 0, 0.5);	
 	
 	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_title),
 			  0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
@@ -166,10 +195,14 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 			  0, 1, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_uri_val),
 			  1, 2, 2, 3, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_language),
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_date),
 			  0, 1, 3, 4, GTK_FILL, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_language_val),
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_date_val),
 			  1, 2, 3, 4, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_language),
+			  0, 1, 4, 5, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_language_val),
+			  1, 2, 4, 5, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 
 	gtk_table_set_row_spacings (GTK_TABLE (table), 6);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
@@ -183,6 +216,8 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	gtk_widget_show (label_uri_val);
 	gtk_widget_show (label_language);
 	gtk_widget_show (label_language_val);
+	gtk_widget_show (label_date);
+	gtk_widget_show (label_date_val);
 
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),
 			    table, TRUE, TRUE, 0);

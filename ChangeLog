@@ -1,3 +1,19 @@
+2005-09-17  Esteban Sanchez  <esteban@steve-o.org>
+
+	* src/buoh-comic-manager.c: Better code for freeing the comic list.
+
+	* src/buoh-comic.c: Better code for object construction on new_with_info
+	
+	* src/buoh-window.c: Sensitive of GoPrevious, GoNext, GoLast and
+	GoFirst actions. The sensitive is different in the
+	STATE_MESSAGE_ERROR.
+	
+	* src/buoh-properties-dialog.c: Added the "Date of publication"
+	property. Fixed some translation strings.
+	
+	* data/comics.xml: Some comics added. Martinmorales removed (it's
+	just an image, the joke is in the web page).
+	
 2005-09-17  Pablo Arroyo <zioma@linups.org>
 
 	* data/buoh-ui.xml:

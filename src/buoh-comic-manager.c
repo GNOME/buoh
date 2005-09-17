@@ -170,7 +170,6 @@ static void
 buoh_comic_manager_finalize (GObject *object)
 {
 	BuohComicManager *comic_manager = BUOH_COMIC_MANAGER (object);
-	GList            *aux;
 	
 	g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
 
@@ -200,13 +199,10 @@ buoh_comic_manager_finalize (GObject *object)
 	}
 	
 	if (comic_manager->priv->comic_list) {
-		aux = g_list_first (comic_manager->priv->comic_list);
-		while (aux != g_list_last (comic_manager->priv->comic_list)) {
-			g_object_unref (aux->data);
-			aux = g_list_next (aux);
-		}
-		g_object_unref (aux->data);
-		g_list_free (comic_manager->priv->comic_list);
+		g_list_foreach (comic_manager->priv->comic_list,
+				(GFunc) g_object_unref, NULL);
+  		g_list_free (comic_manager->priv->comic_list);
+		
 		comic_manager->priv->comic_list = NULL;
 	}
 	
