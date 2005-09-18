@@ -371,5 +371,3 @@ buoh_comic_get_thumbnail (BuohComic *comic)
 
 	return NULL;
 }
-
-	

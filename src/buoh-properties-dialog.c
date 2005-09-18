@@ -103,16 +103,30 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	GtkWidget *label_uri, *label_uri_val;
 	GtkWidget *label_language, *label_language_val;
 	GtkWidget *label_date, *label_date_val;
+	GtkWidget *image;
 	GDate     *comic_date;
 	gchar     *title, *author, *uri, *language, date[DATE_BUFFER];
 	BuohComic *comic;
+	GdkPixbuf *thumbnail;
 	gchar     *str;
 	
 	g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
 
 	dialog->priv->comic_manager = comic_manager;
 
-	table = gtk_table_new (4, 2, FALSE);
+	table = gtk_table_new (4, 3, FALSE);
+
+	comic = buoh_comic_manager_get_current (comic_manager);
+	
+	thumbnail = buoh_comic_get_thumbnail (comic);
+	image = gtk_image_new_from_pixbuf (thumbnail);
+	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0);
+
+	g_object_get (comic_manager,
+		      "title", &title,
+		      "author", &author,
+		      "language", &language, NULL);
+
 	
 	str = g_strdup_printf ("<b>%s:</b>", _("Title"));
 	label_title = gtk_label_new (NULL);
@@ -138,13 +152,12 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	gtk_misc_set_alignment (GTK_MISC (label_language), 0, 0.5);
 	g_free (str);
 
-	str = g_strdup_printf ("<b>%s:</b>", _("Date of publication"));
+	str = g_strdup_printf ("<b>%s:</b>", _("Publication date"));
 	label_date = gtk_label_new (NULL);	
 	gtk_label_set_markup (GTK_LABEL (label_date), str);
 	gtk_misc_set_alignment (GTK_MISC (label_date), 0, 0.5);
 	g_free (str);
 
-	comic = buoh_comic_manager_get_current (comic_manager);
 	g_object_get (comic_manager,
 		      "title", &title,
 		      "author", &author,
@@ -182,32 +195,35 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	label_date_val = gtk_label_new (date);
 	gtk_label_set_selectable (GTK_LABEL (label_date_val), TRUE);
 	gtk_misc_set_alignment (GTK_MISC (label_date_val), 0, 0.5);	
-	
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_title),
-			  0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_title_val),
-			  1, 2, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_author),
-			  0, 1, 1, 2, GTK_FILL, GTK_FILL, 0, 0 );
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_author_val),
-			  1, 2, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_uri),
-			  0, 1, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_uri_val),
-			  1, 2, 2, 3, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_date),
-			  0, 1, 3, 4, GTK_FILL, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_date_val),
-			  1, 2, 3, 4, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_language),
-			  0, 1, 4, 5, GTK_FILL, GTK_FILL, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_language_val),
-			  1, 2, 4, 5, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (image),
+			  0, 1, 0, 5, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_title),
+			  1, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_title_val),
+			  2, 3, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_author),
+			  1, 2, 1, 2, GTK_FILL, GTK_FILL, 0, 0 );
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_author_val),
+			  2, 3, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_uri),
+			  1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_uri_val),
+			  2, 3, 2, 3, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_date),
+			  1, 2, 3, 4, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_date_val),
+			  2, 3, 3, 4, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_language),
+			  1, 2, 4, 5, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_language_val),
+			  2, 3, 4, 5, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
+	
 	gtk_table_set_row_spacings (GTK_TABLE (table), 6);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
 	gtk_container_set_border_width (GTK_CONTAINER (table), 5);
-		
+
+	gtk_widget_show (image);
 	gtk_widget_show (label_title);
 	gtk_widget_show (label_title_val);
 	gtk_widget_show (label_author);

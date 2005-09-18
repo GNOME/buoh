@@ -1,3 +1,10 @@
+2005-09-18  Pablo Arroyo  <zioma@linups.org>
+
+	* src/buoh-properties-dialog.c: Added thumbnail to the properties
+	dialog.
+	* src/buoh-view-comic.c: Changed the zoom scaling factor,
+	and max and min zoom values. 
+
 2005-09-17  Esteban Sanchez  <esteban@steve-o.org>
 
 	* src/buoh-properties-dialog.c: Fix build problem (sorry!)

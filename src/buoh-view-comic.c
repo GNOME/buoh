@@ -54,11 +54,11 @@ static GtkTargetEntry targets[] = {
 #define BUOH_VIEW_COMIC_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_VIEW_COMIC, BuohViewComicPrivate))
 
-#define ZOOM_IN_FACTOR  1.5
+#define ZOOM_IN_FACTOR  1.2
 #define ZOOM_OUT_FACTOR (1.0 / ZOOM_IN_FACTOR)
 
-#define MIN_ZOOM_SCALE (ZOOM_OUT_FACTOR * ZOOM_OUT_FACTOR)
-#define MAX_ZOOM_SCALE (ZOOM_IN_FACTOR * ZOOM_IN_FACTOR)
+#define MIN_ZOOM_SCALE 0.6
+#define MAX_ZOOM_SCALE 2
 
 static GtkViewportClass *parent_class = NULL;
 
