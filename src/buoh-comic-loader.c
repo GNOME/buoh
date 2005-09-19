@@ -190,7 +190,7 @@ buoh_comic_loader_update (GdkPixbufLoader *pixbuf_loader, gint x, gint y,
 	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
 
 	g_mutex_lock (loader->pixbuf_mutex);
-	loader->pixbuf = gdk_pixbuf_loader_get_pixbuf (pixbuf_loader);
+	loader->pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (pixbuf_loader));
 	g_mutex_unlock (loader->pixbuf_mutex);
 }
 
@@ -241,10 +241,12 @@ buoh_comic_loader_close_finished (GnomeVFSAsyncHandle *handle,
 {
 	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
 
+	buoh_debug ("loader close");
+
 	gdk_pixbuf_loader_close (loader->pixbuf_loader, NULL);
 
 	g_mutex_lock (loader->pixbuf_mutex);
-	loader->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader->pixbuf_loader);
+	loader->pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader->pixbuf_loader));
 	g_mutex_unlock (loader->pixbuf_mutex);
 
 	g_object_unref (loader->pixbuf_loader);
