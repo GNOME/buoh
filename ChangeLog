@@ -1,3 +1,11 @@
+2005-09-19  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-comic-loader.c: 
+	* src/buoh-view-comic.c:
+	Update the view only if the pixbuf has been changed. Increase the
+	references counter for the pixbuf so that when the pixbuf-loader is
+	unref the pixbuf is not destroyed.
+
 2005-09-18  Pablo Arroyo  <zioma@linups.org>
 
 	* src/buoh-properties-dialog.c: Added thumbnail to the properties

@@ -371,6 +371,7 @@ buoh_view_comic_load_monitor (gpointer gdata)
 {
 	BuohViewComic *c_view = BUOH_VIEW_COMIC (gdata);
 	static GdkCursor *cursor = NULL;
+	static GdkPixbuf *pixbuf = NULL; 
 
 	switch (c_view->priv->comic_loader->status) {
 	case LOADER_STATE_READY:
@@ -385,13 +386,17 @@ buoh_view_comic_load_monitor (gpointer gdata)
 		}
 
 		if (GDK_IS_PIXBUF (c_view->priv->comic_loader->pixbuf)) {
-			g_mutex_lock (c_view->priv->comic_loader->pixbuf_mutex);
-			buoh_view_comic_set_image_from_pixbuf (
-				c_view,
-				g_object_ref (c_view->priv->comic_loader->pixbuf));
-			g_mutex_unlock (c_view->priv->comic_loader->pixbuf_mutex);
+			if (c_view->priv->comic_loader->pixbuf != pixbuf) {
+				g_mutex_lock (c_view->priv->comic_loader->pixbuf_mutex);
+				buoh_view_comic_set_image_from_pixbuf (
+					c_view,
+					c_view->priv->comic_loader->pixbuf);
+				g_object_unref (c_view->priv->comic_loader->pixbuf);
+				pixbuf = c_view->priv->comic_loader->pixbuf;
+				g_mutex_unlock (c_view->priv->comic_loader->pixbuf_mutex);
+			}
 		}
-
+		
 		return TRUE;
 	case LOADER_STATE_FINISHED:
 		if (GDK_IS_PIXBUF (c_view->priv->comic_loader->pixbuf)) {
@@ -400,8 +405,9 @@ buoh_view_comic_load_monitor (gpointer gdata)
 							       c_view->priv->comic_loader->pixbuf);
 			buoh_comic_set_pixbuf (c_view->priv->comic,
 					       c_view->priv->comic_loader->pixbuf);
+			g_object_unref (c_view->priv->comic_loader->pixbuf);
 			g_mutex_unlock (c_view->priv->comic_loader->pixbuf_mutex);
-
+			
 			g_object_set (G_OBJECT (c_view->priv->view),
 				      "status", STATE_COMIC_LOADED,
 				      NULL);
