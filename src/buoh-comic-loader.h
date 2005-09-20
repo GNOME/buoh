@@ -22,7 +22,7 @@
 #include <glib-object.h>
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <libgnomevfs/gnome-vfs.h>
+#include <libsoup/soup.h>
 
 #include "buoh-comic.h"
 
@@ -38,6 +38,7 @@ enum {
 
 typedef struct _BuohComicLoader        BuohComicLoader;
 typedef struct _BuohComicLoaderClass   BuohComicLoaderClass;
+typedef struct _BuohComicLoaderPrivate BuohComicLoaderPrivate;
 
 #define BUOH_TYPE_COMIC_LOADER                  (buoh_comic_loader_get_type())
 #define BUOH_COMIC_LOADER(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_COMIC_LOADER, BuohComicLoader))
@@ -51,21 +52,16 @@ typedef struct _BuohComicLoaderClass   BuohComicLoaderClass;
 struct _BuohComicLoader {
 	GObject    parent;
 
-	GMainLoop           *loop;
-	GnomeVFSAsyncHandle *handle;
+	GMutex    *thread_mutex;
+	GMutex    *pixbuf_mutex;
+	GMutex    *status_mutex;
+	
+	GThread   *thread;
+	GdkPixbuf *pixbuf;
+	guint      status;
+	GError    *error;
 
-	gchar               *uri;
-	gpointer             buffer;
-	GdkPixbufLoader     *pixbuf_loader;
-	
-	GMutex              *thread_mutex;
-	GMutex              *pixbuf_mutex;
-	GMutex              *status_mutex;
-	
-	GThread             *thread;
-	GdkPixbuf           *pixbuf;
-	guint                status;
-	GError              *error;
+	BuohComicLoaderPrivate *priv;
 };
 
 struct _BuohComicLoaderClass {

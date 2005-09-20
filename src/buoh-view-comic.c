@@ -153,7 +153,6 @@ buoh_view_comic_init (BuohViewComic *c_view)
 			  G_CALLBACK (buoh_view_comic_drag_data_get),
 			  NULL);
 	
-
 	gtk_widget_show (GTK_WIDGET (c_view));
 }
 
@@ -396,7 +395,7 @@ buoh_view_comic_load_monitor (gpointer gdata)
 				g_mutex_unlock (c_view->priv->comic_loader->pixbuf_mutex);
 			}
 		}
-		
+
 		return TRUE;
 	case LOADER_STATE_FINISHED:
 		if (GDK_IS_PIXBUF (c_view->priv->comic_loader->pixbuf)) {
@@ -473,10 +472,6 @@ buoh_view_comic_load (BuohViewComic *c_view)
 		buoh_debug ("died");
 	}
 
-	/* Finish the loader monitor */
-	while (gtk_events_pending ())
-		gtk_main_iteration ();
-
 	pixbuf = buoh_comic_get_pixbuf (c_view->priv->comic);
 	if (pixbuf) {
 		buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
@@ -491,6 +486,9 @@ buoh_view_comic_load (BuohViewComic *c_view)
 		uri = buoh_comic_get_uri (c_view->priv->comic);
 		buoh_comic_loader_run (c_view->priv->comic_loader, uri);
 		g_free (uri);
+
+		if (c_view->priv->load_monitor > 0)
+			g_source_remove (c_view->priv->load_monitor);
 		c_view->priv->load_monitor =
 			g_timeout_add (60,
 				       (GSourceFunc)buoh_view_comic_load_monitor,
