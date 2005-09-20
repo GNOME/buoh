@@ -40,7 +40,7 @@ main (gint argc, gchar **argv)
 			    argc, argv,
 			    GNOME_PARAM_NONE);
 
-	g_set_application_name (_("Buoh Comics Browser"));
+	g_set_application_name (_("Buoh online comics browser"));
 
 	/* Init threads */
 	if (!g_thread_supported ()) {

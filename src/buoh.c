@@ -208,7 +208,7 @@ buoh_create_model_from_file (Buoh *buoh)
 								(gchar *)uri);
 			
 			/* Comic simple */
-			if (BUOH_IS_COMIC_MANAGER_DATE (comic_manager)){
+			if (BUOH_IS_COMIC_MANAGER_DATE (comic_manager)) {
 			
 				/* Read the restrictions */
 				child = node->children->next;
