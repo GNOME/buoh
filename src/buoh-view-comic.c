@@ -23,6 +23,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 #include <string.h>
 
 #include "buoh.h"
@@ -38,7 +39,7 @@ enum {
 struct _BuohViewComicPrivate {
 	BuohView        *view;
 	GtkWidget       *image;
-	
+
 	BuohComic       *comic;
 	gdouble          scale;
 
@@ -73,6 +74,8 @@ static void     buoh_view_comic_get_property          (GObject          *object,
 						       guint             prop_id,
 						       GValue           *value,
 						       GParamSpec       *pspec);
+static gboolean buoh_view_comic_key_press_event       (GtkWidget        *widget,
+						       GdkEventKey      *event);
 static void     buoh_view_comic_drag_begin            (GtkWidget        *widget,
 						       GdkDragContext   *drag_context,
 						       gpointer          gdata);
@@ -88,6 +91,7 @@ static void     bouh_view_comic_changed_comic_cb      (GObject          *object,
 static void     bouh_view_comic_view_status_changed   (GObject          *object,
 						       GParamSpec       *arg,
 						       gpointer          gdata);
+static void     buoh_view_comic_prepare_load          (BuohViewComic    *c_view);
 static void     buoh_view_comic_set_image_from_pixbuf (BuohViewComic    *c_view,
 						       GdkPixbuf        *pixbuf);
 static gboolean buoh_view_comic_load_monitor          (gpointer          gdata);
@@ -159,10 +163,13 @@ buoh_view_comic_init (BuohViewComic *c_view)
 static void
 buoh_view_comic_class_init (BuohViewComicClass *klass)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
 	object_class->set_property = buoh_view_comic_set_property;
 	object_class->get_property = buoh_view_comic_get_property;
+
+	widget_class->key_press_event = buoh_view_comic_key_press_event;
 
 	parent_class = g_type_class_peek_parent (klass);
 
@@ -263,6 +270,57 @@ buoh_view_comic_get_property (GObject    *object,
 	}
 }
 
+static gboolean
+buoh_view_comic_key_press_event (GtkWidget *widget, GdkEventKey *event)
+{
+	BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
+	GtkAdjustment *adjustment;
+	gdouble        value;
+
+	switch (event->keyval) {
+	case GDK_Up:
+	case GDK_KP_Up:
+		g_object_get (G_OBJECT (c_view),
+			      "vadjustment", &adjustment,
+			      NULL);
+		value = adjustment->value - adjustment->step_increment;
+		
+		break;
+	case GDK_Down:
+	case GDK_KP_Down:
+		g_object_get (G_OBJECT (c_view),
+			      "vadjustment", &adjustment,
+			      NULL);
+		value = adjustment->value + adjustment->step_increment;
+		
+		break;
+	case GDK_Left:
+	case GDK_KP_Left:
+		g_object_get (G_OBJECT (c_view),
+			      "hadjustment", &adjustment,
+			      NULL);
+		value = adjustment->value - adjustment->step_increment;
+		
+		break;
+	case GDK_Right:
+	case GDK_KP_Right:
+		g_object_get (G_OBJECT (c_view),
+			      "hadjustment", &adjustment,
+			      NULL);
+		value = adjustment->value + adjustment->step_increment;
+		
+		break;
+	default:
+		return FALSE;
+	}
+
+	value = CLAMP (value, adjustment->lower,
+		       adjustment->upper - adjustment->page_size);
+	gtk_adjustment_set_value (adjustment, value);
+	
+	return TRUE;
+}
+
 GtkWidget *
 buoh_view_comic_new (BuohView *view)
 {
@@ -315,11 +373,28 @@ buoh_view_comic_drag_data_get (GtkWidget *widget, GdkDragContext *drag_context,
 }
 
 static void
+buoh_view_comic_prepare_load (BuohViewComic *c_view)
+{
+	GtkAdjustment *hadjustment;
+	GtkAdjustment *vadjustment;
+
+	g_object_get (G_OBJECT (c_view),
+		      "hadjustment", &hadjustment,
+		      "vadjustment", &vadjustment,
+		      NULL);
+
+	gtk_adjustment_set_value (hadjustment, 0.0);
+	gtk_adjustment_set_value (vadjustment, 0.0);
+	
+	gtk_image_clear (GTK_IMAGE (c_view->priv->image));
+	
+}
+static void
 bouh_view_comic_changed_comic_cb (GObject *object, GParamSpec *arg, gpointer gdata)
 {
 	BuohViewComic *c_view = BUOH_VIEW_COMIC (object);
 
-	gtk_image_clear (GTK_IMAGE (c_view->priv->image));
+	buoh_view_comic_prepare_load (c_view);
 	
 	buoh_view_comic_load (c_view);
 }
@@ -338,8 +413,6 @@ bouh_view_comic_view_status_changed (GObject *object, GParamSpec *arg, gpointer 
 	} else {
 		gtk_drag_source_unset (GTK_WIDGET (c_view));
 	}
-		
-
 }
 
 static void
