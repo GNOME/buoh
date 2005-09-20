@@ -16,39 +16,40 @@
  *  Authors : Carlos García Campos <carlosgc@gnome.org>
  */
 
-#include <libgnomevfs/gnome-vfs.h>
-#include <string.h>
-
 #include "buoh.h"
 #include "buoh-comic-loader.h"
 
+struct _BuohComicLoaderPrivate {
+	GMainLoop       *loop;
+	SoupSession     *session;
+	SoupMessage     *msg;
+
+	gchar           *uri;
+	GdkPixbufLoader *pixbuf_loader;
+};
+
+#define BUOH_COMIC_LOADER_GET_PRIVATE(object) \
+        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC_LOADER, BuohComicLoaderPrivate))
+
 static GObjectClass *parent_class = NULL;
 
-static void     buoh_comic_loader_init           (BuohComicLoader      *loader);
-static void     buoh_comic_loader_class_init     (BuohComicLoaderClass *klass);
-static void     buoh_comic_loader_finalize       (GObject              *object);
+static void     buoh_comic_loader_init       (BuohComicLoader      *loader);
+static void     buoh_comic_loader_class_init (BuohComicLoaderClass *klass);
+static void     buoh_comic_loader_finalize   (GObject              *object);
 
-static void     buoh_comic_loader_update         (GdkPixbufLoader      *pixbuf_loader,
-						  gint                  x,
-						  gint                  y,
-						  gint                  width,
-						  gint                  height,
-						  gpointer              gdata);
-static void     buoh_comic_loader_open_finished  (GnomeVFSAsyncHandle  *handle,
-						  GnomeVFSResult        result,
-						  gpointer              gdata);
-static void     buoh_comic_loader_close_finished (GnomeVFSAsyncHandle  *handle,
-						  GnomeVFSResult        result,
-						  gpointer              gdata);
-static void     buoh_comic_loader_read_next      (GnomeVFSAsyncHandle  *handle,
-						  GnomeVFSResult        result,
-						  gpointer              buffer,
-						  GnomeVFSFileSize      bytes_requested,
-						  GnomeVFSFileSize      bytes_read,
-						  gpointer              gdata);
-static gpointer buoh_comic_loader_run_thread     (gpointer              gdata);
-
-#define BUFFER_SIZE 2048
+static void     buoh_comic_loader_update     (GdkPixbufLoader      *pixbuf_loader,
+					      gint                  x,
+					      gint                  y,
+					      gint                  width,
+					      gint                  height,
+					      gpointer              gdata);
+static void     buoh_comic_loader_resolved   (SoupMessage          *msg,
+					      gpointer              gdata);
+static void     buoh_comic_loader_read_next  (SoupMessage          *msg,
+					      gpointer              gdata);
+static void     buoh_comic_loader_finished   (SoupMessage          *msg,
+					      gpointer              gdata);
+static gpointer buoh_comic_loader_run_thread (gpointer              gdata);
 
 GType
 buoh_comic_loader_get_type (void)
@@ -89,19 +90,19 @@ buoh_comic_loader_error_quark (void)
 static void
 buoh_comic_loader_init (BuohComicLoader *loader)
 {
-	loader->uri = NULL;
-	loader->pixbuf_loader = NULL;
-	loader->buffer = NULL;
+	loader->priv = BUOH_COMIC_LOADER_GET_PRIVATE (loader);
+	loader->priv->uri = NULL;
+	loader->priv->pixbuf_loader = NULL;
 	
-	loader->loop = NULL;
-	loader->handle = NULL;
+	loader->priv->loop = NULL;
+	loader->priv->session = soup_session_async_new ();
+	loader->priv->msg = NULL;
 	
 	loader->thread_mutex = g_mutex_new ();
 	loader->pixbuf_mutex = g_mutex_new ();
 	loader->status_mutex = g_mutex_new ();
 	
 	loader->thread = NULL;
-	loader->pixbuf = NULL;
 	loader->status = LOADER_STATE_READY;
 	loader->error = NULL; 
 }
@@ -113,6 +114,8 @@ buoh_comic_loader_class_init (BuohComicLoaderClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
+	g_type_class_add_private (klass, sizeof (BuohComicLoaderPrivate));
+
 	object_class->finalize = buoh_comic_loader_finalize;
 }
 
@@ -122,11 +125,6 @@ buoh_comic_loader_finalize (GObject *object)
 	BuohComicLoader *loader = BUOH_COMIC_LOADER (object);
 
 	buoh_debug ("comic-loader finalize");
-
-	if (loader->uri) {
-		g_free (loader->uri);
-		loader->uri = NULL;
-	}
 
 	switch (loader->status) {
 	case LOADER_STATE_RUNNING:
@@ -138,7 +136,7 @@ buoh_comic_loader_finalize (GObject *object)
 	default:
 		break;
 	}
-	
+
 	if (loader->thread_mutex) {
 		g_mutex_free (loader->thread_mutex);
 		loader->thread_mutex = NULL;
@@ -154,21 +152,26 @@ buoh_comic_loader_finalize (GObject *object)
 		loader->status_mutex = NULL;
 	}
 
-	if (loader->buffer) {
-		g_free (loader->buffer);
-		loader->buffer = NULL;
-	}
-	
-	if (loader->loop) {
-		g_main_loop_unref (loader->loop);
-		loader->loop = NULL;
-	}
-
 	if (loader->error) {
 		g_error_free (loader->error);
 		loader->error = NULL;
 	}
-	
+
+	if (loader->priv->uri) {
+		g_free (loader->priv->uri);
+		loader->priv->uri = NULL;
+	}
+
+	if (loader->priv->session) {
+		g_object_unref (loader->priv->session);
+		loader->priv->session = NULL;
+	}
+
+	if (loader->priv->loop) {
+		g_main_loop_unref (loader->priv->loop);
+		loader->priv->loop = NULL;
+	}
+
 	if (G_OBJECT_CLASS (parent_class)->finalize)
 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
@@ -188,145 +191,139 @@ buoh_comic_loader_update (GdkPixbufLoader *pixbuf_loader, gint x, gint y,
 			  gint width, gint height, gpointer gdata)
 {
 	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
+	GdkPixbuf       *pixbuf = NULL;
 
 	g_mutex_lock (loader->pixbuf_mutex);
-	loader->pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (pixbuf_loader));
+	pixbuf = gdk_pixbuf_loader_get_pixbuf (pixbuf_loader);
+	loader->pixbuf = GDK_IS_PIXBUF (pixbuf) ? g_object_ref (pixbuf) : NULL;
 	g_mutex_unlock (loader->pixbuf_mutex);
 }
 
 static void
-buoh_comic_loader_open_finished (GnomeVFSAsyncHandle *handle,
-				 GnomeVFSResult       result,
-				 gpointer             gdata)
+buoh_comic_loader_resolved (SoupMessage *msg, gpointer gdata)
 {
 	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
 
-	if (result != GNOME_VFS_OK) {
+	buoh_debug ("resolved");
+
+	if (!SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
 		g_clear_error (&(loader->error));
 		loader->error = g_error_new (BUOH_COMIC_LOADER_ERROR,
-					     (gint) result,
-					     gnome_vfs_result_to_string (result));
-			
+					     (gint) msg->status_code,
+					     msg->reason_phrase);
+
 		g_mutex_lock (loader->status_mutex);
 		loader->status = LOADER_STATE_FAILED;
 		g_mutex_unlock (loader->status_mutex);
 
-		gnome_vfs_async_cancel (handle);
-
-		if (g_main_loop_is_running (loader->loop))
-			g_main_loop_quit (loader->loop);
-
-		buoh_debug ("state finished");
-
-		return;
+		soup_message_set_status (msg, SOUP_STATUS_CANCELLED);
+		soup_session_cancel_message (loader->priv->session, msg);
+	} else {
+		loader->priv->pixbuf_loader = gdk_pixbuf_loader_new ();
+		g_signal_connect (G_OBJECT (loader->priv->pixbuf_loader),
+				  "area-updated",
+				  G_CALLBACK (buoh_comic_loader_update),
+				  (gpointer) loader);
 	}
-
-	buoh_debug ("resolved");
-
-	loader->pixbuf_loader = gdk_pixbuf_loader_new ();
-	g_signal_connect (G_OBJECT (loader->pixbuf_loader), "area-updated",
-			  G_CALLBACK (buoh_comic_loader_update),
-			  (gpointer) loader);
-
-	loader->buffer = g_malloc (BUFFER_SIZE);
-	gnome_vfs_async_read (handle, loader->buffer, BUFFER_SIZE,
-			      buoh_comic_loader_read_next,
-			      (gpointer) loader);
 }
 
 static void
-buoh_comic_loader_close_finished (GnomeVFSAsyncHandle *handle,
-				  GnomeVFSResult       result,
-				  gpointer             gdata)
-{
-	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
-
-	buoh_debug ("loader close");
-
-	gdk_pixbuf_loader_close (loader->pixbuf_loader, NULL);
-
-	g_mutex_lock (loader->pixbuf_mutex);
-	loader->pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader->pixbuf_loader));
-	g_mutex_unlock (loader->pixbuf_mutex);
-
-	g_object_unref (loader->pixbuf_loader);
-	loader->pixbuf_loader = NULL;
-
-	g_mutex_lock (loader->status_mutex);
-	loader->status = LOADER_STATE_FINISHED;
-	g_mutex_unlock (loader->status_mutex);
-
-	if (g_main_loop_is_running (loader->loop))
-		g_main_loop_quit (loader->loop);
-}
-
-static void
-buoh_comic_loader_read_next (GnomeVFSAsyncHandle *handle,
-			     GnomeVFSResult       result,
-			     gpointer             buffer,
-			     GnomeVFSFileSize     bytes_requested,
-			     GnomeVFSFileSize     bytes_read,
-			     gpointer             gdata)
+buoh_comic_loader_read_next (SoupMessage *msg, gpointer gdata)
 {
 	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
 
 	if (loader->status == LOADER_STATE_STOPPING) {
 		buoh_debug ("Stopping loader");
-		
-		gdk_pixbuf_loader_close (loader->pixbuf_loader, NULL);
-		g_object_unref (loader->pixbuf_loader);
-		loader->pixbuf_loader = NULL;
-
-		g_free (loader->buffer);
-		loader->buffer = NULL;
-
-		gnome_vfs_async_cancel (handle);
-
-		if (g_main_loop_is_running (loader->loop))
-			g_main_loop_quit (loader->loop);
 
 		return;
 	}
-	
-	switch (result) {
-	case GNOME_VFS_OK:
-		gdk_pixbuf_loader_write (loader->pixbuf_loader,
-					 (guchar *) buffer,
-					 bytes_read, NULL);
-		memset (loader->buffer, 0, BUFFER_SIZE);
-		gnome_vfs_async_read (handle, loader->buffer, BUFFER_SIZE,
-				      buoh_comic_loader_read_next,
-				      (gpointer) loader);
-		break;
-	case GNOME_VFS_ERROR_EOF:
-		gnome_vfs_async_close (handle,
-				       buoh_comic_loader_close_finished,
-				       (gpointer) loader);
-		g_free (loader->buffer);
-		loader->buffer = NULL;
-		break;
-	default:
+
+	if (!SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
 		g_clear_error (&(loader->error));
 		loader->error = g_error_new (BUOH_COMIC_LOADER_ERROR,
-					     (gint) result,
-					     gnome_vfs_result_to_string (result));
-		
+					     (gint) msg->status_code,
+					     msg->reason_phrase);
+
 		g_mutex_lock (loader->status_mutex);
 		loader->status = LOADER_STATE_FAILED;
 		g_mutex_unlock (loader->status_mutex);
 
-		gdk_pixbuf_loader_close (loader->pixbuf_loader, NULL);
-		g_object_unref (loader->pixbuf_loader);
-		loader->pixbuf_loader = NULL;
-
-		g_free (loader->buffer);
-		loader->buffer = NULL;
-		
-		gnome_vfs_async_cancel (handle);
-
-		if (g_main_loop_is_running (loader->loop))
-			g_main_loop_quit (loader->loop);
+		soup_message_set_status (msg, SOUP_STATUS_CANCELLED);
+		soup_session_cancel_message (loader->priv->session, msg);
+	} else {
+		gdk_pixbuf_loader_write (loader->priv->pixbuf_loader,
+					 (guchar *) msg->response.body,
+					 msg->response.length, NULL);
 	}
+}
+
+static void
+buoh_comic_loader_finished (SoupMessage *msg, gpointer gdata)
+{
+	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
+	GdkPixbuf       *pixbuf = NULL;
+
+	buoh_debug ("loader finish");
+
+	switch (loader->status) {
+	case LOADER_STATE_RUNNING:
+		if (loader->priv->pixbuf_loader) {
+			gdk_pixbuf_loader_close (loader->priv->pixbuf_loader, NULL);
+			
+			g_mutex_lock (loader->pixbuf_mutex);
+			pixbuf = gdk_pixbuf_loader_get_pixbuf (loader->priv->pixbuf_loader);
+			loader->pixbuf = GDK_IS_PIXBUF(pixbuf) ? g_object_ref (pixbuf) : NULL;
+			g_mutex_unlock (loader->pixbuf_mutex);
+
+			g_object_unref (loader->priv->pixbuf_loader);
+			loader->priv->pixbuf_loader = NULL;
+		}
+
+		g_mutex_lock (loader->status_mutex);
+		loader->status = LOADER_STATE_FINISHED;
+		g_mutex_unlock (loader->status_mutex);
+
+		break;
+	case LOADER_STATE_FAILED:
+		if (loader->priv->pixbuf_loader) {
+			gdk_pixbuf_loader_close (loader->priv->pixbuf_loader, NULL);
+
+			g_mutex_lock (loader->pixbuf_mutex);
+			if (GDK_IS_PIXBUF (loader->pixbuf))
+				g_object_unref (loader->pixbuf);
+			loader->pixbuf = NULL;
+			g_mutex_unlock (loader->pixbuf_mutex);
+
+			g_object_unref (loader->priv->pixbuf_loader);
+			loader->priv->pixbuf_loader = NULL;
+		}
+
+		break;
+	case LOADER_STATE_STOPPING:
+		if (loader->priv->pixbuf_loader) {
+			gdk_pixbuf_loader_close (loader->priv->pixbuf_loader, NULL);
+
+			g_mutex_lock (loader->pixbuf_mutex);
+			if (GDK_IS_PIXBUF (loader->pixbuf))
+				g_object_unref (loader->pixbuf);
+			loader->pixbuf = NULL;
+			g_mutex_unlock (loader->pixbuf_mutex);
+			
+			g_object_unref (loader->priv->pixbuf_loader);
+			loader->priv->pixbuf_loader = NULL;
+		}
+		
+		g_mutex_lock (loader->status_mutex);
+		loader->status = LOADER_STATE_FINISHED;
+		g_mutex_unlock (loader->status_mutex);
+		
+		break;
+	default:
+		break;
+	}
+		
+	if (g_main_loop_is_running (loader->priv->loop))
+		g_main_loop_quit (loader->priv->loop);
 }
 
 static gpointer
@@ -338,24 +335,32 @@ buoh_comic_loader_run_thread (gpointer gdata)
 	buoh_debug ("comic_load_thread");
 
 	context = g_main_context_new ();
-	loader->loop = g_main_loop_new (context, TRUE);
+	loader->priv->loop = g_main_loop_new (context, TRUE);
+
+	loader->priv->msg = soup_message_new (SOUP_METHOD_GET, loader->priv->uri);
+	soup_message_add_handler (loader->priv->msg, SOUP_HANDLER_PRE_BODY,
+				  buoh_comic_loader_resolved,
+				  (gpointer) loader);
+	soup_message_add_handler (loader->priv->msg, SOUP_HANDLER_BODY_CHUNK,
+				  buoh_comic_loader_read_next,
+				  (gpointer) loader);
+	
 
 	buoh_debug ("resolving . . .");
-	gnome_vfs_async_open (&loader->handle, loader->uri,
-			      GNOME_VFS_OPEN_READ,
-			      GNOME_VFS_PRIORITY_DEFAULT,
-			      buoh_comic_loader_open_finished,
-			      (gpointer) loader);
-	g_free (loader->uri);
-	loader->uri = NULL;
-
-	if (g_main_loop_is_running (loader->loop)) 
-		g_main_loop_run (loader->loop);
-
-	g_main_loop_unref (loader->loop);
-	loader->loop = NULL;
-	g_main_context_unref (context);
 	
+	soup_session_queue_message (loader->priv->session, loader->priv->msg,
+				    buoh_comic_loader_finished,
+				    (gpointer) loader);
+	g_free (loader->priv->uri);
+	loader->priv->uri = NULL;
+
+	if (g_main_loop_is_running (loader->priv->loop)) 
+		g_main_loop_run (loader->priv->loop);
+
+	g_main_loop_unref (loader->priv->loop);
+	loader->priv->loop = NULL;
+	g_main_context_unref (context);
+
 	buoh_debug ("thread died");
 
 	g_mutex_unlock (loader->thread_mutex);
@@ -376,7 +381,7 @@ buoh_comic_loader_run (BuohComicLoader *loader, const gchar *uri)
 	loader->pixbuf = NULL;
 	g_mutex_unlock (loader->pixbuf_mutex);
 
-	loader->uri = g_strdup (uri);
+	loader->priv->uri = g_strdup (uri);
 
 	g_mutex_lock (loader->thread_mutex);
 
@@ -399,23 +404,6 @@ buoh_comic_loader_stop (BuohComicLoader *loader)
 	loader->status = LOADER_STATE_STOPPING;
 	g_mutex_unlock (loader->status_mutex);
 
-	if (loader->pixbuf_loader) {
-		gdk_pixbuf_loader_close (loader->pixbuf_loader, NULL);
-		g_object_unref (loader->pixbuf_loader);
-		loader->pixbuf_loader = NULL;
-	}
-
-	if (loader->buffer) {
-		g_free (loader->buffer);
-		loader->buffer = NULL;
-	}
-
-	if (loader->handle) {
-		gnome_vfs_async_cancel (loader->handle);
-	}
-
-	if (loader->loop) {
-		if (g_main_loop_is_running (loader->loop))
-			g_main_loop_quit (loader->loop);
-	}
+	soup_message_set_status (loader->priv->msg, SOUP_STATUS_CANCELLED);
+	soup_session_cancel_message (loader->priv->session, loader->priv->msg);
 }
