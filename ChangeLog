@@ -1,3 +1,8 @@
+2005-09-20  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-view-comic.c: Allow scrolling on the comic view with arrow
+	keys. Reset the scrollbars value before every comic loading
+
 2005-09-20  Esteban Sanchez <esteban@steve-o.org>
 
 	* configure.in: Dependency of libsoup relaxed to 2.2
