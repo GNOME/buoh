@@ -169,10 +169,10 @@ static const GtkActionEntry menu_entries [] = {
 
 	/* Help menu */
 	{ "HelpContents", GTK_STOCK_HELP, N_("_Contents"), "F1",
-	  N_("Display help for the Buoh Comic Browser"),
+	  N_("Display help for the Buoh online comic reader"),
 	  G_CALLBACK (buoh_window_cmd_help_contents) },
 	{ "HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL,
-	  N_("Display credits for the Buoh Comic Browser creators"),
+	  N_("Display credits for the Buoh online comic reader creators"),
 	  G_CALLBACK (buoh_window_cmd_help_about) }
 };
 
@@ -224,7 +224,7 @@ buoh_window_init (BuohWindow *buoh_window)
 
 	buoh_window->priv = BUOH_WINDOW_GET_PRIVATE (buoh_window);
 
-	gtk_window_set_title (GTK_WINDOW (buoh_window), _("Buoh Comics Reader"));
+	gtk_window_set_title (GTK_WINDOW (buoh_window), _("Buoh online comics reader"));
 	icon_path = g_build_filename (PIXMAPS_DIR, "buoh16x16.png", NULL);
 	gtk_window_set_icon_from_file (GTK_WINDOW (buoh_window), icon_path, NULL);
 	g_free (icon_path);
@@ -709,7 +709,7 @@ buoh_window_cmd_help_about (GtkAction *action, gpointer gdata)
 	g_free (pixbuf_path);
 
 	gtk_show_about_dialog (GTK_WINDOW (window),
-			       "name", _("Buoh comics reader"),
+			       "name", _("Buoh online comics reader"),
 			       "version", VERSION,
 			       "copyright", "Copyright \xC2\xA9 2004 Esteban Sánchez Muñoz - Pablo Arroyo Loma",
 			       "authors", authors,
