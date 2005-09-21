@@ -296,9 +296,9 @@ buoh_window_init (BuohWindow *buoh_window)
 	buoh_window->priv->comic_list = BUOH_COMIC_LIST (buoh_comic_list_new ());
 	buoh_comic_list_set_view (buoh_window->priv->comic_list, buoh_window->priv->view);
 	gtk_paned_pack1 (GTK_PANED (paned), GTK_WIDGET (buoh_window->priv->comic_list),
-			 FALSE, TRUE);
+			 TRUE, FALSE);
 	gtk_widget_show (GTK_WIDGET (buoh_window->priv->comic_list));
-	
+
 	gtk_box_pack_start (GTK_BOX (vbox), paned,
 			    TRUE, TRUE, 0);
 	gtk_widget_show (paned);
