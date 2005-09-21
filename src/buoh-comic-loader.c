@@ -16,11 +16,14 @@
  *  Authors : Carlos García Campos <carlosgc@gnome.org>
  */
 
+#include <gconf/gconf-client.h>
+
 #include "buoh.h"
 #include "buoh-comic-loader.h"
 
 struct _BuohComicLoaderPrivate {
 	GMainLoop       *loop;
+	GConfClient     *gconf_client;
 	SoupSession     *session;
 	SoupMessage     *msg;
 
@@ -31,11 +34,23 @@ struct _BuohComicLoaderPrivate {
 #define BUOH_COMIC_LOADER_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC_LOADER, BuohComicLoaderPrivate))
 
+#define GCONF_HTTP_PROXY_DIR "/system/http_proxy"
+#define GCONF_USE_HTTP_PROXY "/system/http_proxy/use_http_proxy"
+#define	GCONF_HTTP_PROXY_HOST "/system/http_proxy/host"
+#define GCONF_HTTP_PROXY_PORT "/system/http_proxy/port"
+#define GCONF_HTTP_PROXY_USE_AUTHENTICATION "/system/http_proxy/use_authentication"
+#define GCONF_HTTP_PROXY_AUTHENTICATION_USER "/system/http_proxy/authentication_user"
+#define GCONF_HTTP_PROXY_AUTHENTICATION_PASSWORD "/system/http_proxy/authentication_password"
+
 static GObjectClass *parent_class = NULL;
 
 static void     buoh_comic_loader_init       (BuohComicLoader      *loader);
 static void     buoh_comic_loader_class_init (BuohComicLoaderClass *klass);
 static void     buoh_comic_loader_finalize   (GObject              *object);
+
+static SoupUri *buoh_comic_loader_get_proxy_uri (BuohComicLoader *loader);
+static void     buoh_comic_loader_update_proxy  (GConfClient *gconf_client, guint cnxn_id,
+						 GConfEntry *entry, gpointer gdata);
 
 static void     buoh_comic_loader_update     (GdkPixbufLoader      *pixbuf_loader,
 					      gint                  x,
@@ -90,12 +105,35 @@ buoh_comic_loader_error_quark (void)
 static void
 buoh_comic_loader_init (BuohComicLoader *loader)
 {
+	SoupUri *proxy_uri = NULL;
+	
 	loader->priv = BUOH_COMIC_LOADER_GET_PRIVATE (loader);
+	
 	loader->priv->uri = NULL;
 	loader->priv->pixbuf_loader = NULL;
-	
+
 	loader->priv->loop = NULL;
-	loader->priv->session = soup_session_async_new ();
+
+	loader->priv->gconf_client = gconf_client_get_default ();
+	proxy_uri = buoh_comic_loader_get_proxy_uri (loader);
+
+	loader->priv->session = (proxy_uri != NULL) ?
+		soup_session_async_new_with_options (SOUP_SESSION_PROXY_URI, proxy_uri, NULL) :
+		soup_session_async_new ();
+
+	if (proxy_uri)
+		soup_uri_free (proxy_uri);
+
+	gconf_client_add_dir (loader->priv->gconf_client,
+			      GCONF_HTTP_PROXY_DIR,
+			      GCONF_CLIENT_PRELOAD_NONE,
+			      NULL);
+	gconf_client_notify_add (loader->priv->gconf_client,
+				 GCONF_HTTP_PROXY_DIR,
+				 buoh_comic_loader_update_proxy,
+				 (gpointer) loader,
+				 NULL, NULL);
+	
 	loader->priv->msg = NULL;
 	
 	loader->thread_mutex = g_mutex_new ();
@@ -157,6 +195,11 @@ buoh_comic_loader_finalize (GObject *object)
 		loader->error = NULL;
 	}
 
+	if (loader->priv->gconf_client) {
+		g_object_unref (loader->priv->gconf_client);
+		loader->priv->gconf_client = NULL;
+	}
+
 	if (loader->priv->uri) {
 		g_free (loader->priv->uri);
 		loader->priv->uri = NULL;
@@ -186,6 +229,56 @@ buoh_comic_loader_new (void)
 	return loader;
 }
 
+static SoupUri *
+buoh_comic_loader_get_proxy_uri (BuohComicLoader *loader)
+{
+	GConfClient *gconf_client = loader->priv->gconf_client;
+	SoupUri     *uri = NULL;
+	
+	if (gconf_client_get_bool (gconf_client, GCONF_USE_HTTP_PROXY, NULL)) {
+		uri = g_new0 (SoupUri, 1);
+		
+		uri->protocol = SOUP_PROTOCOL_HTTP;
+		
+		uri->host = gconf_client_get_string (gconf_client,
+						     GCONF_HTTP_PROXY_HOST,
+						     NULL);
+		uri->port = gconf_client_get_int (gconf_client,
+						  GCONF_HTTP_PROXY_PORT,
+						  NULL);
+		
+		if (gconf_client_get_bool (gconf_client, GCONF_HTTP_PROXY_USE_AUTHENTICATION, NULL)) {
+			uri->user = gconf_client_get_string (
+				gconf_client,
+				GCONF_HTTP_PROXY_AUTHENTICATION_USER,
+				NULL );
+			uri->passwd = gconf_client_get_string (
+				gconf_client,
+				GCONF_HTTP_PROXY_AUTHENTICATION_PASSWORD,
+				NULL);
+		}
+	}
+
+	return uri;
+}
+
+static void
+buoh_comic_loader_update_proxy (GConfClient *gconf_client, guint cnxn_id,
+				GConfEntry *entry, gpointer gdata)
+{
+	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
+	SoupUri         *uri = NULL;
+
+	buoh_debug ("Proxy configuration changed");
+	
+	uri = buoh_comic_loader_get_proxy_uri (loader);
+	g_object_set (G_OBJECT (loader->priv->session),
+		      "proxy-uri", uri, NULL);
+
+	if (uri)
+		soup_uri_free (uri);
+}
+
 static void
 buoh_comic_loader_update (GdkPixbufLoader *pixbuf_loader, gint x, gint y,
 			  gint width, gint height, gpointer gdata)
@@ -206,7 +299,13 @@ buoh_comic_loader_resolved (SoupMessage *msg, gpointer gdata)
 
 	buoh_debug ("resolved");
 
-	if (!SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
+	if (SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
+		loader->priv->pixbuf_loader = gdk_pixbuf_loader_new ();
+		g_signal_connect (G_OBJECT (loader->priv->pixbuf_loader),
+				  "area-updated",
+				  G_CALLBACK (buoh_comic_loader_update),
+				  (gpointer) loader);
+	} else {
 		g_clear_error (&(loader->error));
 		loader->error = g_error_new (BUOH_COMIC_LOADER_ERROR,
 					     (gint) msg->status_code,
@@ -218,12 +317,6 @@ buoh_comic_loader_resolved (SoupMessage *msg, gpointer gdata)
 
 		soup_message_set_status (msg, SOUP_STATUS_CANCELLED);
 		soup_session_cancel_message (loader->priv->session, msg);
-	} else {
-		loader->priv->pixbuf_loader = gdk_pixbuf_loader_new ();
-		g_signal_connect (G_OBJECT (loader->priv->pixbuf_loader),
-				  "area-updated",
-				  G_CALLBACK (buoh_comic_loader_update),
-				  (gpointer) loader);
 	}
 }
 
@@ -238,7 +331,11 @@ buoh_comic_loader_read_next (SoupMessage *msg, gpointer gdata)
 		return;
 	}
 
-	if (!SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
+	if (SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
+		gdk_pixbuf_loader_write (loader->priv->pixbuf_loader,
+					 (guchar *) msg->response.body,
+					 msg->response.length, NULL);
+	} else {
 		g_clear_error (&(loader->error));
 		loader->error = g_error_new (BUOH_COMIC_LOADER_ERROR,
 					     (gint) msg->status_code,
@@ -250,10 +347,6 @@ buoh_comic_loader_read_next (SoupMessage *msg, gpointer gdata)
 
 		soup_message_set_status (msg, SOUP_STATUS_CANCELLED);
 		soup_session_cancel_message (loader->priv->session, msg);
-	} else {
-		gdk_pixbuf_loader_write (loader->priv->pixbuf_loader,
-					 (guchar *) msg->response.body,
-					 msg->response.length, NULL);
 	}
 }
 
@@ -338,6 +431,8 @@ buoh_comic_loader_run_thread (gpointer gdata)
 	loader->priv->loop = g_main_loop_new (context, TRUE);
 
 	loader->priv->msg = soup_message_new (SOUP_METHOD_GET, loader->priv->uri);
+	soup_message_set_flags (loader->priv->msg,
+				SOUP_MESSAGE_OVERWRITE_CHUNKS);
 	soup_message_add_handler (loader->priv->msg, SOUP_HANDLER_PRE_BODY,
 				  buoh_comic_loader_resolved,
 				  (gpointer) loader);
