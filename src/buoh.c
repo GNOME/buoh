@@ -193,7 +193,7 @@ buoh_create_model_from_file (Buoh *buoh)
 	while (node) {
 		if (g_ascii_strcasecmp ((const gchar *)node->name, "comic") == 0) {
 			/* New comic */
-			class  = xmlGetProp (node, (xmlChar *) "class");
+			class    = xmlGetProp (node, (xmlChar *) "class");
 			id       = xmlGetProp (node, (xmlChar *) "id");
 			title    = xmlGetProp (node, (xmlChar *) "title");
 			author   = xmlGetProp (node, (xmlChar *) "author");
