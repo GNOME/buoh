@@ -15,8 +15,10 @@
  *
  *  Author: Esteban Sánchez (steve-o) <esteban@steve-o.org>
  */
+#define _XOPEN_SOURCE
 
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <time.h>
 #include <glib.h>
 
 #include "buoh.h"
@@ -432,21 +434,19 @@ buoh_comic_manager_date_get_first (BuohComicManager *comic_manager)
 					     g_date_get_year (priv->first));
 	
 	first = g_list_first (comic_list);
+	comic = BUOH_COMIC (first->data);
 	
 	if (!buoh_comic_manager_date_is_the_first_comic (comic_manager,
-							 BUOH_COMIC (first->data))) {
+							 comic)) {
 		comic = buoh_comic_manager_date_new_comic (BUOH_COMIC_MANAGER_DATE (comic_manager));
 		comic_list = g_list_prepend (comic_list, comic);
 		
-		g_object_set (G_OBJECT (comic_manager), "current",
-			      comic_list, NULL);
 		g_object_set (G_OBJECT (comic_manager), "list",
 			      comic_list, NULL);
-		
-		return comic;
-	} else {
-		g_object_set (G_OBJECT (comic_manager), "current",
-			      comic_list, NULL);
-		return BUOH_COMIC (first->data);
 	}
+			
+	g_object_set (G_OBJECT (comic_manager), "current",
+		      comic_list, NULL);
+	
+	return comic;
 }

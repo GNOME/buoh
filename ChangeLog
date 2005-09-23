@@ -1,4 +1,12 @@
 2005-09-23  Esteban Sanchez  <esteban@steve-o.org>
+
+	* src/buoh-comic-manager-date.c: Include cleanup, remove some ugly and
+	duplicated code.
+
+	* src/buoh-comic-manager.h: Better indentation of functions
+	declarations.
+
+2005-09-23  Esteban Sanchez  <esteban@steve-o.org>
 	
 	* data/comics.xml: Added property "first" to the date comics. Cleaned
 	some abandoned comics.
