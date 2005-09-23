@@ -157,7 +157,7 @@ buoh_create_model_from_file (Buoh *buoh)
 	xmlNodePtr        node;
 	xmlNodePtr        child;
 	BuohComicManager *comic_manager;
-	xmlChar          *id, *class, *title, *author, *language, *uri;
+	xmlChar          *id, *class, *title, *author, *language, *uri, *first;
 	gboolean          visible;
 	xmlChar          *restriction;
 	GDateWeekday      restriction_date;
@@ -209,19 +209,28 @@ buoh_create_model_from_file (Buoh *buoh)
 			
 			/* Comic simple */
 			if (BUOH_IS_COMIC_MANAGER_DATE (comic_manager)) {
-			
+				
+				first = xmlGetProp (node, (xmlChar *) "first");
+				
+				buoh_comic_manager_date_set_first (BUOH_COMIC_MANAGER_DATE (comic_manager),
+								   (gchar *) first);
+				g_free (first);
+
 				/* Read the restrictions */
 				child = node->children->next;
 				while (child) {
 					if (g_ascii_strcasecmp ((const gchar *) child->name, "restrict") == 0) {
+								
 						restriction      = xmlNodeGetContent (child);
 						restriction_date = atoi ((gchar *)restriction);
 
 						buoh_comic_manager_date_set_restriction (BUOH_COMIC_MANAGER_DATE (comic_manager),
 									     		 restriction_date);
+						g_free (restriction);
 					}
 					child = child->next;
 				}
+				
 			}
 			
 			/* Visible */

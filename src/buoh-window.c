@@ -677,12 +677,28 @@ buoh_window_cmd_go_next (GtkAction *action, gpointer gdata)
 static void
 buoh_window_cmd_go_first (GtkAction *action, gpointer gdata)
 {
-	/* TODO */
+	BuohWindow       *window = BUOH_WINDOW (gdata);
+	BuohComicManager *comic_manager;
+	BuohComic        *comic;
+
+	comic_manager = buoh_comic_list_get_comic_manager (window->priv->comic_list);
+
+	comic = buoh_comic_manager_get_first (comic_manager);
+
+	buoh_view_set_comic (window->priv->view, comic);
 }
 static void
 buoh_window_cmd_go_last (GtkAction *action, gpointer gdata)
 {
-	/* TODO */
+	BuohWindow       *window = BUOH_WINDOW (gdata);
+	BuohComicManager *comic_manager;
+	BuohComic        *comic;
+
+	comic_manager = buoh_comic_list_get_comic_manager (window->priv->comic_list);
+
+	comic = buoh_comic_manager_get_last (comic_manager);
+
+	buoh_view_set_comic (window->priv->view, comic);
 }
 
 static void

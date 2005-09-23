@@ -331,6 +331,16 @@ buoh_comic_manager_get_last (BuohComicManager *comic_manager)
 }
 
 BuohComic *
+buoh_comic_manager_get_first (BuohComicManager *comic_manager)
+{
+	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_first) {
+		return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_first) (comic_manager);
+	} else {
+		return NULL;
+	}
+}
+
+BuohComic *
 buoh_comic_manager_get_next (BuohComicManager *comic_manager)
 {
 	if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_next) {
@@ -435,16 +445,10 @@ buoh_comic_manager_get_id (BuohComicManager *comic_manager)
 gint
 buoh_comic_manager_compare (gconstpointer a, gconstpointer b)
 {
-	gchar     *id1, *id2;
-	gint       res;
+	GDate *date1, *date2;
 
-	id1 = buoh_comic_get_id (BUOH_COMIC (a));
-	id2 = buoh_comic_get_id (BUOH_COMIC (b));
-	
-	res = g_ascii_strcasecmp (id1, id2);
+	date1 = buoh_comic_get_date (BUOH_COMIC (a));
+	date2 = buoh_comic_get_date (BUOH_COMIC (b));
 
-	g_free (id1);
-	g_free (id2);
-
-	return res;
+	return g_date_compare (date1, date2);
 }
