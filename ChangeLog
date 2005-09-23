@@ -1,3 +1,20 @@
+2005-09-23  Esteban Sanchez  <esteban@steve-o.org>
+	
+	* data/comics.xml: Added property "first" to the date comics. Cleaned
+	some abandoned comics.
+	
+	* src/buoh-comic-manager-date.[ch]: Added code to get_first and 
+	is_the_first functions. Added method to set the first date of a comic.
+
+	* src/buoh-comic-manager.c: Changed buoh_comic_manager_compare() to
+	compare the comics date instead of the comic id. Added get_first
+	method.
+
+	* src/buoh-window.c: Added code to go_first and go_last methods.
+
+	* src/buoh.c: Read the first property in the XML comics file. Fixed a
+	leak.
+
 2005-09-21  Pablo Arroyo <zioma@linups.org>
 
 	* src/buoh-window.c: Defined minimun width to the comic list treeview.

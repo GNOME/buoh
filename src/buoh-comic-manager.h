@@ -68,6 +68,7 @@ BuohComic        *buoh_comic_manager_get_previous (BuohComicManager *comic_manag
 
 BuohComic        *buoh_comic_manager_get_current  (BuohComicManager *comic_manager);
 BuohComic        *buoh_comic_manager_get_last     (BuohComicManager *comic_manager);
+BuohComic        *buoh_comic_manager_get_first    (BuohComicManager *comic_manager);
 
 gboolean          buoh_comic_manager_is_the_last  (BuohComicManager *comic_manager);
 gboolean          buoh_comic_manager_is_the_first (BuohComicManager *comic_manager);

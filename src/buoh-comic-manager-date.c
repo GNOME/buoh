@@ -45,6 +45,7 @@ static BuohComicManagerClass *parent_class = NULL;
 
 struct _BuohComicManagerDatePrivate {
 	GDate     *date;
+	GDate     *first;
 	gboolean   restrictions[8]; /* Days of week */
 };
 
@@ -83,7 +84,7 @@ buoh_comic_manager_date_init (BuohComicManagerDate *comic_manager)
 	
 	comic_manager->priv->date = NULL;
 
- 	for (i = 0; i < 7; i++)
+ 	for (i = 0; i < 8; i++)
 		comic_manager->priv->restrictions[i] = FALSE;
 }
 
@@ -120,6 +121,11 @@ buoh_comic_manager_date_finalize (GObject *object)
 		comic_manager->priv->date = NULL;
 	}
 	
+	if (comic_manager->priv->first != NULL) {
+		g_date_free (comic_manager->priv->first);
+		comic_manager->priv->first = NULL;
+	}
+
 	if (G_OBJECT_CLASS (parent_class)->finalize)
 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
@@ -151,6 +157,21 @@ buoh_comic_manager_date_set_restriction (BuohComicManagerDate *comic_manager,
 	g_return_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager));
 
 	comic_manager->priv->restrictions[day] = TRUE;
+}
+
+void
+buoh_comic_manager_date_set_first (BuohComicManagerDate *comic_manager,
+				   gchar *first)
+{
+	GDate     *date;
+	struct tm  time;
+
+	strptime (first, "%Y-%m-%d", &time);
+	/* Bug? */
+	time.tm_year += 1900;
+	date = g_date_new_dmy (time.tm_mday, time.tm_mon + 1, time.tm_year);
+	
+	comic_manager->priv->first = date;
 }
 
 static gchar *
@@ -218,7 +239,7 @@ buoh_comic_manager_date_get_next (BuohComicManager *comic_manager)
 	GDateWeekday          weekday;
 	BuohComic            *comic = NULL;
 	BuohComicManagerDate *cmd;
-	GList                *comic_list, *found;
+	GList                *comic_list, *found, *current;
 	
 	cmd = BUOH_COMIC_MANAGER_DATE (comic_manager);
 
@@ -244,16 +265,18 @@ buoh_comic_manager_date_get_next (BuohComicManager *comic_manager)
 		g_object_unref (comic);
 		g_object_set (G_OBJECT (comic_manager), "current",
 			      found, NULL);
-		return found->data;
+		return BUOH_COMIC (found->data);
 	} else {
-		comic_list = g_list_append (comic_list,
-					    comic);
-
+		g_object_get (G_OBJECT (comic_manager), 
+			      "current", &current,
+			      NULL);
+		
+		comic_list = g_list_insert_before (comic_list, 
+						   g_list_next (current), comic);
+		
 		g_object_set (G_OBJECT (comic_manager), "current",
-			      g_list_last (comic_list), NULL);
-		g_object_set (G_OBJECT (comic_manager), "list",
-			      comic_list, NULL);
-	
+			      g_list_next (current), NULL);
+		
 		return comic;
 	}
 }
@@ -289,16 +312,16 @@ buoh_comic_manager_date_get_previous (BuohComicManager *comic_manager)
 	if (found) {
 		g_object_set (G_OBJECT (comic_manager), "current",
 			      found, NULL);
-		return found->data;
+		return BUOH_COMIC (found->data);
 	} else {
 		comic_list = g_list_prepend (comic_list,
 					     comic);
-	
+		
 		g_object_set (G_OBJECT (comic_manager), "current",
 			      comic_list, NULL);
 		g_object_set (G_OBJECT (comic_manager), "list",
 			      comic_list, NULL);
-	
+		
 		return comic;
 	}
 }
@@ -345,7 +368,7 @@ buoh_comic_manager_date_get_last (BuohComicManager *comic_manager)
 	if (found) {
 		g_object_set (G_OBJECT (comic_manager), "current",
 			      found, NULL);
-		return found->data;
+		return BUOH_COMIC (found->data);
 	} else {
 		comic_list = g_list_append (comic_list,
 					    comic);
@@ -353,21 +376,77 @@ buoh_comic_manager_date_get_last (BuohComicManager *comic_manager)
 			      g_list_last (comic_list), NULL);
 		g_object_set (G_OBJECT (comic_manager), "list",
 			      comic_list, NULL);
-	
+		
 		return comic;
 	}
 }
 
-static BuohComic *
-buoh_comic_manager_date_get_first (BuohComicManager *comic_manager)
+static gboolean 
+buoh_comic_manager_date_is_the_first_comic (BuohComicManager *comic_manager,
+					    BuohComic *comic)
 {
-	/* TODO: Need work from a scholarship holder :) */
-	return NULL;
+	GDate                       *date;
+	BuohComicManagerDatePrivate *priv;
+
+	priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
+	
+	date = buoh_comic_get_date (comic);
+	
+	return (g_date_compare (priv->first, date) == 0);
 }
 
 static gboolean 
 buoh_comic_manager_date_is_the_first (BuohComicManager *comic_manager)
 {
-	/* TODO: Need work from a scholarship holder :) */
-	return FALSE;
+	GList *current;
+	
+	g_return_val_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager), FALSE);
+	
+	g_object_get (G_OBJECT (comic_manager), 
+		      "current", &current,
+		      NULL);
+	
+	return buoh_comic_manager_date_is_the_first_comic (comic_manager,
+							   BUOH_COMIC (current->data));
+}
+
+static BuohComic *
+buoh_comic_manager_date_get_first (BuohComicManager *comic_manager)
+{
+	GList                       *comic_list, *first;
+	BuohComicManagerDatePrivate *priv;
+	BuohComic                   *comic;
+
+	g_return_val_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager), NULL);
+
+	priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
+
+	g_object_get (G_OBJECT (comic_manager), 
+		      "list", &comic_list,
+		      NULL);
+	
+	if (priv->date != NULL)
+		g_date_free (priv->date);
+	priv->date = g_date_new_dmy (g_date_get_day (priv->first),
+					     g_date_get_month (priv->first),
+					     g_date_get_year (priv->first));
+	
+	first = g_list_first (comic_list);
+	
+	if (!buoh_comic_manager_date_is_the_first_comic (comic_manager,
+							 BUOH_COMIC (first->data))) {
+		comic = buoh_comic_manager_date_new_comic (BUOH_COMIC_MANAGER_DATE (comic_manager));
+		comic_list = g_list_prepend (comic_list, comic);
+		
+		g_object_set (G_OBJECT (comic_manager), "current",
+			      comic_list, NULL);
+		g_object_set (G_OBJECT (comic_manager), "list",
+			      comic_list, NULL);
+		
+		return comic;
+	} else {
+		g_object_set (G_OBJECT (comic_manager), "current",
+			      comic_list, NULL);
+		return BUOH_COMIC (first->data);
+	}
 }

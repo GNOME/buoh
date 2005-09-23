@@ -56,7 +56,9 @@ BuohComicManager *buoh_comic_manager_date_new (const gchar *id,
 					       const gchar *generic_uri);
 
 void buoh_comic_manager_date_set_restriction (BuohComicManagerDate *comic_manager,
-					      GDateWeekday day)
+					      GDateWeekday day);
+void buoh_comic_manager_date_set_first       (BuohComicManagerDate *comic_manager,
+					      gchar *first);
 
 G_END_DECLS;
 
