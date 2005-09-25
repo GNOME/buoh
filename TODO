@@ -13,6 +13,6 @@
 [X] Save a comic as PNG
 [X] Move vfs errors from stdout to message_view
 [X] Disable save a copy menu item when loading comics 
-[ ] Update sensitive of previous and next buttons
-  [ ] When moving in a comic (first and last)
-  [ ] On an error (it should be possible to move back)
+[X] Update sensitive of previous and next buttons
+  [X] When moving in a comic (first and last)
+  [X] On an error (it should be possible to move back)
