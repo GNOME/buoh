@@ -1,3 +1,13 @@
+2005-09-25  Esteban Sanchez  <esteban@steve-o.org>
+
+	* src/buoh-window.c:  Save the toolbar status in gconf when changed.
+	Show or hide toolbar on init based on this key. 
+
+	* data/Makefile.am, configure.in: Added gconf support for installing
+	the schemas.
+	
+	* data/buoh.schemas.in: Added.
+
 2005-09-23  Esteban Sanchez  <esteban@steve-o.org>
 
 	* src/buoh-comic-manager-date.c: Include cleanup, remove some ugly and

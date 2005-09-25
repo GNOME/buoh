@@ -48,7 +48,8 @@ struct _BuohWindowPrivate {
 #define BUOH_WINDOW_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_WINDOW, BuohWindowPrivate))
 
-#define GCONF_LOCKDOWN_SAVE "/desktop/gnome/lockdown/disable_save_to_disk"
+#define GCONF_SHOW_TOOLBAR	"/apps/buoh/show_toolbar"
+#define GCONF_LOCKDOWN_SAVE 	"/desktop/gnome/lockdown/disable_save_to_disk"
 
 static GtkWindowClass *parent_class = NULL;
 
@@ -219,6 +220,7 @@ buoh_window_init (BuohWindow *buoh_window)
 	GtkActionGroup *action_group;
 	GtkAccelGroup  *accel_group;
 	GError         *error = NULL;
+	GConfClient    *client;
       
 	g_return_if_fail (BUOH_IS_WINDOW (buoh_window));
 
@@ -273,6 +275,14 @@ buoh_window_init (BuohWindow *buoh_window)
 			    FALSE, FALSE, 0);
 	gtk_widget_show (toolbar);
 
+        client = gconf_client_get_default ();
+        g_object_unref (client);
+	g_object_set (G_OBJECT (toolbar), "visible",
+		      gconf_client_get_bool (client,
+					     GCONF_SHOW_TOOLBAR,
+					     &error),
+		      NULL);
+
 	/* Pane */
 	paned = gtk_hpaned_new ();
 	gtk_paned_set_position (GTK_PANED (paned), 230);
@@ -313,7 +323,7 @@ buoh_window_init (BuohWindow *buoh_window)
 
 	buoh_window_comic_actions_set_sensitive (buoh_window, FALSE);
 	buoh_window_comic_save_to_disk_set_sensitive (buoh_window, FALSE);
-
+	
 	gtk_widget_grab_focus (GTK_WIDGET (buoh_window->priv->view));
 
 	gtk_widget_show (GTK_WIDGET (buoh_window));
@@ -612,14 +622,19 @@ buoh_window_cmd_comic_quit (GtkAction *action, gpointer gdata)
 static void
 buoh_window_cmd_view_toolbar (GtkAction *action, gpointer gdata)
 {
-	BuohWindow *window = BUOH_WINDOW (gdata);
-	GtkWidget  *toolbar;
-
+	BuohWindow  *window = BUOH_WINDOW (gdata);
+	GtkWidget   *toolbar;
+	GConfClient *client = NULL;
+	gboolean     visible;
+	
+	client = gconf_client_get_default ();
+	visible = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+	gconf_client_set_bool (client, GCONF_SHOW_TOOLBAR, visible, NULL);
+	
 	toolbar = gtk_ui_manager_get_widget (window->priv->ui_manager, "/Toolbar");
 	g_object_set (G_OBJECT (toolbar), "visible",
-		      gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action)),
+		      visible,
 		      NULL);
-	/* TODO: GConf stuff */
 }
 
 static void
