@@ -43,6 +43,8 @@ struct _BuohWindowPrivate {
 
 	GList          *properties;
 	GtkWidget      *add_dialog;
+
+	GConfClient    *gconf_client;
 };
 
 #define BUOH_WINDOW_GET_PRIVATE(object) \
@@ -218,9 +220,10 @@ buoh_window_init (BuohWindow *buoh_window)
 	GtkWidget      *vbox, *paned, *menubar;
 	GtkWidget      *toolbar;
 	GtkActionGroup *action_group;
+	GtkAction      *action;
 	GtkAccelGroup  *accel_group;
 	GError         *error = NULL;
-	GConfClient    *client;
+	gboolean        visible_toolbar;
       
 	g_return_if_fail (BUOH_IS_WINDOW (buoh_window));
 
@@ -233,7 +236,8 @@ buoh_window_init (BuohWindow *buoh_window)
 
 	buoh_window->priv->properties = NULL;
 	buoh_window->priv->add_dialog = NULL;
-
+        buoh_window->priv->gconf_client = gconf_client_get_default ();
+	
 	vbox = gtk_vbox_new (FALSE, 0);
 
 	/* Menu bar */
@@ -243,6 +247,7 @@ buoh_window_init (BuohWindow *buoh_window)
 	gtk_action_group_add_actions (action_group, menu_entries,
 				      G_N_ELEMENTS (menu_entries),
 				      (gpointer) buoh_window);
+	
 	gtk_action_group_add_toggle_actions (action_group, menu_toggle_entries,
 					     G_N_ELEMENTS (menu_toggle_entries),
 					     (gpointer) buoh_window);
@@ -268,21 +273,24 @@ buoh_window_init (BuohWindow *buoh_window)
 			    FALSE, FALSE, 0);
 	gtk_widget_show (menubar);
 
+	/* Set the active status to the "View toolbar" menu entry*/
+	visible_toolbar = gconf_client_get_bool (buoh_window->priv->gconf_client,
+						 GCONF_SHOW_TOOLBAR,
+						 NULL);
+	action = gtk_action_group_get_action (action_group, "ViewToolbar");
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), 
+				      visible_toolbar);
+	
 	/* Toolbar */
 	toolbar = gtk_ui_manager_get_widget (buoh_window->priv->ui_manager,
 					     "/Toolbar");
 	gtk_box_pack_start (GTK_BOX (vbox), toolbar,
 			    FALSE, FALSE, 0);
 	gtk_widget_show (toolbar);
-
-        client = gconf_client_get_default ();
-        g_object_unref (client);
-	g_object_set (G_OBJECT (toolbar), "visible",
-		      gconf_client_get_bool (client,
-					     GCONF_SHOW_TOOLBAR,
-					     &error),
+	g_object_set (G_OBJECT (toolbar),
+		      "visible", visible_toolbar,
 		      NULL);
-
+	
 	/* Pane */
 	paned = gtk_hpaned_new ();
 	gtk_paned_set_position (GTK_PANED (paned), 230);
@@ -359,7 +367,11 @@ buoh_window_finalize (GObject *object)
 		g_object_unref (buoh_window->priv->action_group);
 		buoh_window->priv->action_group = NULL;
 	}
-
+	
+	if (buoh_window->priv->gconf_client) {
+		g_object_unref (buoh_window->priv->gconf_client);
+		buoh_window->priv->gconf_client = NULL;
+	}
 	
 	if (buoh_window->priv->properties) {
 		g_list_foreach (buoh_window->priv->properties,
@@ -624,13 +636,12 @@ buoh_window_cmd_view_toolbar (GtkAction *action, gpointer gdata)
 {
 	BuohWindow  *window = BUOH_WINDOW (gdata);
 	GtkWidget   *toolbar;
-	GConfClient *client = NULL;
 	gboolean     visible;
 	
-	client = gconf_client_get_default ();
 	visible = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	gconf_client_set_bool (client, GCONF_SHOW_TOOLBAR, visible, NULL);
-	
+	gconf_client_set_bool (window->priv->gconf_client,
+			       GCONF_SHOW_TOOLBAR, visible, NULL);
+
 	toolbar = gtk_ui_manager_get_widget (window->priv->ui_manager, "/Toolbar");
 	g_object_set (G_OBJECT (toolbar), "visible",
 		      visible,
@@ -799,14 +810,10 @@ buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 static void
 buoh_window_comic_save_to_disk_set_sensitive (BuohWindow *window, gboolean sensitive)
 {
-	static GConfClient *client = NULL;
-	gboolean            save_disabled = FALSE;
-
-	if (!client) {
-		client = gconf_client_get_default ();
-	}
-
-	if (gconf_client_get_bool (client, GCONF_LOCKDOWN_SAVE, NULL)) {
+	gboolean save_disabled = FALSE;
+	
+	if (gconf_client_get_bool (window->priv->gconf_client,
+				   GCONF_LOCKDOWN_SAVE, NULL)) {
 		save_disabled = TRUE;
 	}
 

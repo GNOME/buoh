@@ -1,5 +1,9 @@
-2005-09-25  Esteban Sanchez  <esteban@steve-o.org>
+2005-09-26  Esteban Sanchez  <esteban@steve-o.org>
 
+	* src/buoh-window.c: Add the GConfClient as a private attribute of the
+	class. Set active to "view toolbar" menu based on the gconf key.
+
+2005-09-25  Esteban Sanchez  <esteban@steve-o.org>
 	* src/buoh-window.c:  Save the toolbar status in gconf when changed.
 	Show or hide toolbar on init based on this key. 
 

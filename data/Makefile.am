@@ -19,9 +19,7 @@ Applications_in_files = buoh.desktop.in
 Applications_DATA = $(Applications_in_files:.desktop.in=.desktop)
 
 install-data-local:
-if GCONF_SCHEMAS_INSTALL
-        GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(schema_DATA)
-endif
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(schema_DATA)
 
 DISTCLEANFILES =	 	\
 		buoh.desktop    \
