@@ -80,6 +80,8 @@ buoh_properties_dialog_init (BuohPropertiesDialog *dialog)
 
 	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE,
 			       GTK_RESPONSE_ACCEPT);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog),
+					 GTK_RESPONSE_ACCEPT);
 
 	g_signal_connect (G_OBJECT (dialog), "response",
 			  G_CALLBACK (gtk_widget_destroy),

@@ -49,9 +49,6 @@ struct _BuohViewComicClass {
 GType      buoh_view_comic_get_type       (void);
 GtkWidget *buoh_view_comic_new            (BuohView      *view);
 
-/*void       buoh_view_comic_update         (BuohViewComic *c_view);
-  void       buoh_view_comic_load           (BuohViewComic *c_view);*/
-
 gboolean   buoh_view_comic_is_min_zoom    (BuohViewComic *c_view);
 gboolean   buoh_view_comic_is_max_zoom    (BuohViewComic *c_view);
 gboolean   buoh_view_comic_is_normal_size (BuohViewComic *c_view);

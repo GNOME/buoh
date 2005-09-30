@@ -17,10 +17,9 @@
  */
 #define _XOPEN_SOURCE
 
-#include <gtk/gtk.h>
-#include <time.h>
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <time.h>
 
 #include "buoh.h"
 #include "buoh-comic-manager-date.h"
@@ -43,7 +42,7 @@ static BuohComic   *buoh_comic_manager_date_get_previous      (BuohComicManager 
 static BuohComic   *buoh_comic_manager_date_get_first         (BuohComicManager *manager);
 static BuohComic   *buoh_comic_manager_date_get_last          (BuohComicManager *manager);
 static gboolean     buoh_comic_manager_date_is_the_first      (BuohComicManager *manager);
-static const gchar *buoh_comic_manager_date_get_dayweek       (GDateWeekday d);
+static gchar       *buoh_comic_manager_date_get_dayweek       (GDateWeekday d);
 
 static BuohComicManagerClass *parent_class = NULL;
 
@@ -406,7 +405,7 @@ buoh_comic_manager_date_is_the_first_comic (BuohComicManager *comic_manager,
 	priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
 	
 	date = buoh_comic_get_date (comic);
-	
+
 	return (g_date_compare (priv->first, date) == 0);
 }
 
@@ -464,7 +463,7 @@ buoh_comic_manager_date_get_first (BuohComicManager *comic_manager)
 	return comic;
 }
 
-static const gchar *
+static gchar *
 buoh_comic_manager_date_get_dayweek (GDateWeekday d)
 {
 	if (d >= G_DATE_BAD_WEEKDAY && d <= G_DATE_SUNDAY) {
@@ -491,9 +490,9 @@ buoh_comic_manager_date_get_publication_days (BuohComicManagerDate *comic_manage
 					/* Add a separator */
 					g_string_append (aux, ", ");
 				}
+				
 				date = buoh_comic_manager_date_get_dayweek (i);
-				g_string_append (aux,
-						date);
+				g_string_append (aux, date);
 				g_free (date);
 				
 				last_printed = i;
@@ -506,9 +505,9 @@ buoh_comic_manager_date_get_publication_days (BuohComicManagerDate *comic_manage
 					/* It's a range of days */
 					g_string_append (aux, _(" to "));
 				}
+				
 				date = buoh_comic_manager_date_get_dayweek (i - 1);
-				g_string_append (aux,
-						date);
+				g_string_append (aux, date);
 				g_free (date);
 			}
 			

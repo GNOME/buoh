@@ -13,6 +13,7 @@
 
       <menu name="ViewMenu" action="View">
 	 <menuitem name="ViewToolbarMenu" action="ViewToolbar"/>
+	 <menuitem name="ViewStatusbarMenu" action="ViewStatusbar"/>
 	 <separator/>
 	 <menuitem name="ViewZoomInMenu" action="ViewZoomIn"/>
 	 <menuitem name="ViewZoomOutMenu" action="ViewZoomOut"/>
@@ -48,16 +49,16 @@
    </popup>
 
    <popup name="ViewPopup">
-      <menuitem name="ComicSaveACopyView" action="ComicSaveACopy"/>
-      <menuitem name="ComicCopyURIView" action="ComicCopyURI"/>
-      <menuitem name="ComicPropertiesView" action="ComicProperties"/>
-      <separator/>
       <menuitem name="GoPreviousItemView" action="GoPrevious"/>
       <menuitem name="GoNextItemView" action="GoNext"/>
       <separator/>
       <menuitem name="ViewZoomInItemView" action="ViewZoomIn"/>
       <menuitem name="ViewZoomOutItemView" action="ViewZoomOut"/>
       <menuitem name="ViewZoomNormalItemView" action="ViewZoomNormal"/>
+      <separator/>
+      <menuitem name="ComicSaveACopyView" action="ComicSaveACopy"/>
+      <menuitem name="ComicCopyURIView" action="ComicCopyURI"/>
+      <menuitem name="ComicPropertiesView" action="ComicProperties"/>
    </popup>
 </ui>
 

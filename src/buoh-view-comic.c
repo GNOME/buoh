@@ -76,6 +76,8 @@ static void     buoh_view_comic_get_property          (GObject          *object,
 						       GParamSpec       *pspec);
 static gboolean buoh_view_comic_key_press_event       (GtkWidget        *widget,
 						       GdkEventKey      *event);
+static gboolean buoh_view_comic_scroll_event          (GtkWidget        *widget,
+						       GdkEventScroll   *event);
 static void     buoh_view_comic_drag_begin            (GtkWidget        *widget,
 						       GdkDragContext   *drag_context,
 						       gpointer          gdata);
@@ -170,6 +172,7 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
 	object_class->get_property = buoh_view_comic_get_property;
 
 	widget_class->key_press_event = buoh_view_comic_key_press_event;
+	widget_class->scroll_event = buoh_view_comic_scroll_event;
 
 	parent_class = g_type_class_peek_parent (klass);
 
@@ -319,6 +322,32 @@ buoh_view_comic_key_press_event (GtkWidget *widget, GdkEventKey *event)
 	gtk_adjustment_set_value (adjustment, value);
 	
 	return TRUE;
+}
+
+static gboolean
+buoh_view_comic_scroll_event (GtkWidget *widget, GdkEventScroll *event)
+{
+	BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
+	guint          state;
+
+	state = event->state & GDK_CONTROL_MASK;
+
+	if (state == GDK_CONTROL_MASK) {
+		switch (event->direction) {
+		case GDK_SCROLL_UP:
+		case GDK_SCROLL_LEFT:
+			buoh_view_comic_zoom_in (c_view);
+			break;
+		case GDK_SCROLL_DOWN:
+		case GDK_SCROLL_RIGHT:
+			buoh_view_comic_zoom_out (c_view);
+			break;
+		}
+
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 GtkWidget *
@@ -577,7 +606,7 @@ buoh_view_comic_zoom (BuohViewComic *c_view, gdouble factor, gboolean relative)
 
 	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
 	g_return_if_fail (BUOH_IS_COMIC (c_view->priv->comic));
-
+	
 	if (relative)
 		scale = c_view->priv->scale * factor;
 	else
