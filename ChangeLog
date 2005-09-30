@@ -1,3 +1,28 @@
+2005-09-30  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* data/buoh-ui.xml: Reorder popup menu items
+
+	* data/buoh.desktop.in: Capitalization
+
+	* data/buoh.schemas.in: Add show_statusbar key
+
+	* src/buoh-add-comic-dialog.c: Capitalization. Remove frame align. Add
+	a label to show the amount of selected items. Ellipsisation.
+
+	* src/buoh-comic-list.[ch]: Remove frame.
+	s/get_comic_manager/get_selected/
+
+	* src/buoh-comic-manager-date.c: get_dayweek returns gchar* instead
+	of const gchar* since it returns a new allocated string
+
+	* src/buoh-properties-dialog.c: Set close button as default response
+
+	* src/buoh-view-comic.c: CTRL+scrollwheel for zooming
+
+	* src/buoh-window.c: Add statusbar. <alt>[Left|Right] for navigation
+	actions. Set window title based on selected comic. <shift>+F10 for
+	showing popups.
+
 2005-09-30  Esteban Sanchez  <esteban@steve-o.org>
 
 	* src/buoh-comic-manager-date.[ch]: Added get_publications_days method

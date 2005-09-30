@@ -39,23 +39,23 @@ typedef struct _BuohComicListPrivate BuohComicListPrivate;
 #define BUOH_COMIC_LIST_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_COMIC_LIST, BuohComicListClass))
 
 struct _BuohComicList {
-	GtkFrame              parent;
+	GtkBin                parent;
 	BuohComicListPrivate *priv;
 };
 
 struct _BuohComicListClass {
-	GtkFrameClass         parent_class;
+	GtkBinClass         parent_class;
 };
 
-GType             buoh_comic_list_get_type          (void);
-GtkWidget        *buoh_comic_list_new               (void);
+GType             buoh_comic_list_get_type        (void);
+GtkWidget        *buoh_comic_list_new             (void);
 
-void              buoh_comic_list_set_view          (BuohComicList *comic_list,
-					    	     BuohView      *view);
-GtkWidget        *buoh_comic_list_get_list          (BuohComicList *comic_list);
-void              buoh_comic_list_clear_selection   (BuohComicList *comic_list);
+void              buoh_comic_list_set_view        (BuohComicList *comic_list,
+						   BuohView      *view);
+GtkWidget        *buoh_comic_list_get_list        (BuohComicList *comic_list);
+void              buoh_comic_list_clear_selection (BuohComicList *comic_list);
 
-BuohComicManager *buoh_comic_list_get_comic_manager (BuohComicList *comic_list);
+BuohComicManager *buoh_comic_list_get_selected    (BuohComicList *comic_list);
 
 G_END_DECLS
 

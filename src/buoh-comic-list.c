@@ -37,7 +37,7 @@ struct _BuohComicListPrivate {
 #define BUOH_COMIC_LIST_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC_LIST, BuohComicListPrivate))
 
-static GtkFrameClass *parent_class = NULL;
+static GtkBinClass *parent_class = NULL;
 
 static void buoh_comic_list_init                   (BuohComicList *buoh_comic_list);
 static void buoh_comic_list_class_init             (BuohComicListClass *klass);
@@ -72,7 +72,7 @@ buoh_comic_list_get_type (void)
 			(GInstanceInitFunc) buoh_comic_list_init
 		};
 
-		type = g_type_register_static (GTK_TYPE_FRAME, "BuohComicList",
+		type = g_type_register_static (GTK_TYPE_BIN, "BuohComicList",
 					       &info, 0);
 	}
 
@@ -92,6 +92,7 @@ buoh_comic_list_selection_changed (GtkTreeSelection *selection, gpointer gdata)
 		gtk_tree_model_get (model, &iter,
 				    COMIC_LIST_COMIC_MANAGER, &comic_manager,
 				    -1);
+		
 		comic_list->priv->comic_manager = BUOH_COMIC_MANAGER (comic_manager);
 		comic = buoh_comic_manager_get_current (comic_list->priv->comic_manager);
 		
@@ -121,26 +122,14 @@ buoh_comic_list_init (BuohComicList *buoh_comic_list)
 	GtkCellRenderer   *renderer;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection  *selection;
-	GtkWidget         *align;
-	GtkWidget         *label;
-	gchar             *text_label;
 	
 	g_return_if_fail (BUOH_IS_COMIC_LIST (buoh_comic_list));
 
 	buoh_comic_list->priv = BUOH_COMIC_LIST_GET_PRIVATE (buoh_comic_list);
 
-	label = gtk_label_new (NULL);
-	
 	buoh_comic_list->priv->comic_manager = NULL;
 	buoh_comic_list->priv->view = NULL;
 	
-	text_label = g_strdup_printf ("<b>%s</b>", _("Comic List"));
-	gtk_label_set_markup (GTK_LABEL (label), text_label);
-	g_free (text_label);
-
-	gtk_frame_set_label_widget (GTK_FRAME (buoh_comic_list), label);
-	gtk_widget_show (label);
-
 	model = buoh_get_comics_model (BUOH);
 	buoh_comic_list->priv->model = gtk_tree_model_filter_new (model, NULL);
 	gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (buoh_comic_list->priv->model),
@@ -156,14 +145,13 @@ buoh_comic_list_init (BuohComicList *buoh_comic_list)
 	column = gtk_tree_view_column_new_with_attributes (_("Title"), renderer,
 							   "text", COMIC_LIST_TITLE,
 							   NULL);
-	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_insert_column (GTK_TREE_VIEW (buoh_comic_list->priv->tree_view),
 				     column, COMIC_LIST_TITLE);
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (buoh_comic_list->priv->tree_view));
-	g_signal_connect_after (selection, "changed",
-				G_CALLBACK (buoh_comic_list_selection_changed),
-				(gpointer) buoh_comic_list);
+	g_signal_connect (selection, "changed",
+			  G_CALLBACK (buoh_comic_list_selection_changed),
+			  (gpointer) buoh_comic_list);
 
 	buoh_comic_list->priv->swindow = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (buoh_comic_list->priv->swindow),
@@ -175,16 +163,9 @@ buoh_comic_list_init (BuohComicList *buoh_comic_list)
 			   buoh_comic_list->priv->tree_view);
 	gtk_widget_show (buoh_comic_list->priv->tree_view);
 
-	align = gtk_alignment_new (0.50, 0.50, 1.0, 1.0);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (align),
-				   0, 0, 6, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (align), 6);
-	gtk_container_add (GTK_CONTAINER (align), buoh_comic_list->priv->swindow);
+	gtk_container_add (GTK_CONTAINER (buoh_comic_list), buoh_comic_list->priv->swindow);
 	gtk_widget_show (buoh_comic_list->priv->swindow);
 	
-	gtk_container_add (GTK_CONTAINER (buoh_comic_list), align);
-	gtk_widget_show (align);
-
 	gtk_widget_show (GTK_WIDGET (buoh_comic_list));
 }
 
@@ -225,19 +206,34 @@ buoh_comic_list_finalize (GObject *object)
 static void
 buoh_comic_list_size_request (GtkWidget *widget, GtkRequisition *requisition)
 {
-	(* GTK_WIDGET_CLASS (parent_class)->size_request) (widget, requisition);
+	GtkBin         *bin = GTK_BIN (widget);
+	GtkRequisition  child_requisition;
 
-	/* we need some extra size */
-	requisition->width += 100;
+	if (bin->child && GTK_WIDGET_VISIBLE (bin->child)) {
+		gtk_widget_size_request (bin->child, &child_requisition);
+		*requisition = child_requisition;
+		
+		/* we need some extra size */
+		requisition->width += 100;
+	} else {
+		requisition->width = 0;
+		requisition->height = 0;
+	}
 }
 
 static void
 buoh_comic_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
-	GTK_WIDGET_CLASS (parent_class)->size_allocate (widget, allocation);
+	GtkBin *bin = GTK_BIN (widget);
 
-	/* we need some extra size */
-	allocation->width += 100;
+	widget->allocation = *allocation;
+
+	if (bin->child && GTK_WIDGET_VISIBLE (bin->child)) {
+		gtk_widget_size_allocate (bin->child, allocation);
+
+		/* we need some extra size */
+		allocation->width += 100;
+	}
 }
 
 GtkWidget *
@@ -247,7 +243,6 @@ buoh_comic_list_new (void)
 
 	buoh_comic_list = GTK_WIDGET (g_object_new (BUOH_TYPE_COMIC_LIST,
 						    "border-width", 6,
-						    "shadow-type", GTK_SHADOW_NONE,
 						    NULL));
 	return buoh_comic_list;
 }
@@ -257,9 +252,8 @@ buoh_comic_list_set_view (BuohComicList *comic_list, BuohView *view)
 {
 	g_return_if_fail (BUOH_IS_VIEW (view));
 
-	if (comic_list->priv->view) {
+	if (comic_list->priv->view)
 		return;
-	}
 
 	comic_list->priv->view = view;
 }
@@ -278,27 +272,9 @@ buoh_comic_list_clear_selection (BuohComicList *comic_list)
 }
 
 BuohComicManager *
-buoh_comic_list_get_comic_manager (BuohComicList *comic_list)
+buoh_comic_list_get_selected (BuohComicList *comic_list)
 {
 	return comic_list->priv->comic_manager;
 }
 
-/*Comic *
-buoh_comic_list_get_selection (BuohComicList *comic_list)
-{
-	Comic            *comic;
-	GtkTreeModel     *model;
-	GtkTreeIter       iter;
-	GtkTreeSelection *selection;
 
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (comic_list->priv->tree_view));
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (comic_list->priv->tree_view));
-	if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-		gtk_tree_model_get (user_comic_list, &iter,
-				    COMIC_LIST_COMIC_MANAGER, &comic,
-				    -1);
-		return comic;
-	}
-
-	return NULL;
-}*/

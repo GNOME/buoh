@@ -8,7 +8,19 @@
       <default>true</default>
       <locale name="C">
         <short>Show toolbar by default</short>
-        <long>Toolbar is the top bar that contains navigation and zoom controls.  Two boolean options, true makes toolbar visible by default while false makes toolbar not visible by default.</long>
+        <long>Toolbar is the top bar that contains navigation and zoom controls. Two boolean options, true makes toolbar visible by default while false makes toolbar not visible by default.</long>
+      </locale>
+    </schema>
+    
+    <schema>
+      <key>/schemas/apps/buoh/show_statusbar</key>
+      <applyto>/apps/buoh/show_statusbar</applyto>
+      <owner>buoh</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+        <short>Show statusbar by default</short>
+        <long>Statusbar is the bottom bar that contains help and status messages. Two boolean options, true makes statusbar visible by default while false makes statusbar not visible by default.</long>
       </locale>
     </schema>
   </schemalist>

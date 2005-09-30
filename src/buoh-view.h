@@ -58,31 +58,31 @@ struct _BuohViewClass {
 	void (* scale_changed) (BuohView *view);
 };
 
-GType          buoh_view_get_type          (void);
-GType          buoh_view_status_get_type   (void);
-GtkWidget     *buoh_view_new               (void);
+GType           buoh_view_get_type           (void);
+GType           buoh_view_status_get_type    (void);
+GtkWidget      *buoh_view_new                (void);
 
-gboolean       buoh_view_is_min_zoom       (BuohView    *view);
-gboolean       buoh_view_is_max_zoom       (BuohView    *view);
-gboolean       buoh_view_is_normal_size    (BuohView    *view);
-void           buoh_view_zoom_in           (BuohView    *view);
-void           buoh_view_zoom_out          (BuohView    *view);
-void           buoh_view_zoom_normal_size  (BuohView    *view);
+gboolean        buoh_view_is_min_zoom        (BuohView    *view);
+gboolean        buoh_view_is_max_zoom        (BuohView    *view);
+gboolean        buoh_view_is_normal_size     (BuohView    *view);
+void            buoh_view_zoom_in            (BuohView    *view);
+void            buoh_view_zoom_out           (BuohView    *view);
+void            buoh_view_zoom_normal_size   (BuohView    *view);
 
-BuohViewStatus buoh_view_get_status        (BuohView    *view);
+BuohViewStatus  buoh_view_get_status         (BuohView    *view);
 
-void           buoh_view_set_comic         (BuohView    *view,
-					    BuohComic   *comic);
-BuohComic     *buoh_view_get_comic         (BuohView    *view);
+void            buoh_view_set_comic          (BuohView    *view,
+					      BuohComic   *comic);
+BuohComic      *buoh_view_get_comic          (BuohView    *view);
 
-void           buoh_view_set_message_title (BuohView    *view,
-					    const gchar *title);
-void           buoh_view_set_message_text  (BuohView    *view,
-					    const gchar *text);
-void           buoh_view_set_message_icon  (BuohView    *view,
-					    const gchar *icon);
+void            buoh_view_set_message_title  (BuohView    *view,
+					      const gchar *title);
+void            buoh_view_set_message_text   (BuohView    *view,
+					      const gchar *text);
+void            buoh_view_set_message_icon   (BuohView    *view,
+					      const gchar *icon);
 
-void           buoh_view_clear           (BuohView *view);
+void            buoh_view_clear              (BuohView *view);
 
 G_END_DECLS
 
