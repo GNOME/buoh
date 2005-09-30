@@ -55,7 +55,7 @@ static gboolean buoh_comic_list_visible            (GtkTreeModel     *model,
 						    gpointer          gdata);
 
 GType
-buoh_comic_list_get_type ()
+buoh_comic_list_get_type (void)
 {
 	static GType type = 0;
 

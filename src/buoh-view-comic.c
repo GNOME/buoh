@@ -101,7 +101,7 @@ static void     buoh_view_comic_zoom                  (BuohViewComic    *c_view,
 						       gboolean          relative);
 
 GType
-buoh_view_comic_get_type ()
+buoh_view_comic_get_type (void)
 {
 	static GType type = 0;
 

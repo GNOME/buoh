@@ -95,7 +95,7 @@ buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
 			       GTK_RESPONSE_ACCEPT);
 
 	label = gtk_label_new (NULL);
-	markup = g_strdup_printf ("<b>%s</b>", _("Select comics to add them"));
+	markup = g_strdup_printf ("<b>%s</b>", _("Select comics to add"));
 	gtk_label_set_markup (GTK_LABEL (label), markup);
 	g_free (markup);
 	

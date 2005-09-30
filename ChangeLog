@@ -1,5 +1,29 @@
-2005-09-26  Esteban Sanchez  <esteban@steve-o.org>
+2005-09-30  Esteban Sanchez  <esteban@steve-o.org>
 
+	* src/buoh-comic-manager-date.[ch]: Added get_publications_days method
+	that returns a string with the days of week in which the comic is
+	published. Changed restrictions to a positive logic.
+
+	* src/buoh-comic-properties-dialog.c: Added property of publication
+	days when available.
+
+	* src/buoh-add-comic-dialog.c:  Modified a string.
+
+	* po/POTFILES.in: Added src/buoh-comic-properties-dialog.c and
+	data/buoh.schemas.in.
+
+	* data/comics.xml: Removed duplicated comics.
+
+	* src/comic-simple.[ch]: Removed from repository.
+
+	* src/buoh-comic-list.c, src/buoh-comic.c,
+	src/buoh-properties-dialog.c, src/buoh-view-comic.c,
+	src/buoh-view-message.c, src/buoh-view.c, src/buoh-window.c,
+	src/buoh.c: Added "void" between "(" and ")" on functions declarations
+
+	* TODO: Updated.
+
+2005-09-26  Esteban Sanchez  <esteban@steve-o.org>
 	* src/buoh-window.c: Add the GConfClient as a private attribute of the
 	class. Set active to "view toolbar" menu based on the gconf key.
 

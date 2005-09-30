@@ -47,18 +47,20 @@ struct _BuohComicManagerDateClass {
 	BuohComicManagerClass parent_class;
 };
 
-GType             buoh_comic_manager_date_get_type        (void);
+GType             buoh_comic_manager_date_get_type             (void);
 
-BuohComicManager *buoh_comic_manager_date_new             (const gchar *id,
-							   const gchar *title,
-							   const gchar *author,
-							   const gchar *language,
-							   const gchar *generic_uri);
+BuohComicManager *buoh_comic_manager_date_new		       (const gchar *id,
+								const gchar *title,
+								const gchar *author,
+								const gchar *language,
+								const gchar *generic_uri);
 
-void              buoh_comic_manager_date_set_restriction (BuohComicManagerDate *comic_manager,
-							   GDateWeekday day);
-void              buoh_comic_manager_date_set_first       (BuohComicManagerDate *comic_manager,
-							   gchar *first);
+void              buoh_comic_manager_date_set_restriction      (BuohComicManagerDate *comic_manager,
+								GDateWeekday day);
+void              buoh_comic_manager_date_set_first            (BuohComicManagerDate *comic_manager,
+								gchar *first);
+
+gchar *           buoh_comic_manager_date_get_publication_days (BuohComicManagerDate *comic_manager);
 
 G_END_DECLS;
 

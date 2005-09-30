@@ -20,6 +20,7 @@
 #include <gtk/gtk.h>
 #include <time.h>
 #include <glib.h>
+#include <glib/gi18n.h>
 
 #include "buoh.h"
 #include "buoh-comic-manager-date.h"
@@ -33,23 +34,35 @@ static void buoh_comic_manager_date_init         (BuohComicManagerDate *);
 static void buoh_comic_manager_date_class_init   (BuohComicManagerDateClass *);
 static void buoh_comic_manager_date_finalize     (GObject *);
 
-static gchar     *buoh_comic_manager_date_get_id_from_date  (BuohComicManagerDate *comic_manager);
-static gchar     *buoh_comic_manager_date_get_uri_from_date (BuohComicManagerDate *comic_manager);
-static BuohComic *buoh_comic_manager_date_new_comic         (BuohComicManagerDate *comic_manager);
+static gchar       *buoh_comic_manager_date_get_id_from_date  (BuohComicManagerDate *comic_manager);
+static gchar       *buoh_comic_manager_date_get_uri_from_date (BuohComicManagerDate *comic_manager);
+static BuohComic   *buoh_comic_manager_date_new_comic         (BuohComicManagerDate *comic_manager);
 
-static BuohComic *buoh_comic_manager_date_get_next          (BuohComicManager *manager);
-static BuohComic *buoh_comic_manager_date_get_previous      (BuohComicManager *manager);
-static BuohComic *buoh_comic_manager_date_get_first         (BuohComicManager *manager);
-static BuohComic *buoh_comic_manager_date_get_last          (BuohComicManager *manager);
-static gboolean   buoh_comic_manager_date_is_the_first      (BuohComicManager *manager);
+static BuohComic   *buoh_comic_manager_date_get_next          (BuohComicManager *manager);
+static BuohComic   *buoh_comic_manager_date_get_previous      (BuohComicManager *manager);
+static BuohComic   *buoh_comic_manager_date_get_first         (BuohComicManager *manager);
+static BuohComic   *buoh_comic_manager_date_get_last          (BuohComicManager *manager);
+static gboolean     buoh_comic_manager_date_is_the_first      (BuohComicManager *manager);
+static const gchar *buoh_comic_manager_date_get_dayweek       (GDateWeekday d);
 
 static BuohComicManagerClass *parent_class = NULL;
 
 struct _BuohComicManagerDatePrivate {
 	GDate     *date;
 	GDate     *first;
-	gboolean   restrictions[8]; /* Days of week */
+	gboolean   publications[8]; /* Days of week */
 };
+
+static const gchar *day_names [] = {
+ 	NULL,
+ 	N_("Monday"),
+ 	N_("Tuesday"),
+ 	N_("Wednesday"),
+ 	N_("Thursday"),
+ 	N_("Friday"),
+ 	N_("Saturday"),
+ 	N_("Sunday")
+ };
 
 GType
 buoh_comic_manager_date_get_type (void)
@@ -86,8 +99,8 @@ buoh_comic_manager_date_init (BuohComicManagerDate *comic_manager)
 	
 	comic_manager->priv->date = NULL;
 
- 	for (i = 0; i < 8; i++)
-		comic_manager->priv->restrictions[i] = FALSE;
+ 	for (i = G_DATE_BAD_WEEKDAY; i <= G_DATE_SUNDAY; i++)
+		comic_manager->priv->publications[i] = TRUE;
 }
 
 static void
@@ -158,7 +171,7 @@ buoh_comic_manager_date_set_restriction (BuohComicManagerDate *comic_manager,
 {
 	g_return_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager));
 
-	comic_manager->priv->restrictions[day] = TRUE;
+	comic_manager->priv->publications[day] = FALSE;
 }
 
 void
@@ -249,7 +262,7 @@ buoh_comic_manager_date_get_next (BuohComicManager *comic_manager)
 	
 	/* Check the restrictions */
 	weekday = g_date_get_weekday (cmd->priv->date);
-	while (cmd->priv->restrictions[weekday] == TRUE) {
+	while (!cmd->priv->publications[weekday]) {
 		g_date_add_days (cmd->priv->date, 1);
 		weekday = g_date_get_weekday (cmd->priv->date);
 	}
@@ -297,7 +310,7 @@ buoh_comic_manager_date_get_previous (BuohComicManager *comic_manager)
 	
 	/* Check the restrictions */
 	weekday = g_date_get_weekday (cmd->priv->date);
-	while (cmd->priv->restrictions[weekday] == TRUE) {
+	while (!cmd->priv->publications[weekday]) {
 		g_date_subtract_days (cmd->priv->date, 1);
 		weekday = g_date_get_weekday (cmd->priv->date);
 	}
@@ -349,7 +362,7 @@ buoh_comic_manager_date_get_last (BuohComicManager *comic_manager)
 
 	/* Check the restrictions */
 	weekday = g_date_get_weekday (date);
-	while (priv->restrictions[weekday] == TRUE) {
+	while (!priv->publications[weekday]) {
 		g_date_subtract_days (date, 1);
 		weekday = g_date_get_weekday (date);
 	}
@@ -449,4 +462,66 @@ buoh_comic_manager_date_get_first (BuohComicManager *comic_manager)
 		      comic_list, NULL);
 	
 	return comic;
+}
+
+static const gchar *
+buoh_comic_manager_date_get_dayweek (GDateWeekday d)
+{
+	if (d >= G_DATE_BAD_WEEKDAY && d <= G_DATE_SUNDAY) {
+		return g_strdup (day_names[d]);
+	} else {
+		return NULL;
+	}
+}
+
+gchar *
+buoh_comic_manager_date_get_publication_days (BuohComicManagerDate *comic_manager)
+{
+	gint      i, last_printed = 0;
+	gboolean  has_restrict = FALSE, prev = FALSE;
+	gchar    *date;
+	GString  *aux;
+	
+	aux = g_string_new ("");
+
+ 	for (i = G_DATE_MONDAY; i <= G_DATE_SUNDAY; i++) {
+		if (comic_manager->priv->publications[i]) {
+			if (!prev) {
+				if (aux->len) {
+					/* Add a separator */
+					g_string_append (aux, ", ");
+				}
+				date = buoh_comic_manager_date_get_dayweek (i);
+				g_string_append (aux,
+						date);
+				g_free (date);
+				
+				last_printed = i;
+			}
+			
+			prev = TRUE;
+		} else {
+			if (prev && (last_printed != i - 1)) {
+				if (aux->len) {
+					/* It's a range of days */
+					g_string_append (aux, _(" to "));
+				}
+				date = buoh_comic_manager_date_get_dayweek (i - 1);
+				g_string_append (aux,
+						date);
+				g_free (date);
+			}
+			
+			has_restrict = TRUE;
+			prev = FALSE;
+		}
+	}
+	
+	if (!has_restrict) {
+		g_string_set_size (aux, 0);
+		g_string_append (aux, _("Every day"));
+	}
+	
+	/* g_string_free () returns the "gchar *" data */
+	return g_string_free (aux, FALSE);
 }
