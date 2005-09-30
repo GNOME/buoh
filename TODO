@@ -4,6 +4,8 @@
 [X] Improve the comic loaging stuff
 [X] Remove Edit menu
 [ ] HIGification
+   [ ] Everything can be done with the keys
+   [ ] Spinner
 [X] Improve welcome and error messages
 [X] Save to disk the comics selected by the user
 [ ] Cache system
@@ -16,3 +18,9 @@
 [X] Update sensitive of previous and next buttons
   [X] When moving in a comic (first and last)
   [X] On an error (it should be possible to move back)
+[/] Revision and cleanups of code
+  [X] "void" between "(" and ")" on a declaration
+  [ ] G_GNU_CONST
+  [ ] const
+  [ ] warnings
+  [ ] memory and leaks

@@ -60,7 +60,7 @@ static void          buoh_save_comic_list        (GtkTreeModel *model,
 static void          buoh_create_user_dir        (Buoh         *buoh);
 
 GType
-buoh_get_type ()
+buoh_get_type (void)
 {
 	static GType type = 0;
 
@@ -418,7 +418,7 @@ buoh_finalize (GObject *object)
 }
 
 Buoh *
-buoh_get_instance ()
+buoh_get_instance (void)
 {
 	static Buoh *buoh = NULL;
 
@@ -430,7 +430,7 @@ buoh_get_instance ()
 }
 
 Buoh *
-buoh_new ()
+buoh_new (void)
 {
 	return buoh_get_instance ();
 }

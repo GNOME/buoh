@@ -925,15 +925,6 @@
 	<restrict>5</restrict>
 	<restrict>7</restrict>
 </comic>
-<comic id="greystoneinn"
-         class="date"
-	 title="Greystone inn"
-	 author="Brad J. Guigar"
-	 language="English"
-	 generic_uri="http://www.greystoneinn.net/comics/%Y%m%d.gif"
-	 first="2003-12-12">
-	<restrict>7</restrict>
-</comic>
 <comic id="forges-elpais"
          class="date"
 	 title="Forges (El Pais)"
@@ -1167,14 +1158,6 @@
 	 generic_uri="http://www.abc.es/humor/pic.asp?fl=min%d%m.jpg&amp;an=400&amp;ff=%Y%m%d"
 	 first="2005-03-19">
 </comic>
-<comic id="mingote-abc"
-        class="date"
-        title="Mingote (ABC)"
-        author="Mingote"
-        language="Spanish"
-	generic_uri="http://www.abc.es/humor/pic.asp?fl=min%d%m.jpg&amp;an=400&amp;ff=%Y%m%d"
-	first="2005-03-16">
-</comic>
 <comic id="mena-abc"
         class="date"
         title="Mena (ABC)"
@@ -1211,10 +1194,10 @@
         <restrict>6</restrict>
         <restrict>7</restrict>
 </comic>
-<comic id="tailipoe"
+<comic id="dandyandco"
         class="date"
-        title="Tailipoe"
-        author="Craig Boldman"
+        title="Dandy &amp; Co."
+        author="Derrick Fish"
         language="English"
         generic_uri="http://www.worldfamouscomics.com/dandyandco/%Y/dac%Y%m%d.gif"
 	first="2003-07-13">

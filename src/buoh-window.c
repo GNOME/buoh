@@ -188,7 +188,7 @@ static const GtkToggleActionEntry menu_toggle_entries[] = {
 };
 
 GType
-buoh_window_get_type ()
+buoh_window_get_type (void)
 {
 	static GType type = 0;
 

@@ -40,7 +40,7 @@ static void buoh_view_message_init          (BuohViewMessage *m_view);
 static void buoh_view_message_class_init    (BuohViewMessageClass *klass);
 
 GType
-buoh_view_message_get_type ()
+buoh_view_message_get_type (void)
 {
 	static GType type = 0;
 

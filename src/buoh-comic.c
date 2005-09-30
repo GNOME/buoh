@@ -59,7 +59,7 @@ static void buoh_comic_set_property (GObject        *object,
 				     GParamSpec     *pspec);
 
 GType
-buoh_comic_get_type ()
+buoh_comic_get_type (void)
 {
 	static GType type = 0;
 
@@ -159,7 +159,7 @@ buoh_comic_finalize (GObject *object)
 }
 
 BuohComic *
-buoh_comic_new ()
+buoh_comic_new (void)
 {
 	BuohComic *comic;
 

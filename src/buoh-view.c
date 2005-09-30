@@ -77,7 +77,7 @@ static void     buoh_view_scale_changed_cb   (GObject        *object,
 					      gpointer        gdata);
 
 GType
-buoh_view_get_type ()
+buoh_view_get_type (void)
 {
         static GType type = 0;
 
@@ -102,7 +102,7 @@ buoh_view_get_type ()
 }
 
 GType
-buoh_view_status_get_type ()
+buoh_view_status_get_type (void)
 {
 	static GType etype = 0;
 	
