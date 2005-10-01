@@ -166,7 +166,7 @@ static const GtkActionEntry menu_entries [] = {
 	  N_("Save the current comic with a new filename"),
 	  G_CALLBACK (buoh_window_cmd_comic_save_a_copy) },
 	{ "ComicCopyURI", NULL, N_("_Copy Location"), NULL,
-	  N_("Copuy the location of this comic"),
+	  N_("Copy the location of this comic"),
 	  G_CALLBACK (buoh_window_cmd_comic_copy_location) },
 	{ "ComicProperties", GTK_STOCK_PROPERTIES, N_("_Properties..."), "<alt>Return",
 	  N_("View the properties of this comic"),
