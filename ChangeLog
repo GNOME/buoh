@@ -1,3 +1,9 @@
+2005-10-02  Esteban Sanchez  <esteban@steve-o.org>
+
+	* src/buoh-window.c: Updated a string.
+
+	* po/POTFILES.in: Removed old files.
+
 2005-10-01  Esteban Sanchez  <esteban@steve-o.org>
 
 	* src/buoh-window.c: Fixed a typo in a string.

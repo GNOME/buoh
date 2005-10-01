@@ -1,6 +1,5 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-data/buoh.glade
 data/buoh.schemas.in
 src/buoh.c
 src/buoh-add-comic-dialog.c
