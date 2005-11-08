@@ -45,13 +45,6 @@ struct _BuohComic {
 
 struct _BuohComicClass {
 	GObjectClass      parent_class;
-
-	/* Point to functions that has to be redefined by the child class*/
-	gchar    *(* get_uri)     (BuohComic *comic);
-	void      (* go_next)     (BuohComic *comic);
-	void      (* go_previous) (BuohComic *comic);
-	gboolean  (* is_the_last) (BuohComic *comic);
-	gchar    *(* get_page)    (BuohComic *comic);
 };
 
 /* Public methods */
@@ -75,6 +68,7 @@ gchar     *buoh_comic_get_id               (BuohComic   *comic);
 GdkPixbuf *buoh_comic_get_pixbuf           (BuohComic   *comic);
 GDate     *buoh_comic_get_date             (BuohComic   *comic);
 GdkPixbuf *buoh_comic_get_thumbnail        (BuohComic   *comic);
+gchar     *buoh_comic_get_filename         (BuohComic   *comic);
 
 G_END_DECLS
 

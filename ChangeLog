@@ -1,3 +1,17 @@
+2005-11-08  Esteban Sanchez <esteban@steve-o.org>
+
+	* src/buoh-comic.[ch]: Clean up old code. Added a new method
+	buoh_comic_get_filename.
+	
+	* src/buoh-comic.c: Fixed a memory leak.
+
+	* src/buoh-window.c: The suggested name on the save dialog is now the
+	same than the original but with the PNG extension. Added a function
+	to set the sensitiveness of the browsing actions (Prev, Next, First &
+	Last)
+	
+	* data/comics.xml: Removed duplicated strip.
+
 2005-10-02  Esteban Sanchez  <esteban@steve-o.org>
 
 	* src/buoh-window.c: Updated a string.

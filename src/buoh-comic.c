@@ -89,9 +89,10 @@ buoh_comic_init (BuohComic *buoh_comic)
 	   
 	buoh_comic->priv = BUOH_COMIC_GET_PRIVATE (buoh_comic);
 
-	buoh_comic->priv->id       = NULL;
-	buoh_comic->priv->uri       = NULL;
-	buoh_comic->priv->pixbuf   = NULL;
+	buoh_comic->priv->id     = NULL;
+	buoh_comic->priv->uri    = NULL;
+	buoh_comic->priv->pixbuf = NULL;
+	buoh_comic->priv->date   = NULL;
 }
 
 static void
@@ -153,7 +154,12 @@ buoh_comic_finalize (GObject *object)
 		g_object_unref (comic->priv->pixbuf);
 		comic->priv->pixbuf = NULL;
 	}
-					   
+	
+	if (comic->priv->date) {
+		g_date_free (comic->priv->date);
+		comic->priv->date = NULL;
+	}
+	
 	if (G_OBJECT_CLASS (parent_class)->finalize)
 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
@@ -370,4 +376,14 @@ buoh_comic_get_thumbnail (BuohComic *comic)
 	}
 
 	return NULL;
+}
+
+gchar *
+buoh_comic_get_filename (BuohComic *comic)
+{
+	gchar *filename;
+	
+	filename = g_path_get_basename (comic->priv->uri);
+	
+	return filename;
 }
