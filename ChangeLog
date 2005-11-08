@@ -1,4 +1,12 @@
 2005-11-08  Esteban Sanchez <esteban@steve-o.org>
+	
+	* configure.in: Version 0.8.
+
+	* NEWS: Added release info
+	
+	* data/comics.xml: Removed abandoned and problematics strips.
+
+2005-11-08  Esteban Sanchez <esteban@steve-o.org>
 
 	* src/buoh-comic.[ch]: Clean up old code. Added a new method
 	buoh_comic_get_filename.

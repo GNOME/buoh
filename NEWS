@@ -1,0 +1,17 @@
+=============
+Version 0.8
+=============
+
+First public release.
+
+Comics
+	* Including 128 online comics strips.
+	* There are comics in english and in spanish.
+	* Browsing through an historical archive in each strip.
+
+Miscellaneous
+	* It's possible to save a comic to disk.
+	* Integration with GNOME lockdowns.
+	* The GUI follows the HIG.
+
+
