@@ -157,7 +157,7 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	gtk_misc_set_alignment (GTK_MISC (label_language), 0, 0.5);
 	g_free (str);
 
-	str = g_strdup_printf ("<b>%s:</b>", _("Publication date"));
+	str = g_strdup_printf ("<b>%s:</b>", _("Date of publication"));
 	label_date = gtk_label_new (NULL);	
 	gtk_label_set_markup (GTK_LABEL (label_date), str);
 	gtk_misc_set_alignment (GTK_MISC (label_date), 0, 0.5);

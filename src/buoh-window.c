@@ -27,6 +27,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <gconf/gconf-client.h>
+#include <string.h>
 
 #include "buoh.h"
 #include "buoh-window.h"
@@ -541,13 +542,12 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
 	GtkWidget        *chooser;
 	GtkFileFilter    *filter;
 	gchar            *suggested;
-	gchar            *name;
-	gchar            *page;
+	gchar            *basename;
+	gchar            *extension;
 	gchar            *filename = NULL;
 	static gchar     *folder = NULL;
 	BuohWindow       *window = BUOH_WINDOW (gdata);
 	BuohComic        *comic;
-	BuohComicManager *cm;
 	GdkPixbuf        *pixbuf;
 	GtkWidget        *dialog;
 	gboolean          successful;
@@ -571,13 +571,18 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
 							 folder);
 	}
 
-	comic     = buoh_view_get_comic (window->priv->view);
-	cm        = buoh_comic_list_get_selected (window->priv->comic_list);
-	name      = buoh_comic_manager_get_title (cm);
-	page      = buoh_comic_get_id (comic);
-	suggested = g_strconcat (name, " (", page, ").png", NULL);
-	pixbuf   = buoh_comic_get_pixbuf (comic);
-
+	comic  = buoh_view_get_comic (window->priv->view);
+	pixbuf = buoh_comic_get_pixbuf (comic);
+	
+	/* Change the extension to .png */
+	filename = buoh_comic_get_filename (comic);
+	extension = g_strrstr (filename, ".");
+	basename = g_strndup (filename, strlen (filename) - strlen (extension));
+	suggested = g_strconcat (basename, ".png", NULL);
+	
+	g_free (basename);
+	g_free (filename);
+	
 	gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (chooser),
 					   suggested);
 
@@ -618,8 +623,6 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
 	} while (!successful);
 
 	g_object_unref (pixbuf);
-	g_free (name);
-	g_free (page);
 	g_free (suggested);
 	gtk_widget_destroy (chooser);
 }
@@ -883,7 +886,7 @@ buoh_window_set_sensitive (BuohWindow *window, const gchar *name, gboolean sensi
 }
 
 static void
-buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
+buoh_window_comic_browsing_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 {
 	BuohComicManager *cm;
 
@@ -905,6 +908,13 @@ buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 				   sensitive ?
 				   !buoh_comic_manager_is_the_last (cm) :
 				   sensitive);
+}
+
+static void
+buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
+{
+	buoh_window_comic_browsing_actions_set_sensitive (window, sensitive);
+
 	buoh_window_set_sensitive (window, "ComicProperties", sensitive);
 	buoh_window_set_sensitive (window, "ComicCopyURI",    sensitive); 
 	buoh_window_set_sensitive (window, "ViewZoomIn",
@@ -1015,11 +1025,7 @@ buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gd
 		break;
 	case STATE_MESSAGE_ERROR:
 		buoh_window_comic_actions_set_sensitive (window, FALSE);
-		buoh_window_set_sensitive (window, "GoPrevious",
-					   !buoh_comic_manager_is_the_first (cm));
-		buoh_window_set_sensitive (window, "GoNext", 
-					   !buoh_comic_manager_is_the_last (cm));
-		buoh_window_comic_save_to_disk_set_sensitive (window, FALSE);
+		buoh_window_comic_browsing_actions_set_sensitive (window, TRUE);
 		break;
 	case STATE_COMIC_LOADING:
 		comic = buoh_view_get_comic (view);
