@@ -1,5 +1,5 @@
 AC_PREREQ(2.52)
-AC_INIT(buoh, 0.0.1)
+AC_INIT(buoh, 0.8)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
 dnl Useful to call aclocal after 'make'

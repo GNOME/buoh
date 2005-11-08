@@ -603,6 +603,7 @@
 	 first="2004-11-01">
 	<restrict>2</restrict>
 	<restrict>3</restrict>
+	<restrict>4</restrict>
 	<restrict>5</restrict>
 	<restrict>6</restrict>
 	<restrict>7</restrict>
@@ -631,29 +632,12 @@
 	 generic_uri="http://picayune.uclick.com/comics/luc/%Y/luc%y%m%d.gif"
 	 first="2003-04-21">
 </comic>
-<comic id="mb"
-         class="date"
-	 title="Mister Boffo"
-	 author="Joe Martin"
-	 language="English"
-	 generic_uri="http://picayune.uclick.com/comics/mb/%Y/mb%y%m%d.gif"
-	 first="1996-06-24">
-</comic>
 <comic id="tmmid"
          class="date"
 	 title="The Middletons"
 	 author="Ralph Dunagin &amp; Dana Summers"
 	 language="English"
 	 generic_uri="http://picayune.uclick.com/comics/tmmid/%Y/tmmid%y%m%d.gif"
-	 first="2001-04-25">
-</comic>
-
-<comic id="tmmix"
-         class="date"
-	 title="Mixed Media"
-	 author="Scott Willis &amp; Jack Ohman"
-	 language="English"
-	 generic_uri="http://picayune.uclick.com/comics/tmmix/%Y/tmmix%y%m%d.gif"
 	 first="2001-04-25">
 </comic>
 <comic id="nq"
@@ -728,15 +712,6 @@
 	 language="English"
 	 generic_uri="http://picayune.uclick.com/comics/crobh/%Y/crobh%y%m%d.gif"
 	 first="2002-08-12">
-</comic>
-<comic id="oe"
-         class="date"
-	 title="Oddly Enough"
-	 author="Chris Kemp"
-	 language="English"
-	 generic_uri="http://picayune.uclick.com/comics/oe/%Y/oe%y%m%d.gif"
-	 first="2000-12-01">
-	<restrict>7</restrict>
 </comic>
 <comic id="poc"
          class="date"
@@ -933,22 +908,6 @@
 	 generic_uri="http://www.elpais.es/recorte.php?xref=%Y%m%delpepivin_1&amp;id=SCO&amp;type=Ges"
 	 first="2001-01-02">
 </comic>
-<comic id="nando-elperiodico"
-         class="date"
-	 title="Nando (El Periódico)"
-	 author="Nando"
-	 language="Spanish"
-	 generic_uri="http://www.elperiodico.com/edicion/ed%y%m%d/cas/fotos/epp_nd/carp01/nandocas.gif"
-	 first="2005-07-09">
-</comic>
-<comic id="ferreres-elperiodico"
-         class="date"
-	 title="Ferreres (El Periódico)"
-	 author="Ferreres"
-	 language="Spanish"
-	 generic_uri="http://www.elperiodico.com/edicion/ed%y%m%d/cas/fotos/epp_nd/carp01/ferrerescas.gif"
-	 first="2005-09-06">
-</comic>
 <comic id="tiny"
          class="date"
 	 title="Tiny Sepuku"
@@ -971,15 +930,6 @@
 	 generic_uri="http://www.greystoneinn.net/comics/%Y%m%d.gif"
 	 first="2003-12-12">
 	<restrict>7</restrict>
-</comic>
-
-<comic id="wes"
-         class="date"
-	 title="Willy n Ethel"
-	 author="Joe Martin"
-	 language="English"
-	 generic_uri="http://picayune.uclick.com/comics/wes/%Y/wes%y%m%d.gif"
-	 first="2001-04-30">
 </comic>
 <comic id="crzhi"
          class="date"
@@ -1033,23 +983,6 @@
 	 generic_uri="http://www.scarygoround.com/strips/%Y%m%d.png"
 	 first="2004-04-26">
 	<restrict>6</restrict>
-	<restrict>7</restrict>
-</comic>
-<comic id="bruno"
-         class="date"
-	 title="Bruno"
-	 author="Christopher Baldwin"
-	 language="English"
-	 generic_uri="http://www.brunostrip.com/%Ypics/%Y%m%d.gif"
-	 first="2005-06-27">
-</comic>
-<comic id="littledee"
-         class="date"
-	 title="Little Dee"
-	 author="Christopher Baldwin"
-	 language="English"
-	 generic_uri="http://www.littledee.net/2005pics/%Y%m%d.gif"
-	 first="2005-01-01">
 	<restrict>7</restrict>
 </comic>
 <comic id="sorethumbs"
@@ -1217,5 +1150,13 @@
         <restrict>4</restrict>
         <restrict>5</restrict>
         <restrict>7</restrict>
+</comic>
+<comic id="gin"
+	class="date"
+	title="Ginger Meggs"
+	author="James Kemsley"
+	language="English"
+	generic_uri="http://picayune.uclick.com/comics/gin/%Y/gin%y%m%d.gif"
+	first="2005-05-30">
 </comic>
 </comic_list>
