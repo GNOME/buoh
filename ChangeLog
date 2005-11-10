@@ -1,3 +1,12 @@
+2005-11-10  Esteban Sanchez <esteban@steve-o.org>
+
+	* src/main.c: Now it calls to bind_textdomain and
+	bind_textdomain_codeset to allow translations.
+
+	* data/comics.xml: Added userfriendly and Penny Arcade.
+	
+	* NEWS: Typo fixed
+
 2005-11-08  Esteban Sanchez <esteban@steve-o.org>
 	
 	* configure.in: Version 0.8.

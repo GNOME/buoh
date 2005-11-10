@@ -35,6 +35,13 @@ main (gint argc, gchar **argv)
 {
 	Buoh *buoh;
 
+#ifdef ENABLE_NLS
+        /* Initialize the i18n stuff */
+        bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
+        bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+        textdomain (GETTEXT_PACKAGE);
+#endif
+
 	gnome_program_init (PACKAGE, VERSION,
 			    LIBGNOMEUI_MODULE,
 			    argc, argv,

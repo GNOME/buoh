@@ -1,4 +1,13 @@
 <comic_list>
+<comic id="userf"
+         class="date"
+         title="Userfriendly"
+         author="J.D. Fraze"
+         language="English"
+        
+generic_uri="http://www.userfriendly.org/cartoons/archives/%y%b/uf0085%d.gif"
+         first="1997-11-07">
+</comic>
 <comic id="sptut"
          class="date"
 	 title="Tutelandia en Español"
@@ -1159,4 +1168,16 @@
 	generic_uri="http://picayune.uclick.com/comics/gin/%Y/gin%y%m%d.gif"
 	first="2005-05-30">
 </comic>
+<comic id="pa"
+	class="date"
+	title="Penny Arcade"
+	author="Penny Arcade"
+	language="English"
+	generic_uri="http://www.penny-arcade.com/images/%Y/%Y%m%dl.jpg"
+	first="1998-11-18">
+        <restrict>2</restrict>
+        <restrict>4</restrict>
+        <restrict>6</restrict>
+        <restrict>7</restrict>
+</comic>	
 </comic_list>
