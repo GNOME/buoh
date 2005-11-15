@@ -288,7 +288,7 @@ buoh_comic_loader_update (GdkPixbufLoader *pixbuf_loader, gint x, gint y,
 
 	g_mutex_lock (loader->pixbuf_mutex);
 	pixbuf = gdk_pixbuf_loader_get_pixbuf (pixbuf_loader);
-	loader->pixbuf = GDK_IS_PIXBUF (pixbuf) ? g_object_ref (pixbuf) : NULL;
+	loader->pixbuf = pixbuf;
 	g_mutex_unlock (loader->pixbuf_mutex);
 }
 
@@ -365,7 +365,7 @@ buoh_comic_loader_finished (SoupMessage *msg, gpointer gdata)
 			
 			g_mutex_lock (loader->pixbuf_mutex);
 			pixbuf = gdk_pixbuf_loader_get_pixbuf (loader->priv->pixbuf_loader);
-			loader->pixbuf = GDK_IS_PIXBUF(pixbuf) ? g_object_ref (pixbuf) : NULL;
+			loader->pixbuf = GDK_IS_PIXBUF (pixbuf) ? g_object_ref (pixbuf) : NULL;
 			g_mutex_unlock (loader->pixbuf_mutex);
 
 			g_object_unref (loader->priv->pixbuf_loader);

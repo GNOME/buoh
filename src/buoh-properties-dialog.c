@@ -98,7 +98,7 @@ buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass)
 
 void
 buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
-					  BuohComicManager *comic_manager)
+					  BuohComicManager     *comic_manager)
 {
 	GtkWidget *table;
 	GtkWidget *label_title, *label_title_val;
@@ -125,6 +125,7 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	
 	thumbnail = buoh_comic_get_thumbnail (comic);
 	image = gtk_image_new_from_pixbuf (thumbnail);
+	g_object_unref (thumbnail);
 	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0);
 
 	g_object_get (comic_manager,
@@ -132,7 +133,6 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 		      "author", &author,
 		      "language", &language, NULL);
 
-	
 	str = g_strdup_printf ("<b>%s:</b>", _("Title"));
 	label_title = gtk_label_new (NULL);
 	gtk_label_set_markup (GTK_LABEL (label_title), str);
@@ -266,7 +266,7 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),
 			    table, TRUE, TRUE, 0);
 
-	gtk_widget_show (table);	
+	gtk_widget_show (table);
 }
 
 BuohComicManager *

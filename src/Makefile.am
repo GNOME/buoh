@@ -18,21 +18,9 @@ buoh_SOURCES = 							\
 	buoh-add-comic-dialog.h buoh-add-comic-dialog.c		\
 	buoh-comic-manager-date.h buoh-comic-manager-date.c     \
 	buoh-comic-manager.h buoh-comic-manager.c		\
+	buoh-comic-cache.h buoh-comic-cache.c			\
 	buoh.h buoh.c						\
 	main.c
 
 buoh_LDADD = $(BUOH_LIBS)
 
-#EXTRA_DIST  = buoh.desktop.in 
-
-#DISTCLEANFILES = 		\
-#		buoh.desktop	\
-#		*.bak
-
-#Applicationsdir = $(datadir)/applications
-#Applications_in_files = buoh.desktop.in
-#Applications_DATA = $(Applications_in_files:.desktop.in=.desktop)
-#@INTLTOOL_DESKTOP_RULE@
-
-#install-data-local:
-#	@$(NORMAL_INSTALL)

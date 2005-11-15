@@ -185,7 +185,7 @@ buoh_create_model_from_file (Buoh *buoh)
 				    G_TYPE_STRING,
 				    G_TYPE_STRING,
 				    G_TYPE_STRING,
-				    G_TYPE_POINTER,
+				    G_TYPE_OBJECT,
 				    -1);
 	
 	node = root->xmlChildrenNode;
@@ -257,7 +257,7 @@ buoh_create_model_from_file (Buoh *buoh)
 			g_free (language);
 			g_free (uri);
 			g_free (class);
-
+			g_object_unref (comic_manager);
 		}
 
 		node = node->next;
@@ -320,6 +320,7 @@ buoh_save_comic_list (GtkTreeModel *model,
 				    COMIC_LIST_COMIC_MANAGER,
 				    &comic_manager, -1);
 		id = buoh_comic_manager_get_id (comic_manager);
+		g_object_unref (comic_manager);
 		
 		xmlTextWriterStartElement (writer, BAD_CAST "comic");
 		xmlTextWriterWriteAttribute (writer,
@@ -343,6 +344,7 @@ static void
 buoh_create_user_dir (Buoh *buoh)
 {
 	gchar       *filename;
+	gchar       *cache_dir;
 	const gchar *contents = "<?xml version=\"1.0\"?>\n<comic_list>\n</comic_list>\n";
 
 	if (!g_file_test (buoh->priv->datadir, G_FILE_TEST_IS_DIR)) {
@@ -353,7 +355,7 @@ buoh_create_user_dir (Buoh *buoh)
 	}
 	
 	filename = g_build_filename (buoh->priv->datadir, "comics.xml", NULL);
-
+	
 	if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
 		buoh_debug ("User comics file doesn't exist, creating it ...");
 		if (!g_file_set_contents (filename, contents, -1, NULL)) {
@@ -361,8 +363,19 @@ buoh_create_user_dir (Buoh *buoh)
 			g_error ("Cannot create user's comics list file");
 		}
 	}
-
+	
 	g_free (filename);
+
+	cache_dir = g_build_filename (buoh->priv->datadir, "cache", NULL);
+	
+	if (!g_file_test (cache_dir, G_FILE_TEST_IS_DIR)) {
+		buoh_debug ("Cache directory doesn't exist, creating it ...");
+		if (g_mkdir (cache_dir, 0755) != 0) {
+			g_error ("Cannot create cache directory");
+		}
+	}
+	
+	g_free (cache_dir);
 }
 
 static void
@@ -461,3 +474,8 @@ buoh_get_comics_model (Buoh *buoh)
 	return buoh->priv->comic_list;
 }
 
+const gchar *
+buoh_get_datadir (Buoh *buoh)
+{
+	return buoh->priv->datadir;
+}

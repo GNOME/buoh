@@ -95,7 +95,8 @@ buoh_comic_list_selection_changed (GtkTreeSelection *selection, gpointer gdata)
 		
 		comic_list->priv->comic_manager = BUOH_COMIC_MANAGER (comic_manager);
 		comic = buoh_comic_manager_get_current (comic_list->priv->comic_manager);
-		
+		g_object_unref (comic_manager);
+
 		buoh_view_set_comic (comic_list->priv->view, comic);
 		buoh_debug ("selection changed: set comic");
 	} else {

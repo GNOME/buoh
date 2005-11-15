@@ -518,6 +518,7 @@ buoh_window_cmd_comic_remove (GtkAction *action, gpointer gdata)
 					    COMIC_LIST_COMIC_MANAGER, &cm,
 					    -1);
 			cm_id = buoh_comic_manager_get_id (cm);
+			g_object_unref (cm);
 
 			if (g_ascii_strcasecmp (current_cm_id, cm_id) == 0) {
 				buoh_comic_list_clear_selection (window->priv->comic_list);
@@ -653,6 +654,8 @@ buoh_window_properties_dialog_destroyed (GtkWidget *dialog, gpointer gdata)
 {
 	BuohWindow *window = BUOH_WINDOW (gdata);
 
+	buoh_debug ("porperties-dialog destroyed");
+	
 	window->priv->properties = g_list_remove (window->priv->properties, dialog);
 }
 
