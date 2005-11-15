@@ -24,7 +24,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
+#include "buoh.h"
 #include "buoh-comic.h"
+#include "buoh-comic-cache.h"
 
 enum {
 	PROP_0,
@@ -35,10 +37,11 @@ enum {
 };
 
 struct _BuohComicPrivate {
-	gchar     *id;
-	gchar     *uri;
-	GdkPixbuf *pixbuf;
-	GDate     *date;
+	gchar          *id;
+	gchar          *uri;
+	GDate          *date;
+
+	BuohComicCache *cache;
 };
 
 #define BUOH_COMIC_GET_PRIVATE(object) \
@@ -91,8 +94,9 @@ buoh_comic_init (BuohComic *buoh_comic)
 
 	buoh_comic->priv->id     = NULL;
 	buoh_comic->priv->uri    = NULL;
-	buoh_comic->priv->pixbuf = NULL;
 	buoh_comic->priv->date   = NULL;
+
+	buoh_comic->priv->cache = buoh_comic_cache_new ();
 }
 
 static void
@@ -123,11 +127,10 @@ buoh_comic_class_init (BuohComicClass *klass)
 							      G_PARAM_READWRITE));
 	g_object_class_install_property (object_class,
 					 PROP_PIXBUF,
-					 g_param_spec_object ("pixbuf",
-							      "Pixbuf",
-							      "Pixbuf of the comic",
-							      GDK_TYPE_PIXBUF,
-							      G_PARAM_READWRITE));
+					 g_param_spec_pointer ("pixbuf",
+							       "Pixbuf",
+							       "Pixbuf of the comic",
+							       G_PARAM_READWRITE));
 	g_object_class_install_property (object_class,
 					 PROP_DATE,
 					 g_param_spec_pointer ("date",
@@ -145,19 +148,21 @@ buoh_comic_finalize (GObject *object)
 	
 	g_return_if_fail (BUOH_IS_COMIC (comic));
 
+	buoh_debug ("buoh-comic-finalize");
+
 	if (comic->priv->id) {
 		g_free (comic->priv->id);
 		comic->priv->id = NULL;
 	}
 
-	if (comic->priv->pixbuf) {
-		g_object_unref (comic->priv->pixbuf);
-		comic->priv->pixbuf = NULL;
-	}
-	
 	if (comic->priv->date) {
 		g_date_free (comic->priv->date);
 		comic->priv->date = NULL;
+	}
+
+	if (comic->priv->cache) {
+		g_object_unref (comic->priv->cache);
+		comic->priv->cache = NULL;
 	}
 	
 	if (G_OBJECT_CLASS (parent_class)->finalize)
@@ -209,12 +214,13 @@ buoh_comic_set_property (GObject      *object,
 		comic->priv->uri = g_value_dup_string (value);
 		
 		break;
-	case PROP_PIXBUF:
-		if (comic->priv->pixbuf) {
-			g_object_unref (comic->priv->pixbuf);
-		}
-		comic->priv->pixbuf = GDK_PIXBUF (g_value_dup_object (value));
-		
+	case PROP_PIXBUF: {
+		GdkPixbuf *pixbuf;
+
+		pixbuf = GDK_PIXBUF (g_value_get_pointer (value));
+		buoh_comic_cache_set_pixbuf (comic->priv->cache,
+					     comic->priv->uri, pixbuf);
+	}
 		break;
 	case PROP_DATE:
 		if (comic->priv->date) {
@@ -248,9 +254,13 @@ buoh_comic_get_property (GObject      *object,
 		g_value_set_string (value, comic->priv->uri);
 		
 		break;
-	case PROP_PIXBUF:
-		g_value_set_object (value, comic->priv->pixbuf);
-		
+	case PROP_PIXBUF: {
+		GdkPixbuf *pixbuf;
+
+		pixbuf = buoh_comic_cache_get_pixbuf (comic->priv->cache,
+						      comic->priv->uri);
+		g_value_set_pointer (value, pixbuf);
+	}
 		break;
 	case PROP_DATE:
 		g_value_set_pointer (value, comic->priv->date);
@@ -294,10 +304,7 @@ buoh_comic_set_pixbuf_from_file (BuohComic *comic, const gchar *filename)
 
 	pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
 
-	if (pixbuf) {
-		buoh_comic_set_pixbuf (comic, pixbuf);
-		g_object_unref (pixbuf);
-	}
+	buoh_comic_set_pixbuf (comic, pixbuf);
 }
 
 gchar *
@@ -356,7 +363,7 @@ buoh_comic_get_thumbnail (BuohComic *comic)
 	gint       c_width, c_height;
 	gint       d_width, d_height;
 
-	pixbuf = comic->priv->pixbuf;
+	g_object_get (G_OBJECT (comic), "pixbuf", &pixbuf, NULL);
 
 	if (pixbuf) {
 		c_width = gdk_pixbuf_get_width (pixbuf);
