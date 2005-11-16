@@ -27,9 +27,9 @@ dnl ******************************************
 dnl ** pkg-config dependacy checks          **
 dnl ******************************************
 
-GLIB_REQUIRED=2.7.0
+GLIB_REQUIRED=2.6.0
 LIBGNOMEUI_REQUIRED=2.6.0
-GTK_REQUIRED=2.7.0
+GTK_REQUIRED=2.6.0
 LIBSOUP_REQUIRED=2.2.0
 GCONF_REQUIRED=2.2.0
 

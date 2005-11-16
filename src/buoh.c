@@ -22,6 +22,11 @@
 #include <config.h>
 #endif
 
+#include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
@@ -340,6 +345,31 @@ buoh_save_comic_list (GtkTreeModel *model,
 	xmlFreeTextWriter (writer);
 }
 
+static gboolean
+buoh_create_comics_file (Buoh *buoh, const char *filename, const char *contents)
+{
+#if GTK_CHECK_VERSION(2,8,0)
+	return g_file_set_contents (filename, contents, -1, NULL);
+#else
+	int fd;
+
+	if ((fd = open (filename, O_CREAT | O_WRONLY, 0755)) < 0) {
+		return FALSE;
+	}
+
+	if (write (fd, contents, strlen (contents)) < 0) {
+		close (fd);
+		return FALSE;
+	}
+
+	if (close (fd) < 0) {
+		return FALSE;
+	}
+
+	return TRUE;
+#endif
+}
+
 static void
 buoh_create_user_dir (Buoh *buoh)
 {
@@ -358,7 +388,7 @@ buoh_create_user_dir (Buoh *buoh)
 	
 	if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
 		buoh_debug ("User comics file doesn't exist, creating it ...");
-		if (!g_file_set_contents (filename, contents, -1, NULL)) {
+		if (!buoh_create_comics_file (buoh, filename, contents)) {
 			g_free (filename);
 			g_error ("Cannot create user's comics list file");
 		}

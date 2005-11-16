@@ -407,7 +407,13 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
 	gtk_adjustment_set_value (hadjustment, 0.0);
 	gtk_adjustment_set_value (vadjustment, 0.0);
 
+#if GTK_CHECK_VERSION(2,8,0)
 	gtk_image_clear (GTK_IMAGE (c_view->priv->image));
+#else 
+	gtk_image_set_from_stock (GTK_IMAGE (c_view->priv->image),
+				  GTK_STOCK_MISSING_IMAGE,
+				  GTK_ICON_SIZE_DIALOG);
+#endif
 	
 }
 static void
