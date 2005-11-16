@@ -44,12 +44,15 @@ struct _BuohViewMessageClass {
 	GtkViewportClass   parent_class;
 };
 
-GType      buoh_view_message_get_type  (void);
+GType      buoh_view_message_get_type  (void) G_GNUC_CONST;
 GtkWidget *buoh_view_message_new       (void);
 
-void       buoh_view_message_set_title (BuohViewMessage *m_view, const gchar *title);
-void       buoh_view_message_set_text  (BuohViewMessage *m_view, const gchar *text);
-void       buoh_view_message_set_icon  (BuohViewMessage *m_view, const gchar *icon);
+void       buoh_view_message_set_title (BuohViewMessage *m_view,
+					const gchar     *title);
+void       buoh_view_message_set_text  (BuohViewMessage *m_view,
+					const gchar     *text);
+void       buoh_view_message_set_icon  (BuohViewMessage *m_view,
+					const gchar     *icon);
 
 G_END_DECLS
 

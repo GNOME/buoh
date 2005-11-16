@@ -44,27 +44,28 @@ struct _BuohComicLoaderPrivate {
 
 static GObjectClass *parent_class = NULL;
 
-static void     buoh_comic_loader_init       (BuohComicLoader      *loader);
-static void     buoh_comic_loader_class_init (BuohComicLoaderClass *klass);
-static void     buoh_comic_loader_finalize   (GObject              *object);
+static void     buoh_comic_loader_init          (BuohComicLoader      *loader);
+static void     buoh_comic_loader_class_init    (BuohComicLoaderClass *klass);
+static void     buoh_comic_loader_finalize      (GObject              *object);
 
-static SoupUri *buoh_comic_loader_get_proxy_uri (BuohComicLoader *loader);
-static void     buoh_comic_loader_update_proxy  (GConfClient *gconf_client, guint cnxn_id,
-						 GConfEntry *entry, gpointer gdata);
-
-static void     buoh_comic_loader_update     (GdkPixbufLoader      *pixbuf_loader,
-					      gint                  x,
-					      gint                  y,
-					      gint                  width,
-					      gint                  height,
-					      gpointer              gdata);
-static void     buoh_comic_loader_resolved   (SoupMessage          *msg,
-					      gpointer              gdata);
-static void     buoh_comic_loader_read_next  (SoupMessage          *msg,
-					      gpointer              gdata);
-static void     buoh_comic_loader_finished   (SoupMessage          *msg,
-					      gpointer              gdata);
-static gpointer buoh_comic_loader_run_thread (gpointer              gdata);
+static SoupUri *buoh_comic_loader_get_proxy_uri (BuohComicLoader      *loader);
+static void     buoh_comic_loader_update_proxy  (GConfClient          *gconf_client,
+						 guint                 cnxn_id,
+						 GConfEntry           *entry,
+						 gpointer              gdata);
+static void     buoh_comic_loader_update        (GdkPixbufLoader      *pixbuf_loader,
+						 gint                  x,
+						 gint                  y,
+						 gint                  width,
+						 gint                  height,
+						 gpointer              gdata);
+static void     buoh_comic_loader_resolved      (SoupMessage          *msg,
+						 gpointer              gdata);
+static void     buoh_comic_loader_read_next     (SoupMessage          *msg,
+						 gpointer              gdata);
+static void     buoh_comic_loader_finished      (SoupMessage          *msg,
+						 gpointer              gdata);
+static gpointer buoh_comic_loader_run_thread    (gpointer              gdata);
 
 GType
 buoh_comic_loader_get_type (void)
@@ -440,7 +441,6 @@ buoh_comic_loader_run_thread (gpointer gdata)
 				  buoh_comic_loader_read_next,
 				  (gpointer) loader);
 	
-
 	buoh_debug ("resolving . . .");
 	
 	soup_session_queue_message (loader->priv->session, loader->priv->msg,
@@ -466,6 +466,7 @@ buoh_comic_loader_run_thread (gpointer gdata)
 void
 buoh_comic_loader_run (BuohComicLoader *loader, const gchar *uri)
 {
+	g_return_if_fail (BUOH_IS_COMIC_LOADER (loader));
 	g_return_if_fail (uri != NULL);
 
 	g_mutex_lock (loader->status_mutex);
@@ -493,6 +494,8 @@ buoh_comic_loader_run (BuohComicLoader *loader, const gchar *uri)
 void
 buoh_comic_loader_stop (BuohComicLoader *loader)
 {
+	g_return_if_fail (BUOH_IS_COMIC_LOADER (loader));
+	
 	buoh_debug ("Stopping loader");
 
 	g_mutex_lock (loader->status_mutex);

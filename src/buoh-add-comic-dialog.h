@@ -44,7 +44,7 @@ struct _BuohAddComicDialogClass {
 	GtkDialogClass   parent_class;
 };
 
-GType      buoh_add_comic_dialog_get_type  (void);
+GType      buoh_add_comic_dialog_get_type  (void) G_GNUC_CONST;
 GtkWidget *buoh_add_comic_dialog_new       (void);
 
 G_END_DECLS

@@ -1,3 +1,19 @@
+2005-11-16  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-add-comic-dialog.[ch]:
+	* src/buoh-comic-list.[ch]:
+	* src/buoh-comic-loader.[ch]:
+	* src/buoh-comic-manager-date.[ch]:
+	* src/buoh-comic-manager.[ch]:
+	* src/buoh-comic.[ch]:
+	* src/buoh-properties-dialog.[ch]:
+	* src/buoh-view-comic.[ch]:
+	* src/buoh-view-message.[ch]:
+	* src/buoh-view.[ch]:
+	* src/buoh-window.[ch]:
+	* src/buoh.[ch]: 
+	Code cleanups
+
 2005-11-15  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* src/Makefile.am: Add cache files

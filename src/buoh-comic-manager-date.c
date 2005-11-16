@@ -29,20 +29,20 @@
 #define URI_BUFFER 256
 #define ID_BUFFER 100
 
-static void buoh_comic_manager_date_init         (BuohComicManagerDate *);
-static void buoh_comic_manager_date_class_init   (BuohComicManagerDateClass *);
-static void buoh_comic_manager_date_finalize     (GObject *);
+static void       buoh_comic_manager_date_init              (BuohComicManagerDate *comic_manager);
+static void       buoh_comic_manager_date_class_init        (BuohComicManagerDateClass *klass);
+static void       buoh_comic_manager_date_finalize          (GObject *object);
 
-static gchar       *buoh_comic_manager_date_get_id_from_date  (BuohComicManagerDate *comic_manager);
-static gchar       *buoh_comic_manager_date_get_uri_from_date (BuohComicManagerDate *comic_manager);
-static BuohComic   *buoh_comic_manager_date_new_comic         (BuohComicManagerDate *comic_manager);
+static gchar     *buoh_comic_manager_date_get_id_from_date  (BuohComicManagerDate *comic_manager);
+static gchar     *buoh_comic_manager_date_get_uri_from_date (BuohComicManagerDate *comic_manager);
+static BuohComic *buoh_comic_manager_date_new_comic         (BuohComicManagerDate *comic_manager);
 
-static BuohComic   *buoh_comic_manager_date_get_next          (BuohComicManager *manager);
-static BuohComic   *buoh_comic_manager_date_get_previous      (BuohComicManager *manager);
-static BuohComic   *buoh_comic_manager_date_get_first         (BuohComicManager *manager);
-static BuohComic   *buoh_comic_manager_date_get_last          (BuohComicManager *manager);
-static gboolean     buoh_comic_manager_date_is_the_first      (BuohComicManager *manager);
-static gchar       *buoh_comic_manager_date_get_dayweek       (GDateWeekday d);
+static BuohComic *buoh_comic_manager_date_get_next          (BuohComicManager     *manager);
+static BuohComic *buoh_comic_manager_date_get_previous      (BuohComicManager     *manager);
+static BuohComic *buoh_comic_manager_date_get_first         (BuohComicManager     *manager);
+static BuohComic *buoh_comic_manager_date_get_last          (BuohComicManager     *manager);
+static gboolean   buoh_comic_manager_date_is_the_first      (BuohComicManager     *manager);
+static gchar     *buoh_comic_manager_date_get_dayweek       (GDateWeekday          d);
 
 static BuohComicManagerClass *parent_class = NULL;
 
@@ -52,7 +52,7 @@ struct _BuohComicManagerDatePrivate {
 	gboolean   publications[8]; /* Days of week */
 };
 
-static const gchar *day_names [] = {
+static const gchar *day_names[] = {
  	NULL,
  	N_("Monday"),
  	N_("Tuesday"),
@@ -61,7 +61,7 @@ static const gchar *day_names [] = {
  	N_("Friday"),
  	N_("Saturday"),
  	N_("Sunday")
- };
+};
 
 GType
 buoh_comic_manager_date_get_type (void)
@@ -105,7 +105,7 @@ buoh_comic_manager_date_init (BuohComicManagerDate *comic_manager)
 static void
 buoh_comic_manager_date_class_init (BuohComicManagerDateClass *klass)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	GObjectClass          *object_class = G_OBJECT_CLASS (klass);
 	BuohComicManagerClass *manager_class = (BuohComicManagerClass *) klass;
 	
 	parent_class = g_type_class_peek_parent (klass);
@@ -125,8 +125,6 @@ static void
 buoh_comic_manager_date_finalize (GObject *object)
 {
 	BuohComicManagerDate *comic_manager;
-	
-	g_return_if_fail (BUOH_IS_COMIC_MANAGER_DATE (object));
 	
 	comic_manager = BUOH_COMIC_MANAGER_DATE (object);
 	
@@ -152,6 +150,10 @@ buoh_comic_manager_date_new (const gchar *id,
 			     const gchar *generic_uri)
 {
 	BuohComicManagerDate *comic_manager;
+
+	g_return_val_if_fail (id != NULL && title != NULL &&
+			      author != NULL && language != NULL &&
+			      generic_uri != NULL, NULL);
 	
 	comic_manager = BUOH_COMIC_MANAGER_DATE (g_object_new (BUOH_COMIC_MANAGER_DATE_TYPE,
 							       "id", id,
@@ -166,7 +168,7 @@ buoh_comic_manager_date_new (const gchar *id,
 
 void
 buoh_comic_manager_date_set_restriction (BuohComicManagerDate *comic_manager,
-					 GDateWeekday day)
+					 GDateWeekday          day)
 {
 	g_return_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager));
 
@@ -175,10 +177,13 @@ buoh_comic_manager_date_set_restriction (BuohComicManagerDate *comic_manager,
 
 void
 buoh_comic_manager_date_set_first (BuohComicManagerDate *comic_manager,
-				   gchar *first)
+				   const gchar          *first)
 {
 	GDate     *date;
 	struct tm  time;
+
+	g_return_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager));
+	g_return_if_fail (first != NULL);
 
 	strptime (first, "%Y-%m-%d", &time);
 	/* Bug? */
@@ -397,10 +402,12 @@ buoh_comic_manager_date_get_last (BuohComicManager *comic_manager)
 
 static gboolean 
 buoh_comic_manager_date_is_the_first_comic (BuohComicManager *comic_manager,
-					    BuohComic *comic)
+					    BuohComic        *comic)
 {
 	GDate                       *date;
 	BuohComicManagerDatePrivate *priv;
+
+	g_assert (BUOH_IS_COMIC (comic));
 
 	priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
 	
@@ -413,8 +420,6 @@ static gboolean
 buoh_comic_manager_date_is_the_first (BuohComicManager *comic_manager)
 {
 	GList *current;
-	
-	g_return_val_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager), FALSE);
 	
 	g_object_get (G_OBJECT (comic_manager), 
 		      "current", &current,
@@ -430,8 +435,6 @@ buoh_comic_manager_date_get_first (BuohComicManager *comic_manager)
 	GList                       *comic_list, *first;
 	BuohComicManagerDatePrivate *priv;
 	BuohComic                   *comic;
-
-	g_return_val_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager), NULL);
 
 	priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
 
@@ -480,6 +483,8 @@ buoh_comic_manager_date_get_publication_days (BuohComicManagerDate *comic_manage
 	gboolean  has_restrict = FALSE, prev = FALSE;
 	gchar    *date;
 	GString  *aux;
+
+	g_return_val_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager), NULL);
 	
 	aux = g_string_new ("");
 

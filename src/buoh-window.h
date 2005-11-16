@@ -44,7 +44,7 @@ struct _BuohWindowClass {
 	GtkWindowClass     parent_class;
 };
 
-GType      buoh_window_get_type (void);
+GType      buoh_window_get_type (void) G_GNUC_CONST;
 GtkWidget *buoh_window_new      (void);
 
 G_END_DECLS

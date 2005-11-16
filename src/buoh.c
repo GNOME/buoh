@@ -47,9 +47,9 @@ struct _BuohPrivate {
 
 static GObjectClass *parent_class = NULL;
 
-static void buoh_init                   (Buoh      *buoh);
-static void buoh_class_init             (BuohClass *klass);
-static void buoh_finalize               (GObject   *object);
+static void          buoh_init                   (Buoh         *buoh);
+static void          buoh_class_init             (BuohClass    *klass);
+static void          buoh_finalize               (GObject      *object);
 
 static GList        *buoh_parse_selected         (Buoh         *buoh);
 static GtkTreeModel *buoh_create_model_from_file (Buoh         *buoh);
@@ -412,8 +412,6 @@ buoh_finalize (GObject *object)
 
 	Buoh *buoh = BUOH_BUOH (object);
 
-	g_return_if_fail (BUOH_IS_BUOH (object));
-
 	buoh_debug ("buoh finalize");
 
 	if (buoh->priv->datadir) {
@@ -451,6 +449,8 @@ buoh_new (void)
 void
 buoh_exit_app (Buoh *buoh)
 {
+	g_return_if_fail (BUOH_IS_BUOH (buoh));
+			  
 	g_object_unref (buoh);
 	
 	gtk_main_quit ();
@@ -461,6 +461,8 @@ buoh_exit_app (Buoh *buoh)
 void
 buoh_create_main_window (Buoh *buoh)
 {
+	g_return_if_fail (BUOH_IS_BUOH (buoh));
+	
 	if (buoh->priv->window) {
 		gtk_window_present (GTK_WINDOW (buoh->priv->window));
 	} else {
@@ -471,11 +473,15 @@ buoh_create_main_window (Buoh *buoh)
 GtkTreeModel *
 buoh_get_comics_model (Buoh *buoh)
 {
+	g_return_val_if_fail (BUOH_IS_BUOH (buoh), NULL);
+	
 	return buoh->priv->comic_list;
 }
 
 const gchar *
 buoh_get_datadir (Buoh *buoh)
 {
+	g_return_val_if_fail (BUOH_IS_BUOH (buoh), NULL);
+	
 	return buoh->priv->datadir;
 }

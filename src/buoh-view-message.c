@@ -141,7 +141,8 @@ buoh_view_message_set_title (BuohViewMessage *m_view, const gchar *title)
 {
 	gint size;
 	PangoFontDescription *font_desc;
-	
+
+	g_return_if_fail (BUOH_IS_VIEW_MESSAGE (m_view));
 	g_return_if_fail (title != NULL);
 
 	gtk_label_set_text (GTK_LABEL (m_view->priv->title), title);
@@ -166,6 +167,7 @@ buoh_view_message_set_title (BuohViewMessage *m_view, const gchar *title)
 void
 buoh_view_message_set_text (BuohViewMessage *m_view, const gchar *text)
 {
+	g_return_if_fail (BUOH_IS_VIEW_MESSAGE (m_view));
 	g_return_if_fail (text != NULL);
 
 	gtk_label_set_markup (GTK_LABEL (m_view->priv->text), text);
@@ -179,7 +181,8 @@ buoh_view_message_set_icon (BuohViewMessage *m_view, const gchar *icon)
 	gchar       *icon_path;
 	GdkPixbuf   *pixbuf = NULL;
 	GtkStockItem item;
-	
+
+	g_return_if_fail (BUOH_IS_VIEW_MESSAGE (m_view));
 	g_return_if_fail (icon != NULL);
 
 	if (gtk_stock_lookup (icon, &item)) {

@@ -97,8 +97,8 @@ buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass)
 }
 
 void
-buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
-					  BuohComicManager     *comic_manager)
+buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,
+					  BuohComicManager       *comic_manager)
 {
 	GtkWidget *table;
 	GtkWidget *label_title, *label_title_val;
@@ -114,7 +114,8 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 	BuohComic *comic;
 	GdkPixbuf *thumbnail;
 	gchar     *str;
-	
+
+	g_return_if_fail (BUOH_IS_PROPERTIES_DIALOG (dialog));
 	g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
 
 	dialog->priv->comic_manager = comic_manager;
@@ -272,6 +273,8 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog *dialog,
 BuohComicManager *
 buoh_properties_dialog_get_comic_manager (BuohPropertiesDialog *dialog)
 {
+	g_return_val_if_fail (BUOH_IS_PROPERTIES_DIALOG (dialog), NULL);
+	
 	return dialog->priv->comic_manager;
 }
 

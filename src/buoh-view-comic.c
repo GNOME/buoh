@@ -345,6 +345,8 @@ buoh_view_comic_new (BuohView *view)
 {
 	GtkWidget *c_view;
 
+	g_return_val_if_fail (BUOH_IS_VIEW (view), NULL);
+
 	c_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW_COMIC,
 					   "shadow-type", GTK_SHADOW_IN,
 					   NULL));
@@ -439,7 +441,7 @@ buoh_view_comic_set_image_from_pixbuf (BuohViewComic *c_view, GdkPixbuf *pixbuf)
 {
 	GdkPixbuf *new_pixbuf;
 
-	g_return_if_fail (GDK_IS_PIXBUF (pixbuf));
+	g_assert (GDK_IS_PIXBUF (pixbuf));
 
 	if (c_view->priv->scale != 1.0) {
 		new_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
@@ -459,9 +461,9 @@ buoh_view_comic_set_image_from_pixbuf (BuohViewComic *c_view, GdkPixbuf *pixbuf)
 static gboolean
 buoh_view_comic_load_monitor (gpointer gdata)
 {
-	BuohViewComic *c_view = BUOH_VIEW_COMIC (gdata);
+	BuohViewComic    *c_view = BUOH_VIEW_COMIC (gdata);
 	static GdkCursor *cursor = NULL;
-	static gint height = 0;
+	static gint       height = 0;
 
 	switch (c_view->priv->comic_loader->status) {
 	case LOADER_STATE_READY:
@@ -599,8 +601,8 @@ buoh_view_comic_zoom (BuohViewComic *c_view, gdouble factor, gboolean relative)
 	gdouble    scale;
 	GdkPixbuf *pixbuf = NULL;
 
-	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
-	g_return_if_fail (BUOH_IS_COMIC (c_view->priv->comic));
+	g_assert (BUOH_IS_VIEW_COMIC (c_view));
+	g_assert (BUOH_IS_COMIC (c_view->priv->comic));
 	
 	if (relative)
 		scale = c_view->priv->scale * factor;
@@ -620,35 +622,47 @@ buoh_view_comic_zoom (BuohViewComic *c_view, gdouble factor, gboolean relative)
 gboolean
 buoh_view_comic_is_min_zoom (BuohViewComic *c_view)
 {
+	g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), FALSE);
+	
 	return c_view->priv->scale == MIN_ZOOM_SCALE;
 }
 
 gboolean
 buoh_view_comic_is_max_zoom (BuohViewComic *c_view)
 {
+	g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), FALSE);
+	
 	return c_view->priv->scale == MAX_ZOOM_SCALE;
 }
 
 gboolean
 buoh_view_comic_is_normal_size (BuohViewComic *c_view)
 {
+	g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), FALSE);
+	
 	return c_view->priv->scale == 1.0;
 }
 
 void
 buoh_view_comic_zoom_in (BuohViewComic *c_view)
 {
+	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
+	
 	buoh_view_comic_zoom (c_view, ZOOM_IN_FACTOR, TRUE);
 }
 
 void
 buoh_view_comic_zoom_out (BuohViewComic *c_view)
 {
+	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
+	
 	buoh_view_comic_zoom (c_view, ZOOM_OUT_FACTOR, TRUE);
 }
 
 void
 buoh_view_comic_normal_size (BuohViewComic *c_view)
 {
+	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
+	
 	buoh_view_comic_zoom (c_view, 1.0, FALSE);
 }
