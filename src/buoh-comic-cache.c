@@ -39,9 +39,9 @@ struct _BuohComicCachePrivate {
 
 static GObjectClass *parent_class = NULL;
 
-static void buoh_comic_cache_init                   (BuohComicCache *buoh_comic_cache);
-static void buoh_comic_cache_class_init             (BuohComicCacheClass *klass);
-static void buoh_comic_cache_finalize               (GObject *object);
+static void buoh_comic_cache_init       (BuohComicCache *buoh_comic_cache);
+static void buoh_comic_cache_class_init (BuohComicCacheClass *klass);
+static void buoh_comic_cache_finalize   (GObject *object);
 
 GType
 buoh_comic_cache_get_type (void)
@@ -162,6 +162,8 @@ buoh_comic_cache_uri_to_filename (BuohComicCache *cache,
 	gchar *filename;
 	gchar *path;
 
+	g_assert (uri != NULL);
+	
 	filename = g_strdup (uri);
 	g_strdelimit (filename, "/", '_');
 	path = g_build_filename (cache->priv->cache_dir,
@@ -178,6 +180,9 @@ buoh_comic_cache_to_disk (BuohComicCache *cache,
 {
 	gchar  *path;
 	GError *error = NULL;
+
+	g_assert (uri != NULL);
+	g_assert (GDK_IS_PIXBUF (pixbuf));
 
 	path = buoh_comic_cache_uri_to_filename (cache, uri);
 	buoh_debug ("CACHE: caching (disk) %s", path);

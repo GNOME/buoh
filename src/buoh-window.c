@@ -62,9 +62,9 @@ struct _BuohWindowPrivate {
 
 static GtkWindowClass *parent_class = NULL;
 
-static void buoh_window_init                        (BuohWindow *buoh_window);
-static void buoh_window_class_init                  (BuohWindowClass *klass);
-static void buoh_window_finalize                    (GObject *object);
+static void buoh_window_init                             (BuohWindow      *buoh_window);
+static void buoh_window_class_init                       (BuohWindowClass *klass);
+static void buoh_window_finalize                         (GObject         *object);
 
 /* Sensitivity */
 static void buoh_window_set_sensitive                    (BuohWindow      *window,
@@ -148,7 +148,7 @@ static void buoh_window_cmd_help_about                  (GtkAction        *actio
 
 static void buoh_window_update_title                    (BuohWindow       *window);
 
-static const GtkActionEntry menu_entries [] = {
+static const GtkActionEntry menu_entries[] = {
 
 	/* Top Level */
 	{ "Comic", NULL, N_("_Comic") },
@@ -261,8 +261,6 @@ buoh_window_init (BuohWindow *buoh_window)
 	gboolean          visible_toolbar;
 	gboolean          visible_statusbar;
       
-	g_return_if_fail (BUOH_IS_WINDOW (buoh_window));
-
 	buoh_window->priv = BUOH_WINDOW_GET_PRIVATE (buoh_window);
 
 	gtk_window_set_title (GTK_WINDOW (buoh_window), "Buoh");
@@ -430,8 +428,6 @@ buoh_window_finalize (GObject *object)
 {
 	BuohWindow *buoh_window = BUOH_WINDOW (object);
 	
-	g_return_if_fail (BUOH_IS_WINDOW (object));
-
 	buoh_debug ("buoh-window finalize");
 
 	if (buoh_window->priv->ui_manager) {
@@ -499,12 +495,13 @@ buoh_window_cmd_comic_add (GtkAction *action, gpointer gdata)
 static void
 buoh_window_cmd_comic_remove (GtkAction *action, gpointer gdata)
 {
-	BuohWindow       *window = BUOH_WINDOW (gdata);
-	GtkTreeModel     *model = buoh_get_comics_model (BUOH);
-	GtkTreeIter       iter;
-	BuohComicManager *cm, *current_cm;
-	gchar            *current_cm_id, *cm_id;
-	gboolean          valid;
+	BuohWindow             *window = BUOH_WINDOW (gdata);
+	GtkTreeModel           *model = buoh_get_comics_model (BUOH);
+	GtkTreeIter             iter;
+	BuohComicManager       *cm;
+	BuohComicManager       *current_cm;
+	gchar                  *current_cm_id, *cm_id;
+	gboolean                valid;
 
 	current_cm = buoh_comic_list_get_selected (window->priv->comic_list);
 
@@ -623,7 +620,7 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
 		}
 	} while (!successful);
 
-	g_object_unref (pixbuf);
+//	g_object_unref (pixbuf);
 	g_free (suggested);
 	gtk_widget_destroy (chooser);
 }
@@ -988,7 +985,7 @@ buoh_window_menu_item_select_cb (GtkMenuItem *proxy, gpointer gdata)
 	gchar      *message = NULL;
 
 	action = g_object_get_data (G_OBJECT (proxy),  "gtk-action");
-	g_return_if_fail (action != NULL);
+	g_assert (action != NULL);
 
 	g_object_get (G_OBJECT (action), "tooltip", &message, NULL);
 	if (message) {

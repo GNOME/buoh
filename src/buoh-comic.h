@@ -47,19 +47,20 @@ struct _BuohComicClass {
 	GObjectClass      parent_class;
 };
 
-/* Public methods */
-GType      buoh_comic_get_type      (void); 
-BuohComic *buoh_comic_new           (void);
-BuohComic *buoh_comic_new_with_info (const gchar *id, const gchar *uri,
-				     const GDate *date);
+GType      buoh_comic_get_type             (void) G_GNUC_CONST; 
+BuohComic *buoh_comic_new                  (void);
+BuohComic *buoh_comic_new_with_info        (const gchar *id,
+					    const gchar *uri,
+					    const GDate *date);
 
-void       buoh_comic_set_id                (BuohComic *comic, const gchar *id);
+void       buoh_comic_set_id               (BuohComic   *comic,
+					    const gchar *id);
 void       buoh_comic_go_next              (BuohComic   *comic);
 void       buoh_comic_go_previous          (BuohComic   *comic);
 void       buoh_comic_set_pixbuf           (BuohComic   *comic,
 					    GdkPixbuf   *pixbuf);
-void	   buoh_comic_set_date             (BuohComic *comic,
-					    GDate *date);
+void	   buoh_comic_set_date             (BuohComic   *comic,
+					    GDate       *date);
 void       buoh_comic_set_pixbuf_from_file (BuohComic   *comic,
 					    const gchar *filename);
 

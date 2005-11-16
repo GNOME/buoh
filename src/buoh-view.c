@@ -339,48 +339,63 @@ buoh_view_scale_changed_cb (GObject *object, GParamSpec *arg, gpointer gdata)
 gboolean
 buoh_view_is_min_zoom (BuohView *view)
 {
+	g_return_val_if_fail (BUOH_IS_VIEW (view), FALSE);
+	
 	return buoh_view_comic_is_min_zoom (BUOH_VIEW_COMIC (view->priv->comic));
 }
 
 gboolean
 buoh_view_is_max_zoom (BuohView *view)
 {
+	g_return_val_if_fail (BUOH_IS_VIEW (view), FALSE);
+	
 	return buoh_view_comic_is_max_zoom (BUOH_VIEW_COMIC (view->priv->comic));
 }
 
 gboolean
 buoh_view_is_normal_size (BuohView *view)
 {
+	g_return_val_if_fail (BUOH_IS_VIEW (view), FALSE);
+	
 	return buoh_view_comic_is_normal_size (BUOH_VIEW_COMIC (view->priv->comic));
 }
 
 void
 buoh_view_zoom_in (BuohView *view)
 {
+	g_return_if_fail (BUOH_IS_VIEW (view));
+	
 	buoh_view_comic_zoom_in (BUOH_VIEW_COMIC (view->priv->comic));
 }
 
 void
 buoh_view_zoom_out (BuohView *view)
 {
+	g_return_if_fail (BUOH_IS_VIEW (view));
+	
 	buoh_view_comic_zoom_out (BUOH_VIEW_COMIC (view->priv->comic));
 }
 
 void
 buoh_view_zoom_normal_size (BuohView *view)
 {
+	g_return_if_fail (BUOH_IS_VIEW (view));
+	
 	buoh_view_comic_normal_size (BUOH_VIEW_COMIC (view->priv->comic));
 }
 
 BuohViewStatus
 buoh_view_get_status (BuohView *view)
 {
+	g_return_val_if_fail (BUOH_IS_VIEW (view), 0);
+	
 	return view->priv->status;
 }
 
 void
-buoh_view_set_comic (BuohView *view, BuohComic *comic)
+buoh_view_set_comic (BuohView *view, const BuohComic *comic)
 {
+	g_return_if_fail (BUOH_IS_VIEW (view));
         g_return_if_fail (BUOH_IS_COMIC (comic));
 
         g_object_set (G_OBJECT (view->priv->comic),
@@ -393,6 +408,8 @@ buoh_view_get_comic (BuohView *view)
 {
         BuohComic *comic = NULL;
 
+	g_return_val_if_fail (BUOH_IS_VIEW (view), NULL);
+	
         g_object_get (G_OBJECT (view->priv->comic),
                       "comic", &comic,
                       NULL);
@@ -403,6 +420,9 @@ buoh_view_get_comic (BuohView *view)
 void
 buoh_view_set_message_title (BuohView *view, const gchar *title)
 {
+	g_return_if_fail (BUOH_IS_VIEW (view));
+	g_return_if_fail (title != NULL);
+	
 	buoh_view_message_set_title (BUOH_VIEW_MESSAGE (view->priv->message),
 				     title);
 }
@@ -410,6 +430,9 @@ buoh_view_set_message_title (BuohView *view, const gchar *title)
 void
 buoh_view_set_message_text (BuohView *view, const gchar *text)
 {
+	g_return_if_fail (BUOH_IS_VIEW (view));
+	g_return_if_fail (text != NULL);
+	
 	buoh_view_message_set_text (BUOH_VIEW_MESSAGE (view->priv->message),
 				    text);
 }
@@ -417,6 +440,9 @@ buoh_view_set_message_text (BuohView *view, const gchar *text)
 void
 buoh_view_set_message_icon (BuohView *view, const gchar *icon)
 {
+	g_return_if_fail (BUOH_IS_VIEW (view));
+	g_return_if_fail (icon != NULL);
+	
 	buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (view->priv->message),
 				    icon);
 }
@@ -424,6 +450,8 @@ buoh_view_set_message_icon (BuohView *view, const gchar *icon)
 void
 buoh_view_clear (BuohView *view)
 {
+	g_return_if_fail (BUOH_IS_VIEW (view));
+	
 	g_object_set (G_OBJECT (view),
 		      "status", STATE_EMPTY,
 		      NULL);

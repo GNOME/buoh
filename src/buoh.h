@@ -55,7 +55,7 @@ struct _BuohClass {
 	GObjectClass  parent_class;
 };
 
-GType         buoh_get_type           (void);
+GType         buoh_get_type           (void) G_GNUC_CONST;
 Buoh         *buoh_get_instance       (void);
 Buoh         *buoh_new                (void);
 

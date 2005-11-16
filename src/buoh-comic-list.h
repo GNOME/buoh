@@ -47,14 +47,13 @@ struct _BuohComicListClass {
 	GtkBinClass         parent_class;
 };
 
-GType             buoh_comic_list_get_type        (void);
+GType             buoh_comic_list_get_type        (void) G_GNUC_CONST;
 GtkWidget        *buoh_comic_list_new             (void);
 
 void              buoh_comic_list_set_view        (BuohComicList *comic_list,
 						   BuohView      *view);
 GtkWidget        *buoh_comic_list_get_list        (BuohComicList *comic_list);
 void              buoh_comic_list_clear_selection (BuohComicList *comic_list);
-
 BuohComicManager *buoh_comic_list_get_selected    (BuohComicList *comic_list);
 
 G_END_DECLS

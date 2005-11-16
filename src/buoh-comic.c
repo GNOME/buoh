@@ -17,10 +17,6 @@
  *           Esteban Sanchez Munoz (steve-o) <esteban@steve-o.org>
  */
 
-/*#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif*/
-
 #include <glib.h>
 #include <glib/gi18n.h>
 
@@ -89,7 +85,6 @@ buoh_comic_get_type (void)
 static void
 buoh_comic_init (BuohComic *buoh_comic)
 {
-	   
 	buoh_comic->priv = BUOH_COMIC_GET_PRIVATE (buoh_comic);
 
 	buoh_comic->priv->id     = NULL;
@@ -146,13 +141,16 @@ buoh_comic_finalize (GObject *object)
 {
 	BuohComic *comic = BUOH_COMIC (object);
 	
-	g_return_if_fail (BUOH_IS_COMIC (comic));
-
 	buoh_debug ("buoh-comic-finalize");
 
 	if (comic->priv->id) {
 		g_free (comic->priv->id);
 		comic->priv->id = NULL;
+	}
+
+	if (comic->priv->uri) {
+		g_free (comic->priv->uri);
+		comic->priv->uri = NULL;
 	}
 
 	if (comic->priv->date) {
@@ -184,6 +182,9 @@ buoh_comic_new_with_info (const gchar *id, const gchar *uri,
 			  const GDate *date)
 {
 	BuohComic *comic;
+
+	g_return_val_if_fail (id != NULL && uri != NULL, NULL);
+	g_return_val_if_fail (date != NULL, NULL);
 
 	comic = BUOH_COMIC (g_object_new (BUOH_TYPE_COMIC,
 					  "id", id,
@@ -275,6 +276,7 @@ void
 buoh_comic_set_id (BuohComic *comic, const gchar *id)
 {
 	g_return_if_fail (BUOH_IS_COMIC (comic));
+	g_return_if_fail (id != NULL);
 
 	g_object_set (G_OBJECT (comic), "id", id, NULL);
 }
@@ -283,6 +285,7 @@ void
 buoh_comic_set_pixbuf (BuohComic *comic, GdkPixbuf *pixbuf)
 {
 	g_return_if_fail (BUOH_IS_COMIC (comic));
+	g_return_if_fail (GDK_IS_PIXBUF (pixbuf));
 
 	g_object_set (G_OBJECT (comic), "pixbuf", pixbuf, NULL);
 }
@@ -291,6 +294,7 @@ void
 buoh_comic_set_date (BuohComic *comic, GDate *date)
 {
 	g_return_if_fail (BUOH_IS_COMIC (comic));
+	g_return_if_fail (date != NULL);
 
 	g_object_set (G_OBJECT (comic), "date", date, NULL);
 }
@@ -301,6 +305,7 @@ buoh_comic_set_pixbuf_from_file (BuohComic *comic, const gchar *filename)
 	GdkPixbuf *pixbuf = NULL;
 	
 	g_return_if_fail (BUOH_IS_COMIC (comic));
+	g_return_if_fail (filename != NULL);
 
 	pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
 
@@ -363,6 +368,8 @@ buoh_comic_get_thumbnail (BuohComic *comic)
 	gint       c_width, c_height;
 	gint       d_width, d_height;
 
+	g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
+	
 	g_object_get (G_OBJECT (comic), "pixbuf", &pixbuf, NULL);
 
 	if (pixbuf) {
@@ -388,6 +395,8 @@ buoh_comic_get_thumbnail (BuohComic *comic)
 gchar *
 buoh_comic_get_filename (BuohComic *comic)
 {
+	g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
+	
 	gchar *filename;
 	
 	filename = g_path_get_basename (comic->priv->uri);

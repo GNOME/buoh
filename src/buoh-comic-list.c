@@ -124,8 +124,6 @@ buoh_comic_list_init (BuohComicList *buoh_comic_list)
 	GtkTreeViewColumn *column;
 	GtkTreeSelection  *selection;
 	
-	g_return_if_fail (BUOH_IS_COMIC_LIST (buoh_comic_list));
-
 	buoh_comic_list->priv = BUOH_COMIC_LIST_GET_PRIVATE (buoh_comic_list);
 
 	buoh_comic_list->priv->comic_manager = NULL;
@@ -191,8 +189,6 @@ buoh_comic_list_finalize (GObject *object)
 {
 	BuohComicList *comic_list = BUOH_COMIC_LIST (object);
 	
-	g_return_if_fail (BUOH_IS_COMIC_LIST (object));
-
 	buoh_debug ("comic-list finalize");
 
 	if (comic_list->priv->model) {
@@ -251,6 +247,7 @@ buoh_comic_list_new (void)
 void
 buoh_comic_list_set_view (BuohComicList *comic_list, BuohView *view)
 {
+	g_return_if_fail (BUOH_IS_COMIC_LIST (comic_list));
 	g_return_if_fail (BUOH_IS_VIEW (view));
 
 	if (comic_list->priv->view)
@@ -262,12 +259,16 @@ buoh_comic_list_set_view (BuohComicList *comic_list, BuohView *view)
 GtkWidget *
 buoh_comic_list_get_list (BuohComicList *comic_list)
 {
+	g_return_val_if_fail (BUOH_IS_COMIC_LIST (comic_list), NULL);
+	
 	return comic_list->priv->tree_view;
 }
 
 void
 buoh_comic_list_clear_selection (BuohComicList *comic_list)
 {
+	g_return_if_fail (BUOH_IS_COMIC_LIST (comic_list));
+	
 	gtk_tree_selection_unselect_all (
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (comic_list->priv->tree_view)));
 }
@@ -275,7 +276,7 @@ buoh_comic_list_clear_selection (BuohComicList *comic_list)
 BuohComicManager *
 buoh_comic_list_get_selected (BuohComicList *comic_list)
 {
+	g_return_val_if_fail (BUOH_IS_COMIC_LIST (comic_list), NULL);
+	
 	return comic_list->priv->comic_manager;
 }
-
-
