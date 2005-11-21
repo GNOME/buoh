@@ -97,6 +97,7 @@ buoh_comic_manager_date_init (BuohComicManagerDate *comic_manager)
 	comic_manager->priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
 	
 	comic_manager->priv->date = NULL;
+	comic_manager->priv->first = NULL;
 
  	for (i = G_DATE_BAD_WEEKDAY; i <= G_DATE_SUNDAY; i++)
 		comic_manager->priv->publications[i] = TRUE;
@@ -189,7 +190,9 @@ buoh_comic_manager_date_set_first (BuohComicManagerDate *comic_manager,
 	/* Bug? */
 	time.tm_year += 1900;
 	date = g_date_new_dmy (time.tm_mday, time.tm_mon + 1, time.tm_year);
-	
+
+	if (comic_manager->priv->first)
+		g_date_free (comic_manager->priv->first);
 	comic_manager->priv->first = date;
 }
 
@@ -214,10 +217,11 @@ static gchar *
 buoh_comic_manager_date_get_uri_from_date (BuohComicManagerDate *comic_manager)
 {
 	gchar  uri[URI_BUFFER];
-	gchar *uri_aux;
+	gchar *uri_aux = NULL;
 
 	g_object_get (G_OBJECT (comic_manager),
 		      "generic_uri", &uri_aux, NULL);
+	g_assert (uri_aux != NULL);
 
 	if (g_date_strftime (uri, URI_BUFFER,
 			     uri_aux,
@@ -445,8 +449,8 @@ buoh_comic_manager_date_get_first (BuohComicManager *comic_manager)
 	if (priv->date != NULL)
 		g_date_free (priv->date);
 	priv->date = g_date_new_dmy (g_date_get_day (priv->first),
-					     g_date_get_month (priv->first),
-					     g_date_get_year (priv->first));
+				     g_date_get_month (priv->first),
+				     g_date_get_year (priv->first));
 	
 	first = g_list_first (comic_list);
 	comic = BUOH_COMIC (first->data);
