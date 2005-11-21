@@ -1,5 +1,9 @@
 2005-11-21  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* src/buoh-comic-manager-date.c: Minor code cleanup
+
+2005-11-21  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* src/buoh.c: Do disk access in an idle function when saving comic
 	list changes.
 
