@@ -290,11 +290,8 @@ buoh_comic_list_visible (GtkTreeModel *model,
 	return visible;
 }
 
-static void
-buoh_save_comic_list (GtkTreeModel *model,
-		      GtkTreePath  *arg1,
-		      GtkTreeIter  *arg2,
-		      gpointer      gdata)
+static gboolean
+save_comic_list (gpointer gdata)
 {
 	Buoh             *buoh = BUOH_BUOH (gdata);
 	xmlTextWriterPtr  writer;
@@ -343,6 +340,17 @@ buoh_save_comic_list (GtkTreeModel *model,
 	xmlTextWriterEndElement (writer);
 	xmlTextWriterEndDocument (writer);
 	xmlFreeTextWriter (writer);
+
+	return FALSE;
+}
+
+static void
+buoh_save_comic_list (GtkTreeModel *model,
+		      GtkTreePath  *arg1,
+		      GtkTreeIter  *arg2,
+		      gpointer      gdata)
+{
+	g_idle_add ((GSourceFunc) save_comic_list, gdata);
 }
 
 static gboolean
