@@ -1,13 +1,4 @@
 <comic_list>
-<comic id="userf"
-         class="date"
-         title="Userfriendly"
-         author="J.D. Fraze"
-         language="English"
-        
-generic_uri="http://www.userfriendly.org/cartoons/archives/%y%b/uf0085%d.gif"
-         first="1997-11-07">
-</comic>
 <comic id="sptut"
          class="date"
 	 title="Tutelandia en Español"
@@ -1179,5 +1170,142 @@ generic_uri="http://www.userfriendly.org/cartoons/archives/%y%b/uf0085%d.gif"
         <restrict>4</restrict>
         <restrict>6</restrict>
         <restrict>7</restrict>
+</comic>
+<comic id="ctrlaltdel"
+	class="date"
+	title="Ctrl+Alt+Del"
+	author="Tim Buckley"
+	language="English"
+	generic_uri="http://www.ctrlaltdel-online.com/comics/%Y%m%d.jpg"
+	first="2002-10-23">
+	<restrict>2</restrict>
+        <restrict>4</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="pvponline"
+	class="date"
+	title="PvP"
+	author="Scott Kurtx"
+	language="English"
+	generic_uri="http://www.pvponline.com/archive/%Y/pvp%Y%m%d.gif"
+	first="1998-05-04">
+</comic>
+<comic id="alphaluna"
+        class="date"
+        title="Alpha Luna"
+        author="Leonardo Vidal F."
+        language="English"
+        generic_uri="http://www.alphaluna.net/PAGINAS/%Y%m%d.jpg"
+        first="2005-01-03">
+	<restrict>1</restrict>
+        <restrict>3</restrict>
+        <restrict>4</restrict>
+        <restrict>5</restrict>
+        <restrict>6</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="sinfest"
+        class="date"
+        title="Sinfest"
+        author="Tatsuya Ishida"
+        language="English"
+        generic_uri="http://www.sinfest.net/comics/sf%Y%m%d.gif"
+        first="2000-01-17">
+</comic>
+<comic id="flo"
+        class="date"
+        title="Do you know Flo?"
+        author="Floor de Goede"
+        language="Dutch"
+	generic_uri="http://www.doyouknowflo.nl/daily/%Y/%m/%d-%m-%y.jpg"
+        first="2005-01-04">
+	<restrict>6</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="doorzon"
+        class="date"
+        title="Doorzon"
+        author="Mand van Staal"
+        language="Dutch"
+        generic_uri="http://www.doorzon.nl/images/john/%y/john_%m%d.gif"
+        first="2005-01-04">
+	<restrict>6</restrict>
+	<restrict>7</restrict>
+</comic>
+<comic id="lectrr"
+        class="date"
+        title="Lectrrland"
+        author="Lectrr"
+        language="Dutch"
+        generic_uri="http://www.lectrr.be/day/%m%d.gif"
+        first="2005-01-01">
+	<restrict>1</restrict>
+        <restrict>3</restrict>
+        <restrict>5</restrict>
+        <restrict>7</restrict>
+</comic>
+<comic id="6chix"
+        class="date"
+        title="6Chix"
+        author="Isabella Bannerman"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/6Chix?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=8sdef0&amp;size=hires"
+        first="2004-02-29">
+</comic>
+<comic id="spiderman"
+        class="date"
+        title="The amazing Spiderman"
+        author="Stan Lee, Larry Lieber &amp; Alex Saviuk"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Spiderman?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=hkw769&amp;size=hires"
+        first="2005-01-01">
+</comic>
+<comic id="blondie"
+        class="date"
+        title="Blondie"
+        author="Dean Young &amp; Denis Lebrun"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Blondie?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=lby49o&amp;size=hires"
+        first="2005-01-01">
+</comic>
+<comic id="mothergoose"
+        class="date"
+        title="Mother Goose &amp; Grimm"
+        author="Mike Peters"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Mgoose?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=bc59ut&amp;size=hires"
+        first="2003-01-27">
+</comic>
+<comic id="famcircus"
+        class="date"
+        title="The family Circus"
+        author="Bil Keane"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Family_Circus?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=wy2j37&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="dennis"
+        class="date"
+        title="Dennis the menace"
+        author="Hank Ketcham, Marcus Hamilton &amp; Ron Ferdinand"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Dennis_The_Menace?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=sytlm5&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="zippy"
+        class="date"
+        title="Zippy the pinhead"
+        author="Bill Griffith"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Zippy_the_Pinhead?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=jqzv3p&amp;size=hires"
+        first="2004-02-01">
+</comic>
+<comic id="sallyforth"
+        class="date"
+        title="Sally Forth"
+        author="Francesco Marciuliano &amp; Craig Macintosh"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Sally_Forth?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=n5cec9&amp;size=hires"
+        first="2004-03-01">
 </comic>
 </comic_list>

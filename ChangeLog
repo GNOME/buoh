@@ -1,3 +1,8 @@
+2005-11-29  Esteban Sanchez  <esteban@steve-o.org>
+
+	* data/comics.xml: Sixteen new comics added. Userfriendly removed
+	due to its irregular form of publishing.
+
 2005-11-21  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* src/buoh-comic-manager-date.c: Minor code cleanup
