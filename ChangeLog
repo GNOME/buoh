@@ -1,3 +1,12 @@
+2005-11-30  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-comic-cache.[ch]:
+	* src/buoh-comic-loader.[ch]:
+	* src/buoh-comic.[ch]: Add image property
+	* src/buoh-view-comic.c:
+	Store compressed images instead of pixbufs in cache. Reduce the cache
+	size to 1MB. The memory consumption is really smaller right now. 
+	
 2005-11-29  Esteban Sanchez  <esteban@steve-o.org>
 
 	* data/comics.xml: Sixteen new comics added. Userfriendly removed

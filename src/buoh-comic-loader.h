@@ -52,14 +52,15 @@ typedef struct _BuohComicLoaderPrivate BuohComicLoaderPrivate;
 struct _BuohComicLoader {
 	GObject    parent;
 
-	GMutex    *thread_mutex;
-	GMutex    *pixbuf_mutex;
-	GMutex    *status_mutex;
+	GMutex         *thread_mutex;
+	GMutex         *pixbuf_mutex;
+	GMutex         *status_mutex;
 	
-	GThread   *thread;
-	GdkPixbuf *pixbuf;
-	guint      status;
-	GError    *error;
+	GThread        *thread;
+	GdkPixbuf      *pixbuf;
+	BuohComicImage *image;
+	guint           status;
+	GError         *error;
 
 	BuohComicLoaderPrivate *priv;
 };
@@ -73,8 +74,10 @@ GQuark           buoh_comic_loader_error_quark (void);
 BuohComicLoader *buoh_comic_loader_new         (void);
 
 void             buoh_comic_loader_run         (BuohComicLoader *loader,
-						const gchar     *uri);
+						const gchar     *uri,
+						gdouble          scale);
 void             buoh_comic_loader_stop        (BuohComicLoader *loader);
+void             buoh_comic_loader_wait        (BuohComicLoader *loader);
 
 G_END_DECLS
 

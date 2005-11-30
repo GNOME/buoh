@@ -37,6 +37,11 @@ typedef struct _BuohComicPrivate BuohComicPrivate;
 #define BUOH_COMIC_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), BUOH_TYPE_COMIC, BuohComicClass))
 
 
+typedef struct {
+	guchar *data;
+	gsize   size;
+} BuohComicImage;
+
 struct _BuohComic {
 	GObject           parent;
 
@@ -49,27 +54,32 @@ struct _BuohComicClass {
 
 GType      buoh_comic_get_type             (void) G_GNUC_CONST; 
 BuohComic *buoh_comic_new                  (void);
-BuohComic *buoh_comic_new_with_info        (const gchar *id,
-					    const gchar *uri,
-					    const GDate *date);
+BuohComic *buoh_comic_new_with_info        (const gchar    *id,
+					    const gchar    *uri,
+					    const GDate    *date);
 
-void       buoh_comic_set_id               (BuohComic   *comic,
-					    const gchar *id);
-void       buoh_comic_go_next              (BuohComic   *comic);
-void       buoh_comic_go_previous          (BuohComic   *comic);
-void       buoh_comic_set_pixbuf           (BuohComic   *comic,
-					    GdkPixbuf   *pixbuf);
-void	   buoh_comic_set_date             (BuohComic   *comic,
-					    GDate       *date);
-void       buoh_comic_set_pixbuf_from_file (BuohComic   *comic,
-					    const gchar *filename);
+void       buoh_comic_set_id               (BuohComic      *comic,
+					    const gchar    *id);
+void       buoh_comic_go_next              (BuohComic      *comic);
+void       buoh_comic_go_previous          (BuohComic      *comic);
+void       buoh_comic_set_pixbuf           (BuohComic      *comic,
+					    GdkPixbuf      *pixbuf);
+void       buoh_comic_set_image            (BuohComic      *comic,
+					    BuohComicImage *image);
+void	   buoh_comic_set_date             (BuohComic      *comic,
+					    GDate          *date);
+void       buoh_comic_set_pixbuf_from_file (BuohComic      *comic,
+					    const gchar    *filename);
 
-gchar     *buoh_comic_get_uri              (BuohComic   *comic);
-gchar     *buoh_comic_get_id               (BuohComic   *comic);
-GdkPixbuf *buoh_comic_get_pixbuf           (BuohComic   *comic);
-GDate     *buoh_comic_get_date             (BuohComic   *comic);
-GdkPixbuf *buoh_comic_get_thumbnail        (BuohComic   *comic);
-gchar     *buoh_comic_get_filename         (BuohComic   *comic);
+gchar     *buoh_comic_get_uri              (BuohComic      *comic);
+gchar     *buoh_comic_get_id               (BuohComic      *comic);
+GdkPixbuf *buoh_comic_get_pixbuf           (BuohComic      *comic);
+BuohComicImage *buoh_comic_get_image       (BuohComic      *comic);
+GDate     *buoh_comic_get_date             (BuohComic      *comic);
+GdkPixbuf *buoh_comic_get_thumbnail        (BuohComic      *comic);
+gchar     *buoh_comic_get_filename         (BuohComic      *comic);
+
+void       buoh_comic_image_free           (BuohComicImage *image);
 
 G_END_DECLS
 
