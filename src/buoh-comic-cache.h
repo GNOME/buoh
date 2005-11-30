@@ -22,6 +22,8 @@
 #include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
+#include "buoh-comic.h"
+
 G_BEGIN_DECLS
 
 typedef struct _BuohComicCache        BuohComicCache;
@@ -47,6 +49,11 @@ struct _BuohComicCacheClass {
 GType           buoh_comic_cache_get_type   (void) G_GNUC_CONST;
 BuohComicCache *buoh_comic_cache_new        (void);
 
+void            buoh_comic_cache_set_image  (BuohComicCache *cache,
+					     const gchar    *uri,
+					     BuohComicImage *image);
+BuohComicImage *buoh_comic_cache_get_image  (BuohComicCache *cache,
+					     const gchar    *uri);
 void            buoh_comic_cache_set_pixbuf (BuohComicCache *cache,
 					     const gchar    *uri,
 					     GdkPixbuf      *pixbuf);

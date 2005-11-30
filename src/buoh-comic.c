@@ -29,6 +29,7 @@ enum {
 	PROP_ID,
 	PROP_URI,
 	PROP_PIXBUF,
+	PROP_IMAGE,
 	PROP_DATE
 };
 
@@ -87,9 +88,9 @@ buoh_comic_init (BuohComic *buoh_comic)
 {
 	buoh_comic->priv = BUOH_COMIC_GET_PRIVATE (buoh_comic);
 
-	buoh_comic->priv->id     = NULL;
-	buoh_comic->priv->uri    = NULL;
-	buoh_comic->priv->date   = NULL;
+	buoh_comic->priv->id = NULL;
+	buoh_comic->priv->uri = NULL;
+	buoh_comic->priv->date = NULL;
 
 	buoh_comic->priv->cache = buoh_comic_cache_new ();
 }
@@ -125,6 +126,12 @@ buoh_comic_class_init (BuohComicClass *klass)
 					 g_param_spec_pointer ("pixbuf",
 							       "Pixbuf",
 							       "Pixbuf of the comic",
+							       G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+					 PROP_IMAGE,
+					 g_param_spec_pointer ("image",
+							       "Image",
+							       "Compressed image of the comic",
 							       G_PARAM_READWRITE));
 	g_object_class_install_property (object_class,
 					 PROP_DATE,
@@ -223,6 +230,15 @@ buoh_comic_set_property (GObject      *object,
 					     comic->priv->uri, pixbuf);
 	}
 		break;
+	case PROP_IMAGE: {
+		BuohComicImage *image;
+
+		image = (BuohComicImage *) g_value_get_pointer (value);
+		buoh_comic_cache_set_image (comic->priv->cache,
+					    comic->priv->uri, image);
+	}
+		
+		break;
 	case PROP_DATE:
 		if (comic->priv->date) {
 			g_date_free (comic->priv->date);
@@ -263,6 +279,14 @@ buoh_comic_get_property (GObject      *object,
 		g_value_set_pointer (value, pixbuf);
 	}
 		break;
+	case PROP_IMAGE: {
+		BuohComicImage *image;
+
+		image = buoh_comic_cache_get_image (comic->priv->cache,
+						    comic->priv->uri);
+		g_value_set_pointer (value, image);
+	}
+		break;
 	case PROP_DATE:
 		g_value_set_pointer (value, comic->priv->date);
 		
@@ -288,6 +312,15 @@ buoh_comic_set_pixbuf (BuohComic *comic, GdkPixbuf *pixbuf)
 	g_return_if_fail (GDK_IS_PIXBUF (pixbuf));
 
 	g_object_set (G_OBJECT (comic), "pixbuf", pixbuf, NULL);
+}
+
+void
+buoh_comic_set_image (BuohComic *comic, BuohComicImage *image)
+{
+	g_return_if_fail (BUOH_IS_COMIC (comic));
+	g_return_if_fail (image != NULL);
+
+	g_object_set (G_OBJECT (comic), "image", image, NULL);
 }
 
 void
@@ -348,6 +381,18 @@ buoh_comic_get_pixbuf (BuohComic *comic)
 	return pixbuf;
 }
 
+BuohComicImage *
+buoh_comic_get_image (BuohComic *comic)
+{
+	BuohComicImage *image = NULL;
+
+	g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
+
+	g_object_get (G_OBJECT (comic), "image", &image, NULL);
+
+	return image;
+}
+
 GDate *
 buoh_comic_get_date (BuohComic *comic)
 {
@@ -402,4 +447,13 @@ buoh_comic_get_filename (BuohComic *comic)
 	filename = g_path_get_basename (comic->priv->uri);
 	
 	return filename;
+}
+
+void
+buoh_comic_image_free (BuohComicImage *image)
+{
+	if (image) {
+		g_free (image->data);
+		g_free (image);
+	}
 }

@@ -39,6 +39,7 @@ enum {
 struct _BuohViewComicPrivate {
 	BuohView        *view;
 	GtkWidget       *image;
+	GdkPixbuf       *current;
 
 	BuohComic       *comic;
 	gdouble          scale;
@@ -454,7 +455,7 @@ buoh_view_comic_set_image_from_pixbuf (BuohViewComic *c_view, GdkPixbuf *pixbuf)
 						      gdk_pixbuf_get_width (pixbuf) * c_view->priv->scale,
 						      gdk_pixbuf_get_height (pixbuf) * c_view->priv->scale,
 						      GDK_INTERP_BILINEAR);
-
+		
 		gtk_image_set_from_pixbuf (GTK_IMAGE (c_view->priv->image), new_pixbuf);
 		g_object_unref (new_pixbuf);
 	} else {
@@ -488,10 +489,11 @@ buoh_view_comic_load_monitor (gpointer gdata)
 
 			if (new_height != height) {
 				g_mutex_lock (c_view->priv->comic_loader->pixbuf_mutex);
-				buoh_view_comic_set_image_from_pixbuf (
-					c_view,
-					c_view->priv->comic_loader->pixbuf);
+				gtk_image_set_from_pixbuf (GTK_IMAGE (c_view->priv->image),
+							   c_view->priv->comic_loader->pixbuf);
 				g_mutex_unlock (c_view->priv->comic_loader->pixbuf_mutex);
+				
+				gtk_widget_show (c_view->priv->image);
 				height = new_height;
 			}
 		}
@@ -500,12 +502,23 @@ buoh_view_comic_load_monitor (gpointer gdata)
 	case LOADER_STATE_FINISHED:
 		if (GDK_IS_PIXBUF (c_view->priv->comic_loader->pixbuf)) {
 			g_mutex_lock (c_view->priv->comic_loader->pixbuf_mutex);
-			buoh_view_comic_set_image_from_pixbuf (c_view,
-							       c_view->priv->comic_loader->pixbuf);
-			buoh_comic_set_pixbuf (c_view->priv->comic,
-					       c_view->priv->comic_loader->pixbuf);
+			gtk_image_set_from_pixbuf (GTK_IMAGE (c_view->priv->image),
+						   c_view->priv->comic_loader->pixbuf);
+			if (c_view->priv->scale == 1.0) {
+				/* We have both the compressed and uncompressed image.
+				 * Setting the pixbuf avoids the cache uncompressing
+				 * the image again and having a new pixbuf instead of a
+				 * reference.
+				 */
+				buoh_comic_set_pixbuf (c_view->priv->comic,
+						       c_view->priv->comic_loader->pixbuf);
+			}
+			buoh_comic_set_image (c_view->priv->comic,
+					      c_view->priv->comic_loader->image);
 			g_object_unref (c_view->priv->comic_loader->pixbuf);
 			g_mutex_unlock (c_view->priv->comic_loader->pixbuf_mutex);
+
+			gtk_widget_show (c_view->priv->image);
 			
 			g_object_set (G_OBJECT (c_view->priv->view),
 				      "status", STATE_COMIC_LOADED,
@@ -574,7 +587,7 @@ buoh_view_comic_load (BuohViewComic *c_view)
 		buoh_debug ("Load already running");
 		buoh_comic_loader_stop (c_view->priv->comic_loader);
 		buoh_debug ("waiting thread");
-		g_thread_join (c_view->priv->comic_loader->thread);
+		buoh_comic_loader_wait (c_view->priv->comic_loader);
 		buoh_debug ("died");
 	}
 
@@ -589,7 +602,9 @@ buoh_view_comic_load (BuohViewComic *c_view)
 			      "status", STATE_COMIC_LOADING,
 			      NULL);
 		uri = buoh_comic_get_uri (c_view->priv->comic);
-		buoh_comic_loader_run (c_view->priv->comic_loader, uri);
+		buoh_comic_loader_run (c_view->priv->comic_loader,
+				       uri,
+				       c_view->priv->scale);
 		g_free (uri);
 
 		if (c_view->priv->load_monitor > 0)

@@ -16,6 +16,7 @@
  *  Authors : Carlos García Campos <carlosgc@gnome.org>
  */
 
+#include <string.h>
 #include <gconf/gconf-client.h>
 
 #include "buoh.h"
@@ -27,7 +28,10 @@ struct _BuohComicLoaderPrivate {
 	SoupSession     *session;
 	SoupMessage     *msg;
 
+	GString         *data;
+	
 	gchar           *uri;
+	gdouble          scale;
 	GdkPixbufLoader *pixbuf_loader;
 };
 
@@ -41,6 +45,8 @@ struct _BuohComicLoaderPrivate {
 #define GCONF_HTTP_PROXY_USE_AUTHENTICATION "/system/http_proxy/use_authentication"
 #define GCONF_HTTP_PROXY_AUTHENTICATION_USER "/system/http_proxy/authentication_user"
 #define GCONF_HTTP_PROXY_AUTHENTICATION_PASSWORD "/system/http_proxy/authentication_password"
+
+#define DATA_SIZE 61440 /* 60K */
 
 static GObjectClass *parent_class = NULL;
 
@@ -109,7 +115,8 @@ buoh_comic_loader_init (BuohComicLoader *loader)
 	SoupUri *proxy_uri = NULL;
 	
 	loader->priv = BUOH_COMIC_LOADER_GET_PRIVATE (loader);
-	
+
+	loader->priv->data = g_string_sized_new (DATA_SIZE);
 	loader->priv->uri = NULL;
 	loader->priv->pixbuf_loader = NULL;
 
@@ -201,6 +208,11 @@ buoh_comic_loader_finalize (GObject *object)
 		loader->priv->gconf_client = NULL;
 	}
 
+	if (loader->priv->data) {
+		g_string_free (loader->priv->data, TRUE);
+		loader->priv->data = NULL;
+	}
+	
 	if (loader->priv->uri) {
 		g_free (loader->priv->uri);
 		loader->priv->uri = NULL;
@@ -281,6 +293,18 @@ buoh_comic_loader_update_proxy (GConfClient *gconf_client, guint cnxn_id,
 }
 
 static void
+buoh_comic_loader_set_size (GdkPixbufLoader *pixbuf_loader,
+			    gint width, gint height, gpointer gdata)
+{
+	BuohComicLoader *loader = BUOH_COMIC_LOADER (gdata);
+
+	buoh_debug ("loader size-prepared");
+	gdk_pixbuf_loader_set_size (pixbuf_loader,
+				    width * loader->priv->scale,
+				    height * loader->priv->scale);
+}
+
+static void
 buoh_comic_loader_update (GdkPixbufLoader *pixbuf_loader, gint x, gint y,
 			  gint width, gint height, gpointer gdata)
 {
@@ -302,6 +326,14 @@ buoh_comic_loader_resolved (SoupMessage *msg, gpointer gdata)
 
 	if (SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
 		loader->priv->pixbuf_loader = gdk_pixbuf_loader_new ();
+		
+		if (loader->priv->scale != 1.0) {
+			g_signal_connect (G_OBJECT (loader->priv->pixbuf_loader),
+					  "size_prepared",
+					  G_CALLBACK (buoh_comic_loader_set_size),
+					  (gpointer) loader);
+		}
+		
 		g_signal_connect (G_OBJECT (loader->priv->pixbuf_loader),
 				  "area-updated",
 				  G_CALLBACK (buoh_comic_loader_update),
@@ -333,6 +365,9 @@ buoh_comic_loader_read_next (SoupMessage *msg, gpointer gdata)
 	}
 
 	if (SOUP_STATUS_IS_SUCCESSFUL (msg->status_code)) {
+		loader->priv->data = g_string_append_len (loader->priv->data,
+							  msg->response.body,
+							  msg->response.length);
 		gdk_pixbuf_loader_write (loader->priv->pixbuf_loader,
 					 (guchar *) msg->response.body,
 					 msg->response.length, NULL);
@@ -367,8 +402,14 @@ buoh_comic_loader_finished (SoupMessage *msg, gpointer gdata)
 			g_mutex_lock (loader->pixbuf_mutex);
 			pixbuf = gdk_pixbuf_loader_get_pixbuf (loader->priv->pixbuf_loader);
 			loader->pixbuf = GDK_IS_PIXBUF (pixbuf) ? g_object_ref (pixbuf) : NULL;
+			loader->image = g_new0 (BuohComicImage, 1);
+			loader->image->size = loader->priv->data->len;
+			loader->image->data = (guchar *) g_memdup (loader->priv->data->str,
+								   loader->priv->data->len);
 			g_mutex_unlock (loader->pixbuf_mutex);
 
+			loader->priv->data->len = 0;
+			
 			g_object_unref (loader->priv->pixbuf_loader);
 			loader->priv->pixbuf_loader = NULL;
 		}
@@ -388,6 +429,8 @@ buoh_comic_loader_finished (SoupMessage *msg, gpointer gdata)
 			loader->pixbuf = NULL;
 			g_mutex_unlock (loader->pixbuf_mutex);
 
+			loader->priv->data->len = 0;
+
 			g_object_unref (loader->priv->pixbuf_loader);
 			loader->priv->pixbuf_loader = NULL;
 		}
@@ -398,10 +441,10 @@ buoh_comic_loader_finished (SoupMessage *msg, gpointer gdata)
 			gdk_pixbuf_loader_close (loader->priv->pixbuf_loader, NULL);
 
 			g_mutex_lock (loader->pixbuf_mutex);
-			if (GDK_IS_PIXBUF (loader->pixbuf))
-				g_object_unref (loader->pixbuf);
 			loader->pixbuf = NULL;
 			g_mutex_unlock (loader->pixbuf_mutex);
+
+			loader->priv->data->len = 0;
 			
 			g_object_unref (loader->priv->pixbuf_loader);
 			loader->priv->pixbuf_loader = NULL;
@@ -464,7 +507,7 @@ buoh_comic_loader_run_thread (gpointer gdata)
 }
 
 void
-buoh_comic_loader_run (BuohComicLoader *loader, const gchar *uri)
+buoh_comic_loader_run (BuohComicLoader *loader, const gchar *uri, gdouble scale)
 {
 	g_return_if_fail (BUOH_IS_COMIC_LOADER (loader));
 	g_return_if_fail (uri != NULL);
@@ -475,9 +518,12 @@ buoh_comic_loader_run (BuohComicLoader *loader, const gchar *uri)
 
 	g_mutex_lock (loader->pixbuf_mutex);
 	loader->pixbuf = NULL;
+	loader->image = NULL;
 	g_mutex_unlock (loader->pixbuf_mutex);
 
+	loader->priv->data->len = 0;
 	loader->priv->uri = g_strdup (uri);
+	loader->priv->scale = scale;
 
 	g_mutex_lock (loader->thread_mutex);
 
@@ -504,4 +550,12 @@ buoh_comic_loader_stop (BuohComicLoader *loader)
 
 	soup_message_set_status (loader->priv->msg, SOUP_STATUS_CANCELLED);
 	soup_session_cancel_message (loader->priv->session, loader->priv->msg);
+}
+
+void
+buoh_comic_loader_wait (BuohComicLoader *loader)
+{
+	g_return_if_fail (BUOH_IS_COMIC_LOADER (loader));
+
+	g_thread_join (loader->thread);
 }
