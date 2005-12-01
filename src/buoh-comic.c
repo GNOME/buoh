@@ -19,6 +19,11 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 #include "buoh.h"
 #include "buoh-comic.h"
@@ -447,6 +452,44 @@ buoh_comic_get_filename (BuohComic *comic)
 	filename = g_path_get_basename (comic->priv->uri);
 	
 	return filename;
+}
+
+gboolean
+buoh_comic_image_save (BuohComicImage *image,
+		       const gchar    *path,
+		       GError        **error)
+{
+	g_return_val_if_fail (image != NULL && image->data != NULL, FALSE);
+	g_return_val_if_fail (path != NULL, FALSE);
+
+	gint fd;
+
+	if ((fd = open (path, O_CREAT | O_WRONLY, 0644)) < 0) {
+		g_set_error (error, G_FILE_ERROR,
+			     g_file_error_from_errno (errno),
+			     _("Cannot create file '%s': %s"),
+			     path, g_strerror (errno));
+		return FALSE;
+	}
+
+	if (write (fd, image->data, image->size) < 0) {
+		g_set_error (error, G_FILE_ERROR,
+			     g_file_error_from_errno (errno),
+			     _("Error writting to file '%s': %s"),
+			     path, g_strerror (errno));
+		close (fd);
+		return FALSE;
+	}
+
+	if (close (fd) < 0) {
+		g_set_error (error, G_FILE_ERROR,
+			     g_file_error_from_errno (errno),
+			     _("Error writting to file '%s': %s"),
+			     path, g_strerror (errno));
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
 void

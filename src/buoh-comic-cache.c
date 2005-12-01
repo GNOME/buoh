@@ -198,7 +198,7 @@ buoh_comic_cache_to_disk (BuohComicCache *cache,
 			  BuohComicImage *image)
 {
 	gchar  *path;
-	gint    fd;
+	GError *error = NULL;
 
 	g_assert (uri != NULL);
 	g_assert (image != NULL);
@@ -213,21 +213,10 @@ buoh_comic_cache_to_disk (BuohComicCache *cache,
 		g_free (path);
 		return;
 	}
-	
-	if ((fd = open (path, O_CREAT | O_WRONLY, 0644)) < 0) {
-		g_warning ("Error saving %s to disk", uri);
-		g_free (path);
-		return;
-	}
 
-	if (write (fd, image->data, image->size) < 0) {
-		g_warning ("Error saving %s to disk", uri);
-		close (fd);
-		g_free (path);
-		return;
-	}
-
-	if (close (fd) < 0) {
+	if (!buoh_comic_image_save (image, path, &error)) {
+		g_warning (error->message);
+		g_error_free (error);
 		g_free (path);
 		return;
 	}
@@ -367,10 +356,13 @@ buoh_comic_cache_get_image (BuohComicCache *cache,
 		item = g_list_find_custom (cache->priv->image_list,
 					   (gconstpointer) uri,
 					   (GCompareFunc) g_ascii_strcasecmp);
-		cache->priv->image_list = g_list_remove_link (cache->priv->image_list,
-							      item);
-		cache->priv->image_list = g_list_prepend (cache->priv->image_list, item->data);
-		g_list_free (item);
+		if (item != cache->priv->image_list) {
+			cache->priv->image_list = g_list_remove_link (cache->priv->image_list,
+								      item);
+			cache->priv->image_list = g_list_prepend (cache->priv->image_list,
+								  item->data);
+			g_list_free (item);
+		}
 		
 		buoh_debug ("CACHE: return image from memory");
 		return image;

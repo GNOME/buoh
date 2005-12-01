@@ -540,20 +540,16 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
 	GtkWidget        *chooser;
 	GtkFileFilter    *filter;
 	gchar            *suggested;
-	gchar            *basename;
-	gchar            *extension;
-	gchar            *filename = NULL;
 	static gchar     *folder = NULL;
 	BuohWindow       *window = BUOH_WINDOW (gdata);
 	BuohComic        *comic;
-	GdkPixbuf        *pixbuf;
+	BuohComicImage   *image;
 	GtkWidget        *dialog;
 	gboolean          successful;
-	GError           *error;
 
 	filter = gtk_file_filter_new ();
-	gtk_file_filter_add_pattern (filter, "*.png");
-	gtk_file_filter_set_name (filter, _("PNG Images"));
+	gtk_file_filter_set_name (filter, _("Images"));
+	gtk_file_filter_add_pixbuf_formats (filter);
 
 	chooser = gtk_file_chooser_dialog_new (_("Save Comic"),
 					       GTK_WINDOW (window),
@@ -572,22 +568,18 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
 	}
 
 	comic  = buoh_view_get_comic (window->priv->view);
-	pixbuf = buoh_comic_get_pixbuf (comic);
+	image = buoh_comic_get_image (comic);
 	
-	/* Change the extension to .png */
-	filename = buoh_comic_get_filename (comic);
-	extension = g_strrstr (filename, ".");
-	basename = g_strndup (filename, strlen (filename) - strlen (extension));
-	suggested = g_strconcat (basename, ".png", NULL);
-	
-	g_free (basename);
-	g_free (filename);
-	
+	suggested = buoh_comic_get_filename (comic);
 	gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (chooser),
 					   suggested);
+	g_free (suggested);
 
 	do {
 		if (gtk_dialog_run (GTK_DIALOG (chooser)) == GTK_RESPONSE_ACCEPT) {
+			gchar  *filename;
+			GError *error = NULL;
+			
 			filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (chooser));
 
 			if (folder != NULL)
@@ -595,9 +587,7 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
 
 			folder = gtk_file_chooser_get_current_folder_uri (GTK_FILE_CHOOSER (chooser));
 
-			error = NULL;
-
-			if (!gdk_pixbuf_save (pixbuf, filename, "png", &error, NULL)) {
+			if (!buoh_comic_image_save (image, filename, &error)) {
 				successful = FALSE;
 
 				dialog = gtk_message_dialog_new (GTK_WINDOW (chooser),
@@ -622,8 +612,6 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
 		}
 	} while (!successful);
 
-//	g_object_unref (pixbuf);
-	g_free (suggested);
 	gtk_widget_destroy (chooser);
 }
 
