@@ -1,3 +1,16 @@
+2005-12-01  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh-comic.[ch]: Add buoh_comic_image_save for saving an image
+	to disk
+	
+	* src/buoh-window.c: Save the original image instead of a new png when
+	saving a copy.
+	
+	* src/buoh-comic-cache.c: Use buoh_comic_image_save for saving to disk
+
+	* src/buoh.c: Use 644 instead of 755 for creating the user comics
+	file when GTK+ version <= 2.6
+
 2005-11-30  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* src/buoh-comic-cache.[ch]:

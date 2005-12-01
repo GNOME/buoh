@@ -79,6 +79,9 @@ GDate     *buoh_comic_get_date             (BuohComic      *comic);
 GdkPixbuf *buoh_comic_get_thumbnail        (BuohComic      *comic);
 gchar     *buoh_comic_get_filename         (BuohComic      *comic);
 
+gboolean   buoh_comic_image_save           (BuohComicImage *image,
+					    const gchar    *path,
+					    GError        **error);
 void       buoh_comic_image_free           (BuohComicImage *image);
 
 G_END_DECLS
