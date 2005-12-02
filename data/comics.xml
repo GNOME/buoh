@@ -1013,7 +1013,7 @@
         title="Megaton man"
         author="Don Simpson"
         language="English"
-        generic_uri="http://www.worldfamouscomics.com/megatonman/jpgs/mm%y%m%d.jpg"
+        generic_uri="http://www.worldfamouscomics.com/megatonman/%Y/mm%y%m%d.jpg"
 	first="2005-06-27">
 	<restrict>6</restrict>
 	<restrict>7</restrict>
@@ -1246,7 +1246,7 @@
 </comic>
 <comic id="6chix"
         class="date"
-        title="6Chix"
+        title="Six Chix"
         author="Isabella Bannerman"
         language="English"
         generic_uri="http://cserver.king-online.com/content/6Chix?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=8sdef0&amp;size=hires"
@@ -1307,5 +1307,101 @@
         language="English"
         generic_uri="http://cserver.king-online.com/content/Sally_Forth?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=n5cec9&amp;size=hires"
         first="2004-03-01">
+</comic>
+<comic id="beetleb"
+        class="date"
+        title="Beetle Bailey"
+        author="Mort Walker"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Beetle_Bailey?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=vn6r91&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="bblues"
+        class="date"
+        title="Baby Blues"
+        author="Rick Kirkman &amp; Jerry Scott"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Baby_Blues?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=1bml3h&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="tripletake"
+        class="date"
+        title="Triple Take"
+        author="Todd Clark &amp; Scott Nickel"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Triple?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=lzj7i5&amp;size=hires"
+        first="2005-04-04">
+</comic>
+<comic id="lawyerdoctorcop"
+        class="date"
+        title="A Lawyer, A Doctor &amp; A Cop"
+        author="Kieran Meehan"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Lawyer?date=2005-12-01&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=d5k3bs&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="sherman"
+        class="date"
+        title="Sherman's Lagoon"
+        author="Jim Toomey"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Shermans_Lagoon?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=rae6q&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="marvin"
+        class="date"
+        title="Marvin"
+        author="Tom Armstrong"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Marvin?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=pjc2y9&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="mallard"
+        class="date"
+        title="Mallard Fillmore"
+        author="Bruce Tinsley"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Mallard_Fillmore?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=r2lw1q&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="rexmorgan"
+        class="date"
+        title="Rex Morgan M.D."
+        author="Woody Wilson &amp; Graham Nolan"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Rex_Morgan?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=kg5dq2&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="hagar"
+        class="date"
+        title="Hagar the horrible"
+        author="Chris Browne"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Hagar_The_Horrible?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=ukcle6&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="bizarro"
+        class="date"
+        title="Bizarro"
+        author="Dan Piraro"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Bizarro?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=625tk9&amp;size=hires"
+        first="2004-03-14">
+</comic>
+<comic id="funky"
+        class="date"
+        title="Funky Winkerbean"
+        author="Tom Batiuk"
+        language="English"
+        generic_uri="http://cserver.king-online.com/content/Funky_Winkerbean?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=xk8dch&amp;size=hires"
+        first="2004-03-01">
+</comic>
+<comic id="bunny"
+        class="date"
+        title="Bunny"
+        author="Lem"
+        language="English"
+        generic_uri="http://www.frozenreality.co.uk/comic/bunny/strips/%d%m%y.gif"
+        first="2004-08-23">
 </comic>
 </comic_list>
