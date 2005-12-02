@@ -1,5 +1,40 @@
+======================
+Changes in Buoh 0.8.1
+======================
+
+"Smaller than an ant"
+
+Changes:
+   * Added a cache system that improves drastically the memory usage and reduce
+     the comic access time. (Carlos García Campos)
+   * Save the original image instead of a new png when saving a copy. (Carlos García Campos)
+   * Support for code translation. (Esteban Sánchez Muñoz)
+   * Buoh also works now with GTK+ >= 2.6.(Bastien Nocera)
+   * Many other bugfixes, memory leaks and code cleanups. (Carlos García Campos)
+
+New comics:
+   * Added 28 news comics, including:
+	- Ctrl+Alt+Del (thanks to James Hall)
+	- Penny Arcade
+	- PvP
+	- Alpha Luna
+	- Sinfest
+	- The amazing Spiderman
+	- Blondie
+	- Mother Goose & Grimm
+	- Dennis the menace
+	- Hagar the horrible
+	- Do you know Flo? (Dutch)
+        - Doorzon (Dutch)
+        - Lectrrland (Dutch)
+	- ...and many more
+	
+     Thanks to all the people who have proposed new comics. (Esteban Sánchez Muñoz)
+
+   * There are comics in dutch. (Esteban Sánchez Muñoz)
+
 =============
-Version 0.8
+Buoh     0.8
 =============
 
 First public release.

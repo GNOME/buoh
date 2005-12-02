@@ -1,5 +1,9 @@
 2005-11-29  Esteban Sanchez  <esteban@steve-o.org>
 
+	* configure.in, NEWS: Version 0.8.1
+
+2005-11-29  Esteban Sanchez  <esteban@steve-o.org>
+
 	* data/comics.xml: Twelve new comics added. Some updated and some
 	renamed.
 	
