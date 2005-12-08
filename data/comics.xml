@@ -1404,4 +1404,12 @@
         generic_uri="http://www.frozenreality.co.uk/comic/bunny/strips/%d%m%y.gif"
         first="2004-08-23">
 </comic>
+<comic id="nichtlustig"
+	class="date"
+        title="Nichtlustig"
+        author="Joscha Sauer"
+        language="German"
+        generic_uri="http://www.nichtlustig.de/comics/full/%y%m%d.jpg"
+        first="2002-06-07">
+</comic>
 </comic_list>
