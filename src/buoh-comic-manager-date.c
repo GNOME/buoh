@@ -50,6 +50,7 @@ struct _BuohComicManagerDatePrivate {
 	GDate     *date;
 	GDate     *first;
 	gboolean   publications[8]; /* Days of week */
+	guint      offset;
 };
 
 static const gchar *day_names[] = {
@@ -96,8 +97,9 @@ buoh_comic_manager_date_init (BuohComicManagerDate *comic_manager)
 	
 	comic_manager->priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
 	
-	comic_manager->priv->date = NULL;
-	comic_manager->priv->first = NULL;
+	comic_manager->priv->date   = NULL;
+	comic_manager->priv->first  = NULL;
+	comic_manager->priv->offset = 0;
 
  	for (i = G_DATE_BAD_WEEKDAY; i <= G_DATE_SUNDAY; i++)
 		comic_manager->priv->publications[i] = TRUE;
@@ -168,6 +170,16 @@ buoh_comic_manager_date_new (const gchar *id,
 }
 
 void
+buoh_comic_manager_date_set_offset (BuohComicManagerDate *comic_manager,
+				    guint                 offset)
+{
+	g_return_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager));
+	g_return_if_fail (offset > 0);
+
+	comic_manager->priv->offset = offset;
+}
+
+void
 buoh_comic_manager_date_set_restriction (BuohComicManagerDate *comic_manager,
 					 GDateWeekday          day)
 {
@@ -232,7 +244,7 @@ buoh_comic_manager_date_get_uri_from_date (BuohComicManagerDate *comic_manager)
 		return NULL;
 	} else {
 		g_free (uri_aux);
-
+		
 		buoh_debug ("uri: %s", uri);
 		return g_strdup (uri);
 	}
@@ -364,10 +376,14 @@ buoh_comic_manager_date_get_last (BuohComicManager *comic_manager)
 
 	now = time (NULL);
 	gmt = gmtime (&now);
-	
+
 	date = g_date_new ();
 	g_date_set_time (date, mktime (gmt));
 
+	if (priv->offset != 0) {
+		g_date_subtract_days (date, priv->offset);
+	}
+	
 	/* Check the restrictions */
 	weekday = g_date_get_weekday (date);
 	while (!priv->publications[weekday]) {

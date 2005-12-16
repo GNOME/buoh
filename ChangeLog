@@ -1,3 +1,11 @@
+2005-12-16  Esteban Sanchez  <esteban@steve-o.org>
+
+	* data/comics.xml: Added a couple of new comics.
+	
+	* src/buoh-comic-manager-date.[ch]: Added offset atribute.
+
+	* src/buoh.c: Read and set the offset atribute of the comics.
+
 2005-11-29  Esteban Sanchez  <esteban@steve-o.org>
 
 	* data/comics.xml: Added Nichtlustig, a german comic. Solves #1406

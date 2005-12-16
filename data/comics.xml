@@ -1412,4 +1412,21 @@
         generic_uri="http://www.nichtlustig.de/comics/full/%y%m%d.jpg"
         first="2002-06-07">
 </comic>
+<comic id="schlock"
+        class="date"
+        title="Schlock mercenary"
+        author="Howard Tayler"
+        language="English"
+        generic_uri="http://www.schlockmercenary.com/comics/schlock%Y%m%d.png"
+        first="2000-06-12">
+</comic>
+<comic id="ch"
+        class="date"
+        title="Calvin and Hobbes"
+        author="Bill Watterson"
+        language="English"
+        generic_uri="http://picayune.uclick.com/comics/ch/%Y/ch%y%m%d.gif"
+        first="1985-11-18"
+	offset="4018">
+</comic>
 </comic_list>
