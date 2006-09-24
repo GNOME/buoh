@@ -495,42 +495,40 @@ buoh_window_cmd_comic_add (GtkAction *action, gpointer gdata)
 static void
 buoh_window_cmd_comic_remove (GtkAction *action, gpointer gdata)
 {
-	BuohWindow             *window = BUOH_WINDOW (gdata);
-	GtkTreeModel           *model = buoh_get_comics_model (BUOH);
-	GtkTreeIter             iter;
-	BuohComicManager       *cm;
-	BuohComicManager       *current_cm;
-	gchar                  *current_cm_id, *cm_id;
-	gboolean                valid;
+	BuohWindow       *window = BUOH_WINDOW (gdata);
+	GtkTreeModel     *model = buoh_get_comics_model (BUOH);
+	GtkTreeIter       iter;
+	BuohComicManager *cm;
+	BuohComicManager *current_cm;
+	const gchar      *current_cm_id;
+	const gchar      *cm_id;
+	gboolean          valid;
 
 	current_cm = buoh_comic_list_get_selected (window->priv->comic_list);
 
-	if (current_cm) {
-		current_cm_id = buoh_comic_manager_get_id (current_cm);
+	if (!current_cm)
+		return;
 
-		valid = gtk_tree_model_get_iter_first (model, &iter);
-
-		while (valid) {
-			gtk_tree_model_get (model, &iter,
-					    COMIC_LIST_COMIC_MANAGER, &cm,
+	current_cm_id = buoh_comic_manager_get_id (current_cm);
+	
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	
+	while (valid) {
+		gtk_tree_model_get (model, &iter,
+				    COMIC_LIST_COMIC_MANAGER, &cm,
+				    -1);
+		cm_id = buoh_comic_manager_get_id (cm);
+		g_object_unref (cm);
+		
+		if (g_ascii_strcasecmp (current_cm_id, cm_id) == 0) {
+			buoh_comic_list_clear_selection (window->priv->comic_list);
+			gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+					    COMIC_LIST_VISIBLE, FALSE,
 					    -1);
-			cm_id = buoh_comic_manager_get_id (cm);
-			g_object_unref (cm);
-
-			if (g_ascii_strcasecmp (current_cm_id, cm_id) == 0) {
-				buoh_comic_list_clear_selection (window->priv->comic_list);
-				gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-						    COMIC_LIST_VISIBLE, FALSE,
-						    -1);
-				valid = FALSE;
-			} else {
-				valid = gtk_tree_model_iter_next (model, &iter);
-			}
-
-			g_free (cm_id);
+			valid = FALSE;
+		} else {
+			valid = gtk_tree_model_iter_next (model, &iter);
 		}
-
-		g_free (current_cm_id);
 	}
 }
 
@@ -620,10 +618,10 @@ buoh_window_cmd_comic_copy_location (GtkAction *action, gpointer gdata)
 {
 	BuohWindow *window = BUOH_WINDOW (gdata);
 	BuohComic  *comic = buoh_view_get_comic (window->priv->view);
-	gchar      *uri;
 
 	if (comic) {
-		uri = buoh_comic_get_uri (comic);
+		const gchar *uri = buoh_comic_get_uri (comic);
+
 		buoh_debug ("Copy %s to clipboard", uri);
 
 		gtk_clipboard_set_text (gtk_clipboard_get (GDK_NONE), uri,
@@ -631,8 +629,6 @@ buoh_window_cmd_comic_copy_location (GtkAction *action, gpointer gdata)
 
 		gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_PRIMARY), uri,
 					g_utf8_strlen (uri, -1));
-
-		g_free (uri);
 	}
 }
 
@@ -653,42 +649,35 @@ buoh_window_cmd_comic_properties (GtkAction *action, gpointer gdata)
 	BuohComicManager *cm  = buoh_comic_list_get_selected (window->priv->comic_list);
 	BuohComicManager *cm2 = NULL;
 	GtkWidget        *dialog;
-	gchar            *id1, *id2;
+	const gchar      *id1, *id2;
 	GList            *l = NULL;
 
-	if (cm) {
-		id1 = buoh_comic_manager_get_id (cm);
+	if (!cm)
+		return;
+	
+	id1 = buoh_comic_manager_get_id (cm);
+	
+	for (l = window->priv->properties; l; l = g_list_next (l)) {
+		cm2 = buoh_properties_dialog_get_comic_manager (
+			BUOH_PROPERTIES_DIALOG (l->data));
+		id2 = buoh_comic_manager_get_id (cm2);
 		
-		for (l = window->priv->properties; l; l = g_list_next (l)) {
-			cm2 = buoh_properties_dialog_get_comic_manager (
-				BUOH_PROPERTIES_DIALOG (l->data));
-			id2 = buoh_comic_manager_get_id (cm2);
-			
-			if (g_ascii_strcasecmp (id1, id2) == 0) {
-				gtk_window_present (GTK_WINDOW (l->data));
-				
-				g_free (id1);
-				g_free (id2);
-				
-				return;
-			}
-			
-			g_free (id2);
+		if (g_ascii_strcasecmp (id1, id2) == 0) {
+			gtk_window_present (GTK_WINDOW (l->data));
+			return;
 		}
-
-		g_free (id1);
-
-		dialog = buoh_properties_dialog_new ();
-		buoh_properties_dialog_set_comic_manager (BUOH_PROPERTIES_DIALOG (dialog), cm);
-		g_signal_connect (G_OBJECT (dialog), "destroy",
-				  G_CALLBACK (buoh_window_properties_dialog_destroyed),
-				  (gpointer) window);
-		gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (window));
-		
-		gtk_widget_show (dialog);
-
-		window->priv->properties = g_list_append (window->priv->properties, dialog);
 	}
+	
+	dialog = buoh_properties_dialog_new ();
+	buoh_properties_dialog_set_comic_manager (BUOH_PROPERTIES_DIALOG (dialog), cm);
+	g_signal_connect (G_OBJECT (dialog), "destroy",
+			  G_CALLBACK (buoh_window_properties_dialog_destroyed),
+			  (gpointer) window);
+	gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (window));
+	
+	gtk_widget_show (dialog);
+	
+	window->priv->properties = g_list_append (window->priv->properties, dialog);
 }
 
 static void
@@ -850,15 +839,13 @@ static void
 buoh_window_update_title (BuohWindow *window)
 {
 	BuohComicManager *cm;
-	gchar            *cm_title;
-	gchar            *title;
+	gchar            *title = NULL;
 
 	cm = buoh_comic_list_get_selected (window->priv->comic_list);
 
 	if (cm) {
-		cm_title = buoh_comic_manager_get_title (cm);
-		title = g_strdup_printf ("%s - Buoh", cm_title);
-		g_free (cm_title);
+		title = g_strdup_printf ("%s - Buoh",
+					 buoh_comic_manager_get_title (cm));
 	} else {
 		title = g_strdup_printf ("Buoh");
 	}
@@ -1002,7 +989,6 @@ buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gd
 	BuohComic        *comic = NULL;
 	BuohComicManager *cm;
 	GtkStatusbar     *statusbar = GTK_STATUSBAR (window->priv->statusbar);
-	gchar            *id, *title;
 	gchar            *message = NULL;
 
 	cm = buoh_comic_list_get_selected (window->priv->comic_list);
@@ -1029,11 +1015,9 @@ buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gd
 	case STATE_COMIC_LOADED:
 		comic = buoh_view_get_comic (view);
 
-		id = buoh_comic_get_id (comic);
-		title = buoh_comic_manager_get_title (cm);
-		message = g_strdup_printf ("%s - %s", title, id);
-		g_free (id);
-		g_free (title);
+		message = g_strdup_printf ("%s - %s",
+					   buoh_comic_manager_get_title (cm),
+					   buoh_comic_get_id (comic));
 		
 		buoh_window_comic_actions_set_sensitive (window,
 							 (comic) ? TRUE : FALSE);

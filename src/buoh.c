@@ -34,6 +34,7 @@
 #include <libxml/tree.h>
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
+#include <gconf/gconf-client.h>
 
 #include "buoh.h"
 #include "buoh-window.h"
@@ -45,10 +46,21 @@ struct _BuohPrivate {
 	BuohWindow   *window;
 	GtkTreeModel *comic_list;
 	gchar        *datadir;
+	gchar        *proxy_uri;
+
+	GConfClient  *gconf_client;
 };
 
 #define BUOH_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_BUOH, BuohPrivate))
+
+#define GCONF_HTTP_PROXY_DIR "/system/http_proxy"
+#define GCONF_USE_HTTP_PROXY "/system/http_proxy/use_http_proxy"
+#define GCONF_HTTP_PROXY_HOST "/system/http_proxy/host"
+#define GCONF_HTTP_PROXY_PORT "/system/http_proxy/port"
+#define GCONF_HTTP_PROXY_USE_AUTHENTICATION "/system/http_proxy/use_authentication"
+#define GCONF_HTTP_PROXY_AUTHENTICATION_USER "/system/http_proxy/authentication_user"
+#define GCONF_HTTP_PROXY_AUTHENTICATION_PASSWORD "/system/http_proxy/authentication_password"
 
 static GObjectClass *parent_class = NULL;
 
@@ -308,7 +320,6 @@ save_comic_list (gpointer gdata)
 	GtkTreeIter       iter;
 	gboolean          valid;
 	BuohComicManager *comic_manager;
-	gchar            *id;
 	
 	buoh_debug ("Buoh comic model changed");
 
@@ -326,6 +337,8 @@ save_comic_list (gpointer gdata)
 
 	valid = gtk_tree_model_get_iter_first (filter, &iter);
 	while (valid) {
+		const gchar *id;
+		
 		gtk_tree_model_get (filter, &iter,
 				    COMIC_LIST_COMIC_MANAGER,
 				    &comic_manager, -1);
@@ -338,8 +351,6 @@ save_comic_list (gpointer gdata)
 					     BAD_CAST id);
 		xmlTextWriterEndElement (writer);
 		
-		g_free (id);
-
 		valid = gtk_tree_model_iter_next (filter, &iter);
 	}
 
@@ -424,6 +435,65 @@ buoh_create_user_dir (Buoh *buoh)
 	g_free (cache_dir);
 }
 
+static gchar *
+buoh_get_http_proxy_uri_from_gconf (Buoh *buoh)
+{
+	GConfClient *gconf_client = buoh->priv->gconf_client;
+	gchar       *uri = NULL;
+
+	if (gconf_client_get_bool (gconf_client, GCONF_USE_HTTP_PROXY, NULL)) {
+		gchar *host = NULL;
+		gchar *port = NULL;
+		gchar *user = NULL;
+		gchar *pass = NULL;
+		guint  p = 0;
+			
+		host = gconf_client_get_string (gconf_client,
+						GCONF_HTTP_PROXY_HOST,
+						NULL);
+		p = gconf_client_get_int (gconf_client,
+					  GCONF_HTTP_PROXY_PORT,
+					  NULL);
+		if (p > 0)
+			port = g_strdup_printf ("%d", p);
+		
+		if (gconf_client_get_bool (gconf_client, GCONF_HTTP_PROXY_USE_AUTHENTICATION, NULL)) {
+			user = gconf_client_get_string (gconf_client,
+							GCONF_HTTP_PROXY_AUTHENTICATION_USER,
+							NULL);
+			pass = gconf_client_get_string (gconf_client,
+							GCONF_HTTP_PROXY_AUTHENTICATION_PASSWORD,
+							NULL);
+
+		}
+
+		/* http://user:pass@host:port */
+		uri = g_strdup_printf ("http://%s%s%s%s%s%s%s",
+				       (user) ? user : "",
+				       (user && pass) ? ":" : "",
+				       (user && pass) ? pass : "",
+				       (user) ? "@" : "",
+				       host,
+				       (port) ? ":" :  "",
+				       (port) ? port : "");
+	}
+
+	return uri;
+}
+
+static void
+buoh_update_http_proxy (GConfClient *gconf_client,
+			guint        cnxn_id,
+			GConfEntry  *entry,
+			Buoh        *buoh)
+{
+	buoh_debug ("Proxy configuration changed");
+
+	if (buoh->priv->proxy_uri)
+		g_free (buoh->priv->proxy_uri);
+	buoh->priv->proxy_uri = buoh_get_http_proxy_uri_from_gconf (buoh);
+}
+
 static void
 buoh_init (Buoh *buoh)
 {
@@ -438,6 +508,17 @@ buoh_init (Buoh *buoh)
 	g_signal_connect (G_OBJECT (buoh->priv->comic_list), "row-changed",
 			  G_CALLBACK (buoh_save_comic_list),
 			  (gpointer) buoh);
+
+	buoh->priv->gconf_client = gconf_client_get_default ();
+	gconf_client_add_dir (buoh->priv->gconf_client,
+			      GCONF_HTTP_PROXY_DIR,
+			      GCONF_CLIENT_PRELOAD_NONE,
+			      NULL);
+	gconf_client_notify_add (buoh->priv->gconf_client,
+				 GCONF_HTTP_PROXY_DIR,
+				 (GConfClientNotifyFunc)buoh_update_http_proxy,
+				 (gpointer) buoh,
+				 NULL, NULL);
 }
 
 static void
@@ -468,6 +549,11 @@ buoh_finalize (GObject *object)
 	if (buoh->priv->comic_list) {
 		g_object_unref (buoh->priv->comic_list);
 		buoh->priv->comic_list = NULL;
+	}
+
+	if (buoh->priv->proxy_uri) {
+		g_free (buoh->priv->proxy_uri);
+		buoh->priv->proxy_uri = NULL;
 	}
 
 	if (G_OBJECT_CLASS (parent_class)->finalize)
@@ -530,4 +616,12 @@ buoh_get_datadir (Buoh *buoh)
 	g_return_val_if_fail (BUOH_IS_BUOH (buoh), NULL);
 	
 	return buoh->priv->datadir;
+}
+
+const gchar *
+buoh_get_http_proxy_uri (Buoh *buoh)
+{
+	g_return_val_if_fail (BUOH_IS_BUOH (buoh), NULL);
+
+	return buoh->priv->proxy_uri;
 }

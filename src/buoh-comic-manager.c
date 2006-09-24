@@ -408,52 +408,36 @@ buoh_comic_manager_is_the_first (BuohComicManager *comic_manager)
 		return FALSE;
 }
 
-gchar *
+const gchar *
 buoh_comic_manager_get_title (BuohComicManager *comic_manager)
 {
-	gchar *title = NULL;
-
 	g_return_val_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager), NULL);
 
-	g_object_get (G_OBJECT (comic_manager), "title", &title, NULL);
-
-	return title;
+	return comic_manager->priv->title;
 }
 
-gchar *
+const gchar *
 buoh_comic_manager_get_author (BuohComicManager *comic_manager)
 {
-	gchar *author = NULL;
-	   
 	g_return_val_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager), NULL);
 
-	g_object_get (G_OBJECT (comic_manager), "author", &author, NULL);
-
-	return author;
+	return comic_manager->priv->author;
 }
 
-gchar *
+const gchar *
 buoh_comic_manager_get_language (BuohComicManager *comic_manager)
 {
-	gchar *language = NULL;
-
 	g_return_val_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager), NULL);
 
-	g_object_get (G_OBJECT (comic_manager), "language", &language, NULL);
-
-	return language;
+	return comic_manager->priv->language;
 }
 
-gchar *
+const gchar *
 buoh_comic_manager_get_id (BuohComicManager *comic_manager)
 {
-	gchar *id = NULL;
-	   
 	g_return_val_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager), NULL);
 
-	g_object_get (G_OBJECT (comic_manager), "id", &id, NULL);
-
-	return id;
+	return comic_manager->priv->id;
 }
 
 gint

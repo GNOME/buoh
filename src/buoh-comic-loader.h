@@ -20,21 +20,10 @@
 #define BUOH_COMIC_LOADER_H
 
 #include <glib-object.h>
-#include <glib.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-#include <libsoup/soup.h>
 
 #include "buoh-comic.h"
 
 G_BEGIN_DECLS
-
-enum {
-	LOADER_STATE_READY,
-	LOADER_STATE_RUNNING,
-	LOADER_STATE_FINISHED,
-	LOADER_STATE_STOPPING,
-	LOADER_STATE_FAILED
-};
 
 typedef struct _BuohComicLoader        BuohComicLoader;
 typedef struct _BuohComicLoaderClass   BuohComicLoaderClass;
@@ -49,35 +38,32 @@ typedef struct _BuohComicLoaderPrivate BuohComicLoaderPrivate;
 
 #define BUOH_COMIC_LOADER_ERROR (buoh_comic_loader_error_quark())
 
+typedef void (*BuohComicLoaderLoadFunc) (const gchar *data,
+					 guint        len,
+					 gpointer     gdata);
+
 struct _BuohComicLoader {
 	GObject    parent;
-
-	GMutex         *thread_mutex;
-	GMutex         *pixbuf_mutex;
-	GMutex         *status_mutex;
-	
-	GThread        *thread;
-	GdkPixbuf      *pixbuf;
-	BuohComicImage *image;
-	guint           status;
-	GError         *error;
 
 	BuohComicLoaderPrivate *priv;
 };
 
 struct _BuohComicLoaderClass {
 	GObjectClass   parent_class;
+
+	void (* finished) (BuohComicLoader *loader);
 };
 
 GType            buoh_comic_loader_get_type    (void) G_GNUC_CONST;
 GQuark           buoh_comic_loader_error_quark (void);
 BuohComicLoader *buoh_comic_loader_new         (void);
 
-void             buoh_comic_loader_run         (BuohComicLoader *loader,
-						const gchar     *uri,
-						gdouble          scale);
-void             buoh_comic_loader_stop        (BuohComicLoader *loader);
-void             buoh_comic_loader_wait        (BuohComicLoader *loader);
+void             buoh_comic_loader_load_comic  (BuohComicLoader *loader,
+						BuohComic       *comic,
+						BuohComicLoaderLoadFunc callback,
+						gpointer         gdata);
+void             buoh_comic_loader_get_error   (BuohComicLoader *loader,
+						GError         **error);
 
 G_END_DECLS
 
