@@ -350,28 +350,20 @@ buoh_comic_set_pixbuf_from_file (BuohComic *comic, const gchar *filename)
 	buoh_comic_set_pixbuf (comic, pixbuf);
 }
 
-gchar *
+const gchar *
 buoh_comic_get_id (BuohComic *comic)
 {
-	gchar *id = NULL;
-	   
 	g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
 
-	g_object_get (G_OBJECT (comic), "id", &id, NULL);
-
-	return id;
+	return comic->priv->id;
 }
 
-gchar *
+const gchar *
 buoh_comic_get_uri (BuohComic *comic)
 {
-	gchar *uri = NULL;
-	   
 	g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
 
-	g_object_get (G_OBJECT (comic), "uri", &uri, NULL);
-
-	return uri;
+	return comic->priv->uri;
 }
 
 GdkPixbuf *
@@ -445,9 +437,9 @@ buoh_comic_get_thumbnail (BuohComic *comic)
 gchar *
 buoh_comic_get_filename (BuohComic *comic)
 {
-	g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
-	
 	gchar *filename;
+	
+	g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
 	
 	filename = g_path_get_basename (comic->priv->uri);
 	

@@ -39,16 +39,16 @@ enum {
 struct _BuohViewComicPrivate {
 	BuohView        *view;
 	GtkWidget       *image;
-	GdkPixbuf       *current;
+	GString         *comic_data;
 
 	BuohComic       *comic;
 	gdouble          scale;
 
-	guint            load_monitor;
 	BuohComicLoader *comic_loader;
+	GdkPixbufLoader *pixbuf_loader;
 };
 
-static GtkTargetEntry targets[] = {
+static const GtkTargetEntry targets[] = {
 	{ "text/uri-list", 0, 0 },
 	{ "x-url/http",    0, 0 }
 };
@@ -62,11 +62,14 @@ static GtkTargetEntry targets[] = {
 #define MIN_ZOOM_SCALE 0.6
 #define MAX_ZOOM_SCALE 2
 
+#define DATA_SIZE 61440 /* 60K */
+
 static GtkViewportClass *parent_class = NULL;
 
 static void     buoh_view_comic_init                  (BuohViewComic *m_view);
 static void     buoh_view_comic_class_init            (BuohViewComicClass *klass);
 static void     buoh_view_comic_finalize              (GObject          *object);
+static void     buoh_view_comic_dispose               (GObject          *object);
 static void     buoh_view_comic_set_property          (GObject          *object,
 						       guint             prop_id,
 						       const GValue     *value,
@@ -95,13 +98,9 @@ static void     bouh_view_comic_view_status_changed   (GObject          *object,
 						       GParamSpec       *arg,
 						       gpointer          gdata);
 static void     buoh_view_comic_prepare_load          (BuohViewComic    *c_view);
-static void     buoh_view_comic_set_image_from_pixbuf (BuohViewComic    *c_view,
-						       GdkPixbuf        *pixbuf);
-static gboolean buoh_view_comic_load_monitor          (gpointer          gdata);
+static void     buoh_view_comic_load_finished         (BuohViewComic    *c_view,
+						       gpointer          gdata);
 static void     buoh_view_comic_load                  (BuohViewComic    *c_view);
-static void     buoh_view_comic_zoom                  (BuohViewComic    *c_view,
-						       gdouble           factor,
-						       gboolean          relative);
 
 GType
 buoh_view_comic_get_type (void)
@@ -135,11 +134,9 @@ buoh_view_comic_init (BuohViewComic *c_view)
 	
 	c_view->priv = BUOH_VIEW_COMIC_GET_PRIVATE (c_view);
 
-	c_view->priv->view = NULL;
 	c_view->priv->scale = 1.0;
-	c_view->priv->comic = NULL;
-	c_view->priv->load_monitor = 0;
 	c_view->priv->comic_loader = buoh_comic_loader_new ();
+	c_view->priv->comic_data = g_string_sized_new (DATA_SIZE);
 	
 	c_view->priv->image = gtk_image_new ();
 	gtk_container_add (GTK_CONTAINER (c_view),
@@ -159,6 +156,11 @@ buoh_view_comic_init (BuohViewComic *c_view)
 			  "drag-data-get",
 			  G_CALLBACK (buoh_view_comic_drag_data_get),
 			  NULL);
+
+	g_signal_connect_swapped (G_OBJECT (c_view->priv->comic_loader),
+				  "finished",
+				  G_CALLBACK (buoh_view_comic_load_finished),
+				  (gpointer) c_view);
 	
 	gtk_widget_show (GTK_WIDGET (c_view));
 }
@@ -197,6 +199,7 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
 	g_type_class_add_private (klass, sizeof (BuohViewComicPrivate));
 
 	object_class->finalize = buoh_view_comic_finalize;
+	object_class->dispose = buoh_view_comic_dispose;
 }
 
 static void
@@ -206,18 +209,36 @@ buoh_view_comic_finalize (GObject *object)
 
 	buoh_debug ("buoh-view-comic finalize");
 
-	if (c_view->priv->load_monitor > 0) {
-		g_source_remove (c_view->priv->load_monitor);
-		c_view->priv->load_monitor = 0;
+	if (c_view->priv->comic_data) {
+		g_string_free (c_view->priv->comic_data, TRUE);
+		c_view->priv->comic_data = NULL;
+	}
+	
+	if (c_view->priv->pixbuf_loader) {
+		gdk_pixbuf_loader_close (c_view->priv->pixbuf_loader, NULL);
+		g_object_unref (c_view->priv->pixbuf_loader);
+		c_view->priv->pixbuf_loader = NULL;
 	}
 
+	if (G_OBJECT_CLASS (parent_class)->finalize)
+		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+}
+
+static void
+buoh_view_comic_dispose (GObject *object)
+{
+	BuohViewComic *c_view = BUOH_VIEW_COMIC (object);
+
 	if (c_view->priv->comic_loader) {
+		g_signal_handlers_disconnect_by_func (c_view->priv->comic_loader,
+						      buoh_view_comic_load_finished,
+						      c_view);
 		g_object_unref (c_view->priv->comic_loader);
 		c_view->priv->comic_loader = NULL;
 	}
-	
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+
+	if (G_OBJECT_CLASS (parent_class)->dispose)
+		(* G_OBJECT_CLASS (parent_class)->dispose) (object);
 }
 
 static void
@@ -381,7 +402,7 @@ buoh_view_comic_drag_data_get (GtkWidget *widget, GdkDragContext *drag_context,
 			       gpointer gdata)
 {
 	BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
-	gchar         *uri = NULL;
+	const gchar   *uri;
 
 	uri = buoh_comic_get_uri (c_view->priv->comic);
 	if (uri) {
@@ -390,7 +411,6 @@ buoh_view_comic_drag_data_get (GtkWidget *widget, GdkDragContext *drag_context,
 					8,
 					(guchar *)uri,
 					strlen (uri));
-		g_free (uri);
 	}
 }
 
@@ -408,6 +428,14 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
 	gtk_adjustment_set_value (hadjustment, 0.0);
 	gtk_adjustment_set_value (vadjustment, 0.0);
 
+	if (c_view->priv->pixbuf_loader) {
+		gdk_pixbuf_loader_close (c_view->priv->pixbuf_loader, NULL);
+		g_object_unref (c_view->priv->pixbuf_loader);
+	}
+	c_view->priv->pixbuf_loader = gdk_pixbuf_loader_new ();
+
+	c_view->priv->comic_data->len = 0;
+
 #if GTK_CHECK_VERSION(2,8,0)
 	gtk_image_clear (GTK_IMAGE (c_view->priv->image));
 #else 
@@ -415,8 +443,8 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
 				  GTK_STOCK_MISSING_IMAGE,
 				  GTK_ICON_SIZE_DIALOG);
 #endif
-	
 }
+
 static void
 bouh_view_comic_changed_comic_cb (GObject *object, GParamSpec *arg, gpointer gdata)
 {
@@ -444,7 +472,8 @@ bouh_view_comic_view_status_changed (GObject *object, GParamSpec *arg, gpointer 
 }
 
 static void
-buoh_view_comic_set_image_from_pixbuf (BuohViewComic *c_view, GdkPixbuf *pixbuf)
+buoh_view_comic_set_image_from_pixbuf (BuohViewComic *c_view,
+				       GdkPixbuf     *pixbuf)
 {
 	GdkPixbuf *new_pixbuf;
 
@@ -461,135 +490,121 @@ buoh_view_comic_set_image_from_pixbuf (BuohViewComic *c_view, GdkPixbuf *pixbuf)
 	} else {
 		gtk_image_set_from_pixbuf (GTK_IMAGE (c_view->priv->image), pixbuf);
 	}
-
-	gtk_widget_show (c_view->priv->image);
 }
 
-static gboolean
-buoh_view_comic_load_monitor (gpointer gdata)
+static void
+buoh_view_comic_load_finished (BuohViewComic *c_view,
+			       gpointer       gdata)
 {
-	BuohViewComic    *c_view = BUOH_VIEW_COMIC (gdata);
-	static GdkCursor *cursor = NULL;
-	static gint       height = 0;
+	GError    *error = NULL;
+	GdkPixbuf *pixbuf;
 
-	switch (c_view->priv->comic_loader->status) {
-	case LOADER_STATE_READY:
-		return TRUE;
-	case LOADER_STATE_RUNNING:
-		/* Watch cursor */
-		if (!cursor) {
-			cursor = gdk_cursor_new (GDK_WATCH);
-			if (!GTK_WIDGET_REALIZED (c_view))
-				gtk_widget_realize (GTK_WIDGET (c_view));
-			gdk_window_set_cursor (GTK_WIDGET (c_view)->window, cursor);
-		}
+	buoh_debug ("buoh-view-comic-load finished");
 
-		if (GDK_IS_PIXBUF (c_view->priv->comic_loader->pixbuf)) {
-			gint new_height = gdk_pixbuf_get_height (c_view->priv->comic_loader->pixbuf);
+	gdk_pixbuf_loader_close (c_view->priv->pixbuf_loader, NULL);
 
-			if (new_height != height) {
-				g_mutex_lock (c_view->priv->comic_loader->pixbuf_mutex);
-				gtk_image_set_from_pixbuf (GTK_IMAGE (c_view->priv->image),
-							   c_view->priv->comic_loader->pixbuf);
-				g_mutex_unlock (c_view->priv->comic_loader->pixbuf_mutex);
-				
-				gtk_widget_show (c_view->priv->image);
-				height = new_height;
-			}
-		}
-
-		return TRUE;
-	case LOADER_STATE_FINISHED:
-		if (GDK_IS_PIXBUF (c_view->priv->comic_loader->pixbuf)) {
-			g_mutex_lock (c_view->priv->comic_loader->pixbuf_mutex);
-			gtk_image_set_from_pixbuf (GTK_IMAGE (c_view->priv->image),
-						   c_view->priv->comic_loader->pixbuf);
-			if (c_view->priv->scale == 1.0) {
-				/* We have both the compressed and uncompressed image.
-				 * Setting the pixbuf avoids the cache uncompressing
-				 * the image again and having a new pixbuf instead of a
-				 * reference.
-				 */
-				buoh_comic_set_pixbuf (c_view->priv->comic,
-						       c_view->priv->comic_loader->pixbuf);
-			}
-			buoh_comic_set_image (c_view->priv->comic,
-					      c_view->priv->comic_loader->image);
-			g_object_unref (c_view->priv->comic_loader->pixbuf);
-			g_mutex_unlock (c_view->priv->comic_loader->pixbuf_mutex);
-
-			gtk_widget_show (c_view->priv->image);
-			
-			g_object_set (G_OBJECT (c_view->priv->view),
-				      "status", STATE_COMIC_LOADED,
-				      NULL);
-		}
-	case LOADER_STATE_STOPPING:
-		if (cursor) {
-			gdk_window_set_cursor (GTK_WIDGET (c_view)->window, NULL);
-			gdk_cursor_unref (cursor);
-			cursor = NULL;
-		}
-
-		buoh_debug ("Monitor exit (stopping/finished)");
-
-		height = 0;
-
-		return FALSE;
-	case LOADER_STATE_FAILED:
-		if (cursor) {
-			gdk_window_set_cursor (GTK_WIDGET (c_view)->window, NULL);
-			gdk_cursor_unref (cursor);
-			cursor = NULL;
-		}
-
+	gdk_window_set_cursor (GTK_WIDGET (c_view)->window, NULL);
+	
+	buoh_comic_loader_get_error (c_view->priv->comic_loader, &error);
+	if (error) {
 		buoh_view_set_message_title (BUOH_VIEW (c_view->priv->view),
 					     _("Error Loading Comic"));
 		
-		if (c_view->priv->comic_loader->error) {
-			buoh_view_set_message_text (BUOH_VIEW (c_view->priv->view),
-						    c_view->priv->comic_loader->error->message);
-		} else {
-			buoh_view_set_message_text (BUOH_VIEW (c_view->priv->view),
-						    _("There has been an error when loading the comic. "
-						      "It use to be due to an error on the remote server. "
-						      "Please, try again later."));
-		}
+		buoh_view_set_message_text (BUOH_VIEW (c_view->priv->view),
+					    error->message);
+		g_error_free (error);
 		
 		buoh_view_set_message_icon (BUOH_VIEW (c_view->priv->view),
 					    GTK_STOCK_DIALOG_ERROR);
-
+		
 		g_object_set (G_OBJECT (c_view->priv->view),
 			      "status", STATE_MESSAGE_ERROR,
 			      NULL);
 
-		buoh_debug ("Monitor exit (failed)");
-
-		height = 0;
+		g_object_unref (c_view->priv->pixbuf_loader);
+		c_view->priv->pixbuf_loader = NULL;
 		
-		return FALSE;
-	default:
-		buoh_debug ("Monitor exit (unknown)");
-
-		height = 0;
-		
-		return FALSE;
+		return;
 	}
+
+	pixbuf = gdk_pixbuf_loader_get_pixbuf (c_view->priv->pixbuf_loader);
+	if (pixbuf) {
+		buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
+		
+		if (c_view->priv->scale == 1.0) {
+			/* We have both the compressed and uncompressed image.
+			 * By setting the pixbuf to cache we avoid uncompressing
+			 * the image again and having a new pixbuf instead of a
+			 * reference.
+			 */
+			buoh_comic_set_pixbuf (c_view->priv->comic, pixbuf);
+		}
+
+		g_object_set (G_OBJECT (c_view->priv->view),
+			      "status", STATE_COMIC_LOADED,
+			      NULL);
+	}
+
+	if (c_view->priv->comic_data->len > 0) {
+		BuohComicImage *comic_image;
+
+		comic_image = g_new0 (BuohComicImage, 1);
+
+		comic_image->size = c_view->priv->comic_data->len;
+		comic_image->data = (guchar *) g_memdup (c_view->priv->comic_data->str,
+							 c_view->priv->comic_data->len);
+		
+		buoh_comic_set_image (c_view->priv->comic, comic_image);
+
+		c_view->priv->comic_data->len = 0;
+	}
+	
+	g_object_unref (c_view->priv->pixbuf_loader);
+	c_view->priv->pixbuf_loader = NULL;
+}
+
+static gboolean
+buoh_view_comic_set_image_from_loader (BuohViewComic *c_view)
+{
+	GdkPixbuf *pixbuf;
+	
+	pixbuf = gdk_pixbuf_loader_get_pixbuf (c_view->priv->pixbuf_loader);
+	if (pixbuf)
+		buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
+
+	return FALSE;
+}
+
+static void
+buoh_view_comic_load_cb (const gchar   *data,
+			 guint          len,
+			 BuohViewComic *c_view)
+{
+	static guint id = 0;
+	GError *error = NULL;
+
+	gdk_pixbuf_loader_write (c_view->priv->pixbuf_loader,
+				 (guchar *)data, len, &error);
+
+	if (error) {
+		g_warning (error->message);
+		g_error_free (error);
+		return;
+	}
+
+	c_view->priv->comic_data = g_string_append_len (c_view->priv->comic_data,
+							data, len);
+
+	if (id > 0)
+		g_source_remove (id);
+	id = g_idle_add ((GSourceFunc) buoh_view_comic_set_image_from_loader,
+			 (gpointer) c_view);
 }
 
 static void
 buoh_view_comic_load (BuohViewComic *c_view)
 {
 	GdkPixbuf *pixbuf;
-	gchar     *uri;
-
-	if (c_view->priv->comic_loader->status == LOADER_STATE_RUNNING) {
-		buoh_debug ("Load already running");
-		buoh_comic_loader_stop (c_view->priv->comic_loader);
-		buoh_debug ("waiting thread");
-		buoh_comic_loader_wait (c_view->priv->comic_loader);
-		buoh_debug ("died");
-	}
 
 	pixbuf = buoh_comic_get_pixbuf (c_view->priv->comic);
 	if (pixbuf) {
@@ -598,21 +613,20 @@ buoh_view_comic_load (BuohViewComic *c_view)
 			      "status", STATE_COMIC_LOADED,
 			      NULL);
 	} else {
+		GdkCursor *cursor;
+		
 		g_object_set (G_OBJECT (c_view->priv->view),
 			      "status", STATE_COMIC_LOADING,
 			      NULL);
-		uri = buoh_comic_get_uri (c_view->priv->comic);
-		buoh_comic_loader_run (c_view->priv->comic_loader,
-				       uri,
-				       c_view->priv->scale);
-		g_free (uri);
 
-		if (c_view->priv->load_monitor > 0)
-			g_source_remove (c_view->priv->load_monitor);
-		c_view->priv->load_monitor =
-			g_timeout_add (60,
-				       (GSourceFunc)buoh_view_comic_load_monitor,
-				       (gpointer)c_view);
+		cursor = gdk_cursor_new (GDK_WATCH);
+		gdk_window_set_cursor (GTK_WIDGET (c_view)->window, cursor);
+		gdk_cursor_unref (cursor);
+		
+		buoh_comic_loader_load_comic (c_view->priv->comic_loader,
+					      c_view->priv->comic,
+					      (BuohComicLoaderLoadFunc) buoh_view_comic_load_cb,
+					      (gpointer) c_view);
 	}
 }
 

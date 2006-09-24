@@ -109,7 +109,7 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,
 	GtkWidget *label_pub_days, *label_pub_days_val;
 	GtkWidget *image;
 	GDate     *comic_date;
-	gchar     *title, *author, *uri, *language, date[DATE_BUFFER];
+	gchar date[DATE_BUFFER];
 	gchar     *pub_days;
 	BuohComic *comic;
 	GdkPixbuf *thumbnail;
@@ -127,12 +127,8 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,
 	thumbnail = buoh_comic_get_thumbnail (comic);
 	image = gtk_image_new_from_pixbuf (thumbnail);
 	g_object_unref (thumbnail);
+	
 	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0);
-
-	g_object_get (comic_manager,
-		      "title", &title,
-		      "author", &author,
-		      "language", &language, NULL);
 
 	str = g_strdup_printf ("<b>%s:</b>", _("Title"));
 	label_title = gtk_label_new (NULL);
@@ -164,33 +160,23 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,
 	gtk_misc_set_alignment (GTK_MISC (label_date), 0, 0.5);
 	g_free (str);
 
-	g_object_get (comic_manager,
-		      "title", &title,
-		      "author", &author,
-		      "language", &language, NULL);
-
-	label_title_val = gtk_label_new (title);
+	label_title_val = gtk_label_new (buoh_comic_manager_get_title (comic_manager));
 	gtk_label_set_selectable (GTK_LABEL (label_title_val), TRUE);
 	gtk_misc_set_alignment (GTK_MISC (label_title_val), 0, 0.5);
-	g_free (title);
 	
-	label_author_val = gtk_label_new (author);
+	label_author_val = gtk_label_new (buoh_comic_manager_get_author (comic_manager));
 	gtk_label_set_selectable (GTK_LABEL (label_author_val), TRUE);
 	gtk_misc_set_alignment (GTK_MISC (label_author_val), 0, 0.5);
-	g_free (author);
 
-	uri = buoh_comic_get_uri (comic);
-	label_uri_val = gtk_label_new (uri);
+	label_uri_val = gtk_label_new (buoh_comic_get_uri (comic));
 	gtk_label_set_selectable (GTK_LABEL (label_uri_val), TRUE);
 	gtk_misc_set_alignment (GTK_MISC (label_uri_val), 0, 0.5);
 	gtk_label_set_width_chars (GTK_LABEL (label_uri_val), 35);
 	gtk_label_set_ellipsize (GTK_LABEL (label_uri_val), PANGO_ELLIPSIZE_END);	
-	g_free (uri);
 	
-	label_language_val = gtk_label_new (language);
+	label_language_val = gtk_label_new (buoh_comic_manager_get_language (comic_manager));
 	gtk_label_set_selectable (GTK_LABEL (label_language_val), TRUE);
 	gtk_misc_set_alignment (GTK_MISC (label_language_val), 0, 0.5);	
-	g_free (language);
 
 	comic_date = buoh_comic_get_date (comic);
 	if (g_date_strftime (date, DATE_BUFFER,

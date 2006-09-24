@@ -1,3 +1,19 @@
+2006-09-24  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* src/buoh.c:
+	* src/buoh-view-comic.c:
+	* src/buoh-comic-loader.[ch]:
+	
+	Rework comic loader in order to make the process simpler and faster. 
+
+	* src/buoh-comic-manager.[ch]:
+	* src/buoh-comic.[ch]:
+	* src/buoh-properties-dialog.c:
+	* src/buoh-window.c:
+
+	Constify some strings so that we avoid some allocs/deallocs. Some
+	other minor fixes and cleanups. 
+
 2005-12-16  Esteban Sanchez  <esteban@steve-o.org>
 
 	* data/comics.xml: Added a couple of new comics.
