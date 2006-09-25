@@ -249,7 +249,6 @@ buoh_window_get_type (void)
 static void
 buoh_window_init (BuohWindow *buoh_window)
 {
-	gchar            *icon_path;
 	GtkWidget        *tree_view;
 	GtkTreeSelection *selection;
 	GtkWidget        *vbox, *paned, *menubar;
@@ -264,10 +263,7 @@ buoh_window_init (BuohWindow *buoh_window)
 	buoh_window->priv = BUOH_WINDOW_GET_PRIVATE (buoh_window);
 
 	gtk_window_set_title (GTK_WINDOW (buoh_window), "Buoh");
-
-	icon_path = g_build_filename (PIXMAPS_DIR, "buoh16x16.png", NULL);
-	gtk_window_set_icon_from_file (GTK_WINDOW (buoh_window), icon_path, NULL);
-	g_free (icon_path);
+	gtk_window_set_icon_name (GTK_WINDOW (buoh_window), "buoh");
 
 	buoh_window->priv->properties = NULL;
 	buoh_window->priv->add_dialog = NULL;
@@ -809,18 +805,12 @@ static void
 buoh_window_cmd_help_about (GtkAction *action, gpointer gdata)
 {
 	BuohWindow         *window = BUOH_WINDOW (gdata);
-	GdkPixbuf          *pixbuf;
-	gchar              *pixbuf_path;
 	static const gchar *authors[] = {
 		"Esteban Sánchez Muñoz <esteban@steve-o.org>",
 		"Pablo Arroyo Loma <zioma@linups.org>",
 		"Carlos Garcia Campos <carlosgc@gnome.org>",
-		                NULL
+		NULL
 	};
-
-	pixbuf_path = g_build_filename (PIXMAPS_DIR, "buoh64x64.png", NULL);
-	pixbuf = gdk_pixbuf_new_from_file_at_size (pixbuf_path, 48, 48, NULL);
-	g_free (pixbuf_path);
 
 	gtk_show_about_dialog (GTK_WINDOW (window),
 			       "name", _("Buoh online comics reader"),
@@ -828,11 +818,8 @@ buoh_window_cmd_help_about (GtkAction *action, gpointer gdata)
 			       "copyright", "Copyright \xC2\xA9 2004 Esteban Sánchez Muñoz - Pablo Arroyo Loma",
 			       "authors", authors,
 			       "translator-credits", _("translator-credits"),
-			       "logo", pixbuf,
+			       "logo-icon-name", "buoh",
 			       NULL);
-
-	if (pixbuf)
-		g_object_unref (pixbuf);
 }
 
 static void

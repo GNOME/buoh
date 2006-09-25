@@ -178,28 +178,30 @@ buoh_view_message_set_text (BuohViewMessage *m_view, const gchar *text)
 void
 buoh_view_message_set_icon (BuohViewMessage *m_view, const gchar *icon)
 {
-	gchar       *icon_path;
-	GdkPixbuf   *pixbuf = NULL;
-	GtkStockItem item;
+	GdkPixbuf           *pixbuf = NULL;
+	GError              *error = NULL;
+	static GtkIconTheme *icon_theme = NULL;
 
 	g_return_if_fail (BUOH_IS_VIEW_MESSAGE (m_view));
 	g_return_if_fail (icon != NULL);
 
-	if (gtk_stock_lookup (icon, &item)) {
-		gtk_image_set_from_stock (GTK_IMAGE (m_view->priv->icon), icon,
-					  GTK_ICON_SIZE_DIALOG);
-	} else {
-		icon_path = g_build_filename (PIXMAPS_DIR, icon, NULL);
-		pixbuf = gdk_pixbuf_new_from_file_at_size (icon_path, 48, 48, NULL);
-		g_free (icon_path);
+	if (!icon_theme)
+		icon_theme = gtk_icon_theme_get_default ();
 
-		if (pixbuf) {
-			gtk_image_set_from_pixbuf (GTK_IMAGE (m_view->priv->icon),
-						   pixbuf);
-			g_object_unref (pixbuf);
-		} else {
-			gtk_image_set_from_stock (GTK_IMAGE (m_view->priv->icon),
-						  NULL, GTK_ICON_SIZE_DIALOG);
-		}
+	pixbuf = gtk_icon_theme_load_icon (icon_theme,
+					   icon,
+					   64,
+					   0,
+					   &error);
+	if (error) {
+		g_warning (error->message);
+		g_error_free (error);
+
+		return;
+	}
+
+	if (pixbuf) {
+		gtk_image_set_from_pixbuf (GTK_IMAGE (m_view->priv->icon), pixbuf);
+		g_object_unref (pixbuf);
 	}
 }

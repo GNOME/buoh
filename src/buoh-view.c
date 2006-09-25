@@ -164,8 +164,7 @@ buoh_view_init (BuohView *buoh_view)
 				      "to add or remove comics to the list click on Comic -> Add. "
 				      "Just select a comic from the list, and it will be displayed "
 				      "on the right side. Thanks for using Buoh."));
-	buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (buoh_view->priv->message),
-				    "buoh64x64.png");
+	buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (buoh_view->priv->message), "buoh");
 	gtk_container_add (GTK_CONTAINER (swindow),
 			   buoh_view->priv->message);
 	gtk_widget_show (buoh_view->priv->message);

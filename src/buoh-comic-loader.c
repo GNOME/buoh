@@ -278,7 +278,6 @@ buoh_comic_loader_job_read_next (SoupMessage        *msg,
 			job->error = g_error_new (BUOH_COMIC_LOADER_ERROR,
 						  (gint) msg->status_code,
 						  msg->reason_phrase);
-			g_print ("DBG: error reading chunk\n");
 		}
 
 		soup_message_set_status (msg, SOUP_STATUS_CANCELLED);

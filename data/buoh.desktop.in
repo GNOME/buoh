@@ -2,9 +2,9 @@
 _Name=Buoh Online Comics Reader
 _Comment=Read your favourite comics
 Exec=buoh
-Icon=buoh64x64.png
-Terminal=0
+Icon=buoh
+Terminal=true
 Type=Application
-Categories=Application;Utility;
+Categories=GNOME;GTK;Application;Utility;
 StartupNotify=true
 Encoding=UTF-8
