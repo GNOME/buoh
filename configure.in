@@ -1,6 +1,6 @@
-AC_PREREQ(2.52)
-AC_INIT(buoh, 0.8.1)
-AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+AC_PREREQ(2.57)
+AC_INIT([buoh], [0.8.1])
+AM_INIT_AUTOMAKE([1.9 dist-bzip2 no-dist-gzip])
 
 dnl Useful to call aclocal after 'make'
 AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS")
@@ -8,7 +8,7 @@ AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS")
 AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
 
-AC_PROG_INTLTOOL([0.11])
+IT_PROG_INTLTOOL([0.35.0])
 
 AC_ISC_POSIX
 AC_PROG_CC
@@ -63,17 +63,6 @@ AM_GLIB_GNU_GETTEXT
 
   
 if test "x${prefix}" = "xNONE"; then
-   AC_DEFINE_UNQUOTED(PIXMAPS_DIR, "${ac_default_prefix}/$DATADIRNAME/${PACKAGE}/pixmaps", [Pixmaps directory])
-   pixmaps_dir="${ac_default_prefix}/$DATADIRNAME/${PACKAGE}/pixmaps"
-else
-   AC_DEFINE_UNQUOTED(PIXMAPS_DIR, "${prefix}/$DATADIRNAME/${PACKAGE}/pixmaps", [Pixmaps directory])
-   pixmaps_dir="${prefix}/$DATADIRNAME/${PACKAGE}/pixmaps"
-fi
-
-AC_SUBST(pixmaps_dir)
-			
-	   
-if test "x${prefix}" = "xNONE"; then
    AC_DEFINE_UNQUOTED(UI_DIR, "${ac_default_prefix}/${DATADIRNAME}/${PACKAGE}/ui", [Path where glade files will be installed])
    ui_dir="${ac_default_prefix}/${DATADIRNAME}/${PACKAGE}/ui"
 else
@@ -100,4 +89,7 @@ Makefile
 po/Makefile.in
 src/Makefile
 data/Makefile
+data/icons/Makefile
+data/icons/16x16/Makefile
+data/icons/64x64/Makefile
 ])

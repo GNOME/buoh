@@ -48,6 +48,7 @@ main (gint argc, gchar **argv)
 			    GNOME_PARAM_NONE);
 
 	g_set_application_name (_("Buoh online comics browser"));
+	gtk_window_set_default_icon_name ("buoh");
 
 	/* Init threads */
 	if (!g_thread_supported ()) {
