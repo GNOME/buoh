@@ -1,3 +1,9 @@
+2006-09-26  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* data/buoh.desktop.in: 
+
+	s/Terminal=true/Terminal=flase/ I don't know why I wrote true there. 
+
 2006-09-25  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* INSTALL: Removed, it's a generated file
