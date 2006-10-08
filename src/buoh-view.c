@@ -122,6 +122,25 @@ buoh_view_status_get_type (void)
 	return etype;
 }
 
+GType
+buoh_view_zoom_mode_get_type (void)
+{
+	static GType etype = 0;
+
+	if (etype == 0) {
+		static const GEnumValue values[] = {
+			{ VIEW_ZOOM_FREE,      "VIEW_ZOOM_FREE",      "free" },
+			{ VIEW_ZOOM_BEST_FIT,  "VIEW_ZOOM_BEST_FIT",  "best-fit" },
+			{ VIEW_ZOOM_FIT_WIDTH, "VIEW_ZOOM_FIT_WIDTH", "fit-width" },
+			{ 0, NULL, NULL }
+		};
+
+		etype = g_enum_register_static ("BuohViewZoomMode", values);
+	}
+
+	return etype;
+}
+
 static void
 buoh_view_init (BuohView *buoh_view)
 {
@@ -381,6 +400,30 @@ buoh_view_zoom_normal_size (BuohView *view)
 	g_return_if_fail (BUOH_IS_VIEW (view));
 	
 	buoh_view_comic_normal_size (BUOH_VIEW_COMIC (view->priv->comic));
+}
+
+void
+buoh_view_zoom_best_fit (BuohView *view)
+{
+	g_return_if_fail (BUOH_IS_VIEW (view));
+
+	buoh_view_comic_best_fit (BUOH_VIEW_COMIC (view->priv->comic));
+}
+
+void
+buoh_view_zoom_fit_width (BuohView *view)
+{
+	g_return_if_fail (BUOH_IS_VIEW (view));
+
+	buoh_view_comic_fit_width (BUOH_VIEW_COMIC (view->priv->comic));
+}
+
+BuohViewZoomMode
+buoh_view_get_zoom_mode (BuohView *view)
+{
+	g_return_val_if_fail (BUOH_IS_VIEW (view), 0);
+
+	return buoh_view_comic_get_zoom_mode (BUOH_VIEW_COMIC (view->priv->comic));
 }
 
 BuohViewStatus

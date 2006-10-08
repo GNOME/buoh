@@ -1,8 +1,18 @@
+2006-10-08  Carlos Garcia Campos  <carlosgc@gnome.org>
+
+	* data/buoh-ui.xml:
+	* src/buoh-view-comic.[ch]:
+	* src/buoh-view.[ch]:
+	* src/buoh-window.c:
+
+	Implement best fit and fit width zoom modes. Fit width is now the mode
+	by default.
+
 2006-09-26  Carlos Garcia Campos  <carlosgc@gnome.org>
 
 	* data/buoh.desktop.in: 
 
-	s/Terminal=true/Terminal=flase/ I don't know why I wrote true there. 
+	s/Terminal=true/Terminal=false/ I don't know why I wrote true there. 
 
 2006-09-25  Carlos Garcia Campos  <carlosgc@gnome.org>
 

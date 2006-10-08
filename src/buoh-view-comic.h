@@ -46,15 +46,18 @@ struct _BuohViewComicClass {
 	GtkViewportClass   parent_class;
 };
 
-GType      buoh_view_comic_get_type       (void) G_GNUC_CONST;
-GtkWidget *buoh_view_comic_new            (BuohView       *view);
+GType            buoh_view_comic_get_type       (void) G_GNUC_CONST;
+GtkWidget       *buoh_view_comic_new            (BuohView       *view);
 
-gboolean   buoh_view_comic_is_min_zoom    (BuohViewComic  *c_view);
-gboolean   buoh_view_comic_is_max_zoom    (BuohViewComic  *c_view);
-gboolean   buoh_view_comic_is_normal_size (BuohViewComic  *c_view);
-void       buoh_view_comic_zoom_in        (BuohViewComic  *c_view);
-void       buoh_view_comic_zoom_out       (BuohViewComic  *c_view);
-void       buoh_view_comic_normal_size    (BuohViewComic  *c_view);
+gboolean         buoh_view_comic_is_min_zoom    (BuohViewComic  *c_view);
+gboolean         buoh_view_comic_is_max_zoom    (BuohViewComic  *c_view);
+gboolean         buoh_view_comic_is_normal_size (BuohViewComic  *c_view);
+void             buoh_view_comic_zoom_in        (BuohViewComic  *c_view);
+void             buoh_view_comic_zoom_out       (BuohViewComic  *c_view);
+void             buoh_view_comic_normal_size    (BuohViewComic  *c_view);
+void             buoh_view_comic_best_fit       (BuohViewComic  *c_view);
+void             buoh_view_comic_fit_width      (BuohViewComic  *c_view);
+BuohViewZoomMode buoh_view_comic_get_zoom_mode  (BuohViewComic  *c_view);
 
 G_END_DECLS
 

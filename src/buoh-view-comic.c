@@ -33,6 +33,7 @@
 enum {
 	PROP_0,
 	PROP_COMIC,
+	PROP_ZOOM_MODE,
 	PROP_SCALE
 };
 
@@ -42,6 +43,7 @@ struct _BuohViewComicPrivate {
 	GString         *comic_data;
 
 	BuohComic       *comic;
+	BuohViewZoomMode zoom_mode;
 	gdouble          scale;
 
 	BuohComicLoader *comic_loader;
@@ -60,7 +62,7 @@ static const GtkTargetEntry targets[] = {
 #define ZOOM_OUT_FACTOR (1.0 / ZOOM_IN_FACTOR)
 
 #define MIN_ZOOM_SCALE 0.6
-#define MAX_ZOOM_SCALE 2
+#define MAX_ZOOM_SCALE 4
 
 #define DATA_SIZE 61440 /* 60K */
 
@@ -82,6 +84,8 @@ static gboolean buoh_view_comic_key_press_event       (GtkWidget        *widget,
 						       GdkEventKey      *event);
 static gboolean buoh_view_comic_scroll_event          (GtkWidget        *widget,
 						       GdkEventScroll   *event);
+static void     buoh_view_comic_size_allocate         (GtkWidget        *widget,
+						       GtkAllocation    *allocation);
 static void     buoh_view_comic_drag_begin            (GtkWidget        *widget,
 						       GdkDragContext   *drag_context,
 						       gpointer          gdata);
@@ -101,6 +105,13 @@ static void     buoh_view_comic_prepare_load          (BuohViewComic    *c_view)
 static void     buoh_view_comic_load_finished         (BuohViewComic    *c_view,
 						       gpointer          gdata);
 static void     buoh_view_comic_load                  (BuohViewComic    *c_view);
+static gdouble  buoh_view_comic_get_scale_for_width   (BuohViewComic    *c_view,
+						       gint              width);
+static gdouble  buoh_view_comic_get_scale_for_height  (BuohViewComic    *c_view,
+						       gint              height);
+static void     buoh_view_comic_zoom                  (BuohViewComic    *c_view,
+						       gdouble           factor,
+						       gboolean          relative);
 
 GType
 buoh_view_comic_get_type (void)
@@ -134,6 +145,7 @@ buoh_view_comic_init (BuohViewComic *c_view)
 	
 	c_view->priv = BUOH_VIEW_COMIC_GET_PRIVATE (c_view);
 
+	c_view->priv->zoom_mode = VIEW_ZOOM_FIT_WIDTH;
 	c_view->priv->scale = 1.0;
 	c_view->priv->comic_loader = buoh_comic_loader_new ();
 	c_view->priv->comic_data = g_string_sized_new (DATA_SIZE);
@@ -176,6 +188,7 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
 
 	widget_class->key_press_event = buoh_view_comic_key_press_event;
 	widget_class->scroll_event = buoh_view_comic_scroll_event;
+	widget_class->size_allocate = buoh_view_comic_size_allocate;
 
 	parent_class = g_type_class_peek_parent (klass);
 
@@ -187,12 +200,20 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
 							       "The current comic",
 							       G_PARAM_READWRITE));
 	g_object_class_install_property (object_class,
+					 PROP_ZOOM_MODE,
+					 g_param_spec_enum ("zoom-mode",
+							    "ZoomMode",
+							    "The view zoom mode",
+							    BUOH_TYPE_VIEW_ZOOM_MODE,
+							    VIEW_ZOOM_FIT_WIDTH,
+							    G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
 					 PROP_SCALE,
 					 g_param_spec_double ("scale",
 							      "Scale",
 							      "Current view scale",
-							      MIN_ZOOM_SCALE,
-							      MAX_ZOOM_SCALE,
+							      G_MINDOUBLE,
+							      G_MAXDOUBLE,
 							      1.0,
 							      G_PARAM_READWRITE));
 	
@@ -254,6 +275,10 @@ buoh_view_comic_set_property (GObject      *object,
 		c_view->priv->comic = BUOH_COMIC (g_value_get_pointer (value));
 
 		break;
+	case PROP_ZOOM_MODE:
+		c_view->priv->zoom_mode = g_value_get_enum (value);
+
+		break;
 	case PROP_SCALE:
 		c_view->priv->scale = g_value_get_double (value);
 
@@ -274,6 +299,10 @@ buoh_view_comic_get_property (GObject    *object,
 	switch (prop_id) {
 	case PROP_COMIC:
 		g_value_set_pointer (value, c_view->priv->comic);
+
+		break;
+	case PROP_ZOOM_MODE:
+		g_value_set_enum (value, c_view->priv->zoom_mode);
 
 		break;
 	case PROP_SCALE:
@@ -362,6 +391,67 @@ buoh_view_comic_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 	return FALSE;
 }
 
+static gboolean
+buoh_view_comic_update_zoom_cb (BuohViewComic *c_view)
+{
+	GdkPixbuf *pixbuf;
+	gdouble    new_scale;
+
+	pixbuf = buoh_comic_get_pixbuf (c_view->priv->comic);
+	if (!pixbuf)
+		return FALSE;
+
+	switch (c_view->priv->zoom_mode) {
+	case VIEW_ZOOM_FREE:
+		new_scale = c_view->priv->scale;
+		break;
+	case VIEW_ZOOM_BEST_FIT: {
+		gdouble scale_width;
+		gdouble scale_height;
+
+		scale_width =
+			buoh_view_comic_get_scale_for_width (c_view,
+							     gdk_pixbuf_get_width (pixbuf));
+		
+		scale_height =
+			buoh_view_comic_get_scale_for_height (c_view,
+							      gdk_pixbuf_get_height (pixbuf));
+
+		new_scale = MIN (scale_width, scale_height);
+	}
+		break;
+	case VIEW_ZOOM_FIT_WIDTH:
+		new_scale =
+			buoh_view_comic_get_scale_for_width (c_view,
+							     gdk_pixbuf_get_width (pixbuf));
+		break;
+	default:
+		g_assert_not_reached ();
+
+	}
+
+	if (new_scale != c_view->priv->scale)
+		buoh_view_comic_zoom (c_view, new_scale, FALSE);
+	
+	return FALSE;
+}
+
+static void
+buoh_view_comic_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
+{
+	BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
+	static gint    id = 0;
+
+	if (c_view->priv->comic) {
+		if (id > 0)
+			g_source_remove (id);
+		id = g_idle_add ((GSourceFunc) buoh_view_comic_update_zoom_cb,
+				 c_view);
+	}
+	
+	GTK_WIDGET_CLASS (parent_class)->size_allocate (widget, allocation);
+}
+
 GtkWidget *
 buoh_view_comic_new (BuohView *view)
 {
@@ -415,6 +505,33 @@ buoh_view_comic_drag_data_get (GtkWidget *widget, GdkDragContext *drag_context,
 }
 
 static void
+buoh_view_comic_size_prepared (GdkPixbufLoader *loader,
+			       gint             width,
+			       gint             height,
+			       BuohViewComic   *c_view)
+{
+	switch (c_view->priv->zoom_mode) {
+	case VIEW_ZOOM_BEST_FIT: {
+		gdouble scale_width;
+		gdouble scale_height;
+
+		scale_width = buoh_view_comic_get_scale_for_width (c_view, width);
+		
+		scale_height = buoh_view_comic_get_scale_for_height (c_view, height);
+		
+		c_view->priv->scale = MIN (scale_width, scale_height);
+	}
+		break;
+	case VIEW_ZOOM_FIT_WIDTH:
+		c_view->priv->scale =
+			buoh_view_comic_get_scale_for_width (c_view, width);
+		break;
+	default:
+		break;
+	}
+}
+
+static void
 buoh_view_comic_prepare_load (BuohViewComic *c_view)
 {
 	GtkAdjustment *hadjustment;
@@ -433,6 +550,10 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
 		g_object_unref (c_view->priv->pixbuf_loader);
 	}
 	c_view->priv->pixbuf_loader = gdk_pixbuf_loader_new ();
+	g_signal_connect (G_OBJECT (c_view->priv->pixbuf_loader),
+			  "size-prepared",
+			  G_CALLBACK (buoh_view_comic_size_prepared),
+			  (gpointer) c_view);
 
 	c_view->priv->comic_data->len = 0;
 
@@ -630,6 +751,41 @@ buoh_view_comic_load (BuohViewComic *c_view)
 	}
 }
 
+static gdouble
+buoh_view_comic_get_scale_for_width (BuohViewComic *c_view,
+				     gint           width)
+{
+	GtkWidget *widget = GTK_WIDGET (c_view);
+	gdouble    new_scale;
+	
+	new_scale = (gdouble)(widget->allocation.width - 2 * widget->style->xthickness) /
+		(gdouble)width;
+
+	return new_scale;
+}
+
+static gdouble
+buoh_view_comic_get_scale_for_height (BuohViewComic *c_view,
+				      gint           height)
+{
+	GtkWidget *widget = GTK_WIDGET (c_view);
+	gdouble    new_scale;
+
+	new_scale = (gdouble)(widget->allocation.height - 2 * widget->style->ythickness) /
+		(gdouble)height;
+
+	return new_scale;
+}
+
+static void
+buoh_view_comic_set_zoom_mode (BuohViewComic    *c_view,
+			       BuohViewZoomMode  mode)
+{
+	g_object_set (G_OBJECT (c_view),
+		      "zoom-mode", mode,
+		      NULL);
+}
+
 static void
 buoh_view_comic_zoom (BuohViewComic *c_view, gdouble factor, gboolean relative)
 {
@@ -644,10 +800,13 @@ buoh_view_comic_zoom (BuohViewComic *c_view, gdouble factor, gboolean relative)
 	else
 		scale = factor;
 
+	if (scale == c_view->priv->scale)
+		return;
+
 	g_object_set (G_OBJECT (c_view),
-		      "scale", CLAMP (scale, MIN_ZOOM_SCALE, MAX_ZOOM_SCALE),
+		      "scale", scale,
 		      NULL);
-	
+
 	pixbuf = buoh_comic_get_pixbuf (c_view->priv->comic);
 	if (pixbuf) {
 		buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
@@ -659,7 +818,7 @@ buoh_view_comic_is_min_zoom (BuohViewComic *c_view)
 {
 	g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), FALSE);
 	
-	return c_view->priv->scale == MIN_ZOOM_SCALE;
+	return c_view->priv->scale <= MIN_ZOOM_SCALE;
 }
 
 gboolean
@@ -667,14 +826,14 @@ buoh_view_comic_is_max_zoom (BuohViewComic *c_view)
 {
 	g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), FALSE);
 	
-	return c_view->priv->scale == MAX_ZOOM_SCALE;
+	return c_view->priv->scale >= MAX_ZOOM_SCALE;
 }
 
 gboolean
 buoh_view_comic_is_normal_size (BuohViewComic *c_view)
 {
 	g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), FALSE);
-	
+
 	return c_view->priv->scale == 1.0;
 }
 
@@ -682,7 +841,8 @@ void
 buoh_view_comic_zoom_in (BuohViewComic *c_view)
 {
 	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
-	
+
+	buoh_view_comic_set_zoom_mode (c_view, VIEW_ZOOM_FREE);
 	buoh_view_comic_zoom (c_view, ZOOM_IN_FACTOR, TRUE);
 }
 
@@ -690,7 +850,8 @@ void
 buoh_view_comic_zoom_out (BuohViewComic *c_view)
 {
 	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
-	
+
+	buoh_view_comic_set_zoom_mode (c_view, VIEW_ZOOM_FREE);
 	buoh_view_comic_zoom (c_view, ZOOM_OUT_FACTOR, TRUE);
 }
 
@@ -698,6 +859,33 @@ void
 buoh_view_comic_normal_size (BuohViewComic *c_view)
 {
 	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
-	
+
+	buoh_view_comic_set_zoom_mode (c_view, VIEW_ZOOM_FREE);
 	buoh_view_comic_zoom (c_view, 1.0, FALSE);
+}
+
+void
+buoh_view_comic_best_fit (BuohViewComic *c_view)
+{
+	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
+
+	buoh_view_comic_set_zoom_mode (c_view, VIEW_ZOOM_BEST_FIT);
+	gtk_widget_queue_resize (GTK_WIDGET (c_view));
+}
+
+void
+buoh_view_comic_fit_width (BuohViewComic *c_view)
+{
+	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
+
+	buoh_view_comic_set_zoom_mode (c_view, VIEW_ZOOM_FIT_WIDTH);
+	gtk_widget_queue_resize (GTK_WIDGET (c_view));
+}
+
+BuohViewZoomMode
+buoh_view_comic_get_zoom_mode (BuohViewComic *c_view)
+{
+	g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), 0);
+
+	return c_view->priv->zoom_mode;
 }
