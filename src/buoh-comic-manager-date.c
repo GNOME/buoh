@@ -15,7 +15,6 @@
  *
  *  Author: Esteban Sánchez (steve-o) <esteban@steve-o.org>
  */
-#define _XOPEN_SOURCE
 
 #include <glib.h>
 #include <glib/gi18n.h>
@@ -162,15 +161,16 @@ buoh_comic_manager_date_set_first (BuohComicManagerDate *comic_manager,
 				   const gchar          *first)
 {
 	GDate     *date;
-	struct tm  time;
 
 	g_return_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager));
 	g_return_if_fail (first != NULL);
 
-	strptime (first, "%Y-%m-%d", &time);
-	/* Bug? */
-	time.tm_year += 1900;
-	date = g_date_new_dmy (time.tm_mday, time.tm_mon + 1, time.tm_year);
+	date = g_date_new ();
+	g_date_set_parse (date, first);
+	if (!g_date_valid (date)) {
+		g_warning ("Invalid date: %s", first);
+		return;
+	}
 
 	if (comic_manager->priv->first)
 		g_date_free (comic_manager->priv->first);
@@ -334,8 +334,6 @@ static BuohComic *
 buoh_comic_manager_date_get_last (BuohComicManager *comic_manager)
 {
 	GDate                       *date;
-	struct tm                   *gmt;
-	time_t                       now;
 	GDateWeekday                 weekday;
 	BuohComic                   *comic;
 	BuohComicManagerDatePrivate *priv;
@@ -343,12 +341,21 @@ buoh_comic_manager_date_get_last (BuohComicManager *comic_manager)
 
 	priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
 
-	now = time (NULL);
-	gmt = gmtime (&now);
-
 	date = g_date_new ();
-	g_date_set_time (date, mktime (gmt));
-
+	
+#if GLIB_CHECK_VERSION(2,10,0)
+	g_date_set_time_t (date, time (NULL));
+#else
+	{
+		struct tm *gmt;
+		time_t     now;
+		
+		now = time (NULL);
+		gmt = gmtime (&now);
+		g_date_set_time (date, mktime (gmt));
+	}
+#endif /* GLIB_CHECK_VERSION(2,10,0) */
+	
 	if (priv->offset != 0) {
 		g_date_subtract_days (date, priv->offset);
 	}
