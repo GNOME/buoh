@@ -1,5 +1,12 @@
 2006-10-08  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* src/buoh-comic-loader.c:
+	* src/buoh.c:
+
+	Fix memory leaks.
+
+2006-10-08  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* data/buoh-ui.xml:
 	* src/buoh-view-comic.[ch]:
 	* src/buoh-view.[ch]:
