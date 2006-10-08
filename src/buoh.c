@@ -143,6 +143,7 @@ buoh_parse_selected (Buoh *buoh)
 	root = xmlDocGetRootElement (doc);
 
 	if (!root) {
+		xmlFreeDoc (doc);
 		return NULL;
 	}
 
@@ -195,8 +196,10 @@ buoh_create_model_from_file (Buoh *buoh)
 
 	root = xmlDocGetRootElement (doc);
 
-	if (!root)
+	if (!root) {
+		xmlFreeDoc (doc);
 		return NULL;
+	}
 
 	model = gtk_list_store_new (N_COLUMNS,
 				    G_TYPE_BOOLEAN,

@@ -310,6 +310,7 @@ buoh_comic_loader_job_run (BuohComicLoaderJob *job)
 	buoh_debug ("resolving . . .");
 
 	soup_session_send_message (job->session, msg);
+	g_object_unref (msg);
 
 	if (job->canceled) {
 		buoh_debug ("canceled . . .");
