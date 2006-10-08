@@ -1,5 +1,13 @@
 2006-10-08  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* src/buoh-comic-manager-date.c:
+
+	Use g_date_set_time_t when available (glib >= 2.10) instead of
+	g_date_set_time which is deprecated. Use g_date_set_parse instead of
+	strptime. 
+
+2006-10-08  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* src/buoh-add-comic-dialog.c:
 	* src/buoh-comic-cache.c:
 	* src/buoh-comic-list.c:
