@@ -133,6 +133,10 @@ static void buoh_window_cmd_view_zoom_out               (GtkAction        *actio
 							 gpointer          gdata);
 static void buoh_window_cmd_view_zoom_normal            (GtkAction        *action,
 							 gpointer          gdata);
+static void buoh_window_cmd_view_zoom_best_fit          (GtkAction        *action,
+							 gpointer          gdata);
+static void buoh_window_cmd_view_zoom_fit_width         (GtkAction        *action,
+							 gpointer          gdata);
 static void buoh_window_cmd_go_previous                 (GtkAction        *action,
 							 gpointer          gdata);
 static void buoh_window_cmd_go_next                     (GtkAction        *action,
@@ -147,6 +151,7 @@ static void buoh_window_cmd_help_about                  (GtkAction        *actio
 							 gpointer          gdata);
 
 static void buoh_window_update_title                    (BuohWindow       *window);
+static void buoh_window_update_zoom_mode                (BuohWindow       *window);
 
 static const GtkActionEntry menu_entries[] = {
 
@@ -218,7 +223,13 @@ static const GtkToggleActionEntry menu_toggle_entries[] = {
 	  G_CALLBACK (buoh_window_cmd_view_toolbar), TRUE },
 	{ "ViewStatusbar", NULL, N_("St_atusbar"), NULL,
 	  N_("Changes the visibility of the statusbar"),
-	  G_CALLBACK (buoh_window_cmd_view_statusbar), TRUE }
+	  G_CALLBACK (buoh_window_cmd_view_statusbar), TRUE },
+	{ "ViewZoomBestFit", GTK_STOCK_ZOOM_FIT, N_("_Best Fit"), NULL,
+	  N_("Make the current comic fill the window"),
+	  G_CALLBACK (buoh_window_cmd_view_zoom_best_fit) },
+	{ "ViewZoomFitWidth", GTK_STOCK_ZOOM_FIT, N_("Fit Comic _Width"), NULL,
+	  N_("Make the current comic fill the window width"),
+	  G_CALLBACK (buoh_window_cmd_view_zoom_fit_width) }
 };
 
 GType
@@ -401,6 +412,7 @@ buoh_window_init (BuohWindow *buoh_window)
 	buoh_window_comic_actions_set_sensitive (buoh_window, FALSE);
 	buoh_window_comic_save_to_disk_set_sensitive (buoh_window, FALSE);
 	buoh_window_set_sensitive (buoh_window, "ComicRemove", FALSE);
+	buoh_window_update_zoom_mode (buoh_window);
 	
 	gtk_widget_grab_focus (GTK_WIDGET (buoh_window->priv->view));
 
@@ -741,6 +753,26 @@ buoh_window_cmd_view_zoom_normal (GtkAction *action, gpointer gdata)
 }
 
 static void
+buoh_window_cmd_view_zoom_best_fit (GtkAction *action, gpointer gdata)
+{
+	BuohWindow *window = BUOH_WINDOW (gdata);
+
+	buoh_view_zoom_best_fit (window->priv->view);
+}
+
+static void
+buoh_window_cmd_view_zoom_fit_width (GtkAction *action, gpointer gdata)
+{
+	BuohWindow *window = BUOH_WINDOW (gdata);
+
+	if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action))) {
+		buoh_view_zoom_fit_width (window->priv->view);
+	} else {
+		buoh_view_zoom_normal_size (window->priv->view);
+	}
+}
+
+static void
 buoh_window_cmd_go_previous (GtkAction *action, gpointer gdata)
 {
 	BuohWindow       *window = BUOH_WINDOW (gdata);
@@ -880,7 +912,7 @@ buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 	buoh_window_comic_browsing_actions_set_sensitive (window, sensitive);
 
 	buoh_window_set_sensitive (window, "ComicProperties", sensitive);
-	buoh_window_set_sensitive (window, "ComicCopyURI",    sensitive); 
+	buoh_window_set_sensitive (window, "ComicCopyURI",    sensitive);
 	buoh_window_set_sensitive (window, "ViewZoomIn",
 				   buoh_view_is_max_zoom (window->priv->view) ?
 				   FALSE : sensitive);
@@ -890,6 +922,8 @@ buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
 	buoh_window_set_sensitive (window, "ViewZoomNormal",
 				   buoh_view_is_normal_size (window->priv->view) ?
 				   FALSE : sensitive);
+	buoh_window_set_sensitive (window, "ViewZoomBestFit", sensitive);
+	buoh_window_set_sensitive (window, "ViewZoomFitWidth", sensitive);
 }
 
 static void
@@ -1026,6 +1060,33 @@ buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gd
 }
 
 static void
+buoh_window_update_zoom_mode (BuohWindow *window)
+{
+	BuohViewZoomMode  zoom_mode;
+	GtkAction        *action;
+
+	zoom_mode = buoh_view_get_zoom_mode (window->priv->view);
+	
+	action = gtk_action_group_get_action (window->priv->action_group,
+					      "ViewZoomBestFit");
+	g_signal_handlers_block_by_func
+		(action, G_CALLBACK (buoh_window_cmd_view_zoom_best_fit), window);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
+				      zoom_mode == VIEW_ZOOM_BEST_FIT);
+	g_signal_handlers_unblock_by_func
+		(action, G_CALLBACK (buoh_window_cmd_view_zoom_best_fit), window);
+	
+	action = gtk_action_group_get_action (window->priv->action_group,
+					      "ViewZoomFitWidth");
+	g_signal_handlers_block_by_func
+		(action, G_CALLBACK (buoh_window_cmd_view_zoom_fit_width), window);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
+				      zoom_mode == VIEW_ZOOM_FIT_WIDTH);
+	g_signal_handlers_unblock_by_func
+		(action, G_CALLBACK (buoh_window_cmd_view_zoom_fit_width), window);
+}
+
+static void
 buoh_window_view_zoom_change_cb (BuohView *view, gpointer gdata)
 {
 	BuohWindow *window = BUOH_WINDOW (gdata);
@@ -1036,6 +1097,8 @@ buoh_window_view_zoom_change_cb (BuohView *view, gpointer gdata)
 				   !buoh_view_is_min_zoom (window->priv->view));
 	buoh_window_set_sensitive (window, "ViewZoomNormal",
 				   !buoh_view_is_normal_size (window->priv->view));
+
+	buoh_window_update_zoom_mode (window);
 
 	gtk_widget_grab_focus (GTK_WIDGET (view));
 }

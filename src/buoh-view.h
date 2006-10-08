@@ -38,6 +38,7 @@ typedef struct _BuohViewPrivate BuohViewPrivate;
 #define BUOH_VIEW_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_VIEW, BuohViewClass))
 
 #define BUOH_TYPE_VIEW_STATUS           (buoh_view_status_get_type ())
+#define BUOH_TYPE_VIEW_ZOOM_MODE        (buoh_view_zoom_mode_get_type ())
 
 typedef enum {
 	STATE_MESSAGE_WELCOME,
@@ -46,6 +47,12 @@ typedef enum {
 	STATE_COMIC_LOADED,
 	STATE_EMPTY
 } BuohViewStatus;
+
+typedef enum {
+	VIEW_ZOOM_FREE,
+	VIEW_ZOOM_BEST_FIT,
+	VIEW_ZOOM_FIT_WIDTH
+} BuohViewZoomMode;
 
 struct _BuohView {
 	GtkNotebook      parent;
@@ -60,21 +67,29 @@ struct _BuohViewClass {
 
 GType            buoh_view_get_type           (void) G_GNUC_CONST;
 GType            buoh_view_status_get_type    (void) G_GNUC_CONST;
+GType            buoh_view_zoom_mode_get_type (void) G_GNUC_CONST;
 GtkWidget       *buoh_view_new                (void);
 
+/* Zoom */
 gboolean         buoh_view_is_min_zoom        (BuohView        *view);
 gboolean         buoh_view_is_max_zoom        (BuohView        *view);
 gboolean         buoh_view_is_normal_size     (BuohView        *view);
 void             buoh_view_zoom_in            (BuohView        *view);
 void             buoh_view_zoom_out           (BuohView        *view);
 void             buoh_view_zoom_normal_size   (BuohView        *view);
+void             buoh_view_zoom_best_fit      (BuohView        *view);
+void             buoh_view_zoom_fit_width     (BuohView        *view);
+BuohViewZoomMode buoh_view_get_zoom_mode      (BuohView        *view);
 
+/* Status */
 BuohViewStatus   buoh_view_get_status         (BuohView        *view);
 
+/* Comic */
 void             buoh_view_set_comic          (BuohView        *view,
 					       const BuohComic *comic);
 BuohComic       *buoh_view_get_comic          (BuohView        *view);
 
+/* Message */
 void             buoh_view_set_message_title  (BuohView        *view,
 					       const gchar     *title);
 void             buoh_view_set_message_text   (BuohView        *view,

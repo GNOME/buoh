@@ -18,6 +18,8 @@
 	 <menuitem name="ViewZoomInMenu" action="ViewZoomIn"/>
 	 <menuitem name="ViewZoomOutMenu" action="ViewZoomOut"/>
 	 <menuitem name="ViewZoomNormalMenu" action="ViewZoomNormal"/>
+	 <menuitem name="ViewZoomBestFitMenu" action="ViewZoomBestFit"/>
+	 <menuitem name="ViewZoomFitWidthMenu" action="ViewZoomFitWidth"/>
       </menu>
 
       <menu name="GoMenu" action="Go">
