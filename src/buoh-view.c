@@ -53,7 +53,6 @@ struct _BuohViewPrivate {
 #define BUOH_VIEW_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_VIEW, BuohViewPrivate))
 
-static GtkNotebookClass *parent_class = NULL;
 static guint buoh_view_signals[N_SIGNALS];
 
 static void     buoh_view_init               (BuohView       *buoh_view);
@@ -76,37 +75,14 @@ static void     buoh_view_scale_changed_cb   (GObject        *object,
 					      GParamSpec     *arg,
 					      gpointer        gdata);
 
-GType
-buoh_view_get_type (void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo info = {
-                        sizeof (BuohViewClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) buoh_view_class_init,
-                        NULL,
-                        NULL,
-                        sizeof (BuohView),
-                        0,
-                        (GInstanceInitFunc) buoh_view_init
-                };
-
-                type = g_type_register_static (GTK_TYPE_NOTEBOOK, "BuohView",
-                                               &info, 0);
-        }
-
-        return type;
-}
+G_DEFINE_TYPE (BuohView, buoh_view, GTK_TYPE_NOTEBOOK)
 
 GType
 buoh_view_status_get_type (void)
 {
 	static GType etype = 0;
 	
-	if (etype == 0) {
+	if (G_UNLIKELY (etype == 0)) {
 		static const GEnumValue values[] = {
 			{ STATE_MESSAGE_WELCOME, "STATE_MESSAGE_WELCOME", "welcome" },
 			{ STATE_MESSAGE_ERROR,   "STATE_MESSAGE_ERROR",   "error"   },
@@ -127,7 +103,7 @@ buoh_view_zoom_mode_get_type (void)
 {
 	static GType etype = 0;
 
-	if (etype == 0) {
+	if (G_UNLIKELY (etype == 0)) {
 		static const GEnumValue values[] = {
 			{ VIEW_ZOOM_FREE,      "VIEW_ZOOM_FREE",      "free" },
 			{ VIEW_ZOOM_BEST_FIT,  "VIEW_ZOOM_BEST_FIT",  "best-fit" },
@@ -224,8 +200,6 @@ buoh_view_class_init (BuohViewClass *klass)
 
 	widget_class->grab_focus = buoh_view_grab_focus;
 	widget_class->button_press_event = buoh_view_button_press_event;
-
-        parent_class = g_type_class_peek_parent (klass);
 
         g_type_class_add_private (klass, sizeof (BuohViewPrivate));
 

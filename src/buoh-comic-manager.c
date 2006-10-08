@@ -24,7 +24,7 @@
 #include "buoh-comic-manager-date.h"
 
 #define BUOH_COMIC_MANAGER_GET_PRIVATE(object) \
-     	  (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_COMIC_MANAGER_TYPE, BuohComicManagerPrivate))
+     	  (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC_MANAGER, BuohComicManagerPrivate))
 
 enum {
 	PROP_0,
@@ -47,8 +47,6 @@ struct _BuohComicManagerPrivate {
 	GList *current;
 };
 
-static GObjectClass *parent_class = NULL;
-
 static void buoh_comic_manager_init         (BuohComicManager      *comic_manager);
 static void buoh_comic_manager_class_init   (BuohComicManagerClass *klass);
 static void buoh_comic_manager_finalize     (GObject               *object);
@@ -61,30 +59,7 @@ static void buoh_comic_manager_set_property (GObject               *object,
 					     const GValue          *value,
 					     GParamSpec            *pspec);
 
-GType
-buoh_comic_manager_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (BuohComicManagerClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) buoh_comic_manager_class_init,
-			NULL,
-			NULL,
-			sizeof (BuohComicManager),
-			0,
-			(GInstanceInitFunc) buoh_comic_manager_init
-		};
-
-		type = g_type_register_static (G_TYPE_OBJECT, "BuohComicManager",
-					       &info, G_TYPE_FLAG_ABSTRACT);
-	}
-	
-	return type;
-}
+G_DEFINE_ABSTRACT_TYPE (BuohComicManager, buoh_comic_manager, G_TYPE_OBJECT)
 
 static void
 buoh_comic_manager_init (BuohComicManager *comic_manager)
@@ -104,8 +79,6 @@ static void
 buoh_comic_manager_class_init (BuohComicManagerClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-	parent_class = g_type_class_peek_parent (klass);
 
 	g_type_class_add_private (klass, sizeof (BuohComicManagerPrivate));
 
@@ -204,8 +177,8 @@ buoh_comic_manager_finalize (GObject *object)
 		comic_manager->priv->comic_list = NULL;
 	}
 	
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (buoh_comic_manager_parent_class)->finalize)
+		(* G_OBJECT_CLASS (buoh_comic_manager_parent_class)->finalize) (object);
 }
 
 BuohComicManager *

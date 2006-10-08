@@ -49,8 +49,6 @@ struct _BuohComicPrivate {
 #define BUOH_COMIC_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC, BuohComicPrivate))
 
-static GObjectClass *parent_class = NULL;
-
 static void buoh_comic_init         (BuohComic      *buoh_comic);
 static void buoh_comic_class_init   (BuohComicClass *klass);
 static void buoh_comic_finalize     (GObject        *object);
@@ -63,30 +61,7 @@ static void buoh_comic_set_property (GObject        *object,
 				     const GValue   *value,
 				     GParamSpec     *pspec);
 
-GType
-buoh_comic_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (BuohComicClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) buoh_comic_class_init,
-			NULL,
-			NULL,
-			sizeof (BuohComic),
-			0,
-			(GInstanceInitFunc) buoh_comic_init
-		};
-
-		type = g_type_register_static (G_TYPE_OBJECT, "BuohComic",
-					       &info, 0);
-	}
-	
-	return type;
-}
+G_DEFINE_TYPE (BuohComic, buoh_comic, G_TYPE_OBJECT)
 
 static void
 buoh_comic_init (BuohComic *buoh_comic)
@@ -104,8 +79,6 @@ static void
 buoh_comic_class_init (BuohComicClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-	parent_class = g_type_class_peek_parent (klass);
 
 	g_type_class_add_private (klass, sizeof (BuohComicPrivate));
 
@@ -175,8 +148,8 @@ buoh_comic_finalize (GObject *object)
 		comic->priv->cache = NULL;
 	}
 	
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (buoh_comic_parent_class)->finalize)
+		(* G_OBJECT_CLASS (buoh_comic_parent_class)->finalize) (object);
 }
 
 BuohComic *

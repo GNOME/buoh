@@ -30,12 +30,12 @@ typedef struct _BuohComicManagerDate        BuohComicManagerDate;
 typedef struct _BuohComicManagerDateClass   BuohComicManagerDateClass;
 typedef struct _BuohComicManagerDatePrivate BuohComicManagerDatePrivate;
 
-#define BUOH_COMIC_MANAGER_DATE_TYPE	     (buoh_comic_manager_date_get_type ())
-#define BUOH_COMIC_MANAGER_DATE(o)	     (G_TYPE_CHECK_INSTANCE_CAST ((o), BUOH_COMIC_MANAGER_DATE_TYPE, BuohComicManagerDate))
-#define BUOH_COMIC_MANAGER_DATE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), BUOH_COMIC_MANAGER_DATE_TYPE, BuohComicManagerDateClass))
-#define BUOH_IS_COMIC_MANAGER_DATE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), BUOH_COMIC_MANAGER_DATE_TYPE))
-#define BUOH_IS_COMIC_MANAGER_DATE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), BUOH_COMIC_MANAGER_DATE_TYPE))
-#define BUOH_COMIC_MANAGER_DATE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), BUOH_COMIC_MANAGER_DATE_TYPE, BuohComicManagerDateClass))
+#define BUOH_TYPE_COMIC_MANAGER_DATE	     (buoh_comic_manager_date_get_type ())
+#define BUOH_COMIC_MANAGER_DATE(o)	     (G_TYPE_CHECK_INSTANCE_CAST ((o), BUOH_TYPE_COMIC_MANAGER_DATE, BuohComicManagerDate))
+#define BUOH_COMIC_MANAGER_DATE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), BUOH_TYPE_COMIC_MANAGER_DATE, BuohComicManagerDateClass))
+#define BUOH_IS_COMIC_MANAGER_DATE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), BUOH_TYPE_COMIC_MANAGER_DATE))
+#define BUOH_IS_COMIC_MANAGER_DATE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), BUOH_TYPE_COMIC_MANAGER_DATE))
+#define BUOH_COMIC_MANAGER_DATE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), BUOH_TYPE_COMIC_MANAGER_DATE, BuohComicManagerDateClass))
 
 struct _BuohComicManagerDate {
 	BuohComicManager parent;

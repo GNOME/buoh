@@ -66,8 +66,6 @@ static const GtkTargetEntry targets[] = {
 
 #define DATA_SIZE 61440 /* 60K */
 
-static GtkViewportClass *parent_class = NULL;
-
 static void     buoh_view_comic_init                  (BuohViewComic *m_view);
 static void     buoh_view_comic_class_init            (BuohViewComicClass *klass);
 static void     buoh_view_comic_finalize              (GObject          *object);
@@ -113,30 +111,7 @@ static void     buoh_view_comic_zoom                  (BuohViewComic    *c_view,
 						       gdouble           factor,
 						       gboolean          relative);
 
-GType
-buoh_view_comic_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (BuohViewComicClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) buoh_view_comic_class_init,
-			NULL,
-			NULL,
-			sizeof (BuohViewComic),
-			0,
-			(GInstanceInitFunc) buoh_view_comic_init
-		};
-
-		type = g_type_register_static (GTK_TYPE_VIEWPORT, "BuohViewComic",
-					       &info, 0);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE (BuohViewComic, buoh_view_comic, GTK_TYPE_VIEWPORT)
 
 static void
 buoh_view_comic_init (BuohViewComic *c_view)
@@ -190,8 +165,6 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
 	widget_class->scroll_event = buoh_view_comic_scroll_event;
 	widget_class->size_allocate = buoh_view_comic_size_allocate;
 
-	parent_class = g_type_class_peek_parent (klass);
-
 	/* Properties */
 	g_object_class_install_property (object_class,
 					 PROP_COMIC,
@@ -241,8 +214,8 @@ buoh_view_comic_finalize (GObject *object)
 		c_view->priv->pixbuf_loader = NULL;
 	}
 
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (buoh_view_comic_parent_class)->finalize)
+		(* G_OBJECT_CLASS (buoh_view_comic_parent_class)->finalize) (object);
 }
 
 static void
@@ -258,8 +231,8 @@ buoh_view_comic_dispose (GObject *object)
 		c_view->priv->comic_loader = NULL;
 	}
 
-	if (G_OBJECT_CLASS (parent_class)->dispose)
-		(* G_OBJECT_CLASS (parent_class)->dispose) (object);
+	if (G_OBJECT_CLASS (buoh_view_comic_parent_class)->dispose)
+		(* G_OBJECT_CLASS (buoh_view_comic_parent_class)->dispose) (object);
 }
 
 static void
@@ -449,7 +422,7 @@ buoh_view_comic_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 				 c_view);
 	}
 	
-	GTK_WIDGET_CLASS (parent_class)->size_allocate (widget, allocation);
+	GTK_WIDGET_CLASS (buoh_view_comic_parent_class)->size_allocate (widget, allocation);
 }
 
 GtkWidget *
