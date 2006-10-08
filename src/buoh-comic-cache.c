@@ -43,36 +43,11 @@ struct _BuohComicCachePrivate {
 
 #define CACHE_SIZE 1048576 /* 1MB */
 
-static GObjectClass *parent_class = NULL;
-
 static void buoh_comic_cache_init       (BuohComicCache *buoh_comic_cache);
 static void buoh_comic_cache_class_init (BuohComicCacheClass *klass);
 static void buoh_comic_cache_finalize   (GObject *object);
 
-GType
-buoh_comic_cache_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (BuohComicCacheClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) buoh_comic_cache_class_init,
-			NULL,
-			NULL,
-			sizeof (BuohComicCache),
-			0,
-			(GInstanceInitFunc) buoh_comic_cache_init
-		};
-
-		type = g_type_register_static (G_TYPE_OBJECT, "BuohComicCache",
-					       &info, 0);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE (BuohComicCache, buoh_comic_cache, G_TYPE_OBJECT)
 
 static void
 buoh_comic_cache_init (BuohComicCache *buoh_comic_cache)
@@ -82,26 +57,17 @@ buoh_comic_cache_init (BuohComicCache *buoh_comic_cache)
 	buoh_comic_cache->priv->cache_dir =
 		g_build_filename (buoh_get_datadir (BUOH), "cache", NULL);
 	
-	buoh_comic_cache->priv->image_list = NULL;
 	buoh_comic_cache->priv->image_hash =
 		g_hash_table_new_full (g_str_hash,
 				       g_str_equal,
 				       g_free,
 				       (GDestroyNotify)buoh_comic_image_free);
-	buoh_comic_cache->priv->image_disk = NULL;
-
-	buoh_comic_cache->priv->current_pixbuf = NULL;
-	buoh_comic_cache->priv->current_uri = NULL;
-	
-	buoh_comic_cache->priv->size = 0;
 }
 
 static void
 buoh_comic_cache_class_init (BuohComicCacheClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-	parent_class = g_type_class_peek_parent (klass);
 
 	g_type_class_add_private (klass, sizeof (BuohComicCachePrivate));
 
@@ -156,8 +122,8 @@ buoh_comic_cache_finalize (GObject *object)
 		comic_cache->priv->current_uri = NULL;
 	}
 
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (buoh_comic_cache_parent_class)->finalize)
+		(* G_OBJECT_CLASS (buoh_comic_cache_parent_class)->finalize) (object);
 }
 
 BuohComicCache *

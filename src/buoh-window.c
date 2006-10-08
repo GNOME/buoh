@@ -60,8 +60,6 @@ struct _BuohWindowPrivate {
 #define GCONF_SHOW_STATUSBAR    "/apps/buoh/show_statusbar"
 #define GCONF_LOCKDOWN_SAVE 	"/desktop/gnome/lockdown/disable_save_to_disk"
 
-static GtkWindowClass *parent_class = NULL;
-
 static void buoh_window_init                             (BuohWindow      *buoh_window);
 static void buoh_window_class_init                       (BuohWindowClass *klass);
 static void buoh_window_finalize                         (GObject         *object);
@@ -232,30 +230,7 @@ static const GtkToggleActionEntry menu_toggle_entries[] = {
 	  G_CALLBACK (buoh_window_cmd_view_zoom_fit_width) }
 };
 
-GType
-buoh_window_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (BuohWindowClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) buoh_window_class_init,
-			NULL,
-			NULL,
-			sizeof (BuohWindow),
-			0,
-			(GInstanceInitFunc) buoh_window_init
-		};
-
-		type = g_type_register_static (GTK_TYPE_WINDOW, "BuohWindow",
-					       &info, 0);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE (BuohWindow, buoh_window, GTK_TYPE_WINDOW)
 
 static void
 buoh_window_init (BuohWindow *buoh_window)
@@ -424,8 +399,6 @@ buoh_window_class_init (BuohWindowClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	parent_class = g_type_class_peek_parent (klass);
-
 	g_type_class_add_private (klass, sizeof (BuohWindowPrivate));
 
 	object_class->finalize = buoh_window_finalize;
@@ -465,8 +438,8 @@ buoh_window_finalize (GObject *object)
 		buoh_window->priv->add_dialog = NULL;
 	}
 
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (buoh_window_parent_class)->finalize)
+		(* G_OBJECT_CLASS (buoh_window_parent_class)->finalize) (object);
 
 	buoh_exit_app (BUOH);
 }

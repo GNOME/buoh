@@ -35,42 +35,15 @@ struct _BuohPropertiesDialogPrivate {
 #define BUOH_PROPERTIES_DIALOG_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_PROPERTIES_DIALOG, BuohPropertiesDialogPrivate))
 
-static GtkDialogClass *parent_class = NULL;
-
 static void buoh_properties_dialog_init       (BuohPropertiesDialog      *dialog);
 static void buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass);
 
-GType
-buoh_properties_dialog_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (BuohPropertiesDialogClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) buoh_properties_dialog_class_init,
-			NULL,
-			NULL,
-			sizeof (BuohPropertiesDialog),
-			0,
-			(GInstanceInitFunc) buoh_properties_dialog_init
-		};
-
-		type = g_type_register_static (GTK_TYPE_DIALOG, "BuohPropertiesDialog",
-					       &info, 0);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE (BuohPropertiesDialog, buoh_properties_dialog, GTK_TYPE_DIALOG)
 
 static void
 buoh_properties_dialog_init (BuohPropertiesDialog *dialog)
 {
 	dialog->priv = BUOH_PROPERTIES_DIALOG_GET_PRIVATE (dialog);
-
-	dialog->priv->comic_manager = NULL;
 
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Comic Properties"));
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
@@ -91,8 +64,6 @@ buoh_properties_dialog_init (BuohPropertiesDialog *dialog)
 static void
 buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass)
 {
-	parent_class = g_type_class_peek_parent (klass);
-
 	g_type_class_add_private (klass, sizeof (BuohPropertiesDialogPrivate));
 }
 

@@ -62,8 +62,6 @@ struct _BuohPrivate {
 #define GCONF_HTTP_PROXY_AUTHENTICATION_USER "/system/http_proxy/authentication_user"
 #define GCONF_HTTP_PROXY_AUTHENTICATION_PASSWORD "/system/http_proxy/authentication_password"
 
-static GObjectClass *parent_class = NULL;
-
 static void          buoh_init                   (Buoh         *buoh);
 static void          buoh_class_init             (BuohClass    *klass);
 static void          buoh_finalize               (GObject      *object);
@@ -76,30 +74,7 @@ static void          buoh_save_comic_list        (GtkTreeModel *model,
 						  gpointer      gdata);
 static void          buoh_create_user_dir        (Buoh         *buoh);
 
-GType
-buoh_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (BuohClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) buoh_class_init,
-			NULL,
-			NULL,
-			sizeof (Buoh),
-			0,
-			(GInstanceInitFunc) buoh_init
-		};
-
-		type = g_type_register_static (G_TYPE_OBJECT, "Buoh",
-					       &info, 0);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE (Buoh, buoh, G_TYPE_OBJECT)
 
 void
 buoh_debug (const gchar *format, ...)
@@ -529,8 +504,6 @@ buoh_class_init (BuohClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	parent_class = g_type_class_peek_parent (klass);
-
 	g_type_class_add_private (klass, sizeof (BuohPrivate));
 
 	object_class->finalize = buoh_finalize;
@@ -559,8 +532,8 @@ buoh_finalize (GObject *object)
 		buoh->priv->proxy_uri = NULL;
 	}
 
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (buoh_parent_class)->finalize)
+		(* G_OBJECT_CLASS (buoh_parent_class)->finalize) (object);
 }
 
 Buoh *

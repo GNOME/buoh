@@ -38,8 +38,6 @@ struct _BuohAddComicDialogPrivate {
 #define BUOH_ADD_COMIC_DIALOG_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_ADD_COMIC_DIALOG, BuohAddComicDialogPrivate))
 
-static GtkDialogClass *parent_class = NULL;
-
 static void buoh_add_comic_dialog_init        (BuohAddComicDialog      *dialog);
 static void buoh_add_comic_dialog_class_init  (BuohAddComicDialogClass *klass);
 
@@ -49,30 +47,7 @@ static void buoh_add_comic_toggled_cb             (GtkCellRendererToggle *render
 						   gchar                 *path,
 						   gpointer               gdata);
 
-GType
-buoh_add_comic_dialog_get_type ()
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (BuohAddComicDialogClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) buoh_add_comic_dialog_class_init,
-			NULL,
-			NULL,
-			sizeof (BuohAddComicDialog),
-			0,
-			(GInstanceInitFunc) buoh_add_comic_dialog_init
-		};
-
-		type = g_type_register_static (GTK_TYPE_DIALOG, "BuohAddComicDialog",
-					       &info, 0);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE (BuohAddComicDialog, buoh_add_comic_dialog, GTK_TYPE_DIALOG)
 
 static void
 buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
@@ -194,8 +169,6 @@ buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
 static void
 buoh_add_comic_dialog_class_init (BuohAddComicDialogClass *klass)
 {
-	parent_class = g_type_class_peek_parent (klass);
-
 	g_type_class_add_private (klass, sizeof (BuohAddComicDialogPrivate));
 }
 

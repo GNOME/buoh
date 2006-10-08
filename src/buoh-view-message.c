@@ -34,35 +34,10 @@ struct _BuohViewMessagePrivate {
 #define BUOH_VIEW_MESSAGE_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_VIEW_MESSAGE, BuohViewMessagePrivate))
 
-static GtkViewportClass *parent_class = NULL;
-
 static void buoh_view_message_init          (BuohViewMessage *m_view);
 static void buoh_view_message_class_init    (BuohViewMessageClass *klass);
 
-GType
-buoh_view_message_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (BuohViewMessageClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) buoh_view_message_class_init,
-			NULL,
-			NULL,
-			sizeof (BuohViewMessage),
-			0,
-			(GInstanceInitFunc) buoh_view_message_init
-		};
-
-		type = g_type_register_static (GTK_TYPE_VIEWPORT, "BuohViewMessage",
-					       &info, 0);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE (BuohViewMessage, buoh_view_message, GTK_TYPE_VIEWPORT)
 
 static void
 buoh_view_message_init (BuohViewMessage *m_view)
@@ -119,8 +94,6 @@ buoh_view_message_init (BuohViewMessage *m_view)
 static void
 buoh_view_message_class_init (BuohViewMessageClass *klass)
 {
-	parent_class = g_type_class_peek_parent (klass);
-
 	g_type_class_add_private (klass, sizeof (BuohViewMessagePrivate));
 }
 

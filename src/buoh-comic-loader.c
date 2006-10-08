@@ -57,7 +57,6 @@ static void  buoh_comic_loader_job_finalize     (GObject                 *object
 
 G_DEFINE_TYPE (BuohComicLoaderJob, buoh_comic_loader_job, G_TYPE_OBJECT)
 
-
 struct _BuohComicLoaderPrivate {
 	BuohComicLoaderJob *job;
 
@@ -67,8 +66,6 @@ struct _BuohComicLoaderPrivate {
 #define BUOH_COMIC_LOADER_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC_LOADER, BuohComicLoaderPrivate))
 
-
-static GObjectClass *parent_class = NULL;
 
 enum {
 	FINISHED,
@@ -83,37 +80,14 @@ static void     buoh_comic_loader_finalize      (GObject              *object);
 
 static void     buoh_comic_loader_clear         (BuohComicLoader      *loader);
 
-GType
-buoh_comic_loader_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (BuohComicLoaderClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) buoh_comic_loader_class_init,
-			NULL,
-			NULL,
-			sizeof (BuohComicLoader),
-			0,
-			(GInstanceInitFunc) buoh_comic_loader_init
-		};
-
-		type = g_type_register_static (G_TYPE_OBJECT, "BuohComicLoader",
-					       &info, 0);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE (BuohComicLoader, buoh_comic_loader, G_TYPE_OBJECT)
 
 GQuark
 buoh_comic_loader_error_quark (void)
 {
 	static GQuark quark = 0;
 	
-	if (quark == 0)
+	if (G_UNLIKELY (quark == 0))
 		quark = g_quark_from_static_string ("buoh-comic-loader-error-quark");
 
 	return quark;
@@ -129,8 +103,6 @@ static void
 buoh_comic_loader_class_init (BuohComicLoaderClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-	parent_class = g_type_class_peek_parent (klass);
 
 	g_type_class_add_private (klass, sizeof (BuohComicLoaderPrivate));
 
@@ -160,8 +132,8 @@ buoh_comic_loader_finalize (GObject *object)
 		loader->priv->error = NULL;
 	}
 
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (buoh_comic_loader_parent_class)->finalize)
+		(* G_OBJECT_CLASS (buoh_comic_loader_parent_class)->finalize) (object);
 }
 
 BuohComicLoader *
