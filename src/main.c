@@ -25,8 +25,14 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+
+#ifdef HAVE_LIBGNOMEUI
 #include <libgnome/libgnome.h>
 #include <libgnomeui/libgnomeui.h>
+#else
+#include <gtk/gtkmain.h>
+#include <gtk/gtkwindow.h>
+#endif /* HAVE_LIBGNOMEUI */
 
 #include "buoh.h"
 
@@ -42,10 +48,14 @@ main (gint argc, gchar **argv)
         textdomain (GETTEXT_PACKAGE);
 #endif
 
+#ifdef HAVE_LIBGNOMEUI
 	gnome_program_init (PACKAGE, VERSION,
 			    LIBGNOMEUI_MODULE,
 			    argc, argv,
 			    GNOME_PARAM_NONE);
+#else
+	gtk_init (&argc, &argv);
+#endif /* HAVE_LIBGNOMEUI */
 
 	g_set_application_name (_("Buoh online comics browser"));
 	gtk_window_set_default_icon_name ("buoh");
