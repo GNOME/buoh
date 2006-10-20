@@ -4,6 +4,10 @@ INCLUDES = 						\
 	$(WARN_CFLAGS)					\
 	$(DISABLE_DEPRECATED)
 
+if HAVE_LIBGNOMEUI
+INCLUDES += $(LIBGNOMEUI_CFLAGS)
+endif
+
 bin_PROGRAMS = buoh
 
 buoh_SOURCES = 							\
@@ -24,3 +28,6 @@ buoh_SOURCES = 							\
 
 buoh_LDADD = $(BUOH_LIBS)
 
+if HAVE_LIBGNOMEUI
+buoh_LDADD += $(LIBGNOMEUI_LIBS)
+endif
