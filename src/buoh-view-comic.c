@@ -518,17 +518,8 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
 	gtk_adjustment_set_value (hadjustment, 0.0);
 	gtk_adjustment_set_value (vadjustment, 0.0);
 
-	if (c_view->priv->pixbuf_loader) {
-		gdk_pixbuf_loader_close (c_view->priv->pixbuf_loader, NULL);
-		g_object_unref (c_view->priv->pixbuf_loader);
-	}
-	c_view->priv->pixbuf_loader = gdk_pixbuf_loader_new ();
-	g_signal_connect (G_OBJECT (c_view->priv->pixbuf_loader),
-			  "size-prepared",
-			  G_CALLBACK (buoh_view_comic_size_prepared),
-			  (gpointer) c_view);
-
-	c_view->priv->comic_data->len = 0;
+	if (GTK_WIDGET_REALIZED (GTK_WIDGET (c_view)))
+		gdk_window_set_cursor (GTK_WIDGET (c_view)->window, NULL);
 
 #if GTK_CHECK_VERSION(2,8,0)
 	gtk_image_clear (GTK_IMAGE (c_view->priv->image));
@@ -544,6 +535,9 @@ bouh_view_comic_changed_comic_cb (GObject *object, GParamSpec *arg, gpointer gda
 {
 	BuohViewComic *c_view = BUOH_VIEW_COMIC (object);
 
+	/* Cancel current load if needed */
+	buoh_comic_loader_cancel (c_view->priv->comic_loader);
+	
 	buoh_view_comic_prepare_load (c_view);
 
 	buoh_view_comic_load (c_view);
@@ -716,6 +710,18 @@ buoh_view_comic_load (BuohViewComic *c_view)
 		cursor = gdk_cursor_new (GDK_WATCH);
 		gdk_window_set_cursor (GTK_WIDGET (c_view)->window, cursor);
 		gdk_cursor_unref (cursor);
+
+		if (c_view->priv->pixbuf_loader) {
+			gdk_pixbuf_loader_close (c_view->priv->pixbuf_loader, NULL);
+			g_object_unref (c_view->priv->pixbuf_loader);
+		}
+		c_view->priv->pixbuf_loader = gdk_pixbuf_loader_new ();
+		g_signal_connect (G_OBJECT (c_view->priv->pixbuf_loader),
+				  "size-prepared",
+				  G_CALLBACK (buoh_view_comic_size_prepared),
+				  (gpointer) c_view);
+
+		c_view->priv->comic_data->len = 0;
 		
 		buoh_comic_loader_load_comic (c_view->priv->comic_loader,
 					      c_view->priv->comic,
