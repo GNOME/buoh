@@ -1,5 +1,11 @@
 2006-10-20  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* data/comics.xml: 
+
+	Fix "A Lawyer, A Doctor & A Cop" which had date hardcoded. 
+
+2006-10-20  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* src/buoh-comic-loader.[ch]:
 	* src/buoh-view-comic.c:
 

@@ -1337,7 +1337,7 @@
         title="A Lawyer, A Doctor &amp; A Cop"
         author="Kieran Meehan"
         language="English"
-        generic_uri="http://cserver.king-online.com/content/Lawyer?date=2005-12-01&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=d5k3bs&amp;size=hires"
+        generic_uri="http://cserver.king-online.com/content/Lawyer?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=d5k3bs&amp;size=hires"
         first="2004-03-01">
 </comic>
 <comic id="sherman"
