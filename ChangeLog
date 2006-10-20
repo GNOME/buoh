@@ -1,5 +1,13 @@
 2006-10-20  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* src/buoh-comic-loader.[ch]:
+	* src/buoh-view-comic.c:
+
+	Cancel current load as soon as possible. Cached comics don't need a
+	pixbuf loader.
+
+2006-10-20  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* configure.in:
 	* src/Makefile.am:
 	* src/main.c:

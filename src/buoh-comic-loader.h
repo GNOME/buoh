@@ -64,6 +64,7 @@ void             buoh_comic_loader_load_comic  (BuohComicLoader *loader,
 						gpointer         gdata);
 void             buoh_comic_loader_get_error   (BuohComicLoader *loader,
 						GError         **error);
+void             buoh_comic_loader_cancel      (BuohComicLoader *loader);
 
 G_END_DECLS
 

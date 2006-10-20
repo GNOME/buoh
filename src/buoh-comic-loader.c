@@ -302,8 +302,6 @@ buoh_comic_loader_job_run (BuohComicLoaderJob *job)
 static void
 buoh_comic_loader_clear (BuohComicLoader *loader)
 {
-	g_return_if_fail (BUOH_IS_COMIC_LOADER (loader));
-
 	if (!loader->priv->job)
 		return;
 
@@ -335,7 +333,16 @@ void
 buoh_comic_loader_get_error (BuohComicLoader *loader,
 			     GError         **error)
 {
+	g_return_if_fail (BUOH_IS_COMIC_LOADER (loader));
+	
 	if (loader->priv->error)
 		*error = g_error_copy (loader->priv->error);
 }
 
+void
+buoh_comic_loader_cancel (BuohComicLoader *loader)
+{
+	g_return_if_fail (BUOH_IS_COMIC_LOADER (loader));
+
+	buoh_comic_loader_clear (loader);
+}
