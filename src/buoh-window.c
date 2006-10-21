@@ -58,6 +58,7 @@ struct _BuohWindowPrivate {
 
 #define GCONF_SHOW_TOOLBAR	"/apps/buoh/show_toolbar"
 #define GCONF_SHOW_STATUSBAR    "/apps/buoh/show_statusbar"
+#define GCONF_ZOOM_MODE         "/apps/buoh/zoom_mode"
 #define GCONF_LOCKDOWN_SAVE 	"/desktop/gnome/lockdown/disable_save_to_disk"
 
 static void buoh_window_init                             (BuohWindow      *buoh_window);
@@ -245,6 +246,7 @@ buoh_window_init (BuohWindow *buoh_window)
 	GError           *error = NULL;
 	gboolean          visible_toolbar;
 	gboolean          visible_statusbar;
+	BuohViewZoomMode  zoom_mode;
       
 	buoh_window->priv = BUOH_WINDOW_GET_PRIVATE (buoh_window);
 
@@ -311,7 +313,7 @@ buoh_window_init (BuohWindow *buoh_window)
 	action = gtk_action_group_get_action (action_group, "ViewStatusbar");
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
 				      visible_statusbar);
-	
+
 	/* Toolbar */
 	toolbar = gtk_ui_manager_get_widget (buoh_window->priv->ui_manager,
 					     "/Toolbar");
@@ -324,10 +326,15 @@ buoh_window_init (BuohWindow *buoh_window)
 	
 	/* Pane */
 	paned = gtk_hpaned_new ();
+	/* FIXME: Remember side position */
 	gtk_paned_set_position (GTK_PANED (paned), 230);
 
 	/* buoh view */
 	buoh_window->priv->view = BUOH_VIEW (buoh_view_new ());
+	zoom_mode = gconf_client_get_int (buoh_window->priv->gconf_client,
+					  GCONF_ZOOM_MODE,
+					  NULL);
+	buoh_view_set_zoom_mode (buoh_window->priv->view, zoom_mode);
 	g_signal_connect (G_OBJECT (buoh_window->priv->view), "notify::status",
 			  G_CALLBACK (buoh_window_view_status_change_cb),
 			  (gpointer) buoh_window);
@@ -732,8 +739,14 @@ buoh_window_cmd_view_zoom_best_fit (GtkAction *action, gpointer gdata)
 
 	if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action))) {
 		buoh_view_zoom_best_fit (window->priv->view);
+		gconf_client_set_int (window->priv->gconf_client,
+				      GCONF_ZOOM_MODE,
+				      VIEW_ZOOM_BEST_FIT, NULL);
 	} else {
 		buoh_view_zoom_normal_size (window->priv->view);
+		gconf_client_set_int (window->priv->gconf_client,
+				      GCONF_ZOOM_MODE,
+				      VIEW_ZOOM_FREE, NULL);
 	}
 }
 
@@ -744,8 +757,14 @@ buoh_window_cmd_view_zoom_fit_width (GtkAction *action, gpointer gdata)
 
 	if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action))) {
 		buoh_view_zoom_fit_width (window->priv->view);
+		gconf_client_set_int (window->priv->gconf_client,
+				      GCONF_ZOOM_MODE,
+				      VIEW_ZOOM_FIT_WIDTH, NULL);
 	} else {
 		buoh_view_zoom_normal_size (window->priv->view);
+		gconf_client_set_int (window->priv->gconf_client,
+				      GCONF_ZOOM_MODE,
+				      VIEW_ZOOM_FREE, NULL);
 	}
 }
 

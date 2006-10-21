@@ -1,5 +1,15 @@
 2006-10-21  Carlos Garcia Campos  <carlosgc@gnome.org>
 
+	* data/buoh.schemas.in:
+	* src/buoh-view-comic.[ch]:
+	* src/buoh-view.[ch]:
+	* src/buoh-window.c:
+
+	Store zoom mode in GConf so that it can be remembered between
+	sessions.
+
+2006-10-21  Carlos Garcia Campos  <carlosgc@gnome.org>
+
 	* src/buoh-view-comic.c:
 	* src/buoh-window.c:
 

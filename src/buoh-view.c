@@ -400,6 +400,16 @@ buoh_view_get_zoom_mode (BuohView *view)
 	return buoh_view_comic_get_zoom_mode (BUOH_VIEW_COMIC (view->priv->comic));
 }
 
+void
+buoh_view_set_zoom_mode (BuohView        *view,
+			 BuohViewZoomMode mode)
+{
+	g_return_if_fail (BUOH_IS_VIEW (view));
+
+	buoh_view_comic_set_zoom_mode (BUOH_VIEW_COMIC (view->priv->comic),
+				       mode);
+}
+
 BuohViewStatus
 buoh_view_get_status (BuohView *view)
 {

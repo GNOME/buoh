@@ -80,6 +80,8 @@ void             buoh_view_zoom_normal_size   (BuohView        *view);
 void             buoh_view_zoom_best_fit      (BuohView        *view);
 void             buoh_view_zoom_fit_width     (BuohView        *view);
 BuohViewZoomMode buoh_view_get_zoom_mode      (BuohView        *view);
+void             buoh_view_set_zoom_mode      (BuohView        *view,
+					       BuohViewZoomMode mode);
 
 /* Status */
 BuohViewStatus   buoh_view_get_status         (BuohView        *view);
