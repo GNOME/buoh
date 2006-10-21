@@ -84,6 +84,8 @@ static gboolean buoh_view_comic_scroll_event          (GtkWidget        *widget,
 						       GdkEventScroll   *event);
 static void     buoh_view_comic_size_allocate         (GtkWidget        *widget,
 						       GtkAllocation    *allocation);
+static void     buoh_view_comic_size_request          (GtkWidget        *widget,
+						       GtkRequisition   *requisition);
 static void     buoh_view_comic_drag_begin            (GtkWidget        *widget,
 						       GdkDragContext   *drag_context,
 						       gpointer          gdata);
@@ -103,6 +105,7 @@ static void     buoh_view_comic_prepare_load          (BuohViewComic    *c_view)
 static void     buoh_view_comic_load_finished         (BuohViewComic    *c_view,
 						       gpointer          gdata);
 static void     buoh_view_comic_load                  (BuohViewComic    *c_view);
+static void     buoh_view_comic_update_scrollbar_policy (BuohViewComic  *c_view);
 static gdouble  buoh_view_comic_get_scale_for_width   (BuohViewComic    *c_view,
 						       gint              width);
 static gdouble  buoh_view_comic_get_scale_for_height  (BuohViewComic    *c_view,
@@ -164,6 +167,7 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
 	widget_class->key_press_event = buoh_view_comic_key_press_event;
 	widget_class->scroll_event = buoh_view_comic_scroll_event;
 	widget_class->size_allocate = buoh_view_comic_size_allocate;
+	widget_class->size_request = buoh_view_comic_size_request;
 
 	/* Properties */
 	g_object_class_install_property (object_class,
@@ -250,7 +254,8 @@ buoh_view_comic_set_property (GObject      *object,
 		break;
 	case PROP_ZOOM_MODE:
 		c_view->priv->zoom_mode = g_value_get_enum (value);
-
+		buoh_view_comic_update_scrollbar_policy (c_view);
+		
 		break;
 	case PROP_SCALE:
 		c_view->priv->scale = g_value_get_double (value);
@@ -410,6 +415,13 @@ buoh_view_comic_update_zoom_cb (BuohViewComic *c_view)
 }
 
 static void
+buoh_view_comic_size_request (GtkWidget *widget, GtkRequisition *requisition)
+{
+	requisition->width = -1;
+	requisition->height = -1;
+}
+
+static void
 buoh_view_comic_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
 	BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
@@ -440,7 +452,7 @@ buoh_view_comic_new (BuohView *view)
 			  "notify::status",
 			  G_CALLBACK (bouh_view_comic_view_status_changed),
 			  (gpointer) c_view);
-	
+
 	return c_view;
 }
 
@@ -495,9 +507,40 @@ buoh_view_comic_size_prepared (GdkPixbufLoader *loader,
 		c_view->priv->scale = MIN (scale_width, scale_height);
 	}
 		break;
-	case VIEW_ZOOM_FIT_WIDTH:
+	case VIEW_ZOOM_FIT_WIDTH: {
+		GtkWidget *swindow;
+
+		/* We have to predict if a vscrollbar will be needed
+		 * so that we'll have to take it into account
+		 */
+		swindow = gtk_widget_get_parent (GTK_WIDGET (c_view));
+		if (GTK_IS_SCROLLED_WINDOW (swindow)) {
+			GtkRequisition req;
+			gint           scrollbar_spacing;
+			gint           new_scale;
+			gint           widget_width;
+			gint           widget_height;
+
+			widget_width = GTK_WIDGET (c_view)->allocation.width;
+			widget_width -= 2 * GTK_WIDGET (c_view)->style->xthickness;
+
+			new_scale = (gdouble)widget_width / (gdouble)width;
+
+			widget_height = GTK_WIDGET (c_view)->allocation.height;
+
+			if ((height * new_scale) > widget_height) {
+				gtk_widget_size_request (GTK_SCROLLED_WINDOW (swindow)->vscrollbar, &req);
+				gtk_widget_style_get (swindow,
+						      "scrollbar_spacing", &scrollbar_spacing,
+						      NULL);
+				
+				GTK_WIDGET (c_view)->allocation.width -= (req.width + scrollbar_spacing);
+			}
+		}
+		
 		c_view->priv->scale =
 			buoh_view_comic_get_scale_for_width (c_view, width);
+	}
 		break;
 	default:
 		break;
@@ -517,6 +560,8 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
 
 	gtk_adjustment_set_value (hadjustment, 0.0);
 	gtk_adjustment_set_value (vadjustment, 0.0);
+
+	buoh_view_comic_update_scrollbar_policy (c_view);
 
 	if (GTK_WIDGET_REALIZED (GTK_WIDGET (c_view)))
 		gdk_window_set_cursor (GTK_WIDGET (c_view)->window, NULL);
@@ -696,6 +741,7 @@ buoh_view_comic_load (BuohViewComic *c_view)
 
 	pixbuf = buoh_comic_get_pixbuf (c_view->priv->comic);
 	if (pixbuf) {
+		buoh_view_comic_update_zoom_cb (c_view);
 		buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
 		g_object_set (G_OBJECT (c_view->priv->view),
 			      "status", STATE_COMIC_LOADED,
@@ -730,15 +776,46 @@ buoh_view_comic_load (BuohViewComic *c_view)
 	}
 }
 
+static void
+buoh_view_comic_update_scrollbar_policy (BuohViewComic *c_view)
+{
+	GtkWidget *swindow;
+	
+	swindow = gtk_widget_get_parent (GTK_WIDGET (c_view));
+	if (!GTK_IS_SCROLLED_WINDOW (swindow))
+		return;
+
+	switch (c_view->priv->zoom_mode) {
+	case VIEW_ZOOM_FREE:
+		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
+						GTK_POLICY_AUTOMATIC,
+						GTK_POLICY_AUTOMATIC);
+		break;
+	case VIEW_ZOOM_FIT_WIDTH:
+		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
+						GTK_POLICY_NEVER,
+						GTK_POLICY_AUTOMATIC);
+		break;
+	case VIEW_ZOOM_BEST_FIT:
+		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
+						GTK_POLICY_NEVER,
+						GTK_POLICY_NEVER);
+		break;
+	}
+}
+
 static gdouble
 buoh_view_comic_get_scale_for_width (BuohViewComic *c_view,
 				     gint           width)
 {
 	GtkWidget *widget = GTK_WIDGET (c_view);
+	gint       widget_width;
 	gdouble    new_scale;
+
+	widget_width = widget->allocation.width;
+	widget_width -= 2 * widget->style->xthickness;
 	
-	new_scale = (gdouble)(widget->allocation.width - 2 * widget->style->xthickness) /
-		(gdouble)width;
+	new_scale = (gdouble)widget_width / (gdouble)width;
 
 	return new_scale;
 }
@@ -748,10 +825,13 @@ buoh_view_comic_get_scale_for_height (BuohViewComic *c_view,
 				      gint           height)
 {
 	GtkWidget *widget = GTK_WIDGET (c_view);
+	gint       widget_height;
 	gdouble    new_scale;
 
-	new_scale = (gdouble)(widget->allocation.height - 2 * widget->style->ythickness) /
-		(gdouble)height;
+	widget_height = widget->allocation.height;
+	widget_height -= 2 * widget->style->ythickness;
+	
+	new_scale = (gdouble)widget_height / (gdouble)height;
 
 	return new_scale;
 }

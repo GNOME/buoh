@@ -730,7 +730,11 @@ buoh_window_cmd_view_zoom_best_fit (GtkAction *action, gpointer gdata)
 {
 	BuohWindow *window = BUOH_WINDOW (gdata);
 
-	buoh_view_zoom_best_fit (window->priv->view);
+	if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action))) {
+		buoh_view_zoom_best_fit (window->priv->view);
+	} else {
+		buoh_view_zoom_normal_size (window->priv->view);
+	}
 }
 
 static void
