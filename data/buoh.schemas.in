@@ -23,6 +23,18 @@
         <long>Statusbar is the bottom bar that contains help and status messages. Two boolean options, true makes statusbar visible by default while false makes statusbar not visible by default.</long>
       </locale>
     </schema>
+
+    <schema>
+      <key>/schemas/apps/buoh/zoom_mode</key>
+      <applyto>/apps/buoh/zoom_mode</applyto>
+      <owner>buoh</owner>
+      <type>int</type>
+      <default>2</default>
+      <locale name="C">
+        <short>Select viewer zoom mode</short>
+	<long>There are two zoom modes available, 1 makes the current comic fill the window, 2 makes the current comic fill the window width.</long>
+      </locale>
+    </schema>
   </schemalist>
 </gconfschemafile>
 

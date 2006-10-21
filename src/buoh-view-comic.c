@@ -837,15 +837,6 @@ buoh_view_comic_get_scale_for_height (BuohViewComic *c_view,
 }
 
 static void
-buoh_view_comic_set_zoom_mode (BuohViewComic    *c_view,
-			       BuohViewZoomMode  mode)
-{
-	g_object_set (G_OBJECT (c_view),
-		      "zoom-mode", mode,
-		      NULL);
-}
-
-static void
 buoh_view_comic_zoom (BuohViewComic *c_view, gdouble factor, gboolean relative)
 {
 	gdouble    scale;
@@ -947,4 +938,15 @@ buoh_view_comic_get_zoom_mode (BuohViewComic *c_view)
 	g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), 0);
 
 	return c_view->priv->zoom_mode;
+}
+
+void
+buoh_view_comic_set_zoom_mode (BuohViewComic   *c_view,
+			       BuohViewZoomMode mode)
+{
+	g_return_if_fail (BUOH_IS_VIEW_COMIC (c_view));
+	
+	g_object_set (G_OBJECT (c_view),
+		      "zoom-mode", mode,
+		      NULL);
 }
