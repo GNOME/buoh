@@ -138,7 +138,7 @@ buoh_view_init (BuohView *buoh_view)
 	gtk_container_add (GTK_CONTAINER (swindow),
 			   buoh_view->priv->comic);
 	gtk_widget_show (buoh_view->priv->comic);
-
+	
         gtk_notebook_insert_page (GTK_NOTEBOOK (buoh_view), swindow,
                                   NULL, VIEW_PAGE_IMAGE);
         gtk_widget_show (swindow);
