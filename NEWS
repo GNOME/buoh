@@ -1,4 +1,44 @@
 ======================
+Changes in Buoh 0.8.2
+======================
+
+"Quicker than a cheetah"
+
+Changes:
+   * The comics loading has been improved to make it faster. (Carlos García Campos)
+   * Icons are installed according to icon theme specification. (Carlos García Campos)
+   * Implement best fit and fit width zoom modes. Fit width is now the mode by 
+     default. (Carlos García Campos)
+   * Make libgnomeui an optional dependency enabled by default when available.
+     (Carlos García Campos)
+   * Remember zoom mode between sessions. (Carlos García Campos)
+
+New comics:
+   * Added:
+	- Calvin and Hobbes (english version)
+	- The Pink Panther
+	- Ronaldinho Gaucho 
+	- Schlock mercenary
+	- Carla Ventresca & Herny Beckett
+	- Brainwaves
+	- C'est la vie
+	- Work it out
+	- Nichtlustig (German)
+	- ...and many more. (Esteban Sánchez Muñoz)
+   * Removed:
+	- Cats With Hands
+	- Frank & Ernest
+	- Wigu
+	- Owlie
+	- Bruno the Bandit
+	- Not available comics
+	- ...and many more.
+   * Fixed:
+	- Sinfest
+	- Forges (Esteban Sánchez Muñoz)
+        - A Lawyer, A Doctor & A Cop. (Carlos García Campos)
+
+======================
 Changes in Buoh 0.8.1
 ======================
 
