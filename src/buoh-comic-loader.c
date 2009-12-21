@@ -14,6 +14,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  *  Authors : Carlos García Campos <carlosgc@gnome.org>
+              Pablo Castellano <pablog@src.gnome.org>
  */
 
 #include <libsoup/soup.h>
@@ -202,7 +203,7 @@ buoh_comic_loader_job_new (const gchar             *uri,
 
 	proxy_uri = buoh_get_http_proxy_uri (BUOH);
 	if (proxy_uri) {
-		SoupUri *soup_uri = soup_uri_new (proxy_uri);
+		SoupURI *soup_uri = soup_uri_new (proxy_uri);
 
 		job->session = soup_session_sync_new_with_options (SOUP_SESSION_PROXY_URI, soup_uri, NULL);
 		
@@ -235,6 +236,7 @@ buoh_comic_loader_job_finished (BuohComicLoaderJob *job)
 
 static void
 buoh_comic_loader_job_read_next (SoupMessage        *msg,
+				 SoupBuffer         *chunk,
 				 BuohComicLoaderJob *job)
 {
 	gboolean success;
@@ -253,14 +255,14 @@ buoh_comic_loader_job_read_next (SoupMessage        *msg,
 		}
 
 		soup_message_set_status (msg, SOUP_STATUS_CANCELLED);
-		soup_session_cancel_message (job->session, msg);
+		soup_session_cancel_message (job->session, msg, SOUP_STATUS_CANCELLED);
 
 		return;
 	}
 
 	if (job->callback) {
-		job->callback (msg->response.body,
-			       msg->response.length,
+		job->callback (chunk->data,
+			       chunk->length,
 			       job->callback_data);
 	}
 }
@@ -274,10 +276,10 @@ buoh_comic_loader_job_run (BuohComicLoaderJob *job)
 
 	msg = soup_message_new (SOUP_METHOD_GET, job->uri);
 	
-	soup_message_set_flags (msg, SOUP_MESSAGE_OVERWRITE_CHUNKS);
-	soup_message_add_handler (msg, SOUP_HANDLER_BODY_CHUNK,
-				  (SoupMessageCallbackFn)buoh_comic_loader_job_read_next,
-				  (gpointer) job);
+	soup_message_body_set_accumulate (msg->response_body, FALSE);
+	g_signal_connect (msg, "got-chunk",
+			  G_CALLBACK (buoh_comic_loader_job_read_next),
+			  (gpointer) job);
 
 	buoh_debug ("resolving . . .");
 
