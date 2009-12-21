@@ -31,7 +31,7 @@
 #include <libgnomeui/libgnomeui.h>
 #else
 #include <gtk/gtkmain.h>
-#include <gtk/gtkwindow.h>
+#include <gtk/gtk.h>
 #endif /* HAVE_LIBGNOMEUI */
 
 #include "buoh.h"

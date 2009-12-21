@@ -353,26 +353,7 @@ buoh_save_comic_list (GtkTreeModel *model,
 static gboolean
 buoh_create_comics_file (Buoh *buoh, const gchar *filename, const gchar *contents)
 {
-#if GTK_CHECK_VERSION(2,8,0)
 	return g_file_set_contents (filename, contents, -1, NULL);
-#else
-	gint fd;
-
-	if ((fd = open (filename, O_CREAT | O_WRONLY, 0644)) < 0) {
-		return FALSE;
-	}
-
-	if (write (fd, contents, strlen (contents)) < 0) {
-		close (fd);
-		return FALSE;
-	}
-
-	if (close (fd) < 0) {
-		return FALSE;
-	}
-
-	return TRUE;
-#endif
 }
 
 static void

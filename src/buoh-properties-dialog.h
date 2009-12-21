@@ -20,7 +20,7 @@
 #define BUOH_PROPERTIES_DIALOG_H
 
 #include <glib-object.h>
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 
 #include "buoh-comic.h"
 #include "buoh-comic-manager.h"

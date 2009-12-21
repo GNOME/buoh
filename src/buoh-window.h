@@ -20,7 +20,7 @@
 #define BUOH_WINDOW_H
 
 #include <glib-object.h>
-#include <gtk/gtkwindow.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

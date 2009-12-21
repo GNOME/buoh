@@ -566,13 +566,7 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
 	if (GTK_WIDGET_REALIZED (GTK_WIDGET (c_view)))
 		gdk_window_set_cursor (GTK_WIDGET (c_view)->window, NULL);
 
-#if GTK_CHECK_VERSION(2,8,0)
 	gtk_image_clear (GTK_IMAGE (c_view->priv->image));
-#else 
-	gtk_image_set_from_stock (GTK_IMAGE (c_view->priv->image),
-				  GTK_STOCK_MISSING_IMAGE,
-				  GTK_ICON_SIZE_DIALOG);
-#endif
 }
 
 static void

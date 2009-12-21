@@ -20,7 +20,7 @@
 #define BUOH_VIEW_MESSAGE_H
 
 #include <glib-object.h>
-#include <gtk/gtkviewport.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

@@ -20,7 +20,7 @@
 #define BUOH_VIEW_H
 
 #include <glib-object.h>
-#include <gtk/gtknotebook.h>
+#include <gtk/gtk.h>
 
 #include "buoh-comic.h"
 

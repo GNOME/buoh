@@ -20,7 +20,7 @@
 #define BUOH_COMIC_LIST_H
 
 #include <glib-object.h>
-#include <gtk/gtkframe.h>
+#include <gtk/gtk.h>
 
 #include "buoh-view.h"
 #include "buoh-comic-manager.h"

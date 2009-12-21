@@ -543,9 +543,8 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
 					       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					       GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					       NULL);
-#if GTK_CHECK_VERSION(2,8,0)
+
 	gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (chooser), TRUE);
-#endif
 	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (chooser), filter);
 
 	if (folder) {
