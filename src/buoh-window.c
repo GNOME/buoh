@@ -582,7 +582,7 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
 								 _("Unable to save comic"));
 
 				gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-									  error->message);
+									  "%s", error->message);
 				gtk_dialog_run (GTK_DIALOG (dialog));
 
 				gtk_widget_destroy (dialog);

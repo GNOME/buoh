@@ -251,7 +251,7 @@ buoh_comic_loader_job_read_next (SoupMessage        *msg,
 				g_error_free (job->error);
 			job->error = g_error_new (BUOH_COMIC_LOADER_ERROR,
 						  (gint) msg->status_code,
-						  msg->reason_phrase);
+						  "%s", msg->reason_phrase);
 		}
 
 		soup_message_set_status (msg, SOUP_STATUS_CANCELLED);

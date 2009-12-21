@@ -181,7 +181,7 @@ buoh_comic_cache_to_disk (BuohComicCache *cache,
 	}
 
 	if (!buoh_comic_image_save (image, path, &error)) {
-		g_warning (error->message);
+		g_warning ("%s", error->message);
 		g_error_free (error);
 		g_free (path);
 		return;
@@ -214,7 +214,7 @@ buoh_comic_cache_set_current (BuohComicCache *cache,
 	gdk_pixbuf_loader_write (loader, image->data,
 				 image->size, &error);
 	if (error) {
-		g_warning (error->message);
+		g_warning ("%s", error->message);
 		g_clear_error (&error);
 		
 		cache->priv->current_pixbuf = NULL;
@@ -232,7 +232,7 @@ buoh_comic_cache_set_current (BuohComicCache *cache,
 	g_object_unref (loader);
 
 	if (error) {
-		g_warning (error->message);
+		g_warning ("%s", error->message);
 		g_clear_error (&error);
 
 		cache->priv->current_pixbuf = NULL;

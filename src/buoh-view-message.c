@@ -167,7 +167,7 @@ buoh_view_message_set_icon (BuohViewMessage *m_view, const gchar *icon)
 					   0,
 					   &error);
 	if (error) {
-		g_warning (error->message);
+		g_warning ("%s", error->message);
 		g_error_free (error);
 
 		return;
