@@ -40,29 +40,6 @@ PKG_CHECK_MODULES(BUOH,
 AC_SUBST(BUOH_CFLAGS)
 AC_SUBST(BUOH_LIBS)
 
-AC_ARG_WITH(libgnomeui,
-	    [AC_HELP_STRING([--with-libgnomeui], [Compile with print support [default=auto]])],
-	    with_libgnomeui=$withval,
-	    with_libgnomeui="auto")
-
-LIBGNOMEUI_REQUIRED=2.6.0
-
-PKG_CHECK_MODULES(LIBGNOMEUI, 
-		  libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED,
-		  have_libgnomeui=yes, have_libgnomeui=no)
-
-enable_libgnomeui=no
-if test x$have_libgnomeui = xyes; then
-   if test x$with_libgnomeui = xyes -o x$with_libgnomeui = xauto; then
-      AC_SUBST(LIBGNOMEUI_CFLAGS)
-      AC_SUBST(LIBGNOMEUI_LIBS)
-      AC_DEFINE([HAVE_LIBGNOMEUI],[1],[Enable GNOME UI.])
-      enable_libgnomeui=yes
-   fi
-fi
-
-AM_CONDITIONAL(HAVE_LIBGNOMEUI, test x$enable_libgnomeui = xyes)
-
 AM_GCONF_SOURCE_2
 
 AC_PATH_PROG([GCONFTOOL], [gconftool-2], [no])
