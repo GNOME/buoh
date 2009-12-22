@@ -1,4 +1,16 @@
 ======================
+Changes in Buoh 0.8.3
+======================
+
+"Back to life"
+
+Changes:
+   * Moved to git.gnome.org
+   * Ported to libsoup 2.4
+   * Get rid of libgnomeui
+   * Updated GTK stuff
+
+======================
 Changes in Buoh 0.8.2
 ======================
 
