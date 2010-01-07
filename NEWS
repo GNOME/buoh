@@ -9,6 +9,9 @@ Changes:
    * Ported to libsoup 2.4
    * Get rid of libgnomeui
    * Updated GTK stuff
+   * Updated buoh.dia UML diagram
+   * Use AM_SILENT_RULES if possible
+   * Added different sizes icons
 
 ======================
 Changes in Buoh 0.8.2

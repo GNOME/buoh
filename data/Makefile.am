@@ -38,7 +38,6 @@ endif
 DISTCLEANFILES =	 	\
 		buoh.desktop    \
 		*.bak		\
-		*.gladep	\
 		$(schema_DATA)
 @INTLTOOL_DESKTOP_RULE@
 
@@ -47,5 +46,4 @@ EXTRA_DIST =                    	\
 		$(ui_DATA)		\
 		$(schema_in_files)      \
 		$(Applications_in_files)
-
 
