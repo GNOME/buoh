@@ -1,10 +1,14 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
+data/buoh.desktop.in
 data/buoh.schemas.in
 src/buoh.c
 src/buoh-add-comic-dialog.c
+src/buoh-comic.c
 src/buoh-comic-list.c
 src/buoh-comic-manager-date.c
+src/main.c
 src/buoh-properties-dialog.c
 src/buoh-view.c
+src/buoh-view-comic.c
 src/buoh-window.c
