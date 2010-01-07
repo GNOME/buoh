@@ -44,7 +44,7 @@ main (gint argc, gchar **argv)
 
 	gtk_init (&argc, &argv);
 
-	g_set_application_name (_("Buoh online comics browser"));
+	g_set_application_name (_("Buoh"));
 	gtk_window_set_default_icon_name ("buoh");
 
 	/* Init threads */

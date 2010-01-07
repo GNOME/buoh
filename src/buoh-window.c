@@ -840,12 +840,13 @@ buoh_window_cmd_help_about (GtkAction *action, gpointer gdata)
 	};
 
 	gtk_show_about_dialog (GTK_WINDOW (window),
-			       "name", _("Buoh online comics reader"),
-			       "version", VERSION,
-			       "copyright", "Copyright \xC2\xA9 2004 Esteban Sánchez Muñoz - Pablo Arroyo Loma",
 			       "authors", authors,
-			       "translator-credits", _("translator-credits"),
+			       "comments", _("Online comic strips reader"),
+			       "copyright", "Copyright \xC2\xA9 2004 Esteban Sánchez Muñoz - Pablo Arroyo Loma",
 			       "logo-icon-name", "buoh",
+			       "translator-credits", _("translator-credits"),
+			       "version", VERSION,
+			       "website", "http://buoh.steve-o.org/",
 			       NULL);
 }
 

@@ -152,7 +152,7 @@ buoh_view_init (BuohView *buoh_view)
 					     GTK_SHADOW_NONE);
 	buoh_view->priv->message = buoh_view_message_new ();
 	buoh_view_message_set_title (BUOH_VIEW_MESSAGE (buoh_view->priv->message),
-				     _("Buoh online comics reader"));
+				     _("Buoh online comic strips reader"));
 	buoh_view_message_set_text (BUOH_VIEW_MESSAGE (buoh_view->priv->message),
 				    _("Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
 				      "The list on the left panel contains your favourite comic strips "
