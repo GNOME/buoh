@@ -7,8 +7,8 @@
 	<name xml:lang="en">buoh</name>
 	<shortdesc xml:lang="en">A reader for online comic strips.</shortdesc>
 
-	<homepage rdf:resource="http://buoh.steve-o.org/" />
-	<mailing-list rdf:resource="http://forge.novell.com/pipermail/buoh-dev/" />
+	<homepage rdf:resource="http://projects.gnome.org/buoh" />
+	<mailing-list rdf:resource="http://mail.gnome.org/mailman/listinfo/buoh-list" />
 	<download-page rdf:resource="http://buoh.steve-o.org/download.html"/>
 	<bug-database rdf:resource="http://bugzilla.gnome.org/browse.cgi?product=buoh"/>
 	<category rdf:resource="http://api.gnome.org/doap-extensions#desktop" />
