@@ -89,11 +89,11 @@ fi
 
 AC_SUBST(comics_dir)
 
-
+AM_CONDITIONAL([WITH_GCONF],[test "$with_gconf" = "yes"])
 	   
 AC_CONFIG_FILES([
 Makefile
-po/Makefile
+po/Makefile.in
 src/Makefile
 data/Makefile
 data/icons/Makefile

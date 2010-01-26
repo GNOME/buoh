@@ -2,10 +2,10 @@
 Buoh aims to help the comic lovers by providing an easy way of browsing and 
 reading their favourites online comic stripes.
 
-Web: http://forge.novell.com/modules/xfmod/project/?buoh
+Web: http://projects.gnome.org/buoh/
 
-Mailing list: buoh-dev@forge.novell.com - For discussions about the
-	                                  development of Buoh itself.
+Mailing list: buoh-list@gnome.org   - For discussions about the
+	                              development of Buoh itself.
 
 
 -- License --
@@ -15,3 +15,8 @@ in the 'COPYING' file.
 -- Installation --
 See the 'INSTALL' file
 
+-- Past --
+Buoh development was previously in
+
+Web: http://forge.novell.com/modules/xfmod/project/?buoh
+Mailing list: buoh-dev@forge.novell.com

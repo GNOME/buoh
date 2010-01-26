@@ -14,6 +14,8 @@ Makefile
 Makefile.in
 /aclocal.m4
 /autom4te.cache
+/buoh-*.tar.bz2
+/buoh-*.tar.gz
 /config.guess
 /config.status
 /config.h.in
