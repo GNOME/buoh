@@ -1,22 +1,29 @@
-AC_PREREQ(2.57)
-AC_INIT(buoh, [0.8.3])
-AM_INIT_AUTOMAKE([1.9 dist-bzip2 no-dist-gzip])
+AC_PREREQ(2.63.2)
+AC_INIT([buoh],[0.8.3],[https://bugzilla.gnome.org/enter_bug.cgi?product=buoh],[buoh],[http://projects.gnome.org/buoh/])
+AM_INIT_AUTOMAKE([1.10 dist-bzip2])
 
 dnl Useful to call aclocal after 'make'
 AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS")
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE
 AC_CONFIG_MACRO_DIR([m4])
 
-IT_PROG_INTLTOOL([0.35.0])
+LT_PREREQ([2.2.6])
+IT_PROG_INTLTOOL([0.40.0])
 
-AC_ISC_POSIX
+AC_SEARCH_LIBS([strerror],[cposix])
 AC_PROG_CC
-AM_PROG_CC_STDC
-AC_STDC_HEADERS
-AM_PROG_LIBTOOL
+AC_DIAGNOSE([obsolete],[AM_PROG_CC_STDC:
+	your code should no longer depend upon `am_cv_prog_cc_stdc', but upon
+	`ac_cv_prog_cc_stdc'.  Remove this warning and the assignment when
+	you adjust the code.  You can also remove the above call to
+	AC_PROG_CC if you already called it elsewhere.])
+am_cv_prog_cc_stdc=$ac_cv_prog_cc_stdc
+
+AC_HEADER_STDC
+LT_INIT
 
 GNOME_COMMON_INIT
 GNOME_COMPILE_WARNINGS
@@ -84,9 +91,9 @@ AC_SUBST(comics_dir)
 
 
 	   
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
-po/Makefile.in
+po/Makefile
 src/Makefile
 data/Makefile
 data/icons/Makefile
@@ -97,3 +104,4 @@ data/icons/32x32/Makefile
 data/icons/48x48/Makefile
 data/icons/64x64/Makefile
 ])
+AC_OUTPUT
