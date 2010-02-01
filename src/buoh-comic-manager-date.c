@@ -343,18 +343,7 @@ buoh_comic_manager_date_get_last (BuohComicManager *comic_manager)
 
 	date = g_date_new ();
 	
-#if GLIB_CHECK_VERSION(2,10,0)
 	g_date_set_time_t (date, time (NULL));
-#else
-	{
-		struct tm *gmt;
-		time_t     now;
-		
-		now = time (NULL);
-		gmt = gmtime (&now);
-		g_date_set_time (date, mktime (gmt));
-	}
-#endif /* GLIB_CHECK_VERSION(2,10,0) */
 	
 	if (priv->offset != 0) {
 		g_date_subtract_days (date, priv->offset);
