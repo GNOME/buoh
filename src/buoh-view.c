@@ -280,7 +280,7 @@ buoh_view_grab_focus (GtkWidget *widget)
 static gboolean
 buoh_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
 {
-	if (!GTK_WIDGET_HAS_FOCUS (widget)) {
+	if (!gtk_widget_has_focus (widget)) {
 		gtk_widget_grab_focus (widget);
 	}
 

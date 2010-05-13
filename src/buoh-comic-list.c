@@ -179,7 +179,7 @@ buoh_comic_list_size_request (GtkWidget *widget, GtkRequisition *requisition)
 	GtkBin         *bin = GTK_BIN (widget);
 	GtkRequisition  child_requisition;
 
-	if (bin->child && GTK_WIDGET_VISIBLE (bin->child)) {
+	if (bin->child && gtk_widget_get_visible (bin->child)) {
 		gtk_widget_size_request (bin->child, &child_requisition);
 		*requisition = child_requisition;
 		
@@ -198,7 +198,7 @@ buoh_comic_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 	widget->allocation = *allocation;
 
-	if (bin->child && GTK_WIDGET_VISIBLE (bin->child)) {
+	if (bin->child && gtk_widget_get_visible (bin->child)) {
 		gtk_widget_size_allocate (bin->child, allocation);
 
 		/* we need some extra size */

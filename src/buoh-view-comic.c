@@ -563,7 +563,7 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
 
 	buoh_view_comic_update_scrollbar_policy (c_view);
 
-	if (GTK_WIDGET_REALIZED (GTK_WIDGET (c_view)))
+	if (gtk_widget_get_realized (GTK_WIDGET (c_view)))
 		gdk_window_set_cursor (GTK_WIDGET (c_view)->window, NULL);
 
 	gtk_image_clear (GTK_IMAGE (c_view->priv->image));
