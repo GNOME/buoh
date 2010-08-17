@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=buoh&component=General\n"
 "POT-Creation-Date: 2010-08-15 22:44+0000\n"
-"PO-Revision-Date: 2010-08-16 23:05+0200\n"
+"PO-Revision-Date: 2010-08-17 17:42+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -204,7 +204,7 @@ msgstr "Guardar una _copia…"
 
 #: ../src/buoh-window.c:171
 msgid "Save the current comic with a new filename"
-msgstr ""
+msgstr "Guardar el cómic actual con un nuevo nombre de archivo"
 
 #: ../src/buoh-window.c:173
 msgid "_Copy Location"
@@ -220,7 +220,7 @@ msgstr "_Propiedades…"
 
 #: ../src/buoh-window.c:177
 msgid "View the properties of this comic"
-msgstr ""
+msgstr "Ver las propiedades de este cómic"
 
 #: ../src/buoh-window.c:179
 msgid "_Quit"
@@ -228,7 +228,7 @@ msgstr "_Salir"
 
 #: ../src/buoh-window.c:180
 msgid "Quit application"
-msgstr ""
+msgstr "Salir de la aplicación"
 
 #. View menu
 #: ../src/buoh-window.c:184
@@ -237,7 +237,7 @@ msgstr "_Ampliar"
 
 #: ../src/buoh-window.c:185
 msgid "Increase the comic size"
-msgstr ""
+msgstr "Aumentar el tamaño del cómic"
 
 #: ../src/buoh-window.c:187
 msgid "Zoom _Out"
@@ -245,7 +245,7 @@ msgstr "_Reducir"
 
 #: ../src/buoh-window.c:188
 msgid "Decrease the comic size"
-msgstr ""
+msgstr "Reducir el tamaño del cómic"
 
 #: ../src/buoh-window.c:190
 msgid "_Normal Size"
@@ -253,40 +253,40 @@ msgstr "Tamaño _normal"
 
 #: ../src/buoh-window.c:191
 msgid "Use the normal comic size"
-msgstr ""
+msgstr "Usar el tamaño normal del cómic"
 
 #. Go menu
 #: ../src/buoh-window.c:195
 msgid "_Previous Comic"
-msgstr ""
+msgstr "Cómic _anterior"
 
 #: ../src/buoh-window.c:196
 msgid "Go to the previous comic"
-msgstr ""
+msgstr "Ir al cómic anterior"
 
 #: ../src/buoh-window.c:198
 msgid "_Next Comic"
-msgstr ""
+msgstr "_Siguiente cómic"
 
 #: ../src/buoh-window.c:199
 msgid "Go to the next comic"
-msgstr ""
+msgstr "Ir al siguiente cómic"
 
 #: ../src/buoh-window.c:201
 msgid "_First Comic"
-msgstr ""
+msgstr "_Primer cómic"
 
 #: ../src/buoh-window.c:202
 msgid "Go to the first comic"
-msgstr ""
+msgstr "Ir al primer cómic"
 
 #: ../src/buoh-window.c:204
 msgid "_Last Comic"
-msgstr ""
+msgstr "Últi_mo cómic"
 
 #: ../src/buoh-window.c:205
 msgid "Go to the last comic"
-msgstr ""
+msgstr "Ir al último cómic"
 
 #. Help menu
 #: ../src/buoh-window.c:209
@@ -295,7 +295,7 @@ msgstr "Índ_ice"
 
 #: ../src/buoh-window.c:210
 msgid "Display help for the Buoh online comic reader"
-msgstr ""
+msgstr "Mostrar la ayuda para el lector de cómics en línea Buoh"
 
 #: ../src/buoh-window.c:212
 msgid "_About"
@@ -303,7 +303,7 @@ msgstr "Acerca _de"
 
 #: ../src/buoh-window.c:213
 msgid "Display credits for the Buoh online comic reader creators"
-msgstr ""
+msgstr "Mostrar los créditos del lector de cómics en línea Buoh"
 
 #. View menu
 #: ../src/buoh-window.c:220
@@ -344,15 +344,15 @@ msgstr "Imágenes"
 
 #: ../src/buoh-window.c:540
 msgid "Save Comic"
-msgstr ""
+msgstr "Guardar cómic"
 
 #: ../src/buoh-window.c:582
 msgid "Unable to save comic"
-msgstr ""
+msgstr "No se pudo guardar el cómic"
 
 #: ../src/buoh-window.c:844
 msgid "Online comic strips reader"
-msgstr ""
+msgstr "Lector en línea de tiras de cómics"
 
 #: ../src/buoh-window.c:847
 msgid "translator-credits"
@@ -360,4 +360,4 @@ msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2010"
 
 #: ../src/buoh-window.c:1026
 msgid "Getting comic ..."
-msgstr ""
+msgstr "Obteniendo cómic…"
