@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=buoh&component=General\n"
 "POT-Creation-Date: 2010-08-15 22:44+0000\n"
-"PO-Revision-Date: 2010-08-17 17:42+0200\n"
+"PO-Revision-Date: 2010-08-18 08:39+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -45,12 +45,17 @@ msgid ""
 "boolean options, true makes statusbar visible by default while false makes "
 "statusbar not visible by default."
 msgstr ""
+"La barra de estado es la barra inferior que contiene los mensajes de ayuda y "
+"estado. Dos opciones booleanas, cierto hace que la barra de estado sea "
+"visible de forma predeterminada, mientras que falso hace lo contrario."
 
 #: ../data/buoh.schemas.in.h:5
 msgid ""
 "There are two zoom modes available, 1 makes the current comic fill the "
 "window, 2 makes the current comic fill the window width."
 msgstr ""
+"Existen dos modos de ampliación disponibles, 1 hace que el cómic actual "
+"llene la ventana, 2 hace que el cómic actual llene la anchura de la ventana."
 
 #: ../data/buoh.schemas.in.h:6
 msgid ""
@@ -58,6 +63,10 @@ msgid ""
 "boolean options, true makes toolbar visible by default while false makes "
 "toolbar not visible by default."
 msgstr ""
+"La barra de herramientas es la barra superior que contiene los controles de "
+"navegación y ampliación. Dos opciones booleanas, cierto hace que la barra de "
+"herramientas sea visible de forma predeterminada, mientras que falso hace lo "
+"contrario."
 
 #: ../src/buoh-add-comic-dialog.c:67
 msgid "Add Comic"
@@ -150,7 +159,7 @@ msgstr "Días de publicación"
 
 #: ../src/buoh-view.c:155
 msgid "Buoh online comic strips reader"
-msgstr ""
+msgstr "Lector en línea de tiras de cómics Buoh"
 
 #: ../src/buoh-view.c:157
 msgid ""
@@ -159,6 +168,12 @@ msgid ""
 "remove comics to the list click on Comic -> Add. Just select a comic from "
 "the list, and it will be displayed on the right side. Thanks for using Buoh."
 msgstr ""
+"Bienvenido a <b>Buoh</b>, el lector en línea de tiras cómicas para el "
+"Escritorio GNOME.\n"
+"La lista en el panel izquierdo contiene sus tiras de cómics favoritas, para "
+"añadir o quitar cómics de la lista pulse en Cómic -> Añadir. Simplemente "
+"seleccione un cómic de la lista y se mostrará en la parte derecha. Gracias "
+"por usar Buoh."
 
 #: ../src/buoh-view-comic.c:638
 msgid "Error Loading Comic"
@@ -312,7 +327,7 @@ msgstr "Barra de _herramientas"
 
 #: ../src/buoh-window.c:221
 msgid "Changes the visibility of the toolbar"
-msgstr ""
+msgstr "Cambia la visibilidad de la barra de herramientas"
 
 #: ../src/buoh-window.c:223
 msgid "St_atusbar"
@@ -320,7 +335,7 @@ msgstr "Barra de _estado"
 
 #: ../src/buoh-window.c:224
 msgid "Changes the visibility of the statusbar"
-msgstr ""
+msgstr "Cambia la visibilidad de la barra de estado"
 
 #: ../src/buoh-window.c:226
 msgid "_Best Fit"
@@ -328,15 +343,15 @@ msgstr "Ajuste óp_timo"
 
 #: ../src/buoh-window.c:227
 msgid "Make the current comic fill the window"
-msgstr ""
+msgstr "Hace que el cómic actual llene la ventana"
 
 #: ../src/buoh-window.c:229
 msgid "Fit Comic _Width"
-msgstr ""
+msgstr "Ajustar al _ancho del cómic"
 
 #: ../src/buoh-window.c:230
 msgid "Make the current comic fill the window width"
-msgstr ""
+msgstr "Hace que el cómic actual llene la anchura de la ventana"
 
 #: ../src/buoh-window.c:537
 msgid "Images"
