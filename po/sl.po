@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=buoh&component=General\n"
-"POT-Creation-Date: 2010-08-07 19:03+0000\n"
-"PO-Revision-Date: 2010-08-09 14:44+0100\n"
+"POT-Creation-Date: 2010-08-21 20:15+0000\n"
+"PO-Revision-Date: 2010-08-23 09:04+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -26,34 +26,31 @@ msgstr "Buoh"
 
 #: ../data/buoh.desktop.in.h:2
 msgid "Read your favourite comic strips"
-msgstr ""
+msgstr "Branje priljubljenih stripov"
 
 #: ../data/buoh.schemas.in.h:1
-#, fuzzy
 msgid "Select viewer zoom mode"
-msgstr "Izbor načina ponovnega predvajanja"
+msgstr "Izbor načina približanja pregledovalnika"
 
 #: ../data/buoh.schemas.in.h:2
-#, fuzzy
 msgid "Show statusbar by default"
 msgstr "Privzeto pokaži vrstico stanja"
 
 #: ../data/buoh.schemas.in.h:3
-#, fuzzy
 msgid "Show toolbar by default"
-msgstr "Privzeto pokaži vrstico stanja"
+msgstr "Privzeto pokaži orodno vrstico"
 
 #: ../data/buoh.schemas.in.h:4
 msgid "Statusbar is the bottom bar that contains help and status messages. Two boolean options, true makes statusbar visible by default while false makes statusbar not visible by default."
-msgstr ""
+msgstr "Vrstica stanja na dnu vsebuje sporočila pomoči in stanja. Dve logični možnosti; prav in napak, omogočata prikaz ali skrivanje vrstice stanja."
 
 #: ../data/buoh.schemas.in.h:5
 msgid "There are two zoom modes available, 1 makes the current comic fill the window, 2 makes the current comic fill the window width."
-msgstr ""
+msgstr "Na voljo sta dva načina približevanja. Prvi način omogoča prikaz prilagojen velikosti okna, drugi način pa prilagodi strip širini okna."
 
 #: ../data/buoh.schemas.in.h:6
 msgid "Toolbar is the top bar that contains navigation and zoom controls. Two boolean options, true makes toolbar visible by default while false makes toolbar not visible by default."
-msgstr ""
+msgstr "Orodna vrstica na vrhu vsebuje tipke za krmarjenje in približevanje. Dve logični možnosti; prav in napak, omogočata prikaz ali skrivanje orodne vrstice."
 
 #: ../src/buoh-add-comic-dialog.c:67
 msgid "Add Comic"
@@ -75,22 +72,20 @@ msgid "Author"
 msgstr "Avtor"
 
 #: ../src/buoh-add-comic-dialog.c:202
-#, fuzzy, c-format
+#, c-format
 msgid "Comics selected: %d"
-msgstr "Izbrano dostopno"
+msgstr "Izbrani stripi: %d"
 
 #: ../src/buoh-comic.c:435
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot create file '%s': %s"
-msgstr ""
-"Ni mogoče ustvariti izhodne datoteke: %s:\n"
-" %s"
+msgstr "Ni mogoče ustvariti datoteke '%s': %s"
 
 #: ../src/buoh-comic.c:443
 #: ../src/buoh-comic.c:452
-#, fuzzy, c-format
+#, c-format
 msgid "Error writting to file '%s': %s"
-msgstr "Napaka med pisanjem v datoteko: %s"
+msgstr "Napaka med pisanjem v datoteko '%s': %s"
 
 #: ../src/buoh-comic-manager-date.c:56
 msgid "Monday"
@@ -122,14 +117,12 @@ msgstr "nedelja"
 
 #. It's a range of days
 #: ../src/buoh-comic-manager-date.c:496
-#, fuzzy
 msgid " to "
 msgstr " do "
 
 #: ../src/buoh-comic-manager-date.c:511
-#, fuzzy
 msgid "Every day"
-msgstr "Vsak %d dan"
+msgstr "Vsak dan"
 
 #: ../src/buoh-properties-dialog.c:48
 msgid "Comic Properties"
@@ -144,29 +137,28 @@ msgid "Language"
 msgstr "Jezik"
 
 #: ../src/buoh-properties-dialog.c:128
-#, fuzzy
 msgid "Date of publication"
-msgstr "Izberi datum"
+msgstr "Datum objave"
 
 #: ../src/buoh-properties-dialog.c:186
-#, fuzzy
 msgid "Publication days"
-msgstr "Delovni dnevi"
+msgstr "Dnevi objave"
 
 #: ../src/buoh-view.c:155
 msgid "Buoh online comic strips reader"
-msgstr ""
+msgstr "Program Buoh, spletni bralnik stripov"
 
 #: ../src/buoh-view.c:157
 msgid ""
 "Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
 "The list on the left panel contains your favourite comic strips to add or remove comics to the list click on Comic -> Add. Just select a comic from the list, and it will be displayed on the right side. Thanks for using Buoh."
 msgstr ""
+"Dobrodošli v program <b>Buoh</b>, spletni bralnik stripov za namizje GNOME.\n"
+"Seznam na levi vsebuje priljubljene stripe, ki jih je mogoče dodati ali odstraniti s klikom na meni Stripi -> Dodaj. Z izborom stripa v seznamu, se ta pokaže na desni strani."
 
 #: ../src/buoh-view-comic.c:638
-#, fuzzy
 msgid "Error Loading Comic"
-msgstr "Napaka pri nalaganju datoteke '%s'"
+msgstr "Napaka med nalaganjem stripa"
 
 #. Top Level
 #: ../src/buoh-window.c:158
@@ -178,7 +170,6 @@ msgid "_View"
 msgstr "_Pogled"
 
 #: ../src/buoh-window.c:160
-#, fuzzy
 msgid "_Go"
 msgstr "Po_jdi"
 
@@ -188,205 +179,168 @@ msgstr "Pomo_č"
 
 #. Comic menu
 #: ../src/buoh-window.c:164
-#, fuzzy
 msgid "_Add..."
 msgstr "_Dodaj ..."
 
 #: ../src/buoh-window.c:165
-#, fuzzy
 msgid "Add a comic to the comic list"
-msgstr "Dodaj mapo na seznam"
+msgstr "Dodaj strip na seznam stripov"
 
 #: ../src/buoh-window.c:167
-#, fuzzy
 msgid "_Remove"
 msgstr "_Odstrani"
 
 #: ../src/buoh-window.c:168
-#, fuzzy
 msgid "Remove this comic from the comic list"
-msgstr "Ali naj se res odstrani prejemanje iz seznama?"
+msgstr "Odstrani strip iz seznama stripov"
 
 #: ../src/buoh-window.c:170
-#, fuzzy
 msgid "_Save A Copy..."
-msgstr "Shrani kopijo"
+msgstr "Shrani _kopijo ..."
 
 #: ../src/buoh-window.c:171
-#, fuzzy
 msgid "Save the current comic with a new filename"
-msgstr "Shrani trenutno datoteko z novim imenom"
+msgstr "Shrani trenutni strip z novim imenom"
 
 #: ../src/buoh-window.c:173
-#, fuzzy
 msgid "_Copy Location"
 msgstr "Kopiraj _mesto"
 
 #: ../src/buoh-window.c:174
-#, fuzzy
 msgid "Copy the location of this comic to clipboard"
-msgstr "Kopiraj sliko na drugo mesto"
+msgstr "Kopiraj mesto stripa v odložišče"
 
 #: ../src/buoh-window.c:176
-#, fuzzy
 msgid "_Properties..."
 msgstr "_Lastnosti ..."
 
 #: ../src/buoh-window.c:177
-#, fuzzy
 msgid "View the properties of this comic"
-msgstr "Preglej ali spremeni lastnosti izbrane mape"
+msgstr "Pregled lastnosti stripa"
 
 #: ../src/buoh-window.c:179
-#, fuzzy
 msgid "_Quit"
 msgstr "_Končaj"
 
 #: ../src/buoh-window.c:180
-#, fuzzy
 msgid "Quit application"
 msgstr "Končaj program"
 
 #. View menu
 #: ../src/buoh-window.c:184
-#, fuzzy
 msgid "Zoom _In"
 msgstr "_Približaj"
 
 #: ../src/buoh-window.c:185
-#, fuzzy
 msgid "Increase the comic size"
-msgstr "Povečaj velikost besedila"
+msgstr "Povečaj vidno velikost besedila"
 
 #: ../src/buoh-window.c:187
-#, fuzzy
 msgid "Zoom _Out"
 msgstr "_Oddalji"
 
 #: ../src/buoh-window.c:188
-#, fuzzy
 msgid "Decrease the comic size"
-msgstr "Zmanjšaj velikost besedila"
+msgstr "Zmanjšaj vidno velikost besedila"
 
 #: ../src/buoh-window.c:190
-#, fuzzy
 msgid "_Normal Size"
 msgstr "_Običajna velikost"
 
 #: ../src/buoh-window.c:191
-#, fuzzy
 msgid "Use the normal comic size"
-msgstr "Uporabi običajno velikost pisave"
+msgstr "Uporabi običajno velikost stripa"
 
 #. Go menu
 #: ../src/buoh-window.c:195
-#, fuzzy
 msgid "_Previous Comic"
-msgstr "Stripi"
+msgstr "_Predhodni strip"
 
 #: ../src/buoh-window.c:196
-#, fuzzy
 msgid "Go to the previous comic"
-msgstr "Skoči na predhodno zgodovino"
+msgstr "Skoči na predhodni strip"
 
 #: ../src/buoh-window.c:198
-#, fuzzy
 msgid "_Next Comic"
-msgstr "Stripi"
+msgstr "_Naslednji strip"
 
 #: ../src/buoh-window.c:199
-#, fuzzy
 msgid "Go to the next comic"
-msgstr "Skoči na naslednjo zgodovino"
+msgstr "Skoči na naslednji strip"
 
 #: ../src/buoh-window.c:201
-#, fuzzy
 msgid "_First Comic"
-msgstr "Stripi"
+msgstr "_Prvi strip"
 
 #: ../src/buoh-window.c:202
-#, fuzzy
 msgid "Go to the first comic"
-msgstr "Pojdi na prvo stran"
+msgstr "Skoči na prvi strip"
 
 #: ../src/buoh-window.c:204
-#, fuzzy
 msgid "_Last Comic"
-msgstr "Stripi"
+msgstr "_Zadnji strip"
 
 #: ../src/buoh-window.c:205
-#, fuzzy
 msgid "Go to the last comic"
-msgstr "Pojdi na zadnjo stran"
+msgstr "Skoči na zadnji strip"
 
 #. Help menu
 #: ../src/buoh-window.c:209
-#, fuzzy
 msgid "_Contents"
 msgstr "_Vsebina"
 
 #: ../src/buoh-window.c:210
 msgid "Display help for the Buoh online comic reader"
-msgstr ""
+msgstr "Pokaži pomoč za spletni bralnik stripov"
 
 #: ../src/buoh-window.c:212
-#, fuzzy
 msgid "_About"
 msgstr "_O programu"
 
 #: ../src/buoh-window.c:213
 msgid "Display credits for the Buoh online comic reader creators"
-msgstr ""
+msgstr "Pokaži podatke zaslug za razvoj programa Bouh"
 
 #. View menu
 #: ../src/buoh-window.c:220
-#, fuzzy
 msgid "_Toolbar"
 msgstr "_Orodna vrstica"
 
 #: ../src/buoh-window.c:221
-#, fuzzy
 msgid "Changes the visibility of the toolbar"
-msgstr "Sprememba vidnosti orodne vrstice"
+msgstr "Spremeni vidnost orodne vrstice"
 
 #: ../src/buoh-window.c:223
-#, fuzzy
 msgid "St_atusbar"
 msgstr "_Vrstica stanja"
 
 #: ../src/buoh-window.c:224
-#, fuzzy
 msgid "Changes the visibility of the statusbar"
-msgstr "Sprememba vidnosti vrstice stanja"
+msgstr "Spremeni vidnosti vrstice stanja"
 
 #: ../src/buoh-window.c:226
-#, fuzzy
 msgid "_Best Fit"
-msgstr "_Najboljša prilagoditev"
+msgstr "_Najboljša velikost"
 
 #: ../src/buoh-window.c:227
-#, fuzzy
 msgid "Make the current comic fill the window"
-msgstr "Razširi trenutni dokument, da zapolni okno"
+msgstr "Razširi trenutni strip na velikost okna"
 
 #: ../src/buoh-window.c:229
-#, fuzzy
 msgid "Fit Comic _Width"
 msgstr "_Prilagodi širini"
 
 #: ../src/buoh-window.c:230
-#, fuzzy
 msgid "Make the current comic fill the window width"
-msgstr "Razširi trenutni dokument, da zapolni širino okna"
+msgstr "Razširi trenutni strip na širino okna"
 
 #: ../src/buoh-window.c:537
 msgid "Images"
 msgstr "Slike"
 
 #: ../src/buoh-window.c:540
-#, fuzzy
 msgid "Save Comic"
-msgstr "Stripi"
+msgstr "Shrani strip"
 
 #: ../src/buoh-window.c:582
 msgid "Unable to save comic"
@@ -394,10 +348,9 @@ msgstr "Ni mogoče shraniti stripa."
 
 #: ../src/buoh-window.c:844
 msgid "Online comic strips reader"
-msgstr ""
+msgstr "Spletni bralnik stripov"
 
 #: ../src/buoh-window.c:847
-#, fuzzy
 msgid "translator-credits"
 msgstr "Matej Urbančič"
 
