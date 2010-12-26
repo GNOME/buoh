@@ -1,0 +1,375 @@
+# Catalan translation for buoh.
+# Copyright (C) 2010 buoh's COPYRIGHT HOLDER
+# This file is distributed under the same license as the buoh package.
+# Jordi Estrada <jordi.estrada@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: buoh master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-26 20:24+0100\n"
+"PO-Revision-Date: 2010-11-17 17:33+0000\n"
+"Last-Translator: Jordi Estrada <jordi.estrada@gmail.com>\n"
+"Language-Team: Catalan <tradgnome@softcatala.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+msgid "Buoh"
+msgstr "Buoh"
+
+#: ../data/buoh.desktop.in.h:2
+msgid "Read your favourite comic strips"
+msgstr "Llegiu les vostres tires còmiques preferides"
+
+#: ../data/buoh.schemas.in.h:1
+msgid "Select viewer zoom mode"
+msgstr "Seleccioneu el mode d'ampliació del visualitzador"
+
+#: ../data/buoh.schemas.in.h:2
+msgid "Show statusbar by default"
+msgstr "Mostra la barra d'estat"
+
+#: ../data/buoh.schemas.in.h:3
+msgid "Show toolbar by default"
+msgstr "Mostra la barra d'eines"
+
+#: ../data/buoh.schemas.in.h:4
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"La barra d'estat és la barra inferior que conté els missatges d'ajuda i "
+"d'estat. Teniu dues opcions: «true» (cert) per mostrar la barra d'estat "
+"(opció predeterminada) i «false» (fals) per ocultar-la."
+
+#: ../data/buoh.schemas.in.h:5
+msgid ""
+"There are two zoom modes available, 1 makes the current comic fill the "
+"window, 2 makes the current comic fill the window width."
+msgstr ""
+"Teniu dos modes d'ampliació disponibles: «1» ajusta el còmic a la finestra i "
+"«2» ajusta el còmic a l'amplada de la finestra."
+
+#: ../data/buoh.schemas.in.h:6
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+"La barra d'eines és la barra superior que conté els controls d'ampliació i "
+"navegació. Teniu dues opcions: «true» (cert) per mostrar la barra d'eines "
+"(opció predeterminada) i «false» (fals) per ocultar-la."
+
+#: ../src/buoh-add-comic-dialog.c:67
+msgid "Add Comic"
+msgstr "Afegeix un còmic"
+
+#: ../src/buoh-add-comic-dialog.c:79
+msgid "Select Comics"
+msgstr "Seleccioneu els còmics"
+
+#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
+#: ../src/buoh-properties-dialog.c:104
+msgid "Title"
+msgstr "Títol"
+
+#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:110
+msgid "Author"
+msgstr "Autor"
+
+#: ../src/buoh-add-comic-dialog.c:202
+#, c-format
+msgid "Comics selected: %d"
+msgstr "Heu seleccionat %d còmics"
+
+#: ../src/buoh-comic.c:435
+#, c-format
+msgid "Cannot create file '%s': %s"
+msgstr "No s'ha pogut crear el fitxer «%s»: %s"
+
+#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
+#, c-format
+msgid "Error writting to file '%s': %s"
+msgstr "S'ha produït un error en escriure al fitxer «%s»: %s"
+
+#: ../src/buoh-comic-manager-date.c:56
+msgid "Monday"
+msgstr "Dilluns"
+
+#: ../src/buoh-comic-manager-date.c:57
+msgid "Tuesday"
+msgstr "Dimarts"
+
+#: ../src/buoh-comic-manager-date.c:58
+msgid "Wednesday"
+msgstr "Dimecres"
+
+#: ../src/buoh-comic-manager-date.c:59
+msgid "Thursday"
+msgstr "Dijous"
+
+#: ../src/buoh-comic-manager-date.c:60
+msgid "Friday"
+msgstr "Divendres"
+
+#: ../src/buoh-comic-manager-date.c:61
+msgid "Saturday"
+msgstr "Dissabte"
+
+#: ../src/buoh-comic-manager-date.c:62
+msgid "Sunday"
+msgstr "Diumenge"
+
+#. It's a range of days
+#: ../src/buoh-comic-manager-date.c:496
+msgid " to "
+msgstr "fins a"
+
+#: ../src/buoh-comic-manager-date.c:511
+msgid "Every day"
+msgstr "Cada dia"
+
+#: ../src/buoh-properties-dialog.c:48
+msgid "Comic Properties"
+msgstr "Propietats del còmic"
+
+#: ../src/buoh-properties-dialog.c:116
+msgid "Link"
+msgstr "Enllaç"
+
+#: ../src/buoh-properties-dialog.c:122
+msgid "Language"
+msgstr "Idioma"
+
+#: ../src/buoh-properties-dialog.c:128
+msgid "Date of publication"
+msgstr "Data de publicació"
+
+#: ../src/buoh-properties-dialog.c:186
+msgid "Publication days"
+msgstr "Dies de publicació"
+
+#: ../src/buoh-view.c:155
+msgid "Buoh online comic strips reader"
+msgstr "Lector de tires còmiques en línia Buoh"
+
+#: ../src/buoh-view.c:157
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favourite comic strips to add or "
+"remove comics to the list click on Comic -> Add. Just select a comic from "
+"the list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Us donem la benvinguda al <b>Buoh</b>, el lector de còmics en línia per "
+"l'escriptori GNOME.\n"
+"La llista en el quadre esquerra conté les vostres tires còmiques preferides. "
+"Per afegir o suprimir còmics a la llista, feu clic a Còmic -> Afegeix. Només "
+"heu de seleccionar un còmic de la llista i es mostrarà a la part dreta. "
+"Gràcies per utilitzar el Buoh."
+
+#: ../src/buoh-view-comic.c:638
+msgid "Error Loading Comic"
+msgstr "S'ha produït un error en carregar el còmic"
+
+#. Top Level
+#: ../src/buoh-window.c:158
+msgid "_Comic"
+msgstr "_Còmic"
+
+#: ../src/buoh-window.c:159
+msgid "_View"
+msgstr "V_isualitza"
+
+#: ../src/buoh-window.c:160
+msgid "_Go"
+msgstr "_Vés"
+
+#: ../src/buoh-window.c:161
+msgid "_Help"
+msgstr "A_juda"
+
+#. Comic menu
+#: ../src/buoh-window.c:164
+msgid "_Add..."
+msgstr "_Afegeix..."
+
+#: ../src/buoh-window.c:165
+msgid "Add a comic to the comic list"
+msgstr "Afegeix un còmic a la llista de còmics"
+
+#: ../src/buoh-window.c:167
+msgid "_Remove"
+msgstr "_Suprimeix"
+
+#: ../src/buoh-window.c:168
+msgid "Remove this comic from the comic list"
+msgstr "Suprimeix aquest còmic de la llista de còmics"
+
+#: ../src/buoh-window.c:170
+msgid "_Save A Copy..."
+msgstr "_Desa'n una còpia..."
+
+#: ../src/buoh-window.c:171
+msgid "Save the current comic with a new filename"
+msgstr "Desa el còmic actual amb un nom de fitxer nou"
+
+#: ../src/buoh-window.c:173
+msgid "_Copy Location"
+msgstr "_Copia l'ubicació"
+
+#: ../src/buoh-window.c:174
+msgid "Copy the location of this comic to clipboard"
+msgstr "Copia l'ubicació del còmic al porta-retalls"
+
+#: ../src/buoh-window.c:176
+msgid "_Properties..."
+msgstr "_Propietats..."
+
+#: ../src/buoh-window.c:177
+msgid "View the properties of this comic"
+msgstr "Visualitza les propietats d'aquest còmic"
+
+#: ../src/buoh-window.c:179
+msgid "_Quit"
+msgstr "_Surt"
+
+#: ../src/buoh-window.c:180
+msgid "Quit application"
+msgstr "Surt de l'aplicació"
+
+#. View menu
+#: ../src/buoh-window.c:184
+msgid "Zoom _In"
+msgstr "_Amplia"
+
+#: ../src/buoh-window.c:185
+msgid "Increase the comic size"
+msgstr "Augmenta la mida del còmic"
+
+#: ../src/buoh-window.c:187
+msgid "Zoom _Out"
+msgstr "_Redueix"
+
+#: ../src/buoh-window.c:188
+msgid "Decrease the comic size"
+msgstr "Disminueix la mida del còmic"
+
+#: ../src/buoh-window.c:190
+msgid "_Normal Size"
+msgstr "Mida _normal"
+
+#: ../src/buoh-window.c:191
+msgid "Use the normal comic size"
+msgstr "Utilitza la mida normal del còmic"
+
+#. Go menu
+#: ../src/buoh-window.c:195
+msgid "_Previous Comic"
+msgstr "Còmic _anterior"
+
+#: ../src/buoh-window.c:196
+msgid "Go to the previous comic"
+msgstr "Vés al còmic anterior"
+
+#: ../src/buoh-window.c:198
+msgid "_Next Comic"
+msgstr "Còmic _següent"
+
+#: ../src/buoh-window.c:199
+msgid "Go to the next comic"
+msgstr "Vés al còmic següent"
+
+#: ../src/buoh-window.c:201
+msgid "_First Comic"
+msgstr "_Primer còmic"
+
+#: ../src/buoh-window.c:202
+msgid "Go to the first comic"
+msgstr "Vés al primer còmic"
+
+#: ../src/buoh-window.c:204
+msgid "_Last Comic"
+msgstr "_Darrer còmic"
+
+#: ../src/buoh-window.c:205
+msgid "Go to the last comic"
+msgstr "Vés al darrer còmic"
+
+#. Help menu
+#: ../src/buoh-window.c:209
+msgid "_Contents"
+msgstr "_Contingut"
+
+#: ../src/buoh-window.c:210
+msgid "Display help for the Buoh online comic reader"
+msgstr "Mostra l'ajuda pel lector de còmics en línia Buoh"
+
+#: ../src/buoh-window.c:212
+msgid "_About"
+msgstr "_Quant a"
+
+#: ../src/buoh-window.c:213
+msgid "Display credits for the Buoh online comic reader creators"
+msgstr "Mostra els crèdits pels autors del lector de còmics en línia Buoh"
+
+#. View menu
+#: ../src/buoh-window.c:220
+msgid "_Toolbar"
+msgstr "_Barra d'eines"
+
+#: ../src/buoh-window.c:221
+msgid "Changes the visibility of the toolbar"
+msgstr "Canvia la visibilitat de la barra d'eines"
+
+#: ../src/buoh-window.c:223
+msgid "St_atusbar"
+msgstr "Barra d'_estat"
+
+#: ../src/buoh-window.c:224
+msgid "Changes the visibility of the statusbar"
+msgstr "Canvia la visibilitat de la barra d'estat"
+
+#: ../src/buoh-window.c:226
+msgid "_Best Fit"
+msgstr "_Millor ajust"
+
+#: ../src/buoh-window.c:227
+msgid "Make the current comic fill the window"
+msgstr "Ajusta el còmic a la finestra"
+
+#: ../src/buoh-window.c:229
+msgid "Fit Comic _Width"
+msgstr "Ajusta a l'_amplada"
+
+#: ../src/buoh-window.c:230
+msgid "Make the current comic fill the window width"
+msgstr "Ajusta el còmic a l'amplada de la finestra"
+
+#: ../src/buoh-window.c:537
+msgid "Images"
+msgstr "Imatges"
+
+#: ../src/buoh-window.c:540
+msgid "Save Comic"
+msgstr "Desa el còmic"
+
+#: ../src/buoh-window.c:582
+msgid "Unable to save comic"
+msgstr "No s'ha pogut desar el còmic"
+
+#: ../src/buoh-window.c:844
+msgid "Online comic strips reader"
+msgstr "Lector de tires còmiques en línia"
+
+#: ../src/buoh-window.c:847
+msgid "translator-credits"
+msgstr "Jordi Estrada <jordi.estrada@gmail.com>"
+
+#: ../src/buoh-window.c:1026
+msgid "Getting comic ..."
+msgstr "S'està aconseguint el còmic..."
