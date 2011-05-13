@@ -1,0 +1,357 @@
+# Russian translation for buoh.
+# Copyright (C) 2011 buoh's COPYRIGHT HOLDER
+# This file is distributed under the same license as the buoh package.
+# Yuri Myasoedov <omerta13@yandex.ru>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: buoh master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=buoh&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2011-05-02 22:20+0000\n"
+"PO-Revision-Date: 2011-05-13 21:01+0300\n"
+"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
+"Language-Team: Russian <gnome-cyr@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../data/buoh.desktop.in.h:1
+#: ../src/main.c:46
+msgid "Buoh"
+msgstr "Buoh"
+
+#: ../data/buoh.desktop.in.h:2
+msgid "Read your favourite comic strips"
+msgstr "Читайте любимые комиксы"
+
+#: ../data/buoh.schemas.in.h:1
+msgid "Select viewer zoom mode"
+msgstr "Выбрать режим масштабирования для просмотра"
+
+#: ../data/buoh.schemas.in.h:2
+msgid "Show statusbar by default"
+msgstr "По умолчанию показывать панель состояния"
+
+#: ../data/buoh.schemas.in.h:3
+msgid "Show toolbar by default"
+msgstr "По умолчанию показывать панель инструментов"
+
+#: ../data/buoh.schemas.in.h:4
+msgid "Statusbar is the bottom bar that contains help and status messages. Two boolean options, true makes statusbar visible by default while false makes statusbar not visible by default."
+msgstr "Панель состояния — это нижняя панель, в которой показываются вспомогательные сообщения. Два логических параметра: true — делает панель состояния по умолчанию видимой, false — делает панель невидимой."
+
+#: ../data/buoh.schemas.in.h:5
+msgid "There are two zoom modes available, 1 makes the current comic fill the window, 2 makes the current comic fill the window width."
+msgstr "Существует два режима масштабирования: «1» — размеры комикса подгоняются под размеры окна, «2» — размеры комикса подгоняются под ширину окна."
+
+#: ../data/buoh.schemas.in.h:6
+msgid "Toolbar is the top bar that contains navigation and zoom controls. Two boolean options, true makes toolbar visible by default while false makes toolbar not visible by default."
+msgstr "Панель инструментов — это верхняя панель, которая содержит средства для навигации и управления масштабированием. Два логических параметра:  true — делает панель инструментов по умолчанию видимой, false — делает панель невидимой."
+
+#: ../src/buoh-add-comic-dialog.c:67
+msgid "Add Comic"
+msgstr "Добавить комикс"
+
+#: ../src/buoh-add-comic-dialog.c:79
+msgid "Select Comics"
+msgstr "Выбрать комиксы"
+
+#: ../src/buoh-add-comic-dialog.c:120
+#: ../src/buoh-comic-list.c:119
+#: ../src/buoh-properties-dialog.c:104
+msgid "Title"
+msgstr "Название"
+
+#: ../src/buoh-add-comic-dialog.c:133
+#: ../src/buoh-properties-dialog.c:110
+msgid "Author"
+msgstr "Автор"
+
+#: ../src/buoh-add-comic-dialog.c:202
+#, c-format
+msgid "Comics selected: %d"
+msgstr "Выбранные комиксы: %d"
+
+#: ../src/buoh-comic.c:435
+#, c-format
+msgid "Cannot create file '%s': %s"
+msgstr "Не удалось создать файл «%s»: %s"
+
+#: ../src/buoh-comic.c:443
+#: ../src/buoh-comic.c:452
+#, c-format
+msgid "Error writting to file '%s': %s"
+msgstr "Ошибка записи в файл «%s»: %s"
+
+#: ../src/buoh-comic-manager-date.c:56
+msgid "Monday"
+msgstr "Понедельник"
+
+#: ../src/buoh-comic-manager-date.c:57
+msgid "Tuesday"
+msgstr "Вторник"
+
+#: ../src/buoh-comic-manager-date.c:58
+msgid "Wednesday"
+msgstr "Среда"
+
+#: ../src/buoh-comic-manager-date.c:59
+msgid "Thursday"
+msgstr "Четверг"
+
+#: ../src/buoh-comic-manager-date.c:60
+msgid "Friday"
+msgstr "Пятница"
+
+#: ../src/buoh-comic-manager-date.c:61
+msgid "Saturday"
+msgstr "Суббота"
+
+#: ../src/buoh-comic-manager-date.c:62
+msgid "Sunday"
+msgstr "Воскресенье"
+
+#. It's a range of days
+#: ../src/buoh-comic-manager-date.c:496
+msgid " to "
+msgstr "по"
+
+#: ../src/buoh-comic-manager-date.c:511
+msgid "Every day"
+msgstr "Каждый день"
+
+#: ../src/buoh-properties-dialog.c:48
+msgid "Comic Properties"
+msgstr "Свойства комикса"
+
+#: ../src/buoh-properties-dialog.c:116
+msgid "Link"
+msgstr "Ссылка"
+
+#: ../src/buoh-properties-dialog.c:122
+msgid "Language"
+msgstr "Язык"
+
+#: ../src/buoh-properties-dialog.c:128
+msgid "Date of publication"
+msgstr "Дата публикации"
+
+#: ../src/buoh-properties-dialog.c:186
+msgid "Publication days"
+msgstr "Дни публикаций"
+
+#: ../src/buoh-view.c:155
+msgid "Buoh online comic strips reader"
+msgstr "Приложение для чтения комиксов онлайн"
+
+#: ../src/buoh-view.c:157
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favourite comic strips to add or remove comics to the list click on Comic -> Add. Just select a comic from the list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Добро пожаловать в <b>Buoh</b>, приложение для онлайн-чтения комиксов для GNOME.\n"
+"В списке слева содержатся ваши любимые комиксы. Чтобы добавить или удалить комикс, щёлкните «Комикс» > «Добавить». Выберите комикс из списка и он будет показан с правой стороны. Спасибо, что используете Buoh."
+
+#: ../src/buoh-view-comic.c:638
+msgid "Error Loading Comic"
+msgstr "Ошибка загрузки комикса"
+
+#. Top Level
+#: ../src/buoh-window.c:158
+msgid "_Comic"
+msgstr "_Комикс"
+
+#: ../src/buoh-window.c:159
+msgid "_View"
+msgstr "_Вид"
+
+#: ../src/buoh-window.c:160
+msgid "_Go"
+msgstr "_Переход"
+
+#: ../src/buoh-window.c:161
+msgid "_Help"
+msgstr "_Справка"
+
+#. Comic menu
+#: ../src/buoh-window.c:164
+msgid "_Add..."
+msgstr "_Добавить..."
+
+#: ../src/buoh-window.c:165
+msgid "Add a comic to the comic list"
+msgstr "Добавить комикс в список комиксов"
+
+#: ../src/buoh-window.c:167
+msgid "_Remove"
+msgstr "_Удалить"
+
+#: ../src/buoh-window.c:168
+msgid "Remove this comic from the comic list"
+msgstr "Удалить этот комикс из списка комиксов"
+
+#: ../src/buoh-window.c:170
+msgid "_Save A Copy..."
+msgstr "_Сохранить копию..."
+
+#: ../src/buoh-window.c:171
+msgid "Save the current comic with a new filename"
+msgstr "Сохранить текущий комикс в файле с новым именем"
+
+#: ../src/buoh-window.c:173
+msgid "_Copy Location"
+msgstr "_Копировать адрес"
+
+#: ../src/buoh-window.c:174
+msgid "Copy the location of this comic to clipboard"
+msgstr "Копировать адрес этого комикса в буфер обмена"
+
+#: ../src/buoh-window.c:176
+msgid "_Properties..."
+msgstr "_Свойства..."
+
+#: ../src/buoh-window.c:177
+msgid "View the properties of this comic"
+msgstr "Показать свойства этого комикса"
+
+#: ../src/buoh-window.c:179
+msgid "_Quit"
+msgstr "_Закончить"
+
+#: ../src/buoh-window.c:180
+msgid "Quit application"
+msgstr "Завершить работу приложения"
+
+#. View menu
+#: ../src/buoh-window.c:184
+msgid "Zoom _In"
+msgstr "_Приблизить"
+
+#: ../src/buoh-window.c:185
+msgid "Increase the comic size"
+msgstr "Увеличить размер комикса"
+
+#: ../src/buoh-window.c:187
+msgid "Zoom _Out"
+msgstr "_Отдалить"
+
+#: ../src/buoh-window.c:188
+msgid "Decrease the comic size"
+msgstr "Уменьшить размер комикса"
+
+#: ../src/buoh-window.c:190
+msgid "_Normal Size"
+msgstr "_Обычный размер"
+
+#: ../src/buoh-window.c:191
+msgid "Use the normal comic size"
+msgstr "Использовать обычный размер комикса"
+
+#. Go menu
+#: ../src/buoh-window.c:195
+msgid "_Previous Comic"
+msgstr "_Предыдущий комикс"
+
+#: ../src/buoh-window.c:196
+msgid "Go to the previous comic"
+msgstr "Перейти к предыдущему комиксу"
+
+#: ../src/buoh-window.c:198
+msgid "_Next Comic"
+msgstr "_Следующий комикс"
+
+#: ../src/buoh-window.c:199
+msgid "Go to the next comic"
+msgstr "Перейти к следующему комиксу"
+
+#: ../src/buoh-window.c:201
+msgid "_First Comic"
+msgstr "_Первый комикс"
+
+#: ../src/buoh-window.c:202
+msgid "Go to the first comic"
+msgstr "Перейти к первому комиксу"
+
+#: ../src/buoh-window.c:204
+msgid "_Last Comic"
+msgstr "_Последний комикс"
+
+#: ../src/buoh-window.c:205
+msgid "Go to the last comic"
+msgstr "Перейти к последнему комиксу"
+
+#. Help menu
+#: ../src/buoh-window.c:209
+msgid "_Contents"
+msgstr "_Содержание"
+
+#: ../src/buoh-window.c:210
+msgid "Display help for the Buoh online comic reader"
+msgstr "Показать справку для приложения чтения комиксов Buoh"
+
+#: ../src/buoh-window.c:212
+msgid "_About"
+msgstr "_О программе"
+
+#: ../src/buoh-window.c:213
+msgid "Display credits for the Buoh online comic reader creators"
+msgstr "Показать сведения об авторах приложения Buoh"
+
+#. View menu
+#: ../src/buoh-window.c:220
+msgid "_Toolbar"
+msgstr "_Панель инструментов"
+
+#: ../src/buoh-window.c:221
+msgid "Changes the visibility of the toolbar"
+msgstr "Управляет отображением панели инструментов"
+
+#: ../src/buoh-window.c:223
+msgid "St_atusbar"
+msgstr "Па_нель состояния"
+
+#: ../src/buoh-window.c:224
+msgid "Changes the visibility of the statusbar"
+msgstr "Управляет отображением панели состояния"
+
+#: ../src/buoh-window.c:226
+msgid "_Best Fit"
+msgstr "_Подогнать размер"
+
+#: ../src/buoh-window.c:227
+msgid "Make the current comic fill the window"
+msgstr "Подогнать размеры комиксы под размер окна"
+
+#: ../src/buoh-window.c:229
+msgid "Fit Comic _Width"
+msgstr "Подогнать по _ширине"
+
+#: ../src/buoh-window.c:230
+msgid "Make the current comic fill the window width"
+msgstr "Подогнать размеры комикса под ширину окна"
+
+#: ../src/buoh-window.c:537
+msgid "Images"
+msgstr "Изображения"
+
+#: ../src/buoh-window.c:540
+msgid "Save Comic"
+msgstr "Сохранить комикс"
+
+#: ../src/buoh-window.c:582
+msgid "Unable to save comic"
+msgstr "Не удалось сохранить комикс"
+
+#: ../src/buoh-window.c:844
+msgid "Online comic strips reader"
+msgstr "Приложения для онлайн-чтения комиксов"
+
+#: ../src/buoh-window.c:847
+msgid "translator-credits"
+msgstr "Юрий Мясоедов <omerta13@yandex.ru>, 2011"
+
+#: ../src/buoh-window.c:1026
+msgid "Getting comic ..."
+msgstr "Загрузка комикса..."
+
