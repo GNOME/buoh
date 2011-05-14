@@ -36,25 +36,18 @@ dnl ******************************************
 dnl ** pkg-config dependacy checks          **
 dnl ******************************************
 
-GLIB_REQUIRED=2.6.0
+GLIB_REQUIRED=2.26.0
 GTK_REQUIRED=3.0.0
 LIBSOUP_REQUIRED=2.4.0
-GCONF_REQUIRED=2.2.0
 
 PKG_CHECK_MODULES(BUOH, 
 		  glib-2.0       >= $GLIB_REQUIRED
 		  gtk+-3.0       >= $GTK_REQUIRED
-		  libsoup-2.4    >= $LIBSOUP_REQUIRED
-		  gconf-2.0      >= $GCONF_REQUIRED) 
+		  libsoup-2.4    >= $LIBSOUP_REQUIRED)
 AC_SUBST(BUOH_CFLAGS)
 AC_SUBST(BUOH_LIBS)
 
-AM_GCONF_SOURCE_2
-
-AC_PATH_PROG([GCONFTOOL], [gconftool-2], [no])
-if test "x$GCONFTOOL" = "xno"; then
-        AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
-fi
+GLIB_GSETTINGS
 
 dnl
 dnl Translations
@@ -89,8 +82,6 @@ fi
 
 AC_SUBST(comics_dir)
 
-AM_CONDITIONAL([WITH_GCONF],[test "$with_gconf" = "yes"])
-	   
 AC_CONFIG_FILES([
 Makefile
 po/Makefile.in

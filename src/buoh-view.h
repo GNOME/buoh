@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 
 #include "buoh-comic.h"
+#include "buoh-settings.h"
 
 G_BEGIN_DECLS
 
@@ -47,12 +48,6 @@ typedef enum {
 	STATE_COMIC_LOADED,
 	STATE_EMPTY
 } BuohViewStatus;
-
-typedef enum {
-	VIEW_ZOOM_FREE,
-	VIEW_ZOOM_BEST_FIT,
-	VIEW_ZOOM_FIT_WIDTH
-} BuohViewZoomMode;
 
 struct _BuohView {
 	GtkNotebook      parent;

@@ -34,7 +34,6 @@
 #include <libxml/tree.h>
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
-#include <gconf/gconf-client.h>
 
 #include "buoh.h"
 #include "buoh-window.h"
@@ -48,19 +47,19 @@ struct _BuohPrivate {
 	gchar        *datadir;
 	gchar        *proxy_uri;
 
-	GConfClient  *gconf_client;
+	GSettings    *proxy_settings;
 };
 
 #define BUOH_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_BUOH, BuohPrivate))
 
-#define GCONF_HTTP_PROXY_DIR "/system/http_proxy"
-#define GCONF_USE_HTTP_PROXY "/system/http_proxy/use_http_proxy"
-#define GCONF_HTTP_PROXY_HOST "/system/http_proxy/host"
-#define GCONF_HTTP_PROXY_PORT "/system/http_proxy/port"
-#define GCONF_HTTP_PROXY_USE_AUTHENTICATION "/system/http_proxy/use_authentication"
-#define GCONF_HTTP_PROXY_AUTHENTICATION_USER "/system/http_proxy/authentication_user"
-#define GCONF_HTTP_PROXY_AUTHENTICATION_PASSWORD "/system/http_proxy/authentication_password"
+#define GS_HTTP_PROXY_SCHEMA                  "org.gnome.system.proxy.http"
+#define GS_HTTP_PROXY_ENABLED                 "enabled"
+#define GS_HTTP_PROXY_HOST                    "host"
+#define GS_HTTP_PROXY_PORT                    "port"
+#define GS_HTTP_PROXY_USE_AUTHENTICATION      "use-authentication"
+#define GS_HTTP_PROXY_AUTHENTICATION_USER     "authentication-user"
+#define GS_HTTP_PROXY_AUTHENTICATION_PASSWORD "authentication-password"
 
 static void          buoh_init                   (Buoh         *buoh);
 static void          buoh_class_init             (BuohClass    *klass);
@@ -395,35 +394,31 @@ buoh_create_user_dir (Buoh *buoh)
 }
 
 static gchar *
-buoh_get_http_proxy_uri_from_gconf (Buoh *buoh)
+buoh_get_http_proxy_uri_from_gsettings (Buoh *buoh)
 {
-	GConfClient *gconf_client = buoh->priv->gconf_client;
-	gchar       *uri = NULL;
+	GSettings *proxy_settings = buoh->priv->proxy_settings;
+	gchar     *uri = NULL;
 
-	if (gconf_client_get_bool (gconf_client, GCONF_USE_HTTP_PROXY, NULL)) {
+	if (g_settings_get_boolean (proxy_settings, GS_HTTP_PROXY_ENABLED)) {
 		gchar *host = NULL;
 		gchar *port = NULL;
 		gchar *user = NULL;
 		gchar *pass = NULL;
 		guint  p = 0;
+
+		host = g_settings_get_string (proxy_settings,
+		                              GS_HTTP_PROXY_HOST);
 			
-		host = gconf_client_get_string (gconf_client,
-						GCONF_HTTP_PROXY_HOST,
-						NULL);
-		p = gconf_client_get_int (gconf_client,
-					  GCONF_HTTP_PROXY_PORT,
-					  NULL);
+		p = g_settings_get_int (proxy_settings,
+		                        GS_HTTP_PROXY_PORT);
 		if (p > 0)
 			port = g_strdup_printf ("%d", p);
 		
-		if (gconf_client_get_bool (gconf_client, GCONF_HTTP_PROXY_USE_AUTHENTICATION, NULL)) {
-			user = gconf_client_get_string (gconf_client,
-							GCONF_HTTP_PROXY_AUTHENTICATION_USER,
-							NULL);
-			pass = gconf_client_get_string (gconf_client,
-							GCONF_HTTP_PROXY_AUTHENTICATION_PASSWORD,
-							NULL);
-
+		if (g_settings_get_boolean (proxy_settings, GS_HTTP_PROXY_USE_AUTHENTICATION)) {
+			user = g_settings_get_string (proxy_settings,
+			                              GS_HTTP_PROXY_AUTHENTICATION_USER);
+			pass = g_settings_get_string (proxy_settings,
+			                              GS_HTTP_PROXY_AUTHENTICATION_PASSWORD);
 		}
 
 		/* http://user:pass@host:port */
@@ -441,16 +436,15 @@ buoh_get_http_proxy_uri_from_gconf (Buoh *buoh)
 }
 
 static void
-buoh_update_http_proxy (GConfClient *gconf_client,
-			guint        cnxn_id,
-			GConfEntry  *entry,
+buoh_update_http_proxy (GSettings   *settings,
+			const gchar *key,
 			Buoh        *buoh)
 {
 	buoh_debug ("Proxy configuration changed");
 
 	if (buoh->priv->proxy_uri)
 		g_free (buoh->priv->proxy_uri);
-	buoh->priv->proxy_uri = buoh_get_http_proxy_uri_from_gconf (buoh);
+	buoh->priv->proxy_uri = buoh_get_http_proxy_uri_from_gsettings (buoh);
 }
 
 static void
@@ -467,17 +461,11 @@ buoh_init (Buoh *buoh)
 	g_signal_connect (G_OBJECT (buoh->priv->comic_list), "row-changed",
 			  G_CALLBACK (buoh_save_comic_list),
 			  (gpointer) buoh);
-
-	buoh->priv->gconf_client = gconf_client_get_default ();
-	gconf_client_add_dir (buoh->priv->gconf_client,
-			      GCONF_HTTP_PROXY_DIR,
-			      GCONF_CLIENT_PRELOAD_NONE,
-			      NULL);
-	gconf_client_notify_add (buoh->priv->gconf_client,
-				 GCONF_HTTP_PROXY_DIR,
-				 (GConfClientNotifyFunc)buoh_update_http_proxy,
-				 (gpointer) buoh,
-				 NULL, NULL);
+	buoh->priv->proxy_settings = g_settings_new (GS_HTTP_PROXY_SCHEMA);
+	g_signal_connect (buoh->priv->proxy_settings,
+	                  "changed",
+	                  G_CALLBACK (buoh_update_http_proxy),
+	                  buoh);
 }
 
 static void
@@ -511,6 +499,11 @@ buoh_finalize (GObject *object)
 	if (buoh->priv->proxy_uri) {
 		g_free (buoh->priv->proxy_uri);
 		buoh->priv->proxy_uri = NULL;
+	}
+
+	if (buoh->priv->proxy_settings) {
+		g_object_unref (buoh->priv->proxy_settings);
+		buoh->priv->proxy_settings = NULL;
 	}
 
 	if (G_OBJECT_CLASS (buoh_parent_class)->finalize)

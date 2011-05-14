@@ -26,7 +26,6 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
-#include <gconf/gconf-client.h>
 #include <string.h>
 
 #include "buoh.h"
@@ -50,16 +49,20 @@ struct _BuohWindowPrivate {
 	GList          *properties;
 	GtkWidget      *add_dialog;
 
-	GConfClient    *gconf_client;
+	GSettings      *buoh_settings;
+	GSettings      *lockdown_settings;
 };
 
 #define BUOH_WINDOW_GET_PRIVATE(object) \
         (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_WINDOW, BuohWindowPrivate))
 
-#define GCONF_SHOW_TOOLBAR	"/apps/buoh/show_toolbar"
-#define GCONF_SHOW_STATUSBAR    "/apps/buoh/show_statusbar"
-#define GCONF_ZOOM_MODE         "/apps/buoh/zoom_mode"
-#define GCONF_LOCKDOWN_SAVE 	"/desktop/gnome/lockdown/disable_save_to_disk"
+#define GS_BUOH_SCHEMA     "org.gnome.buoh"
+#define GS_SHOW_TOOLBAR	   "show-toolbar"
+#define GS_SHOW_STATUSBAR  "show-statusbar"
+#define GS_ZOOM_MODE       "zoom-mode"
+
+#define GS_LOCKDOWN_SCHEMA "org.gnome.desktop.lockdown"
+#define GS_LOCKDOWN_SAVE   "disable-save-to-disk"
 
 static void buoh_window_init                             (BuohWindow      *buoh_window);
 static void buoh_window_class_init                       (BuohWindowClass *klass);
@@ -255,8 +258,9 @@ buoh_window_init (BuohWindow *buoh_window)
 
 	buoh_window->priv->properties = NULL;
 	buoh_window->priv->add_dialog = NULL;
-        buoh_window->priv->gconf_client = gconf_client_get_default ();
-	
+	buoh_window->priv->buoh_settings = g_settings_new (GS_BUOH_SCHEMA);
+	buoh_window->priv->lockdown_settings = g_settings_new (GS_LOCKDOWN_SCHEMA);
+
 	vbox = gtk_vbox_new (FALSE, 0);
 
 	/* Menu bar */
@@ -300,16 +304,14 @@ buoh_window_init (BuohWindow *buoh_window)
 	gtk_widget_show (menubar);
 
 	/* Set the active status to the "View [toolbar | statusbar]" menu entry*/
-	visible_toolbar = gconf_client_get_bool (buoh_window->priv->gconf_client,
-						 GCONF_SHOW_TOOLBAR,
-						 NULL);
+	visible_toolbar = g_settings_get_boolean (buoh_window->priv->buoh_settings,
+	                                          GS_SHOW_TOOLBAR);
 	action = gtk_action_group_get_action (action_group, "ViewToolbar");
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), 
 				      visible_toolbar);
 
-	visible_statusbar = gconf_client_get_bool (buoh_window->priv->gconf_client,
-						   GCONF_SHOW_STATUSBAR,
-						   NULL);
+	visible_statusbar = g_settings_get_boolean (buoh_window->priv->buoh_settings,
+	                                            GS_SHOW_STATUSBAR);
 	action = gtk_action_group_get_action (action_group, "ViewStatusbar");
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
 				      visible_statusbar);
@@ -331,9 +333,8 @@ buoh_window_init (BuohWindow *buoh_window)
 
 	/* buoh view */
 	buoh_window->priv->view = BUOH_VIEW (buoh_view_new ());
-	zoom_mode = gconf_client_get_int (buoh_window->priv->gconf_client,
-					  GCONF_ZOOM_MODE,
-					  NULL);
+	zoom_mode = g_settings_get_enum (buoh_window->priv->buoh_settings,
+	                                 GS_ZOOM_MODE);
 	buoh_view_set_zoom_mode (buoh_window->priv->view, zoom_mode);
 	g_signal_connect (G_OBJECT (buoh_window->priv->view), "notify::status",
 			  G_CALLBACK (buoh_window_view_status_change_cb),
@@ -426,9 +427,14 @@ buoh_window_finalize (GObject *object)
 		buoh_window->priv->action_group = NULL;
 	}
 	
-	if (buoh_window->priv->gconf_client) {
-		g_object_unref (buoh_window->priv->gconf_client);
-		buoh_window->priv->gconf_client = NULL;
+	if (buoh_window->priv->buoh_settings) {
+		g_object_unref (buoh_window->priv->buoh_settings);
+		buoh_window->priv->buoh_settings = NULL;
+	}
+
+	if (buoh_window->priv->lockdown_settings) {
+		g_object_unref (buoh_window->priv->lockdown_settings);
+		buoh_window->priv->lockdown_settings = NULL;
 	}
 	
 	if (buoh_window->priv->properties) {
@@ -681,8 +687,8 @@ buoh_window_cmd_view_toolbar (GtkAction *action, gpointer gdata)
 	gboolean     visible;
 	
 	visible = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	gconf_client_set_bool (window->priv->gconf_client,
-			       GCONF_SHOW_TOOLBAR, visible, NULL);
+	g_settings_set_boolean (window->priv->buoh_settings,
+	                        GS_SHOW_TOOLBAR, visible);
 
 	toolbar = gtk_ui_manager_get_widget (window->priv->ui_manager, "/Toolbar");
 	g_object_set (G_OBJECT (toolbar), "visible",
@@ -697,8 +703,8 @@ buoh_window_cmd_view_statusbar (GtkAction *action, gpointer gdata)
 	gboolean     visible;
 
 	visible = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-	gconf_client_set_bool (window->priv->gconf_client,
-			       GCONF_SHOW_STATUSBAR, visible, NULL);
+	g_settings_set_boolean (window->priv->buoh_settings,
+	                        GS_SHOW_STATUSBAR, visible);
 
 	g_object_set (G_OBJECT (window->priv->statusbar),
 		      "visible", visible,
@@ -736,14 +742,12 @@ buoh_window_cmd_view_zoom_best_fit (GtkAction *action, gpointer gdata)
 
 	if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action))) {
 		buoh_view_zoom_best_fit (window->priv->view);
-		gconf_client_set_int (window->priv->gconf_client,
-				      GCONF_ZOOM_MODE,
-				      VIEW_ZOOM_BEST_FIT, NULL);
+		g_settings_set_enum (window->priv->buoh_settings,
+		                     GS_ZOOM_MODE, VIEW_ZOOM_BEST_FIT);
 	} else {
 		buoh_view_zoom_normal_size (window->priv->view);
-		gconf_client_set_int (window->priv->gconf_client,
-				      GCONF_ZOOM_MODE,
-				      VIEW_ZOOM_FREE, NULL);
+		g_settings_set_enum (window->priv->buoh_settings,
+		                     GS_ZOOM_MODE, VIEW_ZOOM_FREE);
 	}
 }
 
@@ -754,14 +758,12 @@ buoh_window_cmd_view_zoom_fit_width (GtkAction *action, gpointer gdata)
 
 	if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action))) {
 		buoh_view_zoom_fit_width (window->priv->view);
-		gconf_client_set_int (window->priv->gconf_client,
-				      GCONF_ZOOM_MODE,
-				      VIEW_ZOOM_FIT_WIDTH, NULL);
+		g_settings_set_enum (window->priv->buoh_settings,
+		                     GS_ZOOM_MODE, VIEW_ZOOM_FIT_WIDTH);
 	} else {
 		buoh_view_zoom_normal_size (window->priv->view);
-		gconf_client_set_int (window->priv->gconf_client,
-				      GCONF_ZOOM_MODE,
-				      VIEW_ZOOM_FREE, NULL);
+		g_settings_set_enum (window->priv->buoh_settings,
+		                     GS_ZOOM_MODE, VIEW_ZOOM_FREE);
 	}
 }
 
@@ -925,8 +927,8 @@ buoh_window_comic_save_to_disk_set_sensitive (BuohWindow *window, gboolean sensi
 {
 	gboolean save_disabled = FALSE;
 	
-	if (gconf_client_get_bool (window->priv->gconf_client,
-				   GCONF_LOCKDOWN_SAVE, NULL)) {
+	if (g_settings_get_boolean (window->priv->lockdown_settings,
+	                            GS_LOCKDOWN_SAVE)) {
 		save_disabled = TRUE;
 	}
 

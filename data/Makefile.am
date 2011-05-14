@@ -1,49 +1,18 @@
 SUBDIRS = icons
 
-install-data-local: install-schemas update-icon-cache
-uninstall-local: uninstall-schemas
+install-data-local: update-icon-cache
 
 #
-# GConf schema
+# GSetting schema
 #
 
-if WITH_GCONF
-@INTLTOOL_SCHEMAS_RULE@
+gsettings_SCHEMAS = org.gnome.buoh.gschema.xml
 
-schema_in_files = buoh.schemas.in
-schemadir = $(GCONF_SCHEMA_FILE_DIR)
-schema_DATA = $(schema_in_files:.schemas.in=.schemas)
+gsettings_ENUM_NAMESPACE = org.gnome.buoh
+gsettings_ENUM_FILES = $(top_srcdir)/src/buoh-settings.h
 
-install-schemas: $(schema_DATA)
-if GCONF_SCHEMAS_INSTALL
-	if test -z "$(DESTDIR)" ; then \
-	for p in $(schema_DATA) ; do \
-		GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
-			$(GCONFTOOL) \
-			--makefile-install-rule \
-			$(top_builddir)/data/$$p >&1 > /dev/null; \
-	done \
-	fi
-endif
-
-uninstall-schemas: $(schema_DATA)
-if GCONF_SCHEMAS_INSTALL
-	if test -z "$(DESTDIR)" ; then \
-	for p in $^ ; do \
-		GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
-		$(GCONFTOOL) \
-		--makefile-uninstall-rule \
-		$(top_builddir)/data/$$p; \
-	done \
-	fi
-endif
-	
-else
-
-install-schemas:
-uninstall-schemas:
-
-endif
+@INTLTOOL_XML_NOMERGE_RULE@
+@GSETTINGS_RULES@
 
 comicsdir = $(comics_dir)
 
@@ -87,10 +56,10 @@ DESKTOP_FILES = $(DESKTOP_IN_FILES:.desktop.in=.desktop)
 # Extra files to be included in the tarball
 #
 
-EXTRA_DIST =                   	\
-	$(comics_DATA)		\
-	$(ui_DATA)		\
-	$(schema_in_files)      \
+EXTRA_DIST =           	        	\
+	$(comics_DATA)			\
+	$(ui_DATA)			\
+	$(gsettings_SCHEMAS)		\
 	$(DESKTOP_IN_FILES)
 
 #
@@ -99,5 +68,5 @@ EXTRA_DIST =                   	\
 
 DISTCLEANFILES = \
 	$(DESKTOP_FILES)	\
-	$(schema_DATA)
+	$(gsettings_SCHEMA)
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema gettext-domain="buoh" id="org.gnome.buoh" path="/org/gnome/buoh/">
+    <key name="show-toolbar" type="b">
+      <default>true</default>
+      <summary>Show toolbar by default</summary>
+      <description>Toolbar is the top bar that contains navigation and zoom controls. Two boolean options, true makes toolbar visible by default while false makes toolbar not visible by default.</description>
+    </key>
+    <key name="show-statusbar" type="b">
+      <default>true</default>
+      <summary>Show statusbar by default</summary>
+      <description>Statusbar is the bottom bar that contains help and status messages. Two boolean options, true makes statusbar visible by default while false makes statusbar not visible by default.</description>
+    </key>
+    <key enum="org.gnome.buoh.BuohViewZoomMode" name="zoom-mode">
+      <default>'fit-width'</default>
+      <summary>Select viewer zoom mode</summary>
+      <description>There are two zoom modes available, 'best-fit' makes the current comic fill the window, 'fit-width' makes the current comic fill the window width.</description>
+    </key>
+  </schema>
+</schemalist>
