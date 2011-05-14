@@ -364,8 +364,6 @@ buoh_window_init (BuohWindow *buoh_window)
 
 	/* Status bar */
 	buoh_window->priv->statusbar = gtk_statusbar_new ();
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (buoh_window->priv->statusbar),
-					   TRUE);
 	buoh_window->priv->view_message_cid = gtk_statusbar_get_context_id
 		(GTK_STATUSBAR (buoh_window->priv->statusbar), "view_message");
 	buoh_window->priv->help_message_cid = gtk_statusbar_get_context_id
@@ -1132,7 +1130,7 @@ buoh_window_comic_list_key_press_cb (GtkWidget *widget, GdkEventKey *event, gpoi
 	state = event->state & GDK_SHIFT_MASK;
 
 	if (state == GDK_SHIFT_MASK &&
-	    event->keyval == GDK_F10) {
+	    event->keyval == GDK_KEY_F10) {
 		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (widget));
 		if (gtk_tree_selection_get_selected (selection, NULL, NULL)) {
 			popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ListPopup");
@@ -1201,7 +1199,7 @@ buoh_window_comic_view_key_press_cb (GtkWidget *widget, GdkEventKey *event, gpoi
 	state = event->state & GDK_SHIFT_MASK;
 
 	if (state == GDK_SHIFT_MASK &&
-	    event->keyval == GDK_F10) {
+	    event->keyval == GDK_KEY_F10) {
 		popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ViewPopup");
 
 		gtk_menu_popup (GTK_MENU (popup), NULL,

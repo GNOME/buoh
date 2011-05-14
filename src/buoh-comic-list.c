@@ -41,11 +41,11 @@ static void buoh_comic_list_init                   (BuohComicList *buoh_comic_li
 static void buoh_comic_list_class_init             (BuohComicListClass *klass);
 static void buoh_comic_list_finalize               (GObject *object);
 
-static void buoh_comic_list_size_request           (GtkWidget        *widget,
-						    GtkRequisition   *requisition);
-static void buoh_comic_list_size_allocate          (GtkWidget        *widget,
+static void buoh_comic_list_get_preferred_width    (GtkWidget        *widget,
+						    gint             *minimun,
+						    gint             *natural);
+static void     buoh_comic_list_size_allocate      (GtkWidget        *widget,
 						    GtkAllocation    *allocation);
-
 static void     buoh_comic_list_selection_changed  (GtkTreeSelection *selection,
 						    gpointer          gdata);
 static gboolean buoh_comic_list_visible            (GtkTreeModel     *model,
@@ -151,7 +151,7 @@ buoh_comic_list_class_init (BuohComicListClass *klass)
 
 	g_type_class_add_private (klass, sizeof (BuohComicListPrivate));
 
-	widget_class->size_request = buoh_comic_list_size_request;
+	widget_class->get_preferred_width = buoh_comic_list_get_preferred_width;
 	widget_class->size_allocate = buoh_comic_list_size_allocate;
 
 	object_class->finalize = buoh_comic_list_finalize;
@@ -174,32 +174,42 @@ buoh_comic_list_finalize (GObject *object)
 }
 
 static void
-buoh_comic_list_size_request (GtkWidget *widget, GtkRequisition *requisition)
+buoh_comic_list_get_preferred_width (GtkWidget *widget,
+				     gint      *minimun,
+				     gint      *natural)
 {
-	GtkBin         *bin = GTK_BIN (widget);
-	GtkRequisition  child_requisition;
+	GtkBin    *bin = GTK_BIN (widget);
+	GtkWidget *child;
+	gint       child_minimun;
+	gint       child_natural;
 
-	if (bin->child && gtk_widget_get_visible (bin->child)) {
-		gtk_widget_size_request (bin->child, &child_requisition);
-		*requisition = child_requisition;
-		
+	child = gtk_bin_get_child (bin);
+
+	if (child && gtk_widget_get_visible (child)) {
+		gtk_widget_get_preferred_width (child,
+						&child_minimun,
+						&child_natural);
 		/* we need some extra size */
-		requisition->width += 100;
+		*minimun = child_minimun + 100;
+		*natural = child_natural + 100;
 	} else {
-		requisition->width = 0;
-		requisition->height = 0;
+		*minimun = 0;
+		*natural = 0;
 	}
 }
 
 static void
 buoh_comic_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
-	GtkBin *bin = GTK_BIN (widget);
+	GtkBin    *bin = GTK_BIN (widget);
+	GtkWidget *child;
 
-	widget->allocation = *allocation;
+	child = gtk_bin_get_child (bin);
 
-	if (bin->child && gtk_widget_get_visible (bin->child)) {
-		gtk_widget_size_allocate (bin->child, allocation);
+	gtk_widget_set_allocation (widget, allocation);
+
+	if (child && gtk_widget_get_visible (child)) {
+		gtk_widget_size_allocate (child, allocation);
 
 		/* we need some extra size */
 		allocation->width += 100;

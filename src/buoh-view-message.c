@@ -46,7 +46,7 @@ buoh_view_message_init (BuohViewMessage *m_view)
 	GtkWidget *hbox;
 	GtkWidget *vbox;
 
-	GTK_WIDGET_SET_FLAGS (m_view, GTK_CAN_FOCUS);
+	gtk_widget_set_can_focus (GTK_WIDGET (m_view), TRUE);
 	
 	m_view->priv = BUOH_VIEW_MESSAGE_GET_PRIVATE (m_view);
 
@@ -112,8 +112,10 @@ buoh_view_message_new (void)
 void
 buoh_view_message_set_title (BuohViewMessage *m_view, const gchar *title)
 {
-	gint size;
-	PangoFontDescription *font_desc;
+	gint                        size;
+	GtkStyleContext            *style;
+	const PangoFontDescription *font_desc;
+	PangoFontDescription       *font_desc_new;
 
 	g_return_if_fail (BUOH_IS_VIEW_MESSAGE (m_view));
 	g_return_if_fail (title != NULL);
@@ -121,18 +123,23 @@ buoh_view_message_set_title (BuohViewMessage *m_view, const gchar *title)
 	gtk_label_set_text (GTK_LABEL (m_view->priv->title), title);
 	
 	/* unset the font settings */
-	gtk_widget_modify_font (m_view->priv->title, NULL);
+	gtk_widget_override_font (m_view->priv->title, NULL);
 
-	size = pango_font_description_get_size (m_view->priv->title->style->font_desc);
+	style = gtk_widget_get_style_context (m_view->priv->title);
+	font_desc = gtk_style_context_get_font (style,
+						GTK_STATE_FLAG_NORMAL);
+	size = pango_font_description_get_size (font_desc);
 	
-	font_desc = pango_font_description_new ();
+	font_desc_new = pango_font_description_new ();
 
-	pango_font_description_set_weight (font_desc, PANGO_WEIGHT_BOLD);
-	pango_font_description_set_size (font_desc, size * PANGO_SCALE_X_LARGE);
+	pango_font_description_set_weight (font_desc_new,
+					   PANGO_WEIGHT_BOLD);
+	pango_font_description_set_size (font_desc_new,
+					 size * PANGO_SCALE_X_LARGE);
 
-	gtk_widget_modify_font (m_view->priv->title, font_desc);
+	gtk_widget_override_font (m_view->priv->title, font_desc_new);
 
-	pango_font_description_free (font_desc);
+	pango_font_description_free (font_desc_new);
 
 	gtk_widget_show (m_view->priv->title);
 }

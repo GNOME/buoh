@@ -47,9 +47,8 @@ buoh_properties_dialog_init (BuohPropertiesDialog *dialog)
 
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Comic Properties"));
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
-	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 12);
+	gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), 12);
 
 	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE,
 			       GTK_RESPONSE_ACCEPT);
@@ -80,7 +79,7 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,
 	GtkWidget *label_pub_days, *label_pub_days_val;
 	GtkWidget *image;
 	GDate     *comic_date;
-	gchar date[DATE_BUFFER];
+	gchar      date[DATE_BUFFER];
 	gchar     *pub_days;
 	BuohComic *comic;
 	GdkPixbuf *thumbnail;
@@ -200,7 +199,7 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,
 			  1, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 		gtk_table_attach (GTK_TABLE (table), GTK_WIDGET (label_pub_days_val),
 			  2, 3, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
-		
+
 		gtk_widget_show (label_pub_days);
 		gtk_widget_show (label_pub_days_val);
 	}
@@ -221,7 +220,7 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,
 	gtk_widget_show (label_date);
 	gtk_widget_show (label_date_val);
 
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),
+	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
 			    table, TRUE, TRUE, 0);
 
 	gtk_widget_show (table);

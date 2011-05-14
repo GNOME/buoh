@@ -123,7 +123,7 @@ buoh_view_init (BuohView *buoh_view)
         GtkWidget *label;
         GtkWidget *swindow;
 
-	GTK_WIDGET_SET_FLAGS (buoh_view, GTK_CAN_FOCUS);
+	gtk_widget_set_can_focus (GTK_WIDGET (buoh_view), TRUE);
 	
         buoh_view->priv = BUOH_VIEW_GET_PRIVATE (buoh_view);
 

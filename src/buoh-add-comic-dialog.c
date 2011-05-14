@@ -67,9 +67,9 @@ buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Add Comic"));
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 300);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
-	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 12);
+	gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
+			     12);
 
 	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE,
 			       GTK_RESPONSE_ACCEPT);
@@ -157,7 +157,7 @@ buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
 	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	gtk_widget_show (vbox);
 
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),
+	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
 			    frame, TRUE, TRUE, 0);
 	gtk_widget_show (frame);
 

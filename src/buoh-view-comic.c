@@ -84,8 +84,6 @@ static gboolean buoh_view_comic_scroll_event          (GtkWidget        *widget,
 						       GdkEventScroll   *event);
 static void     buoh_view_comic_size_allocate         (GtkWidget        *widget,
 						       GtkAllocation    *allocation);
-static void     buoh_view_comic_size_request          (GtkWidget        *widget,
-						       GtkRequisition   *requisition);
 static void     buoh_view_comic_drag_begin            (GtkWidget        *widget,
 						       GdkDragContext   *drag_context,
 						       gpointer          gdata);
@@ -119,7 +117,7 @@ G_DEFINE_TYPE (BuohViewComic, buoh_view_comic, GTK_TYPE_VIEWPORT)
 static void
 buoh_view_comic_init (BuohViewComic *c_view)
 {
-	GTK_WIDGET_SET_FLAGS (c_view, GTK_CAN_FOCUS);
+	gtk_widget_set_can_focus (GTK_WIDGET (c_view), TRUE);
 	
 	c_view->priv = BUOH_VIEW_COMIC_GET_PRIVATE (c_view);
 
@@ -167,7 +165,6 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
 	widget_class->key_press_event = buoh_view_comic_key_press_event;
 	widget_class->scroll_event = buoh_view_comic_scroll_event;
 	widget_class->size_allocate = buoh_view_comic_size_allocate;
-	widget_class->size_request = buoh_view_comic_size_request;
 
 	/* Properties */
 	g_object_class_install_property (object_class,
@@ -255,7 +252,7 @@ buoh_view_comic_set_property (GObject      *object,
 	case PROP_ZOOM_MODE:
 		c_view->priv->zoom_mode = g_value_get_enum (value);
 		buoh_view_comic_update_scrollbar_policy (c_view);
-		
+
 		break;
 	case PROP_SCALE:
 		c_view->priv->scale = g_value_get_double (value);
@@ -300,46 +297,52 @@ buoh_view_comic_key_press_event (GtkWidget *widget, GdkEventKey *event)
 	gdouble        value;
 
 	switch (event->keyval) {
-	case GDK_Up:
-	case GDK_KP_Up:
+	case GDK_KEY_Up:
+	case GDK_KEY_KP_Up:
 		g_object_get (G_OBJECT (c_view),
 			      "vadjustment", &adjustment,
 			      NULL);
-		value = adjustment->value - adjustment->step_increment;
-		
+		value = gtk_adjustment_get_value (adjustment) -
+			gtk_adjustment_get_step_increment (adjustment);
+
 		break;
-	case GDK_Down:
-	case GDK_KP_Down:
+	case GDK_KEY_Down:
+	case GDK_KEY_KP_Down:
 		g_object_get (G_OBJECT (c_view),
 			      "vadjustment", &adjustment,
 			      NULL);
-		value = adjustment->value + adjustment->step_increment;
-		
+		value = gtk_adjustment_get_value (adjustment) +
+			gtk_adjustment_get_step_increment (adjustment);
+
 		break;
-	case GDK_Left:
-	case GDK_KP_Left:
+	case GDK_KEY_Left:
+	case GDK_KEY_KP_Left:
 		g_object_get (G_OBJECT (c_view),
 			      "hadjustment", &adjustment,
 			      NULL);
-		value = adjustment->value - adjustment->step_increment;
-		
+		value = gtk_adjustment_get_value (adjustment) -
+			gtk_adjustment_get_step_increment (adjustment);
+
 		break;
-	case GDK_Right:
-	case GDK_KP_Right:
+	case GDK_KEY_Right:
+	case GDK_KEY_KP_Right:
 		g_object_get (G_OBJECT (c_view),
 			      "hadjustment", &adjustment,
 			      NULL);
-		value = adjustment->value + adjustment->step_increment;
-		
+		value = gtk_adjustment_get_value (adjustment) +
+			gtk_adjustment_get_step_increment (adjustment);
+
 		break;
 	default:
 		return FALSE;
 	}
 
-	value = CLAMP (value, adjustment->lower,
-		       adjustment->upper - adjustment->page_size);
+	value = CLAMP (value,
+		       gtk_adjustment_get_lower (adjustment),
+		       gtk_adjustment_get_upper (adjustment) -
+		       gtk_adjustment_get_page_size (adjustment));
 	gtk_adjustment_set_value (adjustment, value);
-	
+
 	return TRUE;
 }
 
@@ -390,7 +393,6 @@ buoh_view_comic_update_zoom_cb (BuohViewComic *c_view)
 		scale_width =
 			buoh_view_comic_get_scale_for_width (c_view,
 							     gdk_pixbuf_get_width (pixbuf));
-		
 		scale_height =
 			buoh_view_comic_get_scale_for_height (c_view,
 							      gdk_pixbuf_get_height (pixbuf));
@@ -405,20 +407,12 @@ buoh_view_comic_update_zoom_cb (BuohViewComic *c_view)
 		break;
 	default:
 		g_assert_not_reached ();
-
 	}
 
 	if (new_scale != c_view->priv->scale)
 		buoh_view_comic_zoom (c_view, new_scale, FALSE);
-	
-	return FALSE;
-}
 
-static void
-buoh_view_comic_size_request (GtkWidget *widget, GtkRequisition *requisition)
-{
-	requisition->width = -1;
-	requisition->height = -1;
+	return FALSE;
 }
 
 static void
@@ -433,7 +427,7 @@ buoh_view_comic_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		id = g_idle_add ((GSourceFunc) buoh_view_comic_update_zoom_cb,
 				 c_view);
 	}
-	
+
 	GTK_WIDGET_CLASS (buoh_view_comic_parent_class)->size_allocate (widget, allocation);
 }
 
@@ -476,16 +470,15 @@ buoh_view_comic_drag_data_get (GtkWidget *widget, GdkDragContext *drag_context,
 			       GtkSelectionData *data, guint info, guint time,
 			       gpointer gdata)
 {
-	BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
-	const gchar   *uri;
+	BuohViewComic  *c_view = BUOH_VIEW_COMIC (widget);
+	const gchar    *uri;
+	gchar          *uris[2];
 
 	uri = buoh_comic_get_uri (c_view->priv->comic);
 	if (uri) {
-		gtk_selection_data_set (data,
-					data->target,
-					8,
-					(guchar *)uri,
-					strlen (uri));
+		uris[0] = g_strdup (uri);
+		uris[1] = NULL;
+		gtk_selection_data_set_uris (data, uris);
 	}
 }
 
@@ -515,26 +508,40 @@ buoh_view_comic_size_prepared (GdkPixbufLoader *loader,
 		 */
 		swindow = gtk_widget_get_parent (GTK_WIDGET (c_view));
 		if (GTK_IS_SCROLLED_WINDOW (swindow)) {
-			GtkRequisition req;
+			GtkAllocation  allocation;
+			GtkStyleContext *style;
+			GtkBorder      padding;
 			gint           scrollbar_spacing;
-			gint           new_scale;
+			gint           scrollbar_width;
 			gint           widget_width;
 			gint           widget_height;
+			gint           new_scale;
 
-			widget_width = GTK_WIDGET (c_view)->allocation.width;
-			widget_width -= 2 * GTK_WIDGET (c_view)->style->xthickness;
+			gtk_widget_get_allocation (GTK_WIDGET (c_view), &allocation);
+			widget_width = allocation.width;
+
+			style = gtk_widget_get_style_context (GTK_WIDGET (c_view));
+			gtk_style_context_get_padding (style,
+						       GTK_STATE_FLAG_NORMAL,
+						       &padding);
+			widget_width -= padding.left + padding.right;
 
 			new_scale = (gdouble)widget_width / (gdouble)width;
 
-			widget_height = GTK_WIDGET (c_view)->allocation.height;
+			widget_height = allocation.height;
 
 			if ((height * new_scale) > widget_height) {
-				gtk_widget_size_request (GTK_SCROLLED_WINDOW (swindow)->vscrollbar, &req);
+				GtkWidget *vscrollbar;
+
+				vscrollbar = gtk_scrolled_window_get_vscrollbar (GTK_SCROLLED_WINDOW (swindow));
+
+				scrollbar_width = gtk_widget_get_allocated_width (vscrollbar);
 				gtk_widget_style_get (swindow,
 						      "scrollbar_spacing", &scrollbar_spacing,
 						      NULL);
 				
-				GTK_WIDGET (c_view)->allocation.width -= (req.width + scrollbar_spacing);
+				allocation.width -= (scrollbar_width + scrollbar_spacing);
+				gtk_widget_set_allocation (GTK_WIDGET (c_view), &allocation);
 			}
 		}
 		
@@ -564,7 +571,8 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
 	buoh_view_comic_update_scrollbar_policy (c_view);
 
 	if (gtk_widget_get_realized (GTK_WIDGET (c_view)))
-		gdk_window_set_cursor (GTK_WIDGET (c_view)->window, NULL);
+		gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (c_view)),
+				       NULL);
 
 	gtk_image_clear (GTK_IMAGE (c_view->priv->image));
 }
@@ -630,7 +638,8 @@ buoh_view_comic_load_finished (BuohViewComic *c_view,
 
 	gdk_pixbuf_loader_close (c_view->priv->pixbuf_loader, NULL);
 
-	gdk_window_set_cursor (GTK_WIDGET (c_view)->window, NULL);
+	gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (c_view)),
+			       NULL);
 	
 	buoh_comic_loader_get_error (c_view->priv->comic_loader, &error);
 	if (error) {
@@ -748,8 +757,9 @@ buoh_view_comic_load (BuohViewComic *c_view)
 			      NULL);
 
 		cursor = gdk_cursor_new (GDK_WATCH);
-		gdk_window_set_cursor (GTK_WIDGET (c_view)->window, cursor);
-		gdk_cursor_unref (cursor);
+		gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (c_view)),
+				       cursor);
+		g_object_unref (cursor);
 
 		if (c_view->priv->pixbuf_loader) {
 			gdk_pixbuf_loader_close (c_view->priv->pixbuf_loader, NULL);
@@ -802,13 +812,22 @@ static gdouble
 buoh_view_comic_get_scale_for_width (BuohViewComic *c_view,
 				     gint           width)
 {
-	GtkWidget *widget = GTK_WIDGET (c_view);
-	gint       widget_width;
-	gdouble    new_scale;
+	GtkWidget       *widget = GTK_WIDGET (c_view);
+	GtkAllocation    allocation;
+	GtkStyleContext *style;
+	GtkBorder        padding;
+	gint             widget_width;
+	gdouble          new_scale;
 
-	widget_width = widget->allocation.width;
-	widget_width -= 2 * widget->style->xthickness;
-	
+	gtk_widget_get_allocation (widget, &allocation);
+	widget_width = allocation.width;
+
+	style = gtk_widget_get_style_context (widget);
+	gtk_style_context_get_padding (style,
+				       GTK_STATE_FLAG_NORMAL,
+				       &padding);
+	widget_width -= padding.left + padding.right;
+
 	new_scale = (gdouble)widget_width / (gdouble)width;
 
 	return new_scale;
@@ -818,13 +837,22 @@ static gdouble
 buoh_view_comic_get_scale_for_height (BuohViewComic *c_view,
 				      gint           height)
 {
-	GtkWidget *widget = GTK_WIDGET (c_view);
-	gint       widget_height;
-	gdouble    new_scale;
+	GtkWidget       *widget = GTK_WIDGET (c_view);
+	GtkAllocation    allocation;
+	GtkStyleContext *style;
+	GtkBorder        padding;
+	gint             widget_height;
+	gdouble          new_scale;
 
-	widget_height = widget->allocation.height;
-	widget_height -= 2 * widget->style->ythickness;
-	
+	gtk_widget_get_allocation (widget, &allocation);
+	widget_height = allocation.height;
+
+	style = gtk_widget_get_style_context (widget);
+	gtk_style_context_get_padding (style,
+				       GTK_STATE_FLAG_NORMAL,
+				       &padding);
+	widget_height -= padding.top + padding.bottom;
+
 	new_scale = (gdouble)widget_height / (gdouble)height;
 
 	return new_scale;

@@ -37,13 +37,13 @@ dnl ** pkg-config dependacy checks          **
 dnl ******************************************
 
 GLIB_REQUIRED=2.6.0
-GTK_REQUIRED=2.6.0
+GTK_REQUIRED=3.0.0
 LIBSOUP_REQUIRED=2.4.0
 GCONF_REQUIRED=2.2.0
 
 PKG_CHECK_MODULES(BUOH, 
 		  glib-2.0       >= $GLIB_REQUIRED
-		  gtk+-2.0       >= $GTK_REQUIRED 
+		  gtk+-3.0       >= $GTK_REQUIRED
 		  libsoup-2.4    >= $LIBSOUP_REQUIRED
 		  gconf-2.0      >= $GCONF_REQUIRED) 
 AC_SUBST(BUOH_CFLAGS)
