@@ -1,0 +1,374 @@
+# Norwegian translation of buoh (bokmål dialect).
+# Copyright (C) 2000-2003, 2005 Free Software Foundation, Inc.
+#
+#
+# Kjartan Maraas <kmaraas@gnome.org>, 2000-2011.
+# Terance Edward Sola <terance@lyse.net>, 2005.
+# Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: buoh\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-09-04 15:22+0200\n"
+"PO-Revision-Date: 2011-09-04 15:35+0200\n"
+"Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
+"Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.1\n"
+
+#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+msgid "Buoh"
+msgstr "Buoh"
+
+#: ../data/buoh.desktop.in.h:2
+msgid "Read your favourite comic strips"
+msgstr "Les tegneseriestriper"
+
+#: ../data/buoh.schemas.in.h:1
+msgid "Select viewer zoom mode"
+msgstr ""
+
+#: ../data/buoh.schemas.in.h:2
+msgid "Show statusbar by default"
+msgstr ""
+
+#: ../data/buoh.schemas.in.h:3
+msgid "Show toolbar by default"
+msgstr ""
+
+#: ../data/buoh.schemas.in.h:4
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+
+#: ../data/buoh.schemas.in.h:5
+msgid ""
+"There are two zoom modes available, 1 makes the current comic fill the "
+"window, 2 makes the current comic fill the window width."
+msgstr ""
+
+#: ../data/buoh.schemas.in.h:6
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+
+#: ../src/buoh-add-comic-dialog.c:67
+msgid "Add Comic"
+msgstr "Legg til tegneserie"
+
+#: ../src/buoh-add-comic-dialog.c:79
+msgid "Select Comics"
+msgstr "Velg tegneserier"
+
+#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
+#: ../src/buoh-properties-dialog.c:103
+msgid "Title"
+msgstr "Tittel"
+
+#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:109
+msgid "Author"
+msgstr "Forfatter"
+
+#: ../src/buoh-add-comic-dialog.c:202
+#, c-format
+msgid "Comics selected: %d"
+msgstr "Valgte tegneserier: %d"
+
+#: ../src/buoh-comic.c:435
+#, c-format
+msgid "Cannot create file '%s': %s"
+msgstr ""
+
+#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
+#, c-format
+msgid "Error writting to file '%s': %s"
+msgstr ""
+
+#: ../src/buoh-comic-manager-date.c:56
+msgid "Monday"
+msgstr "Mandag"
+
+#: ../src/buoh-comic-manager-date.c:57
+msgid "Tuesday"
+msgstr "Tirsdag"
+
+#: ../src/buoh-comic-manager-date.c:58
+msgid "Wednesday"
+msgstr "Onsdag"
+
+#: ../src/buoh-comic-manager-date.c:59
+msgid "Thursday"
+msgstr "Torsdag"
+
+#: ../src/buoh-comic-manager-date.c:60
+msgid "Friday"
+msgstr "Fredag"
+
+#: ../src/buoh-comic-manager-date.c:61
+msgid "Saturday"
+msgstr "Lørdag"
+
+#: ../src/buoh-comic-manager-date.c:62
+msgid "Sunday"
+msgstr "Søndag"
+
+#. It's a range of days
+#: ../src/buoh-comic-manager-date.c:496
+msgid " to "
+msgstr " til "
+
+#: ../src/buoh-comic-manager-date.c:511
+msgid "Every day"
+msgstr "Hver dag"
+
+#: ../src/buoh-properties-dialog.c:48
+msgid "Comic Properties"
+msgstr "Egenskaper for tegneserie"
+
+#: ../src/buoh-properties-dialog.c:115
+msgid "Link"
+msgstr "Lenke"
+
+#: ../src/buoh-properties-dialog.c:121
+msgid "Language"
+msgstr "Språk"
+
+#: ../src/buoh-properties-dialog.c:127
+msgid "Date of publication"
+msgstr "Publiseringsdato"
+
+#: ../src/buoh-properties-dialog.c:185
+msgid "Publication days"
+msgstr ""
+
+#: ../src/buoh-view.c:155
+msgid "Buoh online comic strips reader"
+msgstr ""
+
+#: ../src/buoh-view.c:157
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favourite comic strips to add or "
+"remove comics to the list click on Comic -> Add. Just select a comic from "
+"the list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Velkommen til <b>Buoh</b>. Nettbasert tegneserieleser for GNOME skrivebordet.\n"
+"Listen i det venstre panelet inneholder dine favoritt tegneseriestriper. Klikk på Tegneserie -> Legg til for å legge til eller fjerne tegneserier. Bare velg en tegneserie fra listen så vil denne vises på høyre side. Takk for at du bruker Buoh."
+
+#: ../src/buoh-view-comic.c:647
+msgid "Error Loading Comic"
+msgstr "Feil ved lasting av tegneserie"
+
+#. Top Level
+#: ../src/buoh-window.c:158
+msgid "_Comic"
+msgstr "_Tegneserie"
+
+#: ../src/buoh-window.c:159
+msgid "_View"
+msgstr "_Vis"
+
+#: ../src/buoh-window.c:160
+msgid "_Go"
+msgstr "_Gå til"
+
+#: ../src/buoh-window.c:161
+msgid "_Help"
+msgstr "_Hjelp"
+
+#. Comic menu
+#: ../src/buoh-window.c:164
+msgid "_Add..."
+msgstr "_Legg til …"
+
+#: ../src/buoh-window.c:165
+msgid "Add a comic to the comic list"
+msgstr ""
+
+#: ../src/buoh-window.c:167
+msgid "_Remove"
+msgstr "Fje_rn"
+
+#: ../src/buoh-window.c:168
+msgid "Remove this comic from the comic list"
+msgstr "Fjern denne tegneserien fra listen"
+
+#: ../src/buoh-window.c:170
+msgid "_Save A Copy..."
+msgstr "L_agre en kopi …"
+
+#: ../src/buoh-window.c:171
+#, fuzzy
+msgid "Save the current comic with a new filename"
+msgstr "La dokumentet fylle hele vinduet"
+
+#: ../src/buoh-window.c:173
+msgid "_Copy Location"
+msgstr "_Kopier adresse"
+
+#: ../src/buoh-window.c:174
+msgid "Copy the location of this comic to clipboard"
+msgstr ""
+
+#: ../src/buoh-window.c:176
+msgid "_Properties..."
+msgstr "Egenska_per …"
+
+#: ../src/buoh-window.c:177
+msgid "View the properties of this comic"
+msgstr ""
+
+#: ../src/buoh-window.c:179
+msgid "_Quit"
+msgstr "A_vslutt"
+
+#: ../src/buoh-window.c:180
+msgid "Quit application"
+msgstr "Avslutt programmet"
+
+#. View menu
+#: ../src/buoh-window.c:184
+msgid "Zoom _In"
+msgstr "Zoom _inn"
+
+#: ../src/buoh-window.c:185
+msgid "Increase the comic size"
+msgstr ""
+
+#: ../src/buoh-window.c:187
+msgid "Zoom _Out"
+msgstr "Zoom _ut"
+
+#: ../src/buoh-window.c:188
+msgid "Decrease the comic size"
+msgstr ""
+
+#: ../src/buoh-window.c:190
+msgid "_Normal Size"
+msgstr "_Normal størrelse"
+
+#: ../src/buoh-window.c:191
+msgid "Use the normal comic size"
+msgstr ""
+
+#. Go menu
+#: ../src/buoh-window.c:195
+msgid "_Previous Comic"
+msgstr "_Forrige tegneserie"
+
+#: ../src/buoh-window.c:196
+msgid "Go to the previous comic"
+msgstr "Gå til forrige tegneserie"
+
+#: ../src/buoh-window.c:198
+msgid "_Next Comic"
+msgstr "_Neste tegneserie"
+
+#: ../src/buoh-window.c:199
+msgid "Go to the next comic"
+msgstr "Gå til neste tegneserie"
+
+#: ../src/buoh-window.c:201
+msgid "_First Comic"
+msgstr "_Første tegneserie"
+
+#: ../src/buoh-window.c:202
+msgid "Go to the first comic"
+msgstr "Gå til den første tegneserien"
+
+#: ../src/buoh-window.c:204
+msgid "_Last Comic"
+msgstr "_Siste tegneserie"
+
+#: ../src/buoh-window.c:205
+msgid "Go to the last comic"
+msgstr "Gå til den siste tegneserien"
+
+#. Help menu
+#: ../src/buoh-window.c:209
+msgid "_Contents"
+msgstr "_Innhold"
+
+#: ../src/buoh-window.c:210
+msgid "Display help for the Buoh online comic reader"
+msgstr ""
+
+#: ../src/buoh-window.c:212
+msgid "_About"
+msgstr "_Om"
+
+#: ../src/buoh-window.c:213
+msgid "Display credits for the Buoh online comic reader creators"
+msgstr ""
+
+#. View menu
+#: ../src/buoh-window.c:220
+msgid "_Toolbar"
+msgstr "Verk_tøylinje"
+
+#: ../src/buoh-window.c:221
+#, fuzzy
+msgid "Changes the visibility of the toolbar"
+msgstr "Flytt valgt oppføring på verktøylinjen"
+
+#: ../src/buoh-window.c:223
+msgid "St_atusbar"
+msgstr "St_atuslinje"
+
+#: ../src/buoh-window.c:224
+msgid "Changes the visibility of the statusbar"
+msgstr ""
+
+#: ../src/buoh-window.c:226
+msgid "_Best Fit"
+msgstr "_Beste tilpasning"
+
+#: ../src/buoh-window.c:227
+#, fuzzy
+msgid "Make the current comic fill the window"
+msgstr "La dokumentet fylle hele vinduet"
+
+#: ../src/buoh-window.c:229
+#, fuzzy
+msgid "Fit Comic _Width"
+msgstr "Tilpass bredde"
+
+#: ../src/buoh-window.c:230
+#, fuzzy
+msgid "Make the current comic fill the window width"
+msgstr "La dokumentet fylle vinduet i bredden"
+
+#: ../src/buoh-window.c:535
+msgid "Images"
+msgstr "Bilder"
+
+#: ../src/buoh-window.c:538
+msgid "Save Comic"
+msgstr "Lagre tegneserie"
+
+#: ../src/buoh-window.c:580
+#, fuzzy
+msgid "Unable to save comic"
+msgstr "Kan ikke åpne dokument"
+
+#: ../src/buoh-window.c:842
+msgid "Online comic strips reader"
+msgstr ""
+
+#: ../src/buoh-window.c:845
+msgid "translator-credits"
+msgstr ""
+"Kjartan Maraas <kmaraas@gnome.org>\n"
+"Torstein Adolf Winterseth <kvikende@fsfe.org>"
+
+#: ../src/buoh-window.c:1024
+msgid "Getting comic ..."
+msgstr ""
