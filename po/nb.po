@@ -1,16 +1,15 @@
-# Norwegian translation of buoh (bokmål dialect).
+# Norwegian bokmål translation of buoh.
 # Copyright (C) 2000-2003, 2005 Free Software Foundation, Inc.
 #
-#
-# Kjartan Maraas <kmaraas@gnome.org>, 2000-2011.
+# Kjartan Maraas <kmaraas@gnome.org>, 2000-2012.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-04 15:22+0200\n"
-"PO-Revision-Date: 2011-09-04 15:35+0200\n"
+"POT-Creation-Date: 2012-08-23 14:10+0200\n"
+"PO-Revision-Date: 2012-08-23 14:14+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -29,16 +28,19 @@ msgid "Read your favourite comic strips"
 msgstr "Les tegneseriestriper"
 
 #: ../data/buoh.schemas.in.h:1
-msgid "Select viewer zoom mode"
-msgstr ""
+msgid "Show toolbar by default"
+msgstr "Vis verktøylinje som forvalg"
 
 #: ../data/buoh.schemas.in.h:2
-msgid "Show statusbar by default"
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
 msgstr ""
 
 #: ../data/buoh.schemas.in.h:3
-msgid "Show toolbar by default"
-msgstr ""
+msgid "Show statusbar by default"
+msgstr "Vis statuslinje som forvalg"
 
 #: ../data/buoh.schemas.in.h:4
 msgid ""
@@ -48,16 +50,13 @@ msgid ""
 msgstr ""
 
 #: ../data/buoh.schemas.in.h:5
-msgid ""
-"There are two zoom modes available, 1 makes the current comic fill the "
-"window, 2 makes the current comic fill the window width."
+msgid "Select viewer zoom mode"
 msgstr ""
 
 #: ../data/buoh.schemas.in.h:6
 msgid ""
-"Toolbar is the top bar that contains navigation and zoom controls. Two "
-"boolean options, true makes toolbar visible by default while false makes "
-"toolbar not visible by default."
+"There are two zoom modes available, 1 makes the current comic fill the "
+"window, 2 makes the current comic fill the window width."
 msgstr ""
 
 #: ../src/buoh-add-comic-dialog.c:67
@@ -85,12 +84,12 @@ msgstr "Valgte tegneserier: %d"
 #: ../src/buoh-comic.c:435
 #, c-format
 msgid "Cannot create file '%s': %s"
-msgstr ""
+msgstr "Kan ikke lage fil «%s»: %s"
 
 #: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
 #, c-format
 msgid "Error writting to file '%s': %s"
-msgstr ""
+msgstr "Feil under skriving til fil «%s»: %s"
 
 #: ../src/buoh-comic-manager-date.c:56
 msgid "Monday"
@@ -160,8 +159,12 @@ msgid ""
 "remove comics to the list click on Comic -> Add. Just select a comic from "
 "the list, and it will be displayed on the right side. Thanks for using Buoh."
 msgstr ""
-"Velkommen til <b>Buoh</b>. Nettbasert tegneserieleser for GNOME skrivebordet.\n"
-"Listen i det venstre panelet inneholder dine favoritt tegneseriestriper. Klikk på Tegneserie -> Legg til for å legge til eller fjerne tegneserier. Bare velg en tegneserie fra listen så vil denne vises på høyre side. Takk for at du bruker Buoh."
+"Velkommen til <b>Buoh</b>. Nettbasert tegneserieleser for GNOME "
+"skrivebordet.\n"
+"Listen i det venstre panelet inneholder dine favoritt tegneseriestriper. "
+"Klikk på Tegneserie -> Legg til for å legge til eller fjerne tegneserier. "
+"Bare velg en tegneserie fra listen så vil denne vises på høyre side. Takk "
+"for at du bruker Buoh."
 
 #: ../src/buoh-view-comic.c:647
 msgid "Error Loading Comic"
@@ -191,7 +194,7 @@ msgstr "_Legg til …"
 
 #: ../src/buoh-window.c:165
 msgid "Add a comic to the comic list"
-msgstr ""
+msgstr "Legg til en tegneserie i listen"
 
 #: ../src/buoh-window.c:167
 msgid "_Remove"
@@ -206,9 +209,8 @@ msgid "_Save A Copy..."
 msgstr "L_agre en kopi …"
 
 #: ../src/buoh-window.c:171
-#, fuzzy
 msgid "Save the current comic with a new filename"
-msgstr "La dokumentet fylle hele vinduet"
+msgstr "Lagre aktiv tegneserie med et nytt filnavn"
 
 #: ../src/buoh-window.c:173
 msgid "_Copy Location"
@@ -216,7 +218,7 @@ msgstr "_Kopier adresse"
 
 #: ../src/buoh-window.c:174
 msgid "Copy the location of this comic to clipboard"
-msgstr ""
+msgstr "Kopier lokasjonen for denne tegneserien til utklippstavlen"
 
 #: ../src/buoh-window.c:176
 msgid "_Properties..."
@@ -224,7 +226,7 @@ msgstr "Egenska_per …"
 
 #: ../src/buoh-window.c:177
 msgid "View the properties of this comic"
-msgstr ""
+msgstr "Vis egenskaper for denne tegneserien"
 
 #: ../src/buoh-window.c:179
 msgid "_Quit"
@@ -241,7 +243,7 @@ msgstr "Zoom _inn"
 
 #: ../src/buoh-window.c:185
 msgid "Increase the comic size"
-msgstr ""
+msgstr "Gjør størrelsen på tegneserien større"
 
 #: ../src/buoh-window.c:187
 msgid "Zoom _Out"
@@ -249,7 +251,7 @@ msgstr "Zoom _ut"
 
 #: ../src/buoh-window.c:188
 msgid "Decrease the comic size"
-msgstr ""
+msgstr "Gjør størrelsen på tegneserien mindre"
 
 #: ../src/buoh-window.c:190
 msgid "_Normal Size"
@@ -257,7 +259,7 @@ msgstr "_Normal størrelse"
 
 #: ../src/buoh-window.c:191
 msgid "Use the normal comic size"
-msgstr ""
+msgstr "Bruk normal størrelse på tegneserien"
 
 #. Go menu
 #: ../src/buoh-window.c:195
@@ -355,9 +357,8 @@ msgid "Save Comic"
 msgstr "Lagre tegneserie"
 
 #: ../src/buoh-window.c:580
-#, fuzzy
 msgid "Unable to save comic"
-msgstr "Kan ikke åpne dokument"
+msgstr "Kan ikke lagre tegneserie"
 
 #: ../src/buoh-window.c:842
 msgid "Online comic strips reader"
@@ -371,4 +372,4 @@ msgstr ""
 
 #: ../src/buoh-window.c:1024
 msgid "Getting comic ..."
-msgstr ""
+msgstr "Henter tegneserie …"
