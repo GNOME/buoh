@@ -1,0 +1,380 @@
+# Portuguese translation for buoh.
+# Copyright (C) 2014 buoh's COPYRIGHT HOLDER
+# This file is distributed under the same license as the buoh package.
+# Tiagosdot <almosthumane@portugalmail.pt>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: buoh master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=buoh&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2014-03-18 04:03+0000\n"
+"PO-Revision-Date: 2014-03-18 08:49+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+msgid "Buoh"
+msgstr "Buoh"
+
+#: ../data/buoh.desktop.in.h:2
+msgid "Read your favourite comic strips"
+msgstr "Leia suas banda desenhadas favoritas"
+
+#: ../data/buoh.schemas.in.h:1
+msgid "Show toolbar by default"
+msgstr "Apresentar barra de ferramentas por omissão"
+
+#: ../data/buoh.schemas.in.h:2
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+"Barra de ferramentas é a barra superior que contém os controlos de navegação "
+"e zoom. Duas opções booleanas, verdadeiro torna a barra de ferramentas "
+"visível por omissão enquanto falso torna a barra de ferramentas não-visível "
+"por omissão."
+
+#: ../data/buoh.schemas.in.h:3
+msgid "Show statusbar by default"
+msgstr "Mostrar barra de estado por omissão"
+
+#: ../data/buoh.schemas.in.h:4
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"Barra de estado é a barra inferior que contem as mensagens de ajuda e "
+"estado. Duas opções boleanas: verdadeiro torna a barra de estado visível por "
+"omissão enquanto falso torna a barra de estado não-visível por omissão."
+
+#: ../data/buoh.schemas.in.h:5
+msgid "Select viewer zoom mode"
+msgstr "Selecionar o modo de ampliação do visualizador"
+
+#: ../data/buoh.schemas.in.h:6
+msgid ""
+"There are two zoom modes available, 1 makes the current comic fill the "
+"window, 2 makes the current comic fill the window width."
+msgstr ""
+"Existem dois modos de ampliação disponíveis. 1 faz com que a banda desenhada "
+"preencha toda a janela, 2 faz com que a história em banda desenhada s "
+"preencha a altura da janela."
+
+#: ../src/buoh-add-comic-dialog.c:67
+msgid "Add Comic"
+msgstr "Adicionar banda desenhada"
+
+#: ../src/buoh-add-comic-dialog.c:79
+msgid "Select Comics"
+msgstr "Selecione as banda desenhadas"
+
+#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
+#: ../src/buoh-properties-dialog.c:103
+msgid "Title"
+msgstr "Título"
+
+#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:109
+msgid "Author"
+msgstr "Autor"
+
+#: ../src/buoh-add-comic-dialog.c:202
+#, c-format
+msgid "Comics selected: %d"
+msgstr "Bandas desenhadas selecionadas: %d"
+
+#: ../src/buoh-comic.c:435
+#, c-format
+msgid "Cannot create file '%s': %s"
+msgstr "Não foi possível criar ficheiro '%s': %s"
+
+#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
+#, c-format
+msgid "Error writting to file '%s': %s"
+msgstr "Erro ao escreve para o ficheiro '%s': %s"
+
+#: ../src/buoh-comic-manager-date.c:56
+msgid "Monday"
+msgstr "Segunda-feira"
+
+#: ../src/buoh-comic-manager-date.c:57
+msgid "Tuesday"
+msgstr "Terça-feira"
+
+#: ../src/buoh-comic-manager-date.c:58
+msgid "Wednesday"
+msgstr "Quarta-feira"
+
+#: ../src/buoh-comic-manager-date.c:59
+msgid "Thursday"
+msgstr "Quinta-feira"
+
+#: ../src/buoh-comic-manager-date.c:60
+msgid "Friday"
+msgstr "Sexta-feira"
+
+#: ../src/buoh-comic-manager-date.c:61
+msgid "Saturday"
+msgstr "Sábado"
+
+#: ../src/buoh-comic-manager-date.c:62
+msgid "Sunday"
+msgstr "Domingo"
+
+#. It's a range of days
+#: ../src/buoh-comic-manager-date.c:496
+msgid " to "
+msgstr " à "
+
+#: ../src/buoh-comic-manager-date.c:511
+msgid "Every day"
+msgstr "Todos os dias"
+
+#: ../src/buoh-properties-dialog.c:48
+msgid "Comic Properties"
+msgstr "Propriedades da Banda Desenhada"
+
+#: ../src/buoh-properties-dialog.c:115
+msgid "Link"
+msgstr "Ligação"
+
+#: ../src/buoh-properties-dialog.c:121
+msgid "Language"
+msgstr "Idioma"
+
+#: ../src/buoh-properties-dialog.c:127
+msgid "Date of publication"
+msgstr "Data de publicação"
+
+#: ../src/buoh-properties-dialog.c:185
+msgid "Publication days"
+msgstr "Dias de publicação"
+
+#: ../src/buoh-view.c:155
+msgid "Buoh online comic strips reader"
+msgstr "Leitor de banda desenhada online Buoh"
+
+#: ../src/buoh-view.c:157
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favourite comic strips to add or "
+"remove comics to the list click on Comic -> Add. Just select a comic from "
+"the list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Bem vindo ao <b>Buoh</b>, o leitor de banda desenhada online para o GNOME.\n"
+"A lista no painel da esquerda contém as suas histórias em banda desenhada "
+"favoritas. Para adicionar ou remover banda desenhada à lista, clique em "
+"Banda Desenhada-> Adicionar. Basta selecionar uma banda desenhada da lista e "
+"ela será apresentada no painel direito. Obrigado por usar o Buoh."
+
+#: ../src/buoh-view-comic.c:647
+msgid "Error Loading Comic"
+msgstr "Erro ao carregar banda desenhada"
+
+#. Top Level
+#: ../src/buoh-window.c:158
+msgid "_Comic"
+msgstr "_Banda Desenhada"
+
+#: ../src/buoh-window.c:159
+msgid "_View"
+msgstr "_Ver"
+
+#: ../src/buoh-window.c:160
+msgid "_Go"
+msgstr "_Ir"
+
+#: ../src/buoh-window.c:161
+msgid "_Help"
+msgstr "Aj_uda"
+
+#. Comic menu
+#: ../src/buoh-window.c:164
+msgid "_Add..."
+msgstr "_Adicionar..."
+
+#: ../src/buoh-window.c:165
+msgid "Add a comic to the comic list"
+msgstr "Adicionar uma banda desenhada à lista de banda desenhada"
+
+#: ../src/buoh-window.c:167
+msgid "_Remove"
+msgstr "_Remover"
+
+#: ../src/buoh-window.c:168
+msgid "Remove this comic from the comic list"
+msgstr "Remover esta banda desenhada da lista de banda desenhada"
+
+#: ../src/buoh-window.c:170
+msgid "_Save A Copy..."
+msgstr "_Gravar uma cópia..."
+
+#: ../src/buoh-window.c:171
+msgid "Save the current comic with a new filename"
+msgstr "Gravar esta banda desenhada com um novo nome de ficheiro"
+
+#: ../src/buoh-window.c:173
+msgid "_Copy Location"
+msgstr "_Copiar localização"
+
+#: ../src/buoh-window.c:174
+msgid "Copy the location of this comic to clipboard"
+msgstr "Copiar a localização deste quadro para a área de transferência"
+
+#: ../src/buoh-window.c:176
+msgid "_Properties..."
+msgstr "_Propriedades..."
+
+#: ../src/buoh-window.c:177
+msgid "View the properties of this comic"
+msgstr "Ver as propriedades deste quadro"
+
+#: ../src/buoh-window.c:179
+msgid "_Quit"
+msgstr "_Sair"
+
+#: ../src/buoh-window.c:180
+msgid "Quit application"
+msgstr "Fecha a aplicação"
+
+#. View menu
+#: ../src/buoh-window.c:184
+msgid "Zoom _In"
+msgstr "Ampliar"
+
+#: ../src/buoh-window.c:185
+msgid "Increase the comic size"
+msgstr "Aumentar o tamanho do quadro"
+
+#: ../src/buoh-window.c:187
+msgid "Zoom _Out"
+msgstr "Reduzir"
+
+#: ../src/buoh-window.c:188
+msgid "Decrease the comic size"
+msgstr "Diminuir o tamanho do quadro"
+
+#: ../src/buoh-window.c:190
+msgid "_Normal Size"
+msgstr "Tamanho _normal"
+
+#: ../src/buoh-window.c:191
+msgid "Use the normal comic size"
+msgstr "Usar o tamanho normal do quadro"
+
+#. Go menu
+#: ../src/buoh-window.c:195
+msgid "_Previous Comic"
+msgstr "Quadrinho _anterior"
+
+#: ../src/buoh-window.c:196
+msgid "Go to the previous comic"
+msgstr "Ir para a banda desenhada anterior"
+
+#: ../src/buoh-window.c:198
+msgid "_Next Comic"
+msgstr "_Próximo quadro"
+
+#: ../src/buoh-window.c:199
+msgid "Go to the next comic"
+msgstr "Ir para o próximo quadro"
+
+#: ../src/buoh-window.c:201
+msgid "_First Comic"
+msgstr "_Primeiro quadro"
+
+#: ../src/buoh-window.c:202
+msgid "Go to the first comic"
+msgstr "Ir para o primeiro quadro"
+
+#: ../src/buoh-window.c:204
+msgid "_Last Comic"
+msgstr "_Último quadro"
+
+#: ../src/buoh-window.c:205
+msgid "Go to the last comic"
+msgstr "Ir para o último quadro"
+
+#. Help menu
+#: ../src/buoh-window.c:209
+msgid "_Contents"
+msgstr "S_umário"
+
+#: ../src/buoh-window.c:210
+msgid "Display help for the Buoh online comic reader"
+msgstr "Apresentar a ajuda do leitor de banda desenhada online Buoh"
+
+#: ../src/buoh-window.c:212
+msgid "_About"
+msgstr "_Sobre"
+
+#: ../src/buoh-window.c:213
+msgid "Display credits for the Buoh online comic reader creators"
+msgstr ""
+"Apresentar créditos para os criadores do leitor de banda desenhada online "
+"Buoh"
+
+#. View menu
+#: ../src/buoh-window.c:220
+msgid "_Toolbar"
+msgstr "Barra de _ferramentas"
+
+#: ../src/buoh-window.c:221
+msgid "Changes the visibility of the toolbar"
+msgstr "Muda a visibilidade da barra de ferramentas"
+
+#: ../src/buoh-window.c:223
+msgid "St_atusbar"
+msgstr "Barra de st_atus"
+
+#: ../src/buoh-window.c:224
+msgid "Changes the visibility of the statusbar"
+msgstr "Muda a visibilidade da barra de estado"
+
+#: ../src/buoh-window.c:226
+msgid "_Best Fit"
+msgstr "_Melhor ajuste"
+
+#: ../src/buoh-window.c:227
+msgid "Make the current comic fill the window"
+msgstr "Faz com que a banda desenhada atual preencha toda a janela"
+
+#: ../src/buoh-window.c:229
+msgid "Fit Comic _Width"
+msgstr "Ajustar à altura do quadro"
+
+#: ../src/buoh-window.c:230
+msgid "Make the current comic fill the window width"
+msgstr "Faz com que a banda desenhada atual preencha toda a altura da janela"
+
+#: ../src/buoh-window.c:535
+msgid "Images"
+msgstr "Imagens"
+
+#: ../src/buoh-window.c:538
+msgid "Save Comic"
+msgstr "Gravar banda desenhada"
+
+#: ../src/buoh-window.c:580
+msgid "Unable to save comic"
+msgstr "Erro ao gravar o quadro"
+
+#: ../src/buoh-window.c:842
+msgid "Online comic strips reader"
+msgstr "Leitor de histórias em banda desenhada online"
+
+#: ../src/buoh-window.c:845
+msgid "translator-credits"
+msgstr "Tiago S., 2014"
+
+#: ../src/buoh-window.c:1024
+msgid "Getting comic ..."
+msgstr "A transferir quadro. .."
