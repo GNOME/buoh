@@ -98,7 +98,6 @@ static void     buoh_view_comic_prepare_load          (BuohViewComic    *c_view)
 static void     buoh_view_comic_load_finished         (BuohViewComic    *c_view,
                                                        gpointer          gdata);
 static void     buoh_view_comic_load                  (BuohViewComic    *c_view);
-static void     buoh_view_comic_update_scrollbar_policy (BuohViewComic  *c_view);
 static gdouble  buoh_view_comic_get_scale_for_width   (BuohViewComic    *c_view,
                                                        gint              width);
 static gdouble  buoh_view_comic_get_scale_for_height  (BuohViewComic    *c_view,
@@ -229,7 +228,6 @@ buoh_view_comic_set_property (GObject      *object,
                 break;
         case PROP_ZOOM_MODE:
                 c_view->zoom_mode = g_value_get_enum (value);
-                buoh_view_comic_update_scrollbar_policy (c_view);
 
                 break;
         case PROP_SCALE:
@@ -550,8 +548,6 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
         gtk_adjustment_set_value (hadjustment, 0.0);
         gtk_adjustment_set_value (vadjustment, 0.0);
 
-        buoh_view_comic_update_scrollbar_policy (c_view);
-
         if (gtk_widget_get_realized (GTK_WIDGET (c_view))) {
                 gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (c_view)),
                                        NULL);
@@ -760,35 +756,6 @@ buoh_view_comic_load (BuohViewComic *c_view)
                                               c_view->comic,
                                               (BuohComicLoaderLoadFunc) buoh_view_comic_load_cb,
                                               (gpointer) c_view);
-        }
-}
-
-static void
-buoh_view_comic_update_scrollbar_policy (BuohViewComic *c_view)
-{
-        GtkWidget *swindow;
-
-        swindow = gtk_widget_get_parent (GTK_WIDGET (c_view));
-        if (!GTK_IS_SCROLLED_WINDOW (swindow)) {
-                return;
-        }
-
-        switch (c_view->zoom_mode) {
-        case VIEW_ZOOM_FREE:
-                gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
-                                                GTK_POLICY_AUTOMATIC,
-                                                GTK_POLICY_AUTOMATIC);
-                break;
-        case VIEW_ZOOM_FIT_WIDTH:
-                gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
-                                                GTK_POLICY_NEVER,
-                                                GTK_POLICY_AUTOMATIC);
-                break;
-        case VIEW_ZOOM_BEST_FIT:
-                gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
-                                                GTK_POLICY_NEVER,
-                                                GTK_POLICY_NEVER);
-                break;
         }
 }
 
