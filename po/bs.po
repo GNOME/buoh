@@ -1,0 +1,377 @@
+# Bosnian translation for bosnianuniversetranslation
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the bosnianuniversetranslation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bosnianuniversetranslation\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=buoh&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2015-02-27 04:04+0000\n"
+"PO-Revision-Date: 2013-12-19 16:47+0000\n"
+"Last-Translator: Adna Durakovic <adurakovic4@etf.unsa.ba>\n"
+"Language-Team: Bosnian <bs@li.org>\n"
+"Language: bs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Launchpad (build 17341)\n"
+"X-Launchpad-Export-Date: 2015-02-15 06:18+0000\n"
+
+#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+msgid "Buoh"
+msgstr "Buoh"
+
+#: ../data/buoh.desktop.in.h:2
+msgid "Read your favourite comic strips"
+msgstr "Citajte svoje omiljene stripove."
+
+#: ../data/buoh.schemas.in.h:1
+msgid "Show toolbar by default"
+msgstr "Prikazati alatnu traku uobicajeno."
+
+#: ../data/buoh.schemas.in.h:2
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+"Alatna traka je traka na vrhu koja sadrzi navigaciju i kontrole za "
+"zumiranje. Dvije boolean opcije,truje da ucini alatnu traku vidljivom "
+"uobicajeno dok je false da ucini alatnu traku nevidljivom uobicajeno."
+
+#: ../data/buoh.schemas.in.h:3
+msgid "Show statusbar by default"
+msgstr "Prikažite uobičajeno statusnu traku"
+
+#: ../data/buoh.schemas.in.h:4
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"Statusna traka je traka na dnu koja sadrzi pomoc i statusnu poruku. Dvije "
+"boolean opcije, truje da ucini statusnu traku vidljivom uobicajeno dok je "
+"false da ucini statusnu traku nevidljivom uobicajeno."
+
+#: ../data/buoh.schemas.in.h:5
+msgid "Select viewer zoom mode"
+msgstr "Odaberi zoom način gledanja"
+
+#: ../data/buoh.schemas.in.h:6
+msgid ""
+"There are two zoom modes available, 1 makes the current comic fill the "
+"window, 2 makes the current comic fill the window width."
+msgstr ""
+"Dostupna su dva nacina zumiranja, 1 cini da tekuci strip popuni prozor, 2 "
+"cini da tekuci strip popuni sirinu prozora."
+
+#: ../src/buoh-add-comic-dialog.c:67
+msgid "Add Comic"
+msgstr "Dodaj strip"
+
+#: ../src/buoh-add-comic-dialog.c:79
+msgid "Select Comics"
+msgstr "Izaberi stripove"
+
+#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
+#: ../src/buoh-properties-dialog.c:103
+msgid "Title"
+msgstr "Naslov"
+
+#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:109
+msgid "Author"
+msgstr "Autor"
+
+#: ../src/buoh-add-comic-dialog.c:202
+#, c-format
+msgid "Comics selected: %d"
+msgstr "Stripovi selektovani: %d"
+
+#: ../src/buoh-comic.c:435
+#, c-format
+msgid "Cannot create file '%s': %s"
+msgstr "Nemoguće kreirati fajl '%s': %s"
+
+#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
+#, c-format
+msgid "Error writting to file '%s': %s"
+msgstr "Greška pisanja u fajl '%s': %s"
+
+#: ../src/buoh-comic-manager-date.c:56
+msgid "Monday"
+msgstr "Ponedjeljak"
+
+#: ../src/buoh-comic-manager-date.c:57
+msgid "Tuesday"
+msgstr "Utorak"
+
+#: ../src/buoh-comic-manager-date.c:58
+msgid "Wednesday"
+msgstr "Srijeda"
+
+#: ../src/buoh-comic-manager-date.c:59
+msgid "Thursday"
+msgstr "Četvrtak"
+
+#: ../src/buoh-comic-manager-date.c:60
+msgid "Friday"
+msgstr "Petak"
+
+#: ../src/buoh-comic-manager-date.c:61
+msgid "Saturday"
+msgstr "Subota"
+
+#: ../src/buoh-comic-manager-date.c:62
+msgid "Sunday"
+msgstr "Nedjelja"
+
+#. It's a range of days
+#: ../src/buoh-comic-manager-date.c:496
+msgid " to "
+msgstr " do "
+
+#: ../src/buoh-comic-manager-date.c:511
+msgid "Every day"
+msgstr "Svaki dan"
+
+#: ../src/buoh-properties-dialog.c:48
+msgid "Comic Properties"
+msgstr "Svojstva stripa"
+
+#: ../src/buoh-properties-dialog.c:115
+msgid "Link"
+msgstr "Veza"
+
+#: ../src/buoh-properties-dialog.c:121
+msgid "Language"
+msgstr "Jezik"
+
+#: ../src/buoh-properties-dialog.c:127
+msgid "Date of publication"
+msgstr "Datum izdanja"
+
+#: ../src/buoh-properties-dialog.c:185
+msgid "Publication days"
+msgstr "Dani izdanja"
+
+#: ../src/buoh-view.c:155
+msgid "Buoh online comic strips reader"
+msgstr "Buoh onlajn čitač stripova"
+
+#: ../src/buoh-view.c:157
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favourite comic strips to add or "
+"remove comics to the list click on Comic -> Add. Just select a comic from "
+"the list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Dobrodošli u <b>Buoh</b>, onlajn čitač stripova za GNOME Radnu površinu.\n"
+"Lista na lijevoj ploči sadržava vaše omiljene stripove da dodate ili "
+"uklonite strip iz liste kliknite na Comic->Add. Samo označite strip u listi, "
+"i on će biti prikazan na desnoj strani. Hvala što koristite Buoh."
+
+#: ../src/buoh-view-comic.c:647
+msgid "Error Loading Comic"
+msgstr "Greška Učitavanja Stripa"
+
+#. Top Level
+#: ../src/buoh-window.c:158
+msgid "_Comic"
+msgstr "_Strip"
+
+#: ../src/buoh-window.c:159
+msgid "_View"
+msgstr "_Pregled"
+
+#: ../src/buoh-window.c:160
+msgid "_Go"
+msgstr "_Idi"
+
+#: ../src/buoh-window.c:161
+msgid "_Help"
+msgstr "_Pomoć"
+
+#. Comic mijenu
+#: ../src/buoh-window.c:164
+msgid "_Add..."
+msgstr "_Dodaj..."
+
+#: ../src/buoh-window.c:165
+msgid "Add a comic to the comic list"
+msgstr "Dodaj strip u listu stripova"
+
+#: ../src/buoh-window.c:167
+msgid "_Remove"
+msgstr "_Ukloni"
+
+#: ../src/buoh-window.c:168
+msgid "Remove this comic from the comic list"
+msgstr "Ukloni ovaj strip iz liste stripova"
+
+#: ../src/buoh-window.c:170
+msgid "_Save A Copy..."
+msgstr "_Sačuvaj Kopiju..."
+
+#: ../src/buoh-window.c:171
+msgid "Save the current comic with a new filename"
+msgstr "Sačuvaj tekući strip pod novim nazivom"
+
+#: ../src/buoh-window.c:173
+msgid "_Copy Location"
+msgstr "_Kopiraj Lokaciju"
+
+#: ../src/buoh-window.c:174
+msgid "Copy the location of this comic to clipboard"
+msgstr "Kopiraj lokaciju ovog stripa u međuspremnik"
+
+#: ../src/buoh-window.c:176
+msgid "_Properties..."
+msgstr "_Svojstva..."
+
+#: ../src/buoh-window.c:177
+msgid "View the properties of this comic"
+msgstr "Prikaži svojstva ovog stripa"
+
+#: ../src/buoh-window.c:179
+msgid "_Quit"
+msgstr "_Izlaz"
+
+#: ../src/buoh-window.c:180
+msgid "Quit application"
+msgstr "Napusti aplikaciju"
+
+#. View mijenu
+#: ../src/buoh-window.c:184
+msgid "Zoom _In"
+msgstr "_Uvećaj"
+
+#: ../src/buoh-window.c:185
+msgid "Increase the comic size"
+msgstr "Uvećaj veličinu stripa"
+
+#: ../src/buoh-window.c:187
+msgid "Zoom _Out"
+msgstr "_Umanji"
+
+#: ../src/buoh-window.c:188
+msgid "Decrease the comic size"
+msgstr "Smanji veličinu stripa"
+
+#: ../src/buoh-window.c:190
+msgid "_Normal Size"
+msgstr "_Normalna veličina"
+
+#: ../src/buoh-window.c:191
+msgid "Use the normal comic size"
+msgstr "Koristi normalnu veličinu stripa"
+
+#. Go mijenu
+#: ../src/buoh-window.c:195
+msgid "_Previous Comic"
+msgstr "_Prethodni Strip"
+
+#: ../src/buoh-window.c:196
+msgid "Go to the previous comic"
+msgstr "Idi na prethodni strip"
+
+#: ../src/buoh-window.c:198
+msgid "_Next Comic"
+msgstr "_Sljedeći Strip"
+
+#: ../src/buoh-window.c:199
+msgid "Go to the next comic"
+msgstr "Idi na sljedeći strip"
+
+#: ../src/buoh-window.c:201
+msgid "_First Comic"
+msgstr "_Prvi Strip"
+
+#: ../src/buoh-window.c:202
+msgid "Go to the first comic"
+msgstr "Idi na prvi strip"
+
+#: ../src/buoh-window.c:204
+msgid "_Last Comic"
+msgstr "_Posljednji Strip"
+
+#: ../src/buoh-window.c:205
+msgid "Go to the last comic"
+msgstr "Idi na posljednji strip"
+
+#. Help mijenu
+#: ../src/buoh-window.c:209
+msgid "_Contents"
+msgstr "_Sadržaj"
+
+#: ../src/buoh-window.c:210
+msgid "Display help for the Buoh online comic reader"
+msgstr "Prikaži pomoć za Buoh onlajn čitač stripova"
+
+#: ../src/buoh-window.c:212
+msgid "_About"
+msgstr "O progr_amu"
+
+#: ../src/buoh-window.c:213
+msgid "Display credits for the Buoh online comic reader creators"
+msgstr "Prikaži zasluge za tvorce Buoh onlajn čitač stripova"
+
+#. View mijenu
+#: ../src/buoh-window.c:220
+msgid "_Toolbar"
+msgstr "_Alatna Traka"
+
+#: ../src/buoh-window.c:221
+msgid "Changes the visibility of the toolbar"
+msgstr "Mijenja vidljivost alatne trake"
+
+#: ../src/buoh-window.c:223
+msgid "St_atusbar"
+msgstr "Sta_tusna traka"
+
+#: ../src/buoh-window.c:224
+msgid "Changes the visibility of the statusbar"
+msgstr "Mijenja vidljivost statusne trake"
+
+#: ../src/buoh-window.c:226
+msgid "_Best Fit"
+msgstr "_Najbolje uklapanje"
+
+#: ../src/buoh-window.c:227
+msgid "Make the current comic fill the window"
+msgstr "Neka trenutni strip popuni prozor"
+
+#: ../src/buoh-window.c:229
+msgid "Fit Comic _Width"
+msgstr "Podesi Širinu_Stripa"
+
+#: ../src/buoh-window.c:230
+msgid "Make the current comic fill the window width"
+msgstr "Neka trenutni strip popuni širinu prozora"
+
+#: ../src/buoh-window.c:535
+msgid "Images"
+msgstr "Slike"
+
+#: ../src/buoh-window.c:538
+msgid "Save Comic"
+msgstr "Spasi Strip"
+
+#: ../src/buoh-window.c:580
+msgid "Unable to save comic"
+msgstr "Nije moguće spasiti strip"
+
+#: ../src/buoh-window.c:842
+msgid "Online comic strips reader"
+msgstr "Onlajn čitač stripova"
+
+#: ../src/buoh-window.c:845
+msgid "translator-credits"
+msgstr ""
+"   Adna Durakovic https://launchpad.net/~adurakovic4\n"
+"  Samir Ribić https://launchpad.net/~megaribi"
+
+#: ../src/buoh-window.c:1024
+msgid "Getting comic ..."
+msgstr "Dobavljanje stripa ..."
