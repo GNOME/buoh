@@ -1,6 +1,7 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 data/buoh.desktop.in
+data/org.gnome.buoh.appdata.xml.in
 data/org.gnome.buoh.gschema.xml
 src/buoh-add-comic-dialog.c
 src/buoh-comic-list.c
