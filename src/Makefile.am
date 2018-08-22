@@ -1,7 +1,7 @@
 INCLUDES = 											\
 	-DDATADIR=\"$(pkgdatadir)\"						\
 	-DGNOMEDATADIR=\"$(datadir)\"					\
-	-DGNOMELOCALEDIR=\"$(datadir)/locale\"			\
+	-DLOCALE_DIR=\"$(datadir)/locale\"			\
 	-DGNOMEICONDIR=\""$(datadir)/pixmaps"\"			\
 	-DBINDIR=\""$(bindir)"\"						\
 	$(BUOH_CFLAGS)									\
