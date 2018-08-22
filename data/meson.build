@@ -13,6 +13,13 @@ i18n.merge_file(
   install: true,
   install_dir: join_paths(datadir, 'applications'),
 )
+if (desktop_file_validate.found())
+  test('Validating ' + desktop,
+    desktop_file_validate,
+    args: [desktop],
+    workdir: meson.current_build_dir(),
+  )
+endif
 
 install_data(
   'comics.xml',

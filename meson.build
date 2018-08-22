@@ -26,6 +26,8 @@ glib = dependency('glib-2.0', version: '>= 2.26.0')
 libsoup = dependency('libsoup-2.4', version: '>= 2.4.0')
 libxml2 = dependency('libxml-2.0', version: '>= 2.4.0')
 
+desktop_file_validate = find_program('desktop-file-validate', required: false)
+
 buoh_deps = [
   gtk,
   glib,
