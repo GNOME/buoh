@@ -219,7 +219,7 @@ buoh_create_model_from_file (Buoh *buoh)
                                 }
 
                                 /* Read the restrictions */
-                                child = node->children->next;
+                                child = node->children;
                                 while (child) {
                                         if (g_ascii_strcasecmp ((const gchar *) child->name, "restrict") == 0) {
 
