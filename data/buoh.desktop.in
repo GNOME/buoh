@@ -1,6 +1,6 @@
 [Desktop Entry]
-_Name=Buoh
-_Comment=Read your favourite comic strips
+Name=Buoh
+Comment=Read your favourite comic strips
 Exec=buoh
 Icon=buoh
 Terminal=false
