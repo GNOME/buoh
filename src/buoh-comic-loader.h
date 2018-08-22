@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Carlos García Campos <carlosgc@gnome.org>
+ *  Authors: Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifndef BUOH_COMIC_LOADER_H
@@ -39,19 +39,19 @@ typedef struct _BuohComicLoaderPrivate BuohComicLoaderPrivate;
 #define BUOH_COMIC_LOADER_ERROR (buoh_comic_loader_error_quark())
 
 typedef void (*BuohComicLoaderLoadFunc) (const gchar *data,
-					 guint        len,
-					 gpointer     gdata);
+                                         guint        len,
+                                         gpointer     gdata);
 
 struct _BuohComicLoader {
-	GObject    parent;
+        GObject    parent;
 
-	BuohComicLoaderPrivate *priv;
+        BuohComicLoaderPrivate *priv;
 };
 
 struct _BuohComicLoaderClass {
-	GObjectClass   parent_class;
+        GObjectClass   parent_class;
 
-	void (* finished) (BuohComicLoader *loader);
+        void (* finished) (BuohComicLoader *loader);
 };
 
 GType            buoh_comic_loader_get_type    (void) G_GNUC_CONST;
@@ -59,11 +59,11 @@ GQuark           buoh_comic_loader_error_quark (void);
 BuohComicLoader *buoh_comic_loader_new         (void);
 
 void             buoh_comic_loader_load_comic  (BuohComicLoader *loader,
-						BuohComic       *comic,
-						BuohComicLoaderLoadFunc callback,
-						gpointer         gdata);
+                                                BuohComic       *comic,
+                                                BuohComicLoaderLoadFunc callback,
+                                                gpointer         gdata);
 void             buoh_comic_loader_get_error   (BuohComicLoader *loader,
-						GError         **error);
+                                                GError         **error);
 void             buoh_comic_loader_cancel      (BuohComicLoader *loader);
 
 G_END_DECLS

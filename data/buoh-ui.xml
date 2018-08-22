@@ -1,66 +1,59 @@
 <ui>
-   <menubar name="MainMenu">
-      <menu name="ComicMenu" action="Comic">
-	 <menuitem name="ComicAddMenu" action="ComicAdd"/>
-	 <menuitem name="ComicRemoveMenu" action="ComicRemove"/>
-	 <separator/>
-	 <menuitem name="ComicSaveACopyMenu" action="ComicSaveACopy"/>
-	 <menuitem name="ComicCopyURIMenu" action="ComicCopyURI"/>
-	 <menuitem name="ComicPropertiesMenu" action="ComicProperties"/>
-	 <separator/>
-	 <menuitem name="ComicQuitMenu" action="ComicQuit"/>
-      </menu>
-
-      <menu name="ViewMenu" action="View">
-	 <menuitem name="ViewToolbarMenu" action="ViewToolbar"/>
-	 <menuitem name="ViewStatusbarMenu" action="ViewStatusbar"/>
-	 <separator/>
-	 <menuitem name="ViewZoomInMenu" action="ViewZoomIn"/>
-	 <menuitem name="ViewZoomOutMenu" action="ViewZoomOut"/>
-	 <menuitem name="ViewZoomNormalMenu" action="ViewZoomNormal"/>
-	 <menuitem name="ViewZoomBestFitMenu" action="ViewZoomBestFit"/>
-	 <menuitem name="ViewZoomFitWidthMenu" action="ViewZoomFitWidth"/>
-      </menu>
-
-      <menu name="GoMenu" action="Go">
-	 <menuitem name="GoPreviousMenu" action="GoPrevious"/>
-	 <menuitem name="GoNextMenu" action="GoNext"/>
-	 <separator/>
-	 <menuitem name="GoFirstMenu" action="GoFirst"/>
-	 <menuitem name="GoLastMenu" action="GoLast"/>
-      </menu>
-
-      <menu name="HelpMenu" action="Help">
-	 <menuitem name="HelpContentsMenu" action="HelpContents"/>
-	 <menuitem name="HelpAboutMenu" action="HelpAbout"/>
-      </menu>
-   </menubar>
-
-   <toolbar name="Toolbar">
-      <toolitem name="GoPreviousItem" action="GoPrevious"/>
-      <toolitem name="GoNextItem" action="GoNext"/>
+  <menubar name="MainMenu">
+    <menu action="Comic" name="ComicMenu">
+      <menuitem action="ComicAdd" name="ComicAddMenu"/>
+      <menuitem action="ComicRemove" name="ComicRemoveMenu"/>
       <separator/>
-      <toolitem name="ViewZoomInItem" action="ViewZoomIn"/>
-      <toolitem name="ViewZoomOutItem" action="ViewZoomOut"/>
-      <toolitem name="ViewZoomNormalItem" action="ViewZoomNormal"/>
-   </toolbar>
-
-   <popup name="ListPopup">
-      <menuitem name="ComicAddList" action="ComicAdd"/>
-      <menuitem name="ComicRemoveList" action="ComicRemove"/>
-   </popup>
-
-   <popup name="ViewPopup">
-      <menuitem name="GoPreviousItemView" action="GoPrevious"/>
-      <menuitem name="GoNextItemView" action="GoNext"/>
+      <menuitem action="ComicSaveACopy" name="ComicSaveACopyMenu"/>
+      <menuitem action="ComicCopyURI" name="ComicCopyURIMenu"/>
+      <menuitem action="ComicProperties" name="ComicPropertiesMenu"/>
       <separator/>
-      <menuitem name="ViewZoomInItemView" action="ViewZoomIn"/>
-      <menuitem name="ViewZoomOutItemView" action="ViewZoomOut"/>
-      <menuitem name="ViewZoomNormalItemView" action="ViewZoomNormal"/>
+      <menuitem action="ComicQuit" name="ComicQuitMenu"/>
+    </menu>
+    <menu action="View" name="ViewMenu">
+      <menuitem action="ViewToolbar" name="ViewToolbarMenu"/>
+      <menuitem action="ViewStatusbar" name="ViewStatusbarMenu"/>
       <separator/>
-      <menuitem name="ComicSaveACopyView" action="ComicSaveACopy"/>
-      <menuitem name="ComicCopyURIView" action="ComicCopyURI"/>
-      <menuitem name="ComicPropertiesView" action="ComicProperties"/>
-   </popup>
+      <menuitem action="ViewZoomIn" name="ViewZoomInMenu"/>
+      <menuitem action="ViewZoomOut" name="ViewZoomOutMenu"/>
+      <menuitem action="ViewZoomNormal" name="ViewZoomNormalMenu"/>
+      <menuitem action="ViewZoomBestFit" name="ViewZoomBestFitMenu"/>
+      <menuitem action="ViewZoomFitWidth" name="ViewZoomFitWidthMenu"/>
+    </menu>
+    <menu action="Go" name="GoMenu">
+      <menuitem action="GoPrevious" name="GoPreviousMenu"/>
+      <menuitem action="GoNext" name="GoNextMenu"/>
+      <separator/>
+      <menuitem action="GoFirst" name="GoFirstMenu"/>
+      <menuitem action="GoLast" name="GoLastMenu"/>
+    </menu>
+    <menu action="Help" name="HelpMenu">
+      <menuitem action="HelpContents" name="HelpContentsMenu"/>
+      <menuitem action="HelpAbout" name="HelpAboutMenu"/>
+    </menu>
+  </menubar>
+  <toolbar name="Toolbar">
+    <toolitem action="GoPrevious" name="GoPreviousItem"/>
+    <toolitem action="GoNext" name="GoNextItem"/>
+    <separator/>
+    <toolitem action="ViewZoomIn" name="ViewZoomInItem"/>
+    <toolitem action="ViewZoomOut" name="ViewZoomOutItem"/>
+    <toolitem action="ViewZoomNormal" name="ViewZoomNormalItem"/>
+  </toolbar>
+  <popup name="ListPopup">
+    <menuitem action="ComicAdd" name="ComicAddList"/>
+    <menuitem action="ComicRemove" name="ComicRemoveList"/>
+  </popup>
+  <popup name="ViewPopup">
+    <menuitem action="GoPrevious" name="GoPreviousItemView"/>
+    <menuitem action="GoNext" name="GoNextItemView"/>
+    <separator/>
+    <menuitem action="ViewZoomIn" name="ViewZoomInItemView"/>
+    <menuitem action="ViewZoomOut" name="ViewZoomOutItemView"/>
+    <menuitem action="ViewZoomNormal" name="ViewZoomNormalItemView"/>
+    <separator/>
+    <menuitem action="ComicSaveACopy" name="ComicSaveACopyView"/>
+    <menuitem action="ComicCopyURI" name="ComicCopyURIView"/>
+    <menuitem action="ComicProperties" name="ComicPropertiesView"/>
+  </popup>
 </ui>
-

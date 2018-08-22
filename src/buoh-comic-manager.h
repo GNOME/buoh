@@ -14,7 +14,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  *  Authors: Esteban Sánchez (steve-o) <esteban@steve-o.org>
- */      
+ */
 
 #ifndef BUOH_COMIC_MANAGER_H
 #define BUOH_COMIC_MANAGER_H
@@ -28,8 +28,8 @@ typedef struct _BuohComicManager        BuohComicManager;
 typedef struct _BuohComicManagerClass   BuohComicManagerClass;
 typedef struct _BuohComicManagerPrivate BuohComicManagerPrivate;
 
-#define BUOH_TYPE_COMIC_MANAGER	        (buoh_comic_manager_get_type ())
-#define BUOH_COMIC_MANAGER(o)	        (G_TYPE_CHECK_INSTANCE_CAST ((o), BUOH_TYPE_COMIC_MANAGER, BuohComicManager))
+#define BUOH_TYPE_COMIC_MANAGER                (buoh_comic_manager_get_type ())
+#define BUOH_COMIC_MANAGER(o)                (G_TYPE_CHECK_INSTANCE_CAST ((o), BUOH_TYPE_COMIC_MANAGER, BuohComicManager))
 #define BUOH_COMIC_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), BUOH_TYPE_COMIC_MANAGER, BuohComicManagerClass))
 #define BUOH_IS_COMIC_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), BUOH_TYPE_COMIC_MANAGER))
 #define BUOH_IS_COMIC_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), BUOH_TYPE_COMIC_MANAGER))
@@ -37,30 +37,30 @@ typedef struct _BuohComicManagerPrivate BuohComicManagerPrivate;
 
 
 struct _BuohComicManager {
-	GObject parent;
-	
-	BuohComicManagerPrivate *priv;
+        GObject parent;
+
+        BuohComicManagerPrivate *priv;
 };
 
 struct _BuohComicManagerClass {
-	GObjectClass      parent_class;
+        GObjectClass      parent_class;
 
-	/* Point to functions of the abstract class */
-	BuohComic *(* get_next)       (BuohComicManager *comic_manager);
-	BuohComic *(* get_previous)   (BuohComicManager *comic_manager);
-	BuohComic *(* get_last)       (BuohComicManager *comic_manager);
-	BuohComic *(* get_first)      (BuohComicManager *comic_manager);
-	gboolean   (* is_the_first)   (BuohComicManager *comic_manager);
+        /* Point to functions of the abstract class */
+        BuohComic *(* get_next)       (BuohComicManager *comic_manager);
+        BuohComic *(* get_previous)   (BuohComicManager *comic_manager);
+        BuohComic *(* get_last)       (BuohComicManager *comic_manager);
+        BuohComic *(* get_first)      (BuohComicManager *comic_manager);
+        gboolean   (* is_the_first)   (BuohComicManager *comic_manager);
 };
 
-GType           buoh_comic_manager_get_type (void) G_GNUC_CONST; 
+GType           buoh_comic_manager_get_type (void) G_GNUC_CONST;
 
 BuohComicManager *buoh_comic_manager_new    (const gchar      *type,
-					     const gchar      *id,
-					     const gchar      *title,
-					     const gchar      *author,
-					     const gchar      *language,
-					     const gchar      *generic_uri);
+                                             const gchar      *id,
+                                             const gchar      *title,
+                                             const gchar      *author,
+                                             const gchar      *language,
+                                             const gchar      *generic_uri);
 
 BuohComic   *buoh_comic_manager_get_next     (BuohComicManager *comic_manager);
 BuohComic   *buoh_comic_manager_get_previous (BuohComicManager *comic_manager);
@@ -79,7 +79,7 @@ const gchar *buoh_comic_manager_get_id       (BuohComicManager *comic_manager);
 const gchar *buoh_comic_manager_get_page     (BuohComicManager *comic_manager);
 
 gint         buoh_comic_manager_compare      (gconstpointer     a,
-					      gconstpointer     b);
+                                              gconstpointer     b);
 
 G_END_DECLS
 

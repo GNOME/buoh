@@ -7,5 +7,4 @@ Terminal=false
 Type=Application
 Categories=GNOME;GTK;Network;Utility;
 StartupNotify=true
-
 X-GNOME-FullName=Buoh Online Comics Reader

@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Carlos García Campos <carlosgc@gnome.org>
+ *  Authors: Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifndef BUOH_ADD_COMIC_DIALOG_H
@@ -36,12 +36,12 @@ typedef struct _BuohAddComicDialogPrivate BuohAddComicDialogPrivate;
 #define BUOH_ADD_COMIC_DIALOG_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_ADD_COMIC_DIALOG, BuohAddComicDialogClass))
 
 struct _BuohAddComicDialog {
-	GtkDialog                  parent;
-	BuohAddComicDialogPrivate *priv;
+        GtkDialog                  parent;
+        BuohAddComicDialogPrivate *priv;
 };
 
 struct _BuohAddComicDialogClass {
-	GtkDialogClass   parent_class;
+        GtkDialogClass   parent_class;
 };
 
 GType      buoh_add_comic_dialog_get_type  (void) G_GNUC_CONST;

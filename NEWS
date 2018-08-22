@@ -22,35 +22,34 @@ Changes in Buoh 0.8.2
 Changes:
    * The comics loading has been improved to make it faster. (Carlos García Campos)
    * Icons are installed according to icon theme specification. (Carlos García Campos)
-   * Implement best fit and fit width zoom modes. Fit width is now the mode by 
-     default. (Carlos García Campos)
+   * Implement best fit and fit width zoom modes. Fit width is now the mode by default. (Carlos García Campos)
    * Make libgnomeui an optional dependency enabled by default when available.
      (Carlos García Campos)
    * Remember zoom mode between sessions. (Carlos García Campos)
 
 New comics:
    * Added:
-	- Calvin and Hobbes (english version)
-	- The Pink Panther
-	- Ronaldinho Gaucho 
-	- Schlock mercenary
-	- Carla Ventresca & Herny Beckett
-	- Brainwaves
-	- C'est la vie
-	- Work it out
-	- Nichtlustig (German)
-	- ...and many more. (Esteban Sánchez Muñoz)
+   - Calvin and Hobbes (english version)
+   - The Pink Panther
+   - Ronaldinho Gaucho
+   - Schlock mercenary
+   - Carla Ventresca & Herny Beckett
+   - Brainwaves
+   - C'est la vie
+   - Work it out
+   - Nichtlustig (German)
+   - …and many more. (Esteban Sánchez Muñoz)
    * Removed:
-	- Cats With Hands
-	- Frank & Ernest
-	- Wigu
-	- Owlie
-	- Bruno the Bandit
-	- Not available comics
-	- ...and many more.
+   - Cats With Hands
+   - Frank & Ernest
+   - Wigu
+   - Owlie
+   - Bruno the Bandit
+   - Not available comics
+   - …and many more.
    * Fixed:
-	- Sinfest
-	- Forges (Esteban Sánchez Muñoz)
+   - Sinfest
+   - Forges (Esteban Sánchez Muñoz)
         - A Lawyer, A Doctor & A Cop. (Carlos García Campos)
 
 ======================
@@ -69,20 +68,20 @@ Changes:
 
 New comics:
    * Added 28 new comics, including:
-	- Ctrl+Alt+Del (thanks to James Hall)
-	- Penny Arcade
-	- PvP
-	- Alpha Luna
-	- Sinfest
-	- The amazing Spiderman
-	- Blondie
-	- Mother Goose & Grimm
-	- Dennis the menace
-	- Hagar the horrible
-	- Do you know Flo? (Dutch)
+   - Ctrl+Alt+Del (thanks to James Hall)
+   - Penny Arcade
+   - PvP
+   - Alpha Luna
+   - Sinfest
+   - The amazing Spiderman
+   - Blondie
+   - Mother Goose & Grimm
+   - Dennis the menace
+   - Hagar the horrible
+   - Do you know Flo? (Dutch)
         - Doorzon (Dutch)
         - Lectrrland (Dutch)
-	- ...and many more (Esteban Sánchez Muñoz)
+   - …and many more (Esteban Sánchez Muñoz)
      Thanks to all the people who have proposed new comics.
    * There are comics in dutch. (Esteban Sánchez Muñoz)
 
@@ -93,13 +92,11 @@ Buoh     0.8
 First public release.
 
 Comics
-	* Including 128 online comics stripes.
-	* There are comics in english and in spanish.
-	* Browsing through an historical archive in each strip.
+   * Including 128 online comics stripes.
+   * There are comics in english and in spanish.
+   * Browsing through an historical archive in each strip.
 
 Miscellaneous
-	* It's possible to save a comic to disk.
-	* Integration with GNOME lockdowns.
-	* The GUI follows the HIG.
-
-
+   * It is possible to save a comic to disk.
+   * Integration with GNOME lockdowns.
+   * The GUI follows the HIG.

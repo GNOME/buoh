@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Carlos García Campos <carlosgc@gnome.org>
+ *  Authors: Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifndef BUOH_WINDOW_H
@@ -36,12 +36,12 @@ typedef struct _BuohWindowPrivate BuohWindowPrivate;
 #define BUOH_WINDOW_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_WINDOW, BuohWindowClass))
 
 struct _BuohWindow {
-	GtkWindow          parent;
-	BuohWindowPrivate *priv;
+        GtkWindow          parent;
+        BuohWindowPrivate *priv;
 };
 
 struct _BuohWindowClass {
-	GtkWindowClass     parent_class;
+        GtkWindowClass     parent_class;
 };
 
 GType      buoh_window_get_type (void) G_GNUC_CONST;

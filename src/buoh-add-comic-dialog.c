@@ -13,9 +13,9 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Pablo Arroyo Loma (zioma) <zioma@linups.org>
- *            Esteban Sanchez Muñoz (steve-o) <esteban@steve-o.org>
- *            Carlos García Campos <carlosgc@gnome.org>
+ *  Authors: Pablo Arroyo Loma (zioma) <zioma@linups.org>
+ *           Esteban Sanchez Muñoz (steve-o) <esteban@steve-o.org>
+ *           Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -30,9 +30,9 @@
 #include "buoh.h"
 
 struct _BuohAddComicDialogPrivate {
-	GtkTreeModel *model;
-	GtkWidget    *selected_label;
-	gint          n_selected;
+        GtkTreeModel *model;
+        GtkWidget    *selected_label;
+        gint          n_selected;
 };
 
 #define BUOH_ADD_COMIC_DIALOG_GET_PRIVATE(object) \
@@ -44,198 +44,200 @@ static void buoh_add_comic_dialog_class_init  (BuohAddComicDialogClass *klass);
 static gint buoh_add_comic_dialog_get_n_selected  (BuohAddComicDialog    *dialog);
 static void buoh_comic_add_dialog_update_selected (BuohAddComicDialog    *dialog);
 static void buoh_add_comic_toggled_cb             (GtkCellRendererToggle *renderer,
-						   gchar                 *path,
-						   gpointer               gdata);
+                                                   gchar                 *path,
+                                                   gpointer               gdata);
 
 G_DEFINE_TYPE (BuohAddComicDialog, buoh_add_comic_dialog, GTK_TYPE_DIALOG)
 
 static void
 buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
 {
-	GtkWidget         *frame, *label;
-	GtkWidget         *vbox;
-	GtkWidget         *swindow;
-	GtkWidget         *tree_view;
-	GtkCellRenderer   *renderer;
-	GtkTreeViewColumn *column;
-	gchar             *markup;
-	
-	dialog->priv = BUOH_ADD_COMIC_DIALOG_GET_PRIVATE (dialog);
+        GtkWidget         *frame, *label;
+        GtkWidget         *vbox;
+        GtkWidget         *swindow;
+        GtkWidget         *tree_view;
+        GtkCellRenderer   *renderer;
+        GtkTreeViewColumn *column;
+        gchar             *markup;
 
-	dialog->priv->model = buoh_get_comics_model (BUOH);
+        dialog->priv = BUOH_ADD_COMIC_DIALOG_GET_PRIVATE (dialog);
 
-	gtk_window_set_title (GTK_WINDOW (dialog), _("Add Comic"));
-	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 300);
-	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
-	gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-	gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
-			     12);
+        dialog->priv->model = buoh_get_comics_model (BUOH);
 
-	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE,
-			       GTK_RESPONSE_ACCEPT);
+        gtk_window_set_title (GTK_WINDOW (dialog), _("Add Comic"));
+        gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 300);
+        gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
+        gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+        gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
+                             12);
 
-	label = gtk_label_new (NULL);
+        gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE,
+                               GTK_RESPONSE_ACCEPT);
 
-	markup = g_strdup_printf ("<b>%s</b>", _("Select Comics"));
-	gtk_label_set_markup (GTK_LABEL (label), markup);
-	g_free (markup);
-	
-	frame = gtk_frame_new (NULL);
-	gtk_frame_set_label_widget (GTK_FRAME (frame), label);
-	gtk_widget_show (label);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
+        label = gtk_label_new (NULL);
 
-	vbox = gtk_vbox_new (FALSE, 12);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
+        markup = g_strdup_printf ("<b>%s</b>", _("Select Comics"));
+        gtk_label_set_markup (GTK_LABEL (label), markup);
+        g_free (markup);
 
-	/* List */
-	swindow = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
-					GTK_POLICY_AUTOMATIC,
-					GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (swindow),
-					     GTK_SHADOW_IN);
-	
-	tree_view = gtk_tree_view_new_with_model (dialog->priv->model);
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tree_view), TRUE);
-	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree_view), TRUE);
-	gtk_tree_view_set_enable_search (GTK_TREE_VIEW (tree_view), TRUE);
+        frame = gtk_frame_new (NULL);
+        gtk_frame_set_label_widget (GTK_FRAME (frame), label);
+        gtk_widget_show (label);
+        gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
 
-	renderer = gtk_cell_renderer_toggle_new ();
-	column = gtk_tree_view_column_new_with_attributes (NULL, renderer,
-							   "active", COMIC_LIST_VISIBLE,
-							   NULL);
-	g_signal_connect (G_OBJECT (renderer), "toggled",
-			  G_CALLBACK (buoh_add_comic_toggled_cb),
-			  (gpointer) dialog);
-	gtk_tree_view_insert_column (GTK_TREE_VIEW (tree_view),
-				     column, COMIC_LIST_VISIBLE);
+        vbox = gtk_vbox_new (FALSE, 12);
+        gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 
-	renderer = gtk_cell_renderer_text_new ();
-	g_object_set (G_OBJECT (renderer),
-		      "width-chars", 20, 
-		      "ellipsize-set", TRUE,
-		      "ellipsize", PANGO_ELLIPSIZE_END,
-		      NULL);
-	column = gtk_tree_view_column_new_with_attributes (_("Title"), renderer,
-							   "text", COMIC_LIST_TITLE,
-							   NULL);
-	gtk_tree_view_column_set_expand (GTK_TREE_VIEW_COLUMN (column), TRUE);
-	gtk_tree_view_insert_column (GTK_TREE_VIEW (tree_view),
-				     column, COMIC_LIST_TITLE);
+        /* List */
+        swindow = gtk_scrolled_window_new (NULL, NULL);
+        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
+                                        GTK_POLICY_AUTOMATIC,
+                                        GTK_POLICY_AUTOMATIC);
+        gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (swindow),
+                                             GTK_SHADOW_IN);
 
-	renderer = gtk_cell_renderer_text_new ();
-	g_object_set (G_OBJECT (renderer),
-		      "width-chars", 20,
-		      "ellipsize-set", TRUE,
-		      "ellipsize", PANGO_ELLIPSIZE_END,
-		      NULL);
-	column = gtk_tree_view_column_new_with_attributes (_("Author"), renderer,
-							   "text", COMIC_LIST_AUTHOR,
-							   NULL);
-	gtk_tree_view_column_set_expand (GTK_TREE_VIEW_COLUMN (column), TRUE);
-	gtk_tree_view_insert_column (GTK_TREE_VIEW (tree_view),
-				     column, COMIC_LIST_AUTHOR);
+        tree_view = gtk_tree_view_new_with_model (dialog->priv->model);
+        gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tree_view), TRUE);
+        gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree_view), TRUE);
+        gtk_tree_view_set_enable_search (GTK_TREE_VIEW (tree_view), TRUE);
 
-	gtk_container_add (GTK_CONTAINER (swindow), tree_view);
-	gtk_widget_show (tree_view);
+        renderer = gtk_cell_renderer_toggle_new ();
+        column = gtk_tree_view_column_new_with_attributes (NULL, renderer,
+                                                           "active", COMIC_LIST_VISIBLE,
+                                                           NULL);
+        g_signal_connect (G_OBJECT (renderer), "toggled",
+                          G_CALLBACK (buoh_add_comic_toggled_cb),
+                          (gpointer) dialog);
+        gtk_tree_view_insert_column (GTK_TREE_VIEW (tree_view),
+                                     column, COMIC_LIST_VISIBLE);
 
-	gtk_box_pack_start (GTK_BOX (vbox), swindow, TRUE, TRUE, 0);
-	gtk_widget_show (swindow);
+        renderer = gtk_cell_renderer_text_new ();
+        g_object_set (G_OBJECT (renderer),
+                      "width-chars", 20,
+                      "ellipsize-set", TRUE,
+                      "ellipsize", PANGO_ELLIPSIZE_END,
+                      NULL);
+        column = gtk_tree_view_column_new_with_attributes (_("Title"), renderer,
+                                                           "text", COMIC_LIST_TITLE,
+                                                           NULL);
+        gtk_tree_view_column_set_expand (GTK_TREE_VIEW_COLUMN (column), TRUE);
+        gtk_tree_view_insert_column (GTK_TREE_VIEW (tree_view),
+                                     column, COMIC_LIST_TITLE);
 
-	/* Counter */
-	dialog->priv->selected_label = gtk_label_new (NULL);
-	gtk_misc_set_alignment (GTK_MISC (dialog->priv->selected_label),
-				0.0, 0.5);
-	dialog->priv->n_selected = buoh_add_comic_dialog_get_n_selected (dialog);
-	buoh_comic_add_dialog_update_selected (dialog);
+        renderer = gtk_cell_renderer_text_new ();
+        g_object_set (G_OBJECT (renderer),
+                      "width-chars", 20,
+                      "ellipsize-set", TRUE,
+                      "ellipsize", PANGO_ELLIPSIZE_END,
+                      NULL);
+        column = gtk_tree_view_column_new_with_attributes (_("Author"), renderer,
+                                                           "text", COMIC_LIST_AUTHOR,
+                                                           NULL);
+        gtk_tree_view_column_set_expand (GTK_TREE_VIEW_COLUMN (column), TRUE);
+        gtk_tree_view_insert_column (GTK_TREE_VIEW (tree_view),
+                                     column, COMIC_LIST_AUTHOR);
 
-	gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->selected_label,
-			    FALSE, FALSE, 0);
-	gtk_widget_show (dialog->priv->selected_label);
-	
-	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	gtk_widget_show (vbox);
+        gtk_container_add (GTK_CONTAINER (swindow), tree_view);
+        gtk_widget_show (tree_view);
 
-	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
-			    frame, TRUE, TRUE, 0);
-	gtk_widget_show (frame);
+        gtk_box_pack_start (GTK_BOX (vbox), swindow, TRUE, TRUE, 0);
+        gtk_widget_show (swindow);
 
-	g_signal_connect (G_OBJECT (dialog), "response",
-			  G_CALLBACK (gtk_widget_destroy),
-			  NULL);
+        /* Counter */
+        dialog->priv->selected_label = gtk_label_new (NULL);
+        gtk_misc_set_alignment (GTK_MISC (dialog->priv->selected_label),
+                                0.0, 0.5);
+        dialog->priv->n_selected = buoh_add_comic_dialog_get_n_selected (dialog);
+        buoh_comic_add_dialog_update_selected (dialog);
+
+        gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->selected_label,
+                            FALSE, FALSE, 0);
+        gtk_widget_show (dialog->priv->selected_label);
+
+        gtk_container_add (GTK_CONTAINER (frame), vbox);
+        gtk_widget_show (vbox);
+
+        gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),
+                            frame, TRUE, TRUE, 0);
+        gtk_widget_show (frame);
+
+        g_signal_connect (G_OBJECT (dialog), "response",
+                          G_CALLBACK (gtk_widget_destroy),
+                          NULL);
 }
 
 static void
 buoh_add_comic_dialog_class_init (BuohAddComicDialogClass *klass)
 {
-	g_type_class_add_private (klass, sizeof (BuohAddComicDialogPrivate));
+        g_type_class_add_private (klass, sizeof (BuohAddComicDialogPrivate));
 }
 
 static gint
 buoh_add_comic_dialog_get_n_selected (BuohAddComicDialog *dialog)
 {
-	GtkTreeIter iter;
-	gboolean    valid;
-	gboolean    active;
-	gint        count = 0;
+        GtkTreeIter iter;
+        gboolean    valid;
+        gboolean    active;
+        gint        count = 0;
 
-	valid = gtk_tree_model_get_iter_first (dialog->priv->model, &iter);
-	while (valid) {
-		gtk_tree_model_get (dialog->priv->model, &iter,
-				    COMIC_LIST_VISIBLE, &active,
-				    -1);
-		if (active)
-			count ++;
-		
-		valid = gtk_tree_model_iter_next (dialog->priv->model, &iter);
-	}
+        valid = gtk_tree_model_get_iter_first (dialog->priv->model, &iter);
+        while (valid) {
+                gtk_tree_model_get (dialog->priv->model, &iter,
+                                    COMIC_LIST_VISIBLE, &active,
+                                    -1);
+                if (active) {
+                        count ++;
+                }
 
-	return count;
+                valid = gtk_tree_model_iter_next (dialog->priv->model, &iter);
+        }
+
+        return count;
 }
 
 static void
 buoh_comic_add_dialog_update_selected (BuohAddComicDialog *dialog)
 {
-	gchar *text;
-	
-	text = g_strdup_printf (_("Comics selected: %d"), dialog->priv->n_selected);
-	gtk_label_set_text (GTK_LABEL (dialog->priv->selected_label), text);
-	g_free (text);
-	
-	gtk_widget_show (dialog->priv->selected_label);
+        gchar *text;
+
+        text = g_strdup_printf (_("Comics selected: %d"), dialog->priv->n_selected);
+        gtk_label_set_text (GTK_LABEL (dialog->priv->selected_label), text);
+        g_free (text);
+
+        gtk_widget_show (dialog->priv->selected_label);
 }
 
 static void
 buoh_add_comic_toggled_cb (GtkCellRendererToggle *renderer,
-			   gchar *path, gpointer gdata)
+                           gchar *path, gpointer gdata)
 {
-	BuohAddComicDialog *dialog = BUOH_ADD_COMIC_DIALOG (gdata);
-	GtkTreeIter         iter;
-	gboolean            active;
+        BuohAddComicDialog *dialog = BUOH_ADD_COMIC_DIALOG (gdata);
+        GtkTreeIter         iter;
+        gboolean            active;
 
-	active = gtk_cell_renderer_toggle_get_active (renderer);
-	
-	gtk_tree_model_get_iter_from_string (dialog->priv->model, &iter, path);
-	gtk_list_store_set (GTK_LIST_STORE (dialog->priv->model),
-			    &iter,
-			    COMIC_LIST_VISIBLE, !active,
-			    -1);
+        active = gtk_cell_renderer_toggle_get_active (renderer);
 
-	if (active) 
-		dialog->priv->n_selected --;
-	else
-		dialog->priv->n_selected ++;
-	
-	buoh_comic_add_dialog_update_selected (dialog);
+        gtk_tree_model_get_iter_from_string (dialog->priv->model, &iter, path);
+        gtk_list_store_set (GTK_LIST_STORE (dialog->priv->model),
+                            &iter,
+                            COMIC_LIST_VISIBLE, !active,
+                            -1);
+
+        if (active) {
+                dialog->priv->n_selected --;
+        } else {
+                dialog->priv->n_selected ++;
+        }
+
+        buoh_comic_add_dialog_update_selected (dialog);
 }
 
 GtkWidget *
 buoh_add_comic_dialog_new ()
 {
-	GtkWidget *dialog;
+        GtkWidget *dialog;
 
-	dialog = GTK_WIDGET (g_object_new (BUOH_TYPE_ADD_COMIC_DIALOG, NULL));
+        dialog = GTK_WIDGET (g_object_new (BUOH_TYPE_ADD_COMIC_DIALOG, NULL));
 
-	return dialog;
+        return dialog;
 }

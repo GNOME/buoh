@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Carlos García Campos <carlosgc@gnome.org>
+ *  Authors: Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifndef BUOH_VIEW_MESSAGE_H
@@ -36,23 +36,23 @@ typedef struct _BuohViewMessagePrivate BuohViewMessagePrivate;
 #define BUOH_VIEW_MESSAGE_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_VIEW_MESSAGE, BuohViewMessageClass))
 
 struct _BuohViewMessage {
-	GtkViewport                 parent;
-	BuohViewMessagePrivate *priv;
+        GtkViewport                 parent;
+        BuohViewMessagePrivate *priv;
 };
 
 struct _BuohViewMessageClass {
-	GtkViewportClass   parent_class;
+        GtkViewportClass   parent_class;
 };
 
 GType      buoh_view_message_get_type  (void) G_GNUC_CONST;
 GtkWidget *buoh_view_message_new       (void);
 
 void       buoh_view_message_set_title (BuohViewMessage *m_view,
-					const gchar     *title);
+                                        const gchar     *title);
 void       buoh_view_message_set_text  (BuohViewMessage *m_view,
-					const gchar     *text);
+                                        const gchar     *text);
 void       buoh_view_message_set_icon  (BuohViewMessage *m_view,
-					const gchar     *icon);
+                                        const gchar     *icon);
 
 G_END_DECLS
 

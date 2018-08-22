@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Carlos García Campos <carlosgc@gnome.org>
+ *  Authors: Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifndef BUOH_VIEW_H
@@ -42,22 +42,22 @@ typedef struct _BuohViewPrivate BuohViewPrivate;
 #define BUOH_TYPE_VIEW_ZOOM_MODE        (buoh_view_zoom_mode_get_type ())
 
 typedef enum {
-	STATE_MESSAGE_WELCOME,
-	STATE_MESSAGE_ERROR,
-	STATE_COMIC_LOADING,
-	STATE_COMIC_LOADED,
-	STATE_EMPTY
+        STATE_MESSAGE_WELCOME,
+        STATE_MESSAGE_ERROR,
+        STATE_COMIC_LOADING,
+        STATE_COMIC_LOADED,
+        STATE_EMPTY
 } BuohViewStatus;
 
 struct _BuohView {
-	GtkNotebook      parent;
-	BuohViewPrivate *priv;
+        GtkNotebook      parent;
+        BuohViewPrivate *priv;
 };
 
 struct _BuohViewClass {
-	GtkNotebookClass   parent_class;
-	
-	void (* scale_changed) (BuohView *view);
+        GtkNotebookClass   parent_class;
+
+        void (* scale_changed) (BuohView *view);
 };
 
 GType            buoh_view_get_type           (void) G_GNUC_CONST;
@@ -76,23 +76,23 @@ void             buoh_view_zoom_best_fit      (BuohView        *view);
 void             buoh_view_zoom_fit_width     (BuohView        *view);
 BuohViewZoomMode buoh_view_get_zoom_mode      (BuohView        *view);
 void             buoh_view_set_zoom_mode      (BuohView        *view,
-					       BuohViewZoomMode mode);
+                                               BuohViewZoomMode mode);
 
 /* Status */
 BuohViewStatus   buoh_view_get_status         (BuohView        *view);
 
 /* Comic */
 void             buoh_view_set_comic          (BuohView        *view,
-					       const BuohComic *comic);
+                                               const BuohComic *comic);
 BuohComic       *buoh_view_get_comic          (BuohView        *view);
 
 /* Message */
 void             buoh_view_set_message_title  (BuohView        *view,
-					       const gchar     *title);
+                                               const gchar     *title);
 void             buoh_view_set_message_text   (BuohView        *view,
-					       const gchar     *text);
+                                               const gchar     *text);
 void             buoh_view_set_message_icon   (BuohView        *view,
-					       const gchar     *icon);
+                                               const gchar     *icon);
 
 void             buoh_view_clear              (BuohView        *view);
 

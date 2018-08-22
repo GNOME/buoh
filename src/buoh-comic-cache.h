@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Carlos García Campos <carlosgc@gnome.org>
+ *  Authors: Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifndef BUOH_COMIC_CACHE_H
@@ -38,27 +38,27 @@ typedef struct _BuohComicCachePrivate BuohComicCachePrivate;
 #define BUOH_COMIC_CACHE_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_COMIC_CACHE, BuohComicCacheClass))
 
 struct _BuohComicCache {
-	GObject                parent;
-	BuohComicCachePrivate *priv;
+        GObject                parent;
+        BuohComicCachePrivate *priv;
 };
 
 struct _BuohComicCacheClass {
-	GObjectClass         parent_class;
+        GObjectClass         parent_class;
 };
 
 GType           buoh_comic_cache_get_type   (void) G_GNUC_CONST;
 BuohComicCache *buoh_comic_cache_new        (void);
 
 void            buoh_comic_cache_set_image  (BuohComicCache *cache,
-					     const gchar    *uri,
-					     BuohComicImage *image);
+                                             const gchar    *uri,
+                                             BuohComicImage *image);
 BuohComicImage *buoh_comic_cache_get_image  (BuohComicCache *cache,
-					     const gchar    *uri);
+                                             const gchar    *uri);
 void            buoh_comic_cache_set_pixbuf (BuohComicCache *cache,
-					     const gchar    *uri,
-					     GdkPixbuf      *pixbuf);
+                                             const gchar    *uri,
+                                             GdkPixbuf      *pixbuf);
 GdkPixbuf      *buoh_comic_cache_get_pixbuf (BuohComicCache *cache,
-					     const gchar    *uri);
+                                             const gchar    *uri);
 
 G_END_DECLS
 

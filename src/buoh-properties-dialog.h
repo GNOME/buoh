@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Carlos García Campos <carlosgc@gnome.org>
+ *  Authors: Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifndef BUOH_PROPERTIES_DIALOG_H
@@ -39,19 +39,19 @@ typedef struct _BuohPropertiesDialogPrivate BuohPropertiesDialogPrivate;
 #define BUOH_PROPERTIES_DIALOG_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_PROPERTIES_DIALOG, BuohPropertiesDialogClass))
 
 struct _BuohPropertiesDialog {
-	GtkDialog                   parent;
-	BuohPropertiesDialogPrivate *priv;
+        GtkDialog                   parent;
+        BuohPropertiesDialogPrivate *priv;
 };
 
 struct _BuohPropertiesDialogClass {
-	GtkDialogClass   parent_class;
+        GtkDialogClass   parent_class;
 };
 
 GType             buoh_properties_dialog_get_type          (void) G_GNUC_CONST;
 GtkWidget        *buoh_properties_dialog_new               (void);
 
 void              buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,
-							    BuohComicManager       *comic_manager);
+                                                            BuohComicManager       *comic_manager);
 BuohComicManager *buoh_properties_dialog_get_comic_manager (BuohPropertiesDialog   *dialog);
 
 G_END_DECLS

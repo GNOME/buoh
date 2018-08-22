@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Carlos García Campos <carlosgc@gnome.org>
+ *  Authors: Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifndef BUOH_COMIC_LIST_H
@@ -39,19 +39,19 @@ typedef struct _BuohComicListPrivate BuohComicListPrivate;
 #define BUOH_COMIC_LIST_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_COMIC_LIST, BuohComicListClass))
 
 struct _BuohComicList {
-	GtkBin                parent;
-	BuohComicListPrivate *priv;
+        GtkBin                parent;
+        BuohComicListPrivate *priv;
 };
 
 struct _BuohComicListClass {
-	GtkBinClass         parent_class;
+        GtkBinClass         parent_class;
 };
 
 GType             buoh_comic_list_get_type        (void) G_GNUC_CONST;
 GtkWidget        *buoh_comic_list_new             (void);
 
 void              buoh_comic_list_set_view        (BuohComicList *comic_list,
-						   BuohView      *view);
+                                                   BuohView      *view);
 GtkWidget        *buoh_comic_list_get_list        (BuohComicList *comic_list);
 void              buoh_comic_list_clear_selection (BuohComicList *comic_list);
 BuohComicManager *buoh_comic_list_get_selected    (BuohComicList *comic_list);

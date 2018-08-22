@@ -3,7 +3,7 @@ import subprocess
 import sys
 
 if len(sys.argv) < 3:
-	sys.exit("usage: meson_post_install.py <icondir> <schemadir>")
+  sys.exit("usage: meson_post_install.py <icondir> <schemadir>")
 
 icondir = sys.argv[1]
 schemadir = sys.argv[2]

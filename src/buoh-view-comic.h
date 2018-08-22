@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Carlos García Campos <carlosgc@gnome.org>
+ *  Authors: Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifndef BUOH_VIEW_COMIC_H
@@ -38,12 +38,12 @@ typedef struct _BuohViewComicPrivate BuohViewComicPrivate;
 #define BUOH_VIEW_COMIC_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_VIEW_COMIC, BuohViewComicClass))
 
 struct _BuohViewComic {
-	GtkViewport           parent;
-	BuohViewComicPrivate *priv;
+        GtkViewport           parent;
+        BuohViewComicPrivate *priv;
 };
 
 struct _BuohViewComicClass {
-	GtkViewportClass   parent_class;
+        GtkViewportClass   parent_class;
 };
 
 GType            buoh_view_comic_get_type       (void) G_GNUC_CONST;
@@ -59,7 +59,7 @@ void             buoh_view_comic_best_fit       (BuohViewComic   *c_view);
 void             buoh_view_comic_fit_width      (BuohViewComic   *c_view);
 BuohViewZoomMode buoh_view_comic_get_zoom_mode  (BuohViewComic   *c_view);
 void             buoh_view_comic_set_zoom_mode  (BuohViewComic   *c_view,
-						 BuohViewZoomMode mode); 
+                                                 BuohViewZoomMode mode);
 
 G_END_DECLS
 
