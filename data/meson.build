@@ -64,6 +64,24 @@ if xmllint.found()
   )
 endif
 
+appdata = 'org.gnome.buoh.appdata.xml'
+i18n.merge_file(
+  appdata,
+  input: appdata + '.in',
+  output: appdata,
+  po_dir: po_dir,
+  install: true,
+  install_dir: join_paths(datadir, 'metainfo'),
+)
+if (appstream_util.found())
+  test(
+    'Validating ' + appdata,
+    appstream_util,
+    args: ['validate', '--nonet', appdata],
+    workdir: meson.current_build_dir(),
+  )
+endif
+
 gnome.mkenums(
   'org.gnome.buoh.enums.xml',
   sources: settings_headers,

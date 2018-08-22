@@ -29,6 +29,7 @@ glib = dependency('glib-2.0', version: '>= 2.26.0')
 libsoup = dependency('libsoup-2.4', version: '>= 2.4.0')
 libxml2 = dependency('libxml-2.0', version: '>= 2.4.0')
 
+appstream_util = find_program('appstream-util', required: false)
 desktop_file_validate = find_program('desktop-file-validate', required: false)
 gtk_builder_tool = find_program('gtk-builder-tool', required: false)
 xmllint = find_program('xmllint', required: false)

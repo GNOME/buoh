@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   ];
 
   checkInputs = [
-    desktop-file-utils
+    desktop-file-utils appstream-glib
   ];
 
   src =
