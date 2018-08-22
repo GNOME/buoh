@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Authors : Carlos García Campos <carlosgc@gnome.org>
+ *  Authors : Carlos GarcÃ­a Campos <carlosgc@gnome.org>
  */
 
 #ifndef BUOH_COMIC_LOADER_H

@@ -14,8 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  *  Authors : Pablo Arroyo Loma (zioma) <zioma@linups.org>
- *            Esteban Sanchez Mu�oz (steve-o) <esteban@steve-o.org>
- *            Carlos Garc�a Campos <carlosgc@gnome.org>
+ *            Esteban Sanchez Muñoz (steve-o) <esteban@steve-o.org>
+ *            Carlos García Campos <carlosgc@gnome.org>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -831,16 +831,16 @@ buoh_window_cmd_help_about (GtkAction *action, gpointer gdata)
 {
 	BuohWindow         *window = BUOH_WINDOW (gdata);
 	static const gchar *authors[] = {
-		"Esteban Sánchez Muñoz <esteban@steve-o.org>",
+		"Esteban Sanchez Muñoz <esteban@steve-o.org>",
 		"Pablo Arroyo Loma <zioma@linups.org>",
-		"Carlos Garcia Campos <carlosgc@gnome.org>",
+		"Carlos García Campos <carlosgc@gnome.org>",
 		NULL
 	};
 
 	gtk_show_about_dialog (GTK_WINDOW (window),
 			       "authors", authors,
 			       "comments", _("Online comic strips reader"),
-			       "copyright", "Copyright \xC2\xA9 2004 Esteban Sánchez Muñoz - Pablo Arroyo Loma",
+			       "copyright", "Copyright \xC2\xA9 2004 Esteban Sanchez Muñoz - Pablo Arroyo Loma",
 			       "logo-icon-name", "buoh",
 			       "translator-credits", _("translator-credits"),
 			       "version", VERSION,

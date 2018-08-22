@@ -15,7 +15,7 @@
  *
  *  Authors: Pablo Arroyo Loma (zioma) <zioma@linups.org>
  *           Esteban Sanchez Munoz (steve-o) <esteban@steve-o.org>
- *           Carlos García Campos <carlosgc@gnome.org>
+ *           Carlos GarcÃ­a Campos <carlosgc@gnome.org>
  */
 
 #ifdef HAVE_CONFIG_H

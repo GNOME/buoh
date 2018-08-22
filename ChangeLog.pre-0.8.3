@@ -674,7 +674,7 @@
 	* src/buoh-window.c: Disable save a copy menu item respect to lockdown
 	gconf key
 
-2005-08-17  Esteban Sánchez <esteban@steve-o.org>
+2005-08-17  Esteban SÃ¡nchez <esteban@steve-o.org>
 	
 	* interface/buoh-window.c: PNG is better than JPEG
 	
@@ -1129,22 +1129,22 @@
 	* src/buoh.h: Deleted buoh_new_gui because it was a silly function. His functionallity was added into buoh_gui_setup.	
 	* src/main.c: Minor changes to update it to the change in buoh object.
 
-2005-01-24  Moisés Belchín  <moises@dondetepique.com>
+2005-01-24  MoisÃ©s BelchÃ­n  <moises@dondetepique.com>
 
 	* AUTHORS: I officially add myself to buoh project.
 
-2004-11-23  Esteban Sánchez  <esteban@steve-o.org>
+2004-11-23  Esteban SÃ¡nchez  <esteban@steve-o.org>
 
 	* src/buoh.c: Free of errors and warnings and finish the prototype of the Buoh object. Now we have to think about this object. Do we need the buoh_set_gui and buoh_gui_setup? I think that one of this function should be private and called from the other function.
 	* src/main.c: Created our first instance of the Buoh object. Congratulations! :D Now, what should we do whit our object?
 
-2004-11-22  Esteban Sánchez  <esteban@steve-o.org>
+2004-11-22  Esteban SÃ¡nchez  <esteban@steve-o.org>
 
 	* src/main.c: Updated to use the Buoh object. There is still a lot of work in this file.
 	* src/interface.c: Clear this file, because the gui_setup and gui_new is related to the Buoh class. So it was moved to buoh.[hc]
 	* src/buoh.[hc]: Created this file to declare the Buoh object.
 
-2004-11-14  Esteban Sánchez  <esteban@steve-o.org>
+2004-11-14  Esteban SÃ¡nchez  <esteban@steve-o.org>
 
 	* interfaces/buoh.glade: Changes on the menu (mainly name of buttons). Changed atribute "Encojer" (don't know in english) on the widgets which are inside of a container (Vpaned and Hpaned).	
 	* src/interface.c: Minor changes
@@ -1154,7 +1154,7 @@
 	* src/callbacks.c: menu about added.
 	* pixmaps/: two pixmaps added (16x16 and 64x64).
 
-2004-11-13  Esteban Sánchez <esteban@steve-o.org>
+2004-11-13  Esteban SÃ¡nchez <esteban@steve-o.org>
 
 	* buoh.glade: make again because it was corrupted.
 
@@ -1163,7 +1163,7 @@
 	* buoh.glade: moved to interface/ and src/interface.c src/Makefile.am Makefile.am configure.in and po/POTFILES were updated to solve this change.
 	* interface/Makefile.am: added.
 	
-2004-11-07  Esteban Sánchez <esteban@steve-o.org>
+2004-11-07  Esteban SÃ¡nchez <esteban@steve-o.org>
 
 	* src/Makefile.am: Updated buoh_SOURCES to reference interface.* and callbacks.*
 	* interface.c: Used g_return_if_fail instead of "if (foo == NULL) return NULL".
@@ -1176,12 +1176,12 @@
 	* src/callbacks.h: file added with "buoh_exit" and "comic_new" function declarations.
 	* src/callbacks.c: file added with implementation of "buoh_exit".
 
-2004-11-04  Esteban Sánchez <esteban@steve-o.org>
+2004-11-04  Esteban SÃ¡nchez <esteban@steve-o.org>
 
 	* main.c: Added the glade_xml_new.
 	* main.c: Set the title of the window. All these things should go in the src/interface.h as a procedure.
 
-2004-10-20  Esteban Sánchez <esteban@steve-o.org>
+2004-10-20  Esteban SÃ¡nchez <esteban@steve-o.org>
 
 	* Add file src/interface.h where is defined a "typedef struct GladeXML". This struct helds a pointer to the GladeXML resource
 

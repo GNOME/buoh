@@ -14,8 +14,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  *  Authors : Pablo Arroyo Loma (zioma) <zioma@linups.org>
- *            Esteban Sanchez Muñoz (steve-o) <esteban@steve-o.org>
- *            Carlos García Campos <carlosgc@gnome.org>
+ *            Esteban Sanchez MuÃ±oz (steve-o) <esteban@steve-o.org>
+ *            Carlos GarcÃ­a Campos <carlosgc@gnome.org>
  */
 
 #include <glib.h>

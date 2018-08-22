@@ -20,13 +20,13 @@ Changes in Buoh 0.8.2
 "Quicker than a cheetah"
 
 Changes:
-   * The comics loading has been improved to make it faster. (Carlos García Campos)
-   * Icons are installed according to icon theme specification. (Carlos García Campos)
+   * The comics loading has been improved to make it faster. (Carlos GarcÃ­a Campos)
+   * Icons are installed according to icon theme specification. (Carlos GarcÃ­a Campos)
    * Implement best fit and fit width zoom modes. Fit width is now the mode by 
-     default. (Carlos García Campos)
+     default. (Carlos GarcÃ­a Campos)
    * Make libgnomeui an optional dependency enabled by default when available.
-     (Carlos García Campos)
-   * Remember zoom mode between sessions. (Carlos García Campos)
+     (Carlos GarcÃ­a Campos)
+   * Remember zoom mode between sessions. (Carlos GarcÃ­a Campos)
 
 New comics:
    * Added:
@@ -39,7 +39,7 @@ New comics:
 	- C'est la vie
 	- Work it out
 	- Nichtlustig (German)
-	- ...and many more. (Esteban Sánchez Muñoz)
+	- ...and many more. (Esteban SÃ¡nchez MuÃ±oz)
    * Removed:
 	- Cats With Hands
 	- Frank & Ernest
@@ -50,8 +50,8 @@ New comics:
 	- ...and many more.
    * Fixed:
 	- Sinfest
-	- Forges (Esteban Sánchez Muñoz)
-        - A Lawyer, A Doctor & A Cop. (Carlos García Campos)
+	- Forges (Esteban SÃ¡nchez MuÃ±oz)
+        - A Lawyer, A Doctor & A Cop. (Carlos GarcÃ­a Campos)
 
 ======================
 Changes in Buoh 0.8.1
@@ -61,11 +61,11 @@ Changes in Buoh 0.8.1
 
 Changes:
    * Added a cache system that improves drastically the memory usage and reduce
-     the comic access time. (Carlos García Campos)
-   * Save the original image instead of a new png when saving a copy. (Carlos García Campos)
-   * Support for code translation. (Esteban Sánchez Muñoz)
+     the comic access time. (Carlos GarcÃ­a Campos)
+   * Save the original image instead of a new png when saving a copy. (Carlos GarcÃ­a Campos)
+   * Support for code translation. (Esteban SÃ¡nchez MuÃ±oz)
    * Buoh also works now with GTK+ >= 2.6.(Bastien Nocera)
-   * Many other bugfixes, memory leaks and code cleanups. (Carlos García Campos)
+   * Many other bugfixes, memory leaks and code cleanups. (Carlos GarcÃ­a Campos)
 
 New comics:
    * Added 28 new comics, including:
@@ -82,9 +82,9 @@ New comics:
 	- Do you know Flo? (Dutch)
         - Doorzon (Dutch)
         - Lectrrland (Dutch)
-	- ...and many more (Esteban Sánchez Muñoz)
+	- ...and many more (Esteban SÃ¡nchez MuÃ±oz)
      Thanks to all the people who have proposed new comics.
-   * There are comics in dutch. (Esteban Sánchez Muñoz)
+   * There are comics in dutch. (Esteban SÃ¡nchez MuÃ±oz)
 
 =============
 Buoh     0.8

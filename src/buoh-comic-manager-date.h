@@ -13,7 +13,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  Author: Esteban Sánchez (steve-o) <esteban@steve-o.org>
+ *  Author: Esteban SÃ¡nchez (steve-o) <esteban@steve-o.org>
  */
 
 #ifndef BUOH_COMIC_MANAGER_DATE_H
