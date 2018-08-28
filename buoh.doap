@@ -6,18 +6,19 @@
 
 	<name xml:lang="en">buoh</name>
 	<shortdesc xml:lang="en">A reader for online comic strips.</shortdesc>
+	<description xml:lang="en">Buoh is an application for viewing online comic strips and webcomics, designed to look and work well under the GNOME desktop. Select your favorite comic from a list of more than 130 comics and read them in a simple, clean, and easy to use interface. Additionally, you can browse through the comic strip archives or save a comic to disk.</description>
 
-	<homepage rdf:resource="http://projects.gnome.org/buoh" />
-	<mailing-list rdf:resource="http://mail.gnome.org/mailman/listinfo/buoh-list" />
+	<homepage rdf:resource="http://buoh.steve-o.org/" />
 	<download-page rdf:resource="http://buoh.steve-o.org/download.html"/>
-	<bug-database rdf:resource="http://bugzilla.gnome.org/browse.cgi?product=buoh"/>
-	<category rdf:resource="http://api.gnome.org/doap-extensions#desktop" />
-	
+	<bug-database rdf:resource="https://gitlab.gnome.org/GNOME/buoh/issues"/>
+	<category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
+	<programming-language>C</programming-language>
+
 	<maintainer>
 		<foaf:Person>
-			<foaf:name>Pablo Castellano</foaf:name>
-			<foaf:mbox rdf:resource="mailto:pablog@src.gnome.org" />
-			<gnome:userid>pablog</gnome:userid>
+			<foaf:name>Jan Tojnar</foaf:name>
+			<foaf:mbox rdf:resource="mailto:jtojnar@gmail.com" />
+			<gnome:userid>jtojnar</gnome:userid>
 		</foaf:Person>
 	</maintainer>
 </Project>
