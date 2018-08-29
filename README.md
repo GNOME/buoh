@@ -21,5 +21,7 @@ ninja -C build
 ninja -C build install
 ```
 
+Alternately, with [Nix package manager](https://nixos.org/nix/), you can just run `nix-shell` in the project directory, and it will drop you into a shell with all the required dependencies.
+
 ## License
 Buoh is distributed under the terms of the GNU General Public License version 2, or (at your option) any later version. You can find the whole text of the license in the [COPYING](COPYING) file.
