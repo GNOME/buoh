@@ -1,10 +1,13 @@
 [Desktop Entry]
 Name=Buoh
-Comment=Read your favourite comic strips
+GenericName=Comics Reader
+Comment=Read your favorite comic strips
+# Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+Keywords=comics;webcomics;comic strips;
 Exec=buoh
+# Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 Icon=buoh
 Terminal=false
 Type=Application
 Categories=GNOME;GTK;Network;Utility;
 StartupNotify=true
-X-GNOME-FullName=Buoh Online Comics Reader
