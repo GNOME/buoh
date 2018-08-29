@@ -1,4 +1,6 @@
-enum_headers = files('buoh-settings.h')
+enum_headers = files(
+  'buoh-settings.h',
+)
 
 sources = files(
   'buoh-add-comic-dialog.c',
@@ -31,5 +33,4 @@ buoh = executable(
   dependencies: buoh_deps,
   c_args: cflags,
   install: true,
-  install_dir: bindir,
 )

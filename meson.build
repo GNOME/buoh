@@ -34,7 +34,12 @@ buoh_deps = [
 ]
 
 # Post-install scripts
-meson.add_install_script(python3.find_python().path(), join_paths(meson.source_root(), 'build-aux', 'post-install.py'), icondir, schemadir)
+meson.add_install_script(
+  python3.find_python().path(),
+  join_paths(meson.source_root(), 'build-aux', 'post-install.py'),
+  icondir,
+  schemadir,
+)
 
 # Subfolders
 subdir('src')

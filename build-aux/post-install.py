@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import os
 import subprocess
 import sys
@@ -7,7 +5,6 @@ import sys
 if len(sys.argv) < 3:
 	sys.exit("usage: meson_post_install.py <icondir> <schemadir>")
 
-install_prefix = os.environ['MESON_INSTALL_PREFIX']
 icondir = sys.argv[1]
 schemadir = sys.argv[2]
 

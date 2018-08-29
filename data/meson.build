@@ -1,4 +1,7 @@
-install_data('buoh-ui.xml', install_dir: uidir)
+install_data(
+  'buoh-ui.xml',
+  install_dir: uidir,
+)
 
 desktop = 'buoh.desktop'
 i18n.merge_file(
@@ -11,7 +14,10 @@ i18n.merge_file(
   install_dir: join_paths(datadir, 'applications'),
 )
 
-install_data('comics.xml', install_dir: comicsdir)
+install_data(
+  'comics.xml',
+  install_dir: comicsdir,
+)
 
 gnome.mkenums(
   'org.gnome.buoh.enums.xml',
