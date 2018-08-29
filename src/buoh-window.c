@@ -164,19 +164,19 @@ static const GtkActionEntry menu_entries[] = {
         { "Help", NULL, N_("_Help") },
 
         /* Comic menu */
-        { "ComicAdd", GTK_STOCK_ADD, N_("_Add..."), NULL,
+        { "ComicAdd", GTK_STOCK_ADD, N_("_Add…"), NULL,
           N_("Add a comic to the comic list"),
           G_CALLBACK (buoh_window_cmd_comic_add) },
         { "ComicRemove", GTK_STOCK_REMOVE, N_("_Remove"), NULL,
           N_("Remove this comic from the comic list"),
           G_CALLBACK (buoh_window_cmd_comic_remove) },
-        { "ComicSaveACopy", NULL, N_("_Save A Copy..."), NULL,
+        { "ComicSaveACopy", NULL, N_("_Save a Copy…"), NULL,
           N_("Save the current comic with a new filename"),
           G_CALLBACK (buoh_window_cmd_comic_save_a_copy) },
         { "ComicCopyURI", NULL, N_("_Copy Location"), NULL,
           N_("Copy the location of this comic to clipboard"),
           G_CALLBACK (buoh_window_cmd_comic_copy_location) },
-        { "ComicProperties", GTK_STOCK_PROPERTIES, N_("_Properties..."), "<alt>Return",
+        { "ComicProperties", GTK_STOCK_PROPERTIES, N_("_Properties…"), "<alt>Return",
           N_("View the properties of this comic"),
           G_CALLBACK (buoh_window_cmd_comic_properties) },
         { "ComicQuit", GTK_STOCK_QUIT, N_("_Quit"), "<control>Q",
@@ -846,7 +846,7 @@ buoh_window_cmd_help_about (GtkAction *action, gpointer gdata)
         gtk_show_about_dialog (GTK_WINDOW (window),
                                "authors", authors,
                                "comments", _("Online comic strips reader"),
-                               "copyright", "Copyright \xC2\xA9 2004 Esteban Sanchez Muñoz - Pablo Arroyo Loma",
+                               "copyright", "Copyright © 2004 Esteban Sanchez Muñoz, Pablo Arroyo Loma",
                                "logo-icon-name", "buoh",
                                "translator-credits", _("translator-credits"),
                                "version", VERSION,
@@ -863,7 +863,7 @@ buoh_window_update_title (BuohWindow *window)
         cm = buoh_comic_list_get_selected (window->priv->comic_list);
 
         if (cm) {
-                title = g_strdup_printf ("%s - Buoh",
+                title = g_strdup_printf ("%s — Buoh",
                                          buoh_comic_manager_get_title (cm));
         } else {
                 title = g_strdup_printf ("Buoh");
@@ -1027,7 +1027,7 @@ buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gd
         case STATE_COMIC_LOADING:
                 comic = buoh_view_get_comic (view);
 
-                message = g_strdup (_("Getting comic ..."));
+                message = g_strdup (_("Getting comic…"));
 
                 buoh_window_comic_actions_set_sensitive (window,
                                                          (comic) ? TRUE : FALSE);
@@ -1036,7 +1036,7 @@ buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gd
         case STATE_COMIC_LOADED:
                 comic = buoh_view_get_comic (view);
 
-                message = g_strdup_printf ("%s - %s",
+                message = g_strdup_printf ("%s — %s",
                                            buoh_comic_manager_get_title (cm),
                                            buoh_comic_get_id (comic));
 
