@@ -433,7 +433,7 @@ buoh_comic_image_save (BuohComicImage *image,
         if ((fd = open (path, O_CREAT | O_WRONLY, 0644)) < 0) {
                 g_set_error (error, G_FILE_ERROR,
                              g_file_error_from_errno (errno),
-                             _("Cannot create file '%s': %s"),
+                             _("Cannot create file “%s”: %s"),
                              path, g_strerror (errno));
                 return FALSE;
         }
@@ -441,7 +441,7 @@ buoh_comic_image_save (BuohComicImage *image,
         if (write (fd, image->data, image->size) < 0) {
                 g_set_error (error, G_FILE_ERROR,
                              g_file_error_from_errno (errno),
-                             _("Error writting to file '%s': %s"),
+                             _("Error writing to file “%s”: %s"),
                              path, g_strerror (errno));
                 close (fd);
                 return FALSE;
@@ -450,7 +450,7 @@ buoh_comic_image_save (BuohComicImage *image,
         if (close (fd) < 0) {
                 g_set_error (error, G_FILE_ERROR,
                              g_file_error_from_errno (errno),
-                             _("Error writting to file '%s': %s"),
+                             _("Error writing to file “%s”: %s"),
                              path, g_strerror (errno));
                 return FALSE;
         }
