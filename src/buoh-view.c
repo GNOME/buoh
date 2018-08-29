@@ -155,8 +155,8 @@ buoh_view_init (BuohView *buoh_view)
                                      _("Buoh online comic strips reader"));
         buoh_view_message_set_text (BUOH_VIEW_MESSAGE (buoh_view->priv->message),
                                     _("Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
-                                      "The list on the left panel contains your favourite comic strips "
-                                      "to add or remove comics to the list click on Comic -> Add. "
+                                      "The list on the left panel contains your favorite comic strips "
+                                      "to add or remove comics to the list click on Comic → Add. "
                                       "Just select a comic from the list, and it will be displayed "
                                       "on the right side. Thanks for using Buoh."));
         buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (buoh_view->priv->message), "buoh");
