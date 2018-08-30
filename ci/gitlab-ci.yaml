@@ -1,0 +1,21 @@
+image: docker:stable
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+# We compare the hash of default.nix file with a label
+# of the image stored in the container registry; when they
+# do not match, the image is rebuilt.
+
+build_image:
+  stage: build
+  script: ci/build-image.sh "$CI_JOB_TOKEN" "$CI_REGISTRY_IMAGE:latest"
+
+build:
+  stage: test
+  image: $CI_REGISTRY_IMAGE:latest
+  script: nix-build
