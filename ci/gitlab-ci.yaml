@@ -1,0 +1,22 @@
+image: docker:stable
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+  # Ideally, we would generate a new image whenever the derivation for
+  # default.nix changes, but we would not be able to pass the tag name
+  # to the “build” job. For now, we just have to remove the image from
+  # the registry manually when rebuild is needed.
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
+
+build_image:
+  stage: build
+  script: ci/build-image.sh
+
+build:
+  stage: test
+  image: $IMAGE_TAG
+  script: nix-build
