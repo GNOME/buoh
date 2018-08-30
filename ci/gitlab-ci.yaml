@@ -1,0 +1,45 @@
+image: docker:stable
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+# We compare the hash of default.nix file with a label of the Docker image
+# stored in the container registry. When they do not match, we will try
+# to build an image based on nixos/nix containing all the build dependencies,
+# then upload the built image to the registry. Finally the image will be used
+# to build the package using Nix, and to run checks.
+
+build_image:
+  stage: build
+  script: ci/build-image.sh "$CI_JOB_TOKEN" "$CI_REGISTRY_IMAGE:latest"
+  except:
+    - /^ci-.*/
+
+build:
+  stage: test
+  image: $CI_REGISTRY_IMAGE:latest
+  script: nix-build
+  except:
+    - /^ci-.*/
+
+# We use a different image tag for branches starting with “ci-” prefix so that
+# we could develop the CI set-up without interfering with the deployed
+# one. Since the CI tweaks are going to be quite rare, we are sharing a single
+# tag between all of them, in order not to clog the registry.
+
+build_image_dev:
+  stage: build
+  script: ci/build-image.sh "$CI_JOB_TOKEN" "$CI_REGISTRY_IMAGE:development"
+  only:
+    - /^ci-.*/
+
+build_dev:
+  stage: test
+  image: $CI_REGISTRY_IMAGE:development
+  script: nix-build
+  only:
+    - /^ci-.*/
