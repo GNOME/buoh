@@ -1,360 +1,394 @@
 # German translation for buoh.
 # Copyright (C) 2010 buoh's COPYRIGHT HOLDER
 # This file is distributed under the same license as the buoh package.
-# Mario Blättermann <mariobl@gnome.org>, 2010.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2010, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-30 23:44+0200\n"
-"PO-Revision-Date: 2010-07-31 00:14+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2018-08-30 00:47+0000\n"
+"PO-Revision-Date: 2018-08-31 20:49+0200\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.1.1\n"
 
-#: ../data/buoh.desktop.in.h:1
-#: ../src/main.c:46
+#: data/buoh.desktop.in:3 src/main.c:46
 msgid "Buoh"
 msgstr "Buoh"
 
-#: ../data/buoh.desktop.in.h:2
-msgid "Read your favourite comic strips"
+#: data/buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Comic-Leser"
+
+#: data/buoh.desktop.in:5
+msgid "Read your favorite comic strips"
 msgstr "Lesen Sie Ihre Lieblings-Comics"
 
-#: ../data/buoh.schemas.in.h:1
-msgid "Select viewer zoom mode"
-msgstr "Vergrößerungsstufe der Ansicht wählen"
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "Comics;Webcomics;Comic strips;"
 
-#: ../data/buoh.schemas.in.h:2
-msgid "Show statusbar by default"
-msgstr "Statusleiste standardmäßig anzeigen"
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/buoh.desktop.in:10
+msgid "buoh"
+msgstr "buoh"
 
-#: ../data/buoh.schemas.in.h:3
+#: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
 msgstr "Werkzeugleiste standardmäßig anzeigen"
 
-#: ../data/buoh.schemas.in.h:4
-msgid "Statusbar is the bottom bar that contains help and status messages. Two boolean options, true makes statusbar visible by default while false makes statusbar not visible by default."
-msgstr "Die Statusleiste am unteren Rand enthält Hilfe- und Statusmeldungen.  Zwei boolesche Werte: »wahr« bedeutet, dass die Statusleiste sichtbar ist, »falsch«, dass sie nicht sichtbar ist."
+#: data/org.gnome.buoh.gschema.xml:7
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+"Die Werkzeugleiste am oberen Rand enthält Steuerungsmöglichkeiten für "
+"Navigation und Vergrößerungsstufen. Zwei boolesche Werte: »wahr« bedeutet, "
+"dass die Werkzeugleiste sichtbar ist, »falsch«, dass sie nicht sichtbar ist."
 
-#: ../data/buoh.schemas.in.h:5
-msgid "There are two zoom modes available, 1 makes the current comic fill the window, 2 makes the current comic fill the window width."
-msgstr "Zwei Vergrößerungsstufen sind verfügbar. 1 bedeutet, dass der Comic vollständig im Fenster dargestellt wird, 2 bedeutet, dass die Ansichtsbreite an die Fensterbreite angepasst wird."
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "Statusleiste standardmäßig anzeigen"
 
-#: ../data/buoh.schemas.in.h:6
-msgid "Toolbar is the top bar that contains navigation and zoom controls. Two boolean options, true makes toolbar visible by default while false makes toolbar not visible by default."
-msgstr "Die Werkzeugleiste am oberen Rand enthält Steuerungsmöglichkeiten für Navigation und Vergrößerungsstufen. Zwei boolesche Werte: »wahr« bedeutet, dass die Werkzeugleiste sichtbar ist, »falsch«, dass sie nicht sichtbar ist."
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"Die Statusleiste am unteren Rand enthält Hilfe- und Statusmeldungen.  Zwei "
+"boolesche Werte: »wahr« bedeutet, dass die Statusleiste sichtbar ist, "
+"»falsch«, dass sie nicht sichtbar ist."
 
-#: ../src/buoh-add-comic-dialog.c:67
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "Vergrößerungsstufe der Ansicht wählen"
+
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"Zwei Vergrößerungsstufen sind verfügbar. »best-fit« bedeutet, dass der Comic "
+"vollständig im Fenster dargestellt wird, »fit-width« bedeutet, dass die "
+"Ansichtsbreite an die Fensterbreite angepasst wird."
+
+#: src/buoh-add-comic-dialog.c:67
 msgid "Add Comic"
 msgstr "Comic hinzufügen"
 
-#: ../src/buoh-add-comic-dialog.c:79
+#: src/buoh-add-comic-dialog.c:79
 msgid "Select Comics"
 msgstr "Comics auswählen"
 
-#: ../src/buoh-add-comic-dialog.c:120
-#: ../src/buoh-comic-list.c:119
-#: ../src/buoh-properties-dialog.c:104
+#: src/buoh-add-comic-dialog.c:120 src/buoh-comic-list.c:119
+#: src/buoh-properties-dialog.c:103
 msgid "Title"
 msgstr "Titel"
 
-#: ../src/buoh-add-comic-dialog.c:133
-#: ../src/buoh-properties-dialog.c:110
+#: src/buoh-add-comic-dialog.c:133 src/buoh-properties-dialog.c:109
 msgid "Author"
 msgstr "Autor"
 
-#: ../src/buoh-add-comic-dialog.c:202
+#: src/buoh-add-comic-dialog.c:203
 #, c-format
 msgid "Comics selected: %d"
 msgstr "Ausgewählte Comics: %d"
 
-#: ../src/buoh-comic.c:435
-#, c-format
-msgid "Cannot create file '%s': %s"
-msgstr "Datei »%s« kann nicht angelegt werden: %s"
-
-#: ../src/buoh-comic.c:443
-#: ../src/buoh-comic.c:452
-#, c-format
-msgid "Error writting to file '%s': %s"
-msgstr "Fehler beim Schreiben in Datei »%s«: %s"
-
-#: ../src/buoh-comic-manager-date.c:56
+#: src/buoh-comic-manager-date.c:56
 msgid "Monday"
 msgstr "Montag"
 
-#: ../src/buoh-comic-manager-date.c:57
+#: src/buoh-comic-manager-date.c:57
 msgid "Tuesday"
 msgstr "Dienstag"
 
-#: ../src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:58
 msgid "Wednesday"
 msgstr "Mittwoch"
 
-#: ../src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:59
 msgid "Thursday"
 msgstr "Donnerstag"
 
-#: ../src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:60
 msgid "Friday"
 msgstr "Freitag"
 
-#: ../src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:61
 msgid "Saturday"
 msgstr "Samstag"
 
-#: ../src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:62
 msgid "Sunday"
 msgstr "Sonntag"
 
 #. It's a range of days
-#: ../src/buoh-comic-manager-date.c:496
+#: src/buoh-comic-manager-date.c:501
 msgid " to "
 msgstr " bis "
 
-#: ../src/buoh-comic-manager-date.c:511
+#: src/buoh-comic-manager-date.c:516
 msgid "Every day"
 msgstr "Täglich"
 
-#: ../src/buoh-properties-dialog.c:48
+#: src/buoh-comic.c:436
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "Datei »%s« kann nicht angelegt werden: %s"
+
+#: src/buoh-comic.c:444 src/buoh-comic.c:453
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "Fehler beim Schreiben in Datei »%s«: %s"
+
+#: src/buoh-properties-dialog.c:48
 msgid "Comic Properties"
 msgstr "Comic-Eigenschaften"
 
-#: ../src/buoh-properties-dialog.c:116
+#: src/buoh-properties-dialog.c:115
 msgid "Link"
 msgstr "Verknüpfung"
 
-#: ../src/buoh-properties-dialog.c:122
+#: src/buoh-properties-dialog.c:121
 msgid "Language"
 msgstr "Sprache"
 
-#: ../src/buoh-properties-dialog.c:128
+#: src/buoh-properties-dialog.c:127
 msgid "Date of publication"
 msgstr "Veröffentlichungsdatum"
 
-#: ../src/buoh-properties-dialog.c:186
+#: src/buoh-properties-dialog.c:185
 msgid "Publication days"
 msgstr "Tage der Veröffentlichung"
 
-#: ../src/buoh-view.c:155
-msgid "Buoh online comic strips reader"
-msgstr "Buoh Leser für Online-Comics"
-
-#: ../src/buoh-view.c:157
-msgid ""
-"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
-"The list on the left panel contains your favourite comic strips to add or remove comics to the list click on Comic -> Add. Just select a comic from the list, and it will be displayed on the right side. Thanks for using Buoh."
-msgstr ""
-"Willkommen in <b>Buoh</b>, dem Online-Comic-Leser für die GNOME-Arbeitsumgebung.\n"
-"Die Liste im linken Teilfenster enthält Ihre bevorzugten Comics. Um Einträge hinzuzufügen oder zu entfernen, wählen Sie Comic -> Hinzufügen. Wählen Sie einen Comic in der linken Liste aus, um ihn im rechten Ansichtsfenster anzeigen zu lassen. Vielen Dank, dass Sie Buoh verwenden."
-
-#: ../src/buoh-view-comic.c:638
+#: src/buoh-view-comic.c:653
 msgid "Error Loading Comic"
 msgstr "Fehler beim Laden des Comics"
 
+#: src/buoh-view.c:155
+msgid "Buoh online comic strips reader"
+msgstr "Buoh Leser für Online-Comics"
+
+#: src/buoh-view.c:157
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Willkommen in <b>Buoh</b>, dem Online-Comic-Leser für die GNOME-"
+"Arbeitsumgebung.\n"
+"Die Liste im linken Teilfenster enthält Ihre bevorzugten Comics. Um Einträge "
+"hinzuzufügen oder zu entfernen, wählen Sie Comic → Hinzufügen. Wählen Sie "
+"einen Comic in der linken Liste aus, um ihn im rechten Ansichtsfenster "
+"anzeigen zu lassen. Vielen Dank, dass Sie Buoh verwenden."
+
 #. Top Level
-#: ../src/buoh-window.c:158
+#: src/buoh-window.c:161
 msgid "_Comic"
 msgstr "_Comic"
 
-#: ../src/buoh-window.c:159
+#: src/buoh-window.c:162
 msgid "_View"
 msgstr "_Ansicht"
 
-#: ../src/buoh-window.c:160
+#: src/buoh-window.c:163
 msgid "_Go"
 msgstr "_Gehe zu"
 
-#: ../src/buoh-window.c:161
+#: src/buoh-window.c:164
 msgid "_Help"
 msgstr "_Hilfe"
 
 #. Comic menu
-#: ../src/buoh-window.c:164
-msgid "_Add..."
+#: src/buoh-window.c:167
+msgid "_Add…"
 msgstr "_Hinzufügen …"
 
-#: ../src/buoh-window.c:165
+#: src/buoh-window.c:168
 msgid "Add a comic to the comic list"
 msgstr "Einen Comic zur Liste hinzufügen"
 
-#: ../src/buoh-window.c:167
+#: src/buoh-window.c:170
 msgid "_Remove"
 msgstr "_Entfernen"
 
-#: ../src/buoh-window.c:168
+#: src/buoh-window.c:171
 msgid "Remove this comic from the comic list"
 msgstr "Diesen Comic aus der Liste entfernen"
 
-#: ../src/buoh-window.c:170
-msgid "_Save A Copy..."
+#: src/buoh-window.c:173
+msgid "_Save a Copy…"
 msgstr "Eine Kopie _speichern …"
 
-#: ../src/buoh-window.c:171
+#: src/buoh-window.c:174
 msgid "Save the current comic with a new filename"
 msgstr "Den Comic unter einem neuen Dateinamen speichern"
 
-#: ../src/buoh-window.c:173
+#: src/buoh-window.c:176
 msgid "_Copy Location"
 msgstr "Ort _kopieren"
 
-#: ../src/buoh-window.c:174
+#: src/buoh-window.c:177
 msgid "Copy the location of this comic to clipboard"
 msgstr "Den Ort dieses Comics in die Zwischenablage kopieren"
 
-#: ../src/buoh-window.c:176
-msgid "_Properties..."
+#: src/buoh-window.c:179
+msgid "_Properties…"
 msgstr "_Eigenschaften …"
 
-#: ../src/buoh-window.c:177
+#: src/buoh-window.c:180
 msgid "View the properties of this comic"
 msgstr "Die Eigenschaften dieses Comics anzeigen"
 
-#: ../src/buoh-window.c:179
+#: src/buoh-window.c:182
 msgid "_Quit"
 msgstr "_Beenden"
 
-#: ../src/buoh-window.c:180
+#: src/buoh-window.c:183
 msgid "Quit application"
 msgstr "Die Anwendung beenden"
 
 #. View menu
-#: ../src/buoh-window.c:184
+#: src/buoh-window.c:187
 msgid "Zoom _In"
 msgstr "Ver_größern"
 
-#: ../src/buoh-window.c:185
+#: src/buoh-window.c:188
 msgid "Increase the comic size"
 msgstr "Die Größe des Comics erhöhen"
 
-#: ../src/buoh-window.c:187
+#: src/buoh-window.c:190
 msgid "Zoom _Out"
 msgstr "Ver_kleinern"
 
-#: ../src/buoh-window.c:188
+#: src/buoh-window.c:191
 msgid "Decrease the comic size"
 msgstr "Die Größe des Comics verringern"
 
-#: ../src/buoh-window.c:190
+#: src/buoh-window.c:193
 msgid "_Normal Size"
 msgstr "_Normale Größe"
 
-#: ../src/buoh-window.c:191
+#: src/buoh-window.c:194
 msgid "Use the normal comic size"
 msgstr "Comic in der normalen Größe anzeigen"
 
 #. Go menu
-#: ../src/buoh-window.c:195
+#: src/buoh-window.c:198
 msgid "_Previous Comic"
 msgstr "_Vorheriger Comic"
 
-#: ../src/buoh-window.c:196
+#: src/buoh-window.c:199
 msgid "Go to the previous comic"
 msgstr "Zum vorherigen Comic gehen"
 
-#: ../src/buoh-window.c:198
+#: src/buoh-window.c:201
 msgid "_Next Comic"
 msgstr "_Nächster Comic"
 
-#: ../src/buoh-window.c:199
+#: src/buoh-window.c:202
 msgid "Go to the next comic"
 msgstr "Zum nächsten Comic gehen"
 
-#: ../src/buoh-window.c:201
+#: src/buoh-window.c:204
 msgid "_First Comic"
 msgstr "_Erster Comic"
 
-#: ../src/buoh-window.c:202
+#: src/buoh-window.c:205
 msgid "Go to the first comic"
 msgstr "Zum ersten Comic gehen"
 
-#: ../src/buoh-window.c:204
+#: src/buoh-window.c:207
 msgid "_Last Comic"
 msgstr "_Letzter Comic"
 
-#: ../src/buoh-window.c:205
+#: src/buoh-window.c:208
 msgid "Go to the last comic"
 msgstr "Zum letzten Comic gehen"
 
 #. Help menu
-#: ../src/buoh-window.c:209
+#: src/buoh-window.c:212
 msgid "_Contents"
 msgstr "_Inhalt"
 
-#: ../src/buoh-window.c:210
+#: src/buoh-window.c:213
 msgid "Display help for the Buoh online comic reader"
 msgstr "Die Hilfe für den Online-Comic-Leser Buoh anzeigen"
 
-#: ../src/buoh-window.c:212
+#: src/buoh-window.c:215
 msgid "_About"
 msgstr "_Info"
 
-#: ../src/buoh-window.c:213
+#: src/buoh-window.c:216
 msgid "Display credits for the Buoh online comic reader creators"
-msgstr "Danksagungen an die Mitwirkenden an der Entwicklung des Buoh Online-Comic-Lesers anzeigen"
+msgstr ""
+"Danksagungen an die Mitwirkenden an der Entwicklung des Buoh Online-Comic-"
+"Lesers anzeigen"
 
 #. View menu
-#: ../src/buoh-window.c:220
+#: src/buoh-window.c:223
 msgid "_Toolbar"
 msgstr "_Werkzeugleiste"
 
-#: ../src/buoh-window.c:221
+#: src/buoh-window.c:224
 msgid "Changes the visibility of the toolbar"
 msgstr "Werkzeugleiste anzeigen oder verbergen"
 
-#: ../src/buoh-window.c:223
+#: src/buoh-window.c:226
 msgid "St_atusbar"
 msgstr "S_tatusleiste"
 
-#: ../src/buoh-window.c:224
+#: src/buoh-window.c:227
 msgid "Changes the visibility of the statusbar"
 msgstr "Statusleiste anzeigen oder verbergen"
 
-#: ../src/buoh-window.c:226
+#: src/buoh-window.c:229
 msgid "_Best Fit"
 msgstr "_Einpassen"
 
-#: ../src/buoh-window.c:227
+#: src/buoh-window.c:230
 msgid "Make the current comic fill the window"
 msgstr "Den momentan angezeigten Comic in das Fenster einpassen"
 
-#: ../src/buoh-window.c:229
+#: src/buoh-window.c:232
 msgid "Fit Comic _Width"
 msgstr "In der Breite ein_passen"
 
-#: ../src/buoh-window.c:230
+#: src/buoh-window.c:233
 msgid "Make the current comic fill the window width"
-msgstr "Die Breite des momentan angezeigten Comics an die Fensterbreite anpassen"
+msgstr ""
+"Die Breite des momentan angezeigten Comics an die Fensterbreite anpassen"
 
-#: ../src/buoh-window.c:537
+#: src/buoh-window.c:543
 msgid "Images"
 msgstr "Bilder"
 
-#: ../src/buoh-window.c:540
+#: src/buoh-window.c:546
 msgid "Save Comic"
 msgstr "Comic speichern"
 
-#: ../src/buoh-window.c:582
+#: src/buoh-window.c:589
 msgid "Unable to save comic"
 msgstr "Comic konnte nicht gespeichert werden"
 
-#: ../src/buoh-window.c:844
+#: src/buoh-window.c:848
 msgid "Online comic strips reader"
 msgstr "Online-Comic-Leser"
 
-#: ../src/buoh-window.c:847
+#: src/buoh-window.c:851
 msgid "translator-credits"
 msgstr "Mario Blättermann <mariobl@gnome.org>"
 
-#: ../src/buoh-window.c:1026
-msgid "Getting comic ..."
+#: src/buoh-window.c:1030
+msgid "Getting comic…"
 msgstr "Comic wird geholt …"
-
