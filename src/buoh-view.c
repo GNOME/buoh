@@ -208,7 +208,7 @@ buoh_view_class_init (BuohViewClass *klass)
                                          PROP_STATUS,
                                          g_param_spec_enum ("status",
                                                             "Status",
-                                                            "The curent view status",
+                                                            "The current view status",
                                                             BUOH_TYPE_VIEW_STATUS,
                                                             STATE_MESSAGE_WELCOME,
                                                             G_PARAM_READWRITE));
