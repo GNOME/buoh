@@ -238,7 +238,7 @@
     <restrict>6</restrict>
     <restrict>7</restrict>
   </comic>
-  <comic author="Obsidian" class="date" first="2004-09-10" generic_uri="http://www.commissionedcomic.com/strips/%Y-%m-%d.jpg" id="commisioned" language="English" title="Commissioned">
+  <comic author="Obsidian" class="date" first="2004-09-10" generic_uri="http://www.commissionedcomic.com/strips/%Y-%m-%d.jpg" id="commissioned" language="English" title="Commissioned">
     <restrict>2</restrict>
     <restrict>3</restrict>
     <restrict>5</restrict>
