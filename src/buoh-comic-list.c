@@ -42,7 +42,7 @@ static void buoh_comic_list_class_init             (BuohComicListClass *klass);
 static void buoh_comic_list_finalize               (GObject *object);
 
 static void buoh_comic_list_get_preferred_width    (GtkWidget        *widget,
-                                                    gint             *minimun,
+                                                    gint             *minimum,
                                                     gint             *natural);
 static void     buoh_comic_list_size_allocate      (GtkWidget        *widget,
                                                     GtkAllocation    *allocation);
@@ -176,25 +176,25 @@ buoh_comic_list_finalize (GObject *object)
 
 static void
 buoh_comic_list_get_preferred_width (GtkWidget *widget,
-                                     gint      *minimun,
+                                     gint      *minimum,
                                      gint      *natural)
 {
         GtkBin    *bin = GTK_BIN (widget);
         GtkWidget *child;
-        gint       child_minimun;
+        gint       child_minimum;
         gint       child_natural;
 
         child = gtk_bin_get_child (bin);
 
         if (child && gtk_widget_get_visible (child)) {
                 gtk_widget_get_preferred_width (child,
-                                                &child_minimun,
+                                                &child_minimum,
                                                 &child_natural);
                 /* we need some extra size */
-                *minimun = child_minimun + 100;
+                *minimum = child_minimum + 100;
                 *natural = child_natural + 100;
         } else {
-                *minimun = 0;
+                *minimum = 0;
                 *natural = 0;
         }
 }
