@@ -238,13 +238,6 @@
     <restrict>6</restrict>
     <restrict>7</restrict>
   </comic>
-  <comic author="Obsidian" class="date" first="2004-09-10" generic_uri="http://www.commissionedcomic.com/strips/%Y-%m-%d.jpg" id="commisioned" language="English" title="Commissioned">
-    <restrict>2</restrict>
-    <restrict>3</restrict>
-    <restrict>5</restrict>
-    <restrict>6</restrict>
-    <restrict>7</restrict>
-  </comic>
   <comic author="Brant Parker &amp; Johnny Hart" class="date" first="2002-08-12" generic_uri="http://picayune.uclick.com/comics/crwiz/%Y/crwiz%y%m%d.gif" id="crwiz" language="English" title="Wizard of Id"/>
   <comic author="Jonathan Rosenberg" class="date" first="1997-04-30" generic_uri="http://www.goats.com/comix/%y%m/goats%y%m%d.png" id="goats" language="English" title="Goats">
     <restrict>5</restrict>
