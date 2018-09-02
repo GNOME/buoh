@@ -195,7 +195,6 @@ buoh_comic_loader_job_new (const gchar             *uri,
                            BuohComicLoaderLoadFunc  callback,
                            gpointer                 gdata)
 {
-        const gchar        *proxy_uri;
         BuohComicLoaderJob *job;
 
         job = g_object_new (BUOH_TYPE_COMIC_LOADER_JOB, NULL);
@@ -204,16 +203,7 @@ buoh_comic_loader_job_new (const gchar             *uri,
         job->callback = callback;
         job->callback_data = gdata;
 
-        proxy_uri = buoh_get_http_proxy_uri (BUOH);
-        if (proxy_uri) {
-                SoupURI *soup_uri = soup_uri_new (proxy_uri);
-
-                job->session = soup_session_sync_new_with_options (SOUP_SESSION_PROXY_URI, soup_uri, NULL);
-
-                soup_uri_free (soup_uri);
-        } else {
-                job->session = soup_session_sync_new ();
-        }
+        job->session = soup_session_new ();
 
         return job;
 }

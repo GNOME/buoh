@@ -64,7 +64,6 @@ void          buoh_exit_app           (Buoh        *buoh);
 void          buoh_create_main_window (Buoh        *buoh);
 GtkTreeModel *buoh_get_comics_model   (Buoh        *buoh);
 const gchar  *buoh_get_datadir        (Buoh        *buoh);
-const gchar  *buoh_get_http_proxy_uri (Buoh        *buoh);
 
 void          buoh_debug              (const gchar *format,
                                        ...);
