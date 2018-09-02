@@ -34,12 +34,10 @@ main (gint argc, gchar **argv)
 {
         Buoh *buoh;
 
-#ifdef ENABLE_NLS
         /* Initialize the i18n stuff */
         bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
-#endif
 
         gtk_init (&argc, &argv);
 
