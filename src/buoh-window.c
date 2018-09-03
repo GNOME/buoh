@@ -147,8 +147,6 @@ static void buoh_window_cmd_go_first                    (GtkAction        *actio
                                                          gpointer          gdata);
 static void buoh_window_cmd_go_last                     (GtkAction        *action,
                                                          gpointer          gdata);
-static void buoh_window_cmd_help_contents               (GtkAction        *action,
-                                                         gpointer          gdata);
 static void buoh_window_cmd_help_about                  (GtkAction        *action,
                                                          gpointer          gdata);
 
@@ -209,9 +207,6 @@ static const GtkActionEntry menu_entries[] = {
           G_CALLBACK (buoh_window_cmd_go_last) },
 
         /* Help menu */
-        { "HelpContents", GTK_STOCK_HELP, N_("_Contents"), "F1",
-          N_("Display help for the Buoh online comic reader"),
-          G_CALLBACK (buoh_window_cmd_help_contents) },
         { "HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL,
           N_("Display credits for the Buoh online comic reader creators"),
           G_CALLBACK (buoh_window_cmd_help_about) }
@@ -824,12 +819,6 @@ buoh_window_cmd_go_last (GtkAction *action, gpointer gdata)
         comic = buoh_comic_manager_get_last (comic_manager);
 
         buoh_view_set_comic (window->priv->view, comic);
-}
-
-static void
-buoh_window_cmd_help_contents (GtkAction *action, gpointer gdata)
-{
-        /* TODO */
 }
 
 static void

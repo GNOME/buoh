@@ -28,7 +28,6 @@
       <menuitem action="GoLast" name="GoLastMenu"/>
     </menu>
     <menu action="Help" name="HelpMenu">
-      <menuitem action="HelpContents" name="HelpContentsMenu"/>
       <menuitem action="HelpAbout" name="HelpAboutMenu"/>
     </menu>
   </menubar>
