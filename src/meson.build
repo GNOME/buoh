@@ -19,8 +19,17 @@ sources = files(
   'main.c',
 )
 
+sources += gnome.compile_resources(
+  'buoh-resources',
+  join_paths(data_dir, 'org.gnome.buoh.gresource.xml'),
+  source_dir: [
+    data_dir,
+  ],
+  c_name: 'buoh',
+  export: true,
+)
+
 cflags = [
-  '-DUI_DIR="@0@"'.format(uidir),
   '-DCOMICS_DIR="@0@"'.format(comicsdir),
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
   '-DVERSION="@0@"'.format(meson.project_version()),

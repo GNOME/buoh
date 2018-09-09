@@ -1,8 +1,3 @@
-install_data(
-  'buoh-ui.xml',
-  install_dir: uidir,
-)
-
 desktop = 'buoh.desktop'
 i18n.merge_file(
   desktop,

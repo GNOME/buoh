@@ -8,6 +8,7 @@ project(
 gnome = import('gnome')
 i18n = import('i18n')
 python3 = import('python3')
+data_dir = join_paths(meson.source_root(), 'data')
 po_dir = join_paths(meson.source_root(), 'po')
 
 prefix = get_option('prefix')
@@ -18,7 +19,6 @@ localedir = join_paths(prefix, get_option('localedir'))
 pkgdatadir = join_paths(datadir, meson.project_name())
 schemadir = join_paths(datadir, 'glib-2.0', 'schemas')
 comicsdir = join_paths(pkgdatadir, 'comics')
-uidir = join_paths(pkgdatadir, 'ui')
 
 # Dependencies
 gtk = dependency('gtk+-3.0', version: '>= 3.22.0')

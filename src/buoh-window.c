@@ -277,9 +277,9 @@ buoh_window_init (BuohWindow *buoh_window)
         accel_group = gtk_ui_manager_get_accel_group (buoh_window->priv->ui_manager);
         gtk_window_add_accel_group (GTK_WINDOW (buoh_window), accel_group);
 
-        if (!gtk_ui_manager_add_ui_from_file (buoh_window->priv->ui_manager,
-                                              UI_DIR"/buoh-ui.xml",
-                                              &error)) {
+        if (!gtk_ui_manager_add_ui_from_resource (buoh_window->priv->ui_manager,
+                                                  "/org/gnome/buoh/buoh-ui.xml",
+                                                  &error)) {
                 buoh_debug ("Could not merge buoh-ui.xml: %s", error->message);
                 g_error_free (error);
         }
