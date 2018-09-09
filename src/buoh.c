@@ -67,7 +67,7 @@ G_DEFINE_TYPE (Buoh, buoh, G_TYPE_OBJECT)
 void
 buoh_debug (const gchar *format, ...)
 {
-#ifdef GNOME_ENABLE_DEBUG
+#ifdef NDEBUG
         va_list  args;
         gchar   *string;
 
