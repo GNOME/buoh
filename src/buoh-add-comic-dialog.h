@@ -38,6 +38,8 @@ typedef struct _BuohAddComicDialogPrivate BuohAddComicDialogPrivate;
 struct _BuohAddComicDialog {
         GtkDialog                  parent;
         BuohAddComicDialogPrivate *priv;
+        GtkWidget                 *selected_label;
+        GtkWidget                 *tree_view;
 };
 
 struct _BuohAddComicDialogClass {
