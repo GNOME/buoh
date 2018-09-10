@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <template class="BuohAddComicDialog" parent="GtkDialog">
+    <property name="border-width">5</property>
+    <property name="title" translatable="yes">Add Comic</property>
+    <property name="default-width">400</property>
+    <property name="default-height">300</property>
+    <property name="destroy-with-parent">1</property>
+    <property name="type-hint">dialog</property>
+    <signal name="response" handler="gtk_widget_destroy" swapped="no"/>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="spacing">12</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="layout-style">end</property>
+            <child>
+              <object class="GtkButton" id="close">
+                <property name="label" translatable="yes">_Close</property>
+                <property name="visible">1</property>
+                <property name="can-focus">1</property>
+                <property name="receives-default">1</property>
+                <property name="use-underline">1</property>
+              </object>
+              <packing>
+                <property name="expand">1</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="fill">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame">
+            <property name="visible">1</property>
+            <property name="shadow-type">none</property>
+            <child>
+              <object class="GtkAlignment">
+                <property name="visible">1</property>
+                <property name="left-padding">12</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">1</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">12</property>
+                    <child>
+                      <object class="GtkScrolledWindow">
+                        <property name="visible">1</property>
+                        <property name="can-focus">1</property>
+                        <property name="vexpand">1</property>
+                        <property name="shadow-type">in</property>
+                        <child>
+                          <object class="GtkTreeView" id="tree_view">
+                            <property name="visible">1</property>
+                            <property name="can-focus">1</property>
+                            <property name="rules-hint">1</property>
+                            <property name="search-column">2</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection"/>
+                            </child>
+                            <child>
+                              <object class="GtkTreeViewColumn" id="active">
+                                <child>
+                                  <object class="GtkCellRendererToggle" id="active_cell">
+                                    <signal name="toggled" handler="buoh_add_comic_toggled_cb" swapped="no"/>
+                                  </object>
+                                  <attributes>
+                                    <attribute name="active">0</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkTreeViewColumn" id="title">
+                                <property name="title" translatable="yes">Title</property>
+                                <child>
+                                  <object class="GtkCellRendererText" id="title_cell">
+                                    <property name="xalign">0</property>
+                                    <property name="ellipsize">end</property>
+                                    <property name="width-chars">20</property>
+                                  </object>
+                                  <attributes>
+                                    <attribute name="text">1</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkTreeViewColumn" id="author">
+                                <property name="title" translatable="yes">Author</property>
+                                <child>
+                                  <object class="GtkCellRendererText" id="author_cell">
+                                    <property name="xalign">0</property>
+                                    <property name="ellipsize">end</property>
+                                    <property name="width-chars">20</property>
+                                  </object>
+                                  <attributes>
+                                    <attribute name="text">2</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="selected_label">
+                        <property name="visible">1</property>
+                        <property name="label" translatable="yes">Comics selected: %d</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="fill">0</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel">
+                <property name="visible">1</property>
+                <property name="label" translatable="yes">&lt;b&gt;Select Comics&lt;/b&gt;</property>
+                <property name="use-markup">1</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">1</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">close</action-widget>
+    </action-widgets>
+  </template>
+</interface>
