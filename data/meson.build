@@ -1,4 +1,5 @@
 ui_files = files(
+  'ui/add-comic-dialog.ui',
   'ui/properties-dialog.ui',
 )
 if gtk_builder_tool.found()
