@@ -324,8 +324,9 @@ buoh_comic_loader_load_comic (BuohComicLoader *loader,
                                                        callback, gdata);
         loader->priv->job->loader = loader;
 
-        g_thread_create ((GThreadFunc) buoh_comic_loader_job_run,
-                         loader->priv->job, FALSE, NULL);
+        g_thread_new ("comic_loader",
+                      (GThreadFunc) buoh_comic_loader_job_run,
+                      loader->priv->job);
 }
 
 void
