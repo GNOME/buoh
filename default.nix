@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   name = "buoh";
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gettext python3 wrapGAppsHook
+    meson ninja pkgconfig gettext python3 xvfb_run wrapGAppsHook
   ];
 
   buildInputs = [
@@ -56,6 +56,12 @@ stdenv.mkDerivation rec {
     else
       with builtins; filterSource
         (path: _: !elem (baseNameOf path) [ ".git" "result" ]) ./.;
+
+  checkPhase = ''
+    export NO_AT_BRIDGE=1
+    xvfb-run -s '-screen 0 800x600x24' \
+      meson test --print-errorlogs
+  '';
 
   inherit doCheck;
 }
