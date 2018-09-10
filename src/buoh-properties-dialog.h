@@ -41,6 +41,13 @@ typedef struct _BuohPropertiesDialogPrivate BuohPropertiesDialogPrivate;
 struct _BuohPropertiesDialog {
         GtkDialog                   parent;
         BuohPropertiesDialogPrivate *priv;
+        GtkWidget                   *title;
+        GtkWidget                   *author;
+        GtkWidget                   *uri;
+        GtkWidget                   *language;
+        GtkWidget                   *date;
+        GtkWidget                   *publication_days;
+        GtkWidget                   *thumbnail;
 };
 
 struct _BuohPropertiesDialogClass {
