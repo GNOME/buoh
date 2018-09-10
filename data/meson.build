@@ -1,3 +1,17 @@
+ui_files = files(
+  'ui/properties-dialog.ui',
+)
+if (gtk_builder_tool.found())
+  foreach ui : ui_files
+    test(
+      'Validating @0@'.format(ui),
+      gtk_builder_tool,
+      args: ['validate', ui],
+      workdir: meson.current_build_dir(),
+    )
+  endforeach
+endif
+
 desktop = 'buoh.desktop'
 i18n.merge_file(
   desktop,
