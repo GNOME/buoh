@@ -202,7 +202,8 @@ buoh_comic_manager_new (const gchar *type,
                 g_warning ("Invalid type %s for BuohComicManager (id: %s)\n",
                            type, id);
                 return NULL;
-        }}
+        }
+}
 
 
 static void
