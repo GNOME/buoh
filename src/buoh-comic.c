@@ -174,7 +174,7 @@ buoh_comic_new_with_info (const gchar *id, const gchar *uri,
 
         comic = BUOH_COMIC (g_object_new (BUOH_TYPE_COMIC,
                                           "id", id,
-                                                "uri", uri,
+                                          "uri", uri,
                                           "date", date, NULL));
 
         return comic;

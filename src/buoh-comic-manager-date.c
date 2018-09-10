@@ -52,14 +52,14 @@ struct _BuohComicManagerDatePrivate {
 };
 
 static const gchar *day_names[] = {
-         NULL,
-         N_("Monday"),
-         N_("Tuesday"),
-         N_("Wednesday"),
-         N_("Thursday"),
-         N_("Friday"),
-         N_("Saturday"),
-         N_("Sunday")
+        NULL,
+        N_("Monday"),
+        N_("Tuesday"),
+        N_("Wednesday"),
+        N_("Thursday"),
+        N_("Friday"),
+        N_("Saturday"),
+        N_("Sunday")
 };
 
 G_DEFINE_TYPE (BuohComicManagerDate, buoh_comic_manager_date, BUOH_TYPE_COMIC_MANAGER)
@@ -478,7 +478,7 @@ buoh_comic_manager_date_get_publication_days (BuohComicManagerDate *comic_manage
 
         aux = g_string_new ("");
 
-         for (i = G_DATE_MONDAY; i <= G_DATE_SUNDAY; i++) {
+        for (i = G_DATE_MONDAY; i <= G_DATE_SUNDAY; i++) {
                 if (comic_manager->priv->publications[i]) {
                         if (!prev) {
                                 if (aux->len) {
