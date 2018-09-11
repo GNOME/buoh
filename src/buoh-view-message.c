@@ -50,7 +50,7 @@ buoh_view_message_init (BuohViewMessage *m_view)
 
         m_view->priv = BUOH_VIEW_MESSAGE_GET_PRIVATE (m_view);
 
-        vbox = gtk_vbox_new (FALSE, 24);
+        vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 24);
 
         m_view->priv->title = gtk_label_new (NULL);
         gtk_label_set_line_wrap (GTK_LABEL (m_view->priv->title), TRUE);
@@ -68,7 +68,7 @@ buoh_view_message_init (BuohViewMessage *m_view)
                             TRUE, TRUE, 0);
         gtk_widget_show (m_view->priv->text);
 
-        hbox = gtk_hbox_new (FALSE, 24);
+        hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 24);
         gtk_container_set_border_width (GTK_CONTAINER (hbox), 24);
 
         m_view->priv->icon = gtk_image_new_from_stock (NULL, GTK_ICON_SIZE_DIALOG);

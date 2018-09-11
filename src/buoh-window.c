@@ -256,7 +256,7 @@ buoh_window_init (BuohWindow *buoh_window)
         buoh_window->priv->buoh_settings = g_settings_new (GS_BUOH_SCHEMA);
         buoh_window->priv->lockdown_settings = g_settings_new (GS_LOCKDOWN_SCHEMA);
 
-        vbox = gtk_vbox_new (FALSE, 0);
+        vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
         /* Menu bar */
         action_group = gtk_action_group_new ("MenuActions");
@@ -322,7 +322,7 @@ buoh_window_init (BuohWindow *buoh_window)
                       NULL);
 
         /* Pane */
-        paned = gtk_hpaned_new ();
+        paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
         /* FIXME: Remember side position */
         gtk_paned_set_position (GTK_PANED (paned), 230);
 
@@ -1104,9 +1104,8 @@ buoh_window_comic_list_button_press_cb (GtkWidget *widget, GdkEventButton *event
                 if (gtk_tree_selection_get_selected (selection, NULL, NULL)) {
                         popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ListPopup");
 
-                        gtk_menu_popup (GTK_MENU (popup), NULL,
-                                        NULL, NULL, NULL,
-                                        event->button, event->time);
+                        gtk_menu_popup_at_pointer (GTK_MENU (popup),
+                                                   (const GdkEvent *) event);
                         return TRUE;
                 }
         }
@@ -1130,9 +1129,8 @@ buoh_window_comic_list_key_press_cb (GtkWidget *widget, GdkEventKey *event, gpoi
                 if (gtk_tree_selection_get_selected (selection, NULL, NULL)) {
                         popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ListPopup");
 
-                        gtk_menu_popup (GTK_MENU (popup), NULL,
-                                        NULL, NULL, NULL,
-                                        0, event->time);
+                        gtk_menu_popup_at_pointer (GTK_MENU (popup),
+                                                   (const GdkEvent *) event);
                         return TRUE;
                 }
         }
@@ -1170,9 +1168,8 @@ buoh_window_comic_view_button_press_cb (GtkWidget *widget, GdkEventButton *event
         if (event->button == 3) {
                 popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ViewPopup");
 
-                gtk_menu_popup (GTK_MENU (popup), NULL,
-                                NULL, NULL, NULL,
-                                event->button, event->time);
+                gtk_menu_popup_at_pointer (GTK_MENU (popup),
+                                           (const GdkEvent *) event);
                 return TRUE;
         }
 
@@ -1199,9 +1196,8 @@ buoh_window_comic_view_key_press_cb (GtkWidget *widget, GdkEventKey *event, gpoi
             event->keyval == GDK_KEY_F10) {
                 popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ViewPopup");
 
-                gtk_menu_popup (GTK_MENU (popup), NULL,
-                                NULL, NULL, NULL,
-                                0, event->time);
+                gtk_menu_popup_at_pointer (GTK_MENU (popup),
+                                           (const GdkEvent *) event);
 
                 return TRUE;
         }
