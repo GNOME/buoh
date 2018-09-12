@@ -127,8 +127,10 @@
             <child type="label">
               <object class="GtkLabel">
                 <property name="visible">1</property>
-                <property name="label" translatable="yes">&lt;b&gt;Select Comics&lt;/b&gt;</property>
-                <property name="use-markup">1</property>
+                <property name="label" translatable="yes">Select Comics</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
             </child>
           </object>
