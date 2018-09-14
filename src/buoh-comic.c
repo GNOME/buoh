@@ -46,9 +46,6 @@ struct _BuohComicPrivate {
         BuohComicCache *cache;
 };
 
-#define BUOH_COMIC_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC, BuohComicPrivate))
-
 static void buoh_comic_init         (BuohComic      *buoh_comic);
 static void buoh_comic_class_init   (BuohComicClass *klass);
 static void buoh_comic_finalize     (GObject        *object);
@@ -61,12 +58,12 @@ static void buoh_comic_set_property (GObject        *object,
                                      const GValue   *value,
                                      GParamSpec     *pspec);
 
-G_DEFINE_TYPE (BuohComic, buoh_comic, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohComic, buoh_comic, G_TYPE_OBJECT)
 
 static void
 buoh_comic_init (BuohComic *buoh_comic)
 {
-        buoh_comic->priv = BUOH_COMIC_GET_PRIVATE (buoh_comic);
+        buoh_comic->priv = buoh_comic_get_instance_private (buoh_comic);
 
         buoh_comic->priv->id = NULL;
         buoh_comic->priv->uri = NULL;
@@ -79,8 +76,6 @@ static void
 buoh_comic_class_init (BuohComicClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-        g_type_class_add_private (klass, sizeof (BuohComicPrivate));
 
         object_class->set_property = buoh_comic_set_property;
         object_class->get_property = buoh_comic_get_property;

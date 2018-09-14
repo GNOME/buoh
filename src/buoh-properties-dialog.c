@@ -32,18 +32,15 @@ struct _BuohPropertiesDialogPrivate {
         BuohComicManager *comic_manager;
 };
 
-#define BUOH_PROPERTIES_DIALOG_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_PROPERTIES_DIALOG, BuohPropertiesDialogPrivate))
-
 static void buoh_properties_dialog_init       (BuohPropertiesDialog      *dialog);
 static void buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass);
 
-G_DEFINE_TYPE (BuohPropertiesDialog, buoh_properties_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohPropertiesDialog, buoh_properties_dialog, GTK_TYPE_DIALOG)
 
 static void
 buoh_properties_dialog_init (BuohPropertiesDialog *dialog)
 {
-        dialog->priv = BUOH_PROPERTIES_DIALOG_GET_PRIVATE (dialog);
+        dialog->priv = buoh_properties_dialog_get_instance_private (dialog);
 
         gtk_widget_init_template (GTK_WIDGET (dialog));
 }
@@ -52,8 +49,6 @@ static void
 buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass)
 {
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-        g_type_class_add_private (klass, sizeof (BuohPropertiesDialogPrivate));
 
         gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/properties-dialog.ui");
 

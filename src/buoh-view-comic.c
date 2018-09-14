@@ -55,9 +55,6 @@ static const GtkTargetEntry targets[] = {
         { "x-url/http",    0, 0 }
 };
 
-#define BUOH_VIEW_COMIC_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_VIEW_COMIC, BuohViewComicPrivate))
-
 #define ZOOM_IN_FACTOR  1.2
 #define ZOOM_OUT_FACTOR (1.0 / ZOOM_IN_FACTOR)
 
@@ -112,14 +109,14 @@ static void     buoh_view_comic_zoom                  (BuohViewComic    *c_view,
                                                        gdouble           factor,
                                                        gboolean          relative);
 
-G_DEFINE_TYPE (BuohViewComic, buoh_view_comic, GTK_TYPE_VIEWPORT)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohViewComic, buoh_view_comic, GTK_TYPE_VIEWPORT)
 
 static void
 buoh_view_comic_init (BuohViewComic *c_view)
 {
         gtk_widget_set_can_focus (GTK_WIDGET (c_view), TRUE);
 
-        c_view->priv = BUOH_VIEW_COMIC_GET_PRIVATE (c_view);
+        c_view->priv = buoh_view_comic_get_instance_private (c_view);
 
         c_view->priv->zoom_mode = VIEW_ZOOM_FIT_WIDTH;
         c_view->priv->scale = 1.0;
@@ -190,8 +187,6 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
                                                               G_MAXDOUBLE,
                                                               1.0,
                                                               G_PARAM_READWRITE));
-
-        g_type_class_add_private (klass, sizeof (BuohViewComicPrivate));
 
         object_class->finalize = buoh_view_comic_finalize;
         object_class->dispose = buoh_view_comic_dispose;

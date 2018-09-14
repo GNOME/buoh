@@ -38,21 +38,18 @@ struct _BuohComicCachePrivate {
         gchar      *current_uri;
 };
 
-#define BUOH_COMIC_CACHE_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC_CACHE, BuohComicCachePrivate))
-
 #define CACHE_SIZE 1048576 /* 1MB */
 
 static void buoh_comic_cache_init       (BuohComicCache *buoh_comic_cache);
 static void buoh_comic_cache_class_init (BuohComicCacheClass *klass);
 static void buoh_comic_cache_finalize   (GObject *object);
 
-G_DEFINE_TYPE (BuohComicCache, buoh_comic_cache, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohComicCache, buoh_comic_cache, G_TYPE_OBJECT)
 
 static void
 buoh_comic_cache_init (BuohComicCache *buoh_comic_cache)
 {
-        buoh_comic_cache->priv = BUOH_COMIC_CACHE_GET_PRIVATE (buoh_comic_cache);
+        buoh_comic_cache->priv = buoh_comic_cache_get_instance_private (buoh_comic_cache);
 
         buoh_comic_cache->priv->cache_dir =
                 g_build_filename (buoh_get_datadir (BUOH), "cache", NULL);
@@ -68,8 +65,6 @@ static void
 buoh_comic_cache_class_init (BuohComicCacheClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-        g_type_class_add_private (klass, sizeof (BuohComicCachePrivate));
 
         object_class->finalize = buoh_comic_cache_finalize;
 }
