@@ -1,5 +1,6 @@
 ui_files = files(
   'ui/add-comic-dialog.ui',
+  'ui/comic-list.ui',
   'ui/properties-dialog.ui',
   'ui/view-comic.ui',
   'ui/view-message.ui',
