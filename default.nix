@@ -63,5 +63,8 @@ stdenv.mkDerivation rec {
       meson test --print-errorlogs
   '';
 
+  # Hardening does not work in debug mode
+  hardeningDisable = optionals shell [ "all" ];
+
   inherit doCheck;
 }
