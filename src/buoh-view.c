@@ -50,9 +50,6 @@ struct _BuohViewPrivate {
         BuohViewStatus   status;
 };
 
-#define BUOH_VIEW_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_VIEW, BuohViewPrivate))
-
 static guint buoh_view_signals[N_SIGNALS];
 
 static void     buoh_view_init               (BuohView       *buoh_view);
@@ -75,7 +72,7 @@ static void     buoh_view_scale_changed_cb   (GObject        *object,
                                               GParamSpec     *arg,
                                               gpointer        gdata);
 
-G_DEFINE_TYPE (BuohView, buoh_view, GTK_TYPE_NOTEBOOK)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohView, buoh_view, GTK_TYPE_NOTEBOOK)
 
 GType
 buoh_view_status_get_type (void)
@@ -125,7 +122,7 @@ buoh_view_init (BuohView *buoh_view)
 
         gtk_widget_set_can_focus (GTK_WIDGET (buoh_view), TRUE);
 
-        buoh_view->priv = BUOH_VIEW_GET_PRIVATE (buoh_view);
+        buoh_view->priv = buoh_view_get_instance_private (buoh_view);
 
         buoh_view->priv->status = STATE_MESSAGE_WELCOME;
 
@@ -200,8 +197,6 @@ buoh_view_class_init (BuohViewClass *klass)
 
         widget_class->grab_focus = buoh_view_grab_focus;
         widget_class->button_press_event = buoh_view_button_press_event;
-
-        g_type_class_add_private (klass, sizeof (BuohViewPrivate));
 
         /* Properties */
         g_object_class_install_property (object_class,

@@ -31,13 +31,10 @@ struct _BuohViewMessagePrivate {
         GtkWidget *icon;
 };
 
-#define BUOH_VIEW_MESSAGE_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_VIEW_MESSAGE, BuohViewMessagePrivate))
-
 static void buoh_view_message_init          (BuohViewMessage *m_view);
 static void buoh_view_message_class_init    (BuohViewMessageClass *klass);
 
-G_DEFINE_TYPE (BuohViewMessage, buoh_view_message, GTK_TYPE_VIEWPORT)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohViewMessage, buoh_view_message, GTK_TYPE_VIEWPORT)
 
 static void
 buoh_view_message_init (BuohViewMessage *m_view)
@@ -48,7 +45,7 @@ buoh_view_message_init (BuohViewMessage *m_view)
 
         gtk_widget_set_can_focus (GTK_WIDGET (m_view), TRUE);
 
-        m_view->priv = BUOH_VIEW_MESSAGE_GET_PRIVATE (m_view);
+        m_view->priv = buoh_view_message_get_instance_private (m_view);
 
         vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 24);
 
@@ -94,7 +91,6 @@ buoh_view_message_init (BuohViewMessage *m_view)
 static void
 buoh_view_message_class_init (BuohViewMessageClass *klass)
 {
-        g_type_class_add_private (klass, sizeof (BuohViewMessagePrivate));
 }
 
 GtkWidget *

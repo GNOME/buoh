@@ -53,9 +53,6 @@ struct _BuohWindowPrivate {
         GSettings      *lockdown_settings;
 };
 
-#define BUOH_WINDOW_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_WINDOW, BuohWindowPrivate))
-
 #define GS_BUOH_SCHEMA     "org.gnome.buoh"
 #define GS_SHOW_TOOLBAR           "show-toolbar"
 #define GS_SHOW_STATUSBAR  "show-statusbar"
@@ -229,7 +226,7 @@ static const GtkToggleActionEntry menu_toggle_entries[] = {
           G_CALLBACK (buoh_window_cmd_view_zoom_fit_width) }
 };
 
-G_DEFINE_TYPE (BuohWindow, buoh_window, GTK_TYPE_WINDOW)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohWindow, buoh_window, GTK_TYPE_WINDOW)
 
 static void
 buoh_window_init (BuohWindow *buoh_window)
@@ -246,7 +243,7 @@ buoh_window_init (BuohWindow *buoh_window)
         gboolean          visible_statusbar;
         BuohViewZoomMode  zoom_mode;
 
-        buoh_window->priv = BUOH_WINDOW_GET_PRIVATE (buoh_window);
+        buoh_window->priv = buoh_window_get_instance_private (buoh_window);
 
         gtk_window_set_title (GTK_WINDOW (buoh_window), "Buoh");
         gtk_window_set_icon_name (GTK_WINDOW (buoh_window), "buoh");
@@ -399,8 +396,6 @@ static void
 buoh_window_class_init (BuohWindowClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-        g_type_class_add_private (klass, sizeof (BuohWindowPrivate));
 
         object_class->finalize = buoh_window_finalize;
 }
