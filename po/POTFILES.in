@@ -4,6 +4,7 @@ data/buoh.desktop.in
 data/org.gnome.buoh.gschema.xml
 data/ui/add-comic-dialog.ui
 data/ui/properties-dialog.ui
+data/ui/view-message.ui
 src/buoh-add-comic-dialog.c
 src/buoh-comic-list.c
 src/buoh-comic-manager-date.c
