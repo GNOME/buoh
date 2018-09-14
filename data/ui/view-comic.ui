@@ -10,7 +10,7 @@
     <child>
       <object class="GtkImage" id="image">
         <property name="visible">1</property>
-        <property name="stock">gtk-missing-image</property>
+        <property name="icon-name">image-missing</property>
       </object>
     </child>
   </template>
