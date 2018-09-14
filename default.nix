@@ -41,6 +41,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     meson ninja pkgconfig gettext python3 xvfb_run wrapGAppsHook
+    gtk-doc docbook_xsl
   ];
 
   buildInputs = [
