@@ -1,0 +1,33 @@
+<book id="index" version="5.0" xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <bookinfo>
+    <title>Buoh Reference Manual</title>
+    <releaseinfo>for Buoh @BUOH_VERSION@</releaseinfo>
+  </bookinfo>
+  <chapter id="buoh">
+    <title>Buoh Overview</title>
+    <para>Buoh is a comic strip viewer for GNOME.</para>
+  </chapter>
+  <chapter id="buoh-data-types">
+    <title>Buoh Data Types</title>
+    <xi:include xlink:href="xml/buoh-add-comic-dialog.xml"/>
+    <xi:include xlink:href="xml/buoh-application.xml"/>
+    <xi:include xlink:href="xml/buoh-comic-cache.xml"/>
+    <xi:include xlink:href="xml/buoh-comic-list.xml"/>
+    <xi:include xlink:href="xml/buoh-comic-loader.xml"/>
+    <xi:include xlink:href="xml/buoh-comic-manager-date.xml"/>
+    <xi:include xlink:href="xml/buoh-comic-manager.xml"/>
+    <xi:include xlink:href="xml/buoh-comic.xml"/>
+    <xi:include xlink:href="xml/buoh-properties-dialog.xml"/>
+    <xi:include xlink:href="xml/buoh-settings.xml"/>
+    <xi:include xlink:href="xml/buoh-view-comic.xml"/>
+    <xi:include xlink:href="xml/buoh-view-message.xml"/>
+    <xi:include xlink:href="xml/buoh-view.xml"/>
+    <xi:include xlink:href="xml/buoh-window.xml"/>
+  </chapter>
+  <index id="api-index-full">
+    <title>Index</title>
+    <xi:include xlink:href="xml/api-index-full.xml">
+      <xi:fallback/>
+    </xi:include>
+  </index>
+</book>
