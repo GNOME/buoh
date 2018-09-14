@@ -39,58 +39,21 @@ G_DEFINE_TYPE_WITH_PRIVATE (BuohViewMessage, buoh_view_message, GTK_TYPE_VIEWPOR
 static void
 buoh_view_message_init (BuohViewMessage *m_view)
 {
-        GtkWidget *align;
-        GtkWidget *hbox;
-        GtkWidget *vbox;
-
-        gtk_widget_set_can_focus (GTK_WIDGET (m_view), TRUE);
-
         m_view->priv = buoh_view_message_get_instance_private (m_view);
 
-        vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 24);
-
-        m_view->priv->title = gtk_label_new (NULL);
-        gtk_label_set_line_wrap (GTK_LABEL (m_view->priv->title), TRUE);
-        gtk_label_set_selectable (GTK_LABEL (m_view->priv->title), TRUE);
-        gtk_misc_set_alignment (GTK_MISC  (m_view->priv->title), 0.5, 0.0);
-        gtk_box_pack_start (GTK_BOX (vbox), m_view->priv->title,
-                            FALSE, FALSE, 0);
-        gtk_widget_show (m_view->priv->title);
-
-        m_view->priv->text = gtk_label_new (NULL);
-        gtk_label_set_line_wrap (GTK_LABEL (m_view->priv->text), TRUE);
-        gtk_label_set_selectable (GTK_LABEL (m_view->priv->text), TRUE);
-        gtk_misc_set_alignment (GTK_MISC  (m_view->priv->text), 0.5, 0.5);
-        gtk_box_pack_start (GTK_BOX (vbox), m_view->priv->text,
-                            TRUE, TRUE, 0);
-        gtk_widget_show (m_view->priv->text);
-
-        hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 24);
-        gtk_container_set_border_width (GTK_CONTAINER (hbox), 24);
-
-        m_view->priv->icon = gtk_image_new_from_stock (NULL, GTK_ICON_SIZE_DIALOG);
-        gtk_misc_set_alignment (GTK_MISC (m_view->priv->icon), 0.5, 0.0);
-        gtk_box_pack_start (GTK_BOX (hbox), m_view->priv->icon,
-                            TRUE, FALSE, 0);
-        gtk_widget_show (m_view->priv->icon);
-
-        gtk_box_pack_start (GTK_BOX (hbox), vbox,
-                            TRUE, TRUE, 0);
-        gtk_widget_show (vbox);
-
-        align = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
-        gtk_container_add (GTK_CONTAINER (align), hbox);
-        gtk_widget_show (hbox);
-
-        gtk_container_add (GTK_CONTAINER (m_view), align);
-        gtk_widget_show (align);
-
-        gtk_widget_show (GTK_WIDGET (m_view));
+        gtk_widget_init_template (GTK_WIDGET (m_view));
 }
 
 static void
 buoh_view_message_class_init (BuohViewMessageClass *klass)
 {
+        GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+        gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/view-message.ui");
+
+        gtk_widget_class_bind_template_child_private (widget_class, BuohViewMessage, title);
+        gtk_widget_class_bind_template_child_private (widget_class, BuohViewMessage, text);
+        gtk_widget_class_bind_template_child_private (widget_class, BuohViewMessage, icon);
 }
 
 GtkWidget *
@@ -98,46 +61,17 @@ buoh_view_message_new (void)
 {
         GtkWidget *m_view;
 
-        m_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW_MESSAGE,
-                                           "border-width", 24,
-                                           "shadow-type", GTK_SHADOW_IN,
-                                           NULL));
+        m_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW_MESSAGE, NULL));
         return m_view;
 }
 
 void
 buoh_view_message_set_title (BuohViewMessage *m_view, const gchar *title)
 {
-        gint                        size;
-        GtkStyleContext            *style;
-        const PangoFontDescription *font_desc;
-        PangoFontDescription       *font_desc_new;
-
         g_return_if_fail (BUOH_IS_VIEW_MESSAGE (m_view));
         g_return_if_fail (title != NULL);
 
         gtk_label_set_text (GTK_LABEL (m_view->priv->title), title);
-
-        /* unset the font settings */
-        gtk_widget_override_font (m_view->priv->title, NULL);
-
-        style = gtk_widget_get_style_context (m_view->priv->title);
-        font_desc = gtk_style_context_get_font (style,
-                                                GTK_STATE_FLAG_NORMAL);
-        size = pango_font_description_get_size (font_desc);
-
-        font_desc_new = pango_font_description_new ();
-
-        pango_font_description_set_weight (font_desc_new,
-                                           PANGO_WEIGHT_BOLD);
-        pango_font_description_set_size (font_desc_new,
-                                         size * PANGO_SCALE_X_LARGE);
-
-        gtk_widget_override_font (m_view->priv->title, font_desc_new);
-
-        pango_font_description_free (font_desc_new);
-
-        gtk_widget_show (m_view->priv->title);
 }
 
 void
@@ -147,38 +81,13 @@ buoh_view_message_set_text (BuohViewMessage *m_view, const gchar *text)
         g_return_if_fail (text != NULL);
 
         gtk_label_set_markup (GTK_LABEL (m_view->priv->text), text);
-
-        gtk_widget_show (m_view->priv->text);
 }
 
 void
 buoh_view_message_set_icon (BuohViewMessage *m_view, const gchar *icon)
 {
-        GdkPixbuf           *pixbuf = NULL;
-        GError              *error = NULL;
-        static GtkIconTheme *icon_theme = NULL;
-
         g_return_if_fail (BUOH_IS_VIEW_MESSAGE (m_view));
         g_return_if_fail (icon != NULL);
 
-        if (!icon_theme) {
-                icon_theme = gtk_icon_theme_get_default ();
-        }
-
-        pixbuf = gtk_icon_theme_load_icon (icon_theme,
-                                           icon,
-                                           64,
-                                           0,
-                                           &error);
-        if (error) {
-                g_warning ("%s", error->message);
-                g_error_free (error);
-
-                return;
-        }
-
-        if (pixbuf) {
-                gtk_image_set_from_pixbuf (GTK_IMAGE (m_view->priv->icon), pixbuf);
-                g_object_unref (pixbuf);
-        }
+        gtk_image_set_from_icon_name (GTK_IMAGE (m_view->priv->icon), icon, GTK_ICON_SIZE_DIALOG);
 }

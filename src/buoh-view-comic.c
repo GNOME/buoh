@@ -652,7 +652,7 @@ buoh_view_comic_load_finished (BuohViewComic *c_view,
                 g_error_free (error);
 
                 buoh_view_set_message_icon (BUOH_VIEW (c_view->priv->view),
-                                            GTK_STOCK_DIALOG_ERROR);
+                                            "dialog-error");
 
                 g_object_set (G_OBJECT (c_view->priv->view),
                               "status", STATE_MESSAGE_ERROR,
