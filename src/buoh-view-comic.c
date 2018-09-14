@@ -114,8 +114,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (BuohViewComic, buoh_view_comic, GTK_TYPE_VIEWPORT)
 static void
 buoh_view_comic_init (BuohViewComic *c_view)
 {
-        gtk_widget_set_can_focus (GTK_WIDGET (c_view), TRUE);
-
         c_view->priv = buoh_view_comic_get_instance_private (c_view);
 
         c_view->priv->zoom_mode = VIEW_ZOOM_FIT_WIDTH;
@@ -123,31 +121,12 @@ buoh_view_comic_init (BuohViewComic *c_view)
         c_view->priv->comic_loader = buoh_comic_loader_new ();
         c_view->priv->comic_data = g_string_sized_new (DATA_SIZE);
 
-        c_view->priv->image = gtk_image_new ();
-        gtk_container_add (GTK_CONTAINER (c_view),
-                           c_view->priv->image);
-        gtk_widget_show (c_view->priv->image);
-
-        /* Callbacks */
-        g_signal_connect (G_OBJECT (c_view),
-                          "notify::comic",
-                          G_CALLBACK (bouh_view_comic_changed_comic_cb),
-                          NULL);
-        g_signal_connect (G_OBJECT (c_view),
-                          "drag-begin",
-                          G_CALLBACK (buoh_view_comic_drag_begin),
-                          NULL);
-        g_signal_connect (G_OBJECT (c_view),
-                          "drag-data-get",
-                          G_CALLBACK (buoh_view_comic_drag_data_get),
-                          NULL);
+        gtk_widget_init_template (GTK_WIDGET (c_view));
 
         g_signal_connect_swapped (G_OBJECT (c_view->priv->comic_loader),
                                   "finished",
                                   G_CALLBACK (buoh_view_comic_load_finished),
                                   (gpointer) c_view);
-
-        gtk_widget_show (GTK_WIDGET (c_view));
 }
 
 static void
@@ -190,6 +169,14 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
 
         object_class->finalize = buoh_view_comic_finalize;
         object_class->dispose = buoh_view_comic_dispose;
+
+        gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/view-comic.ui");
+
+        gtk_widget_class_bind_template_child_private (widget_class, BuohViewComic, image);
+
+        gtk_widget_class_bind_template_callback (widget_class, bouh_view_comic_changed_comic_cb);
+        gtk_widget_class_bind_template_callback (widget_class, buoh_view_comic_drag_begin);
+        gtk_widget_class_bind_template_callback (widget_class, buoh_view_comic_drag_data_get);
 }
 
 static void
@@ -438,9 +425,7 @@ buoh_view_comic_new (BuohView *view)
 
         g_return_val_if_fail (BUOH_IS_VIEW (view), NULL);
 
-        c_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW_COMIC,
-                                           "shadow-type", GTK_SHADOW_IN,
-                                           NULL));
+        c_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW_COMIC, NULL));
         BUOH_VIEW_COMIC (c_view)->priv->view = view;
         g_signal_connect (G_OBJECT (BUOH_VIEW_COMIC (c_view)->priv->view),
                           "notify::status",
