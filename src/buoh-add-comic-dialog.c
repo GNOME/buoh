@@ -34,9 +34,6 @@ struct _BuohAddComicDialogPrivate {
         gint          n_selected;
 };
 
-#define BUOH_ADD_COMIC_DIALOG_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_ADD_COMIC_DIALOG, BuohAddComicDialogPrivate))
-
 static void buoh_add_comic_dialog_init        (BuohAddComicDialog      *dialog);
 static void buoh_add_comic_dialog_class_init  (BuohAddComicDialogClass *klass);
 
@@ -46,12 +43,12 @@ static void buoh_add_comic_toggled_cb             (GtkCellRendererToggle *render
                                                    gchar                 *path,
                                                    gpointer               gdata);
 
-G_DEFINE_TYPE (BuohAddComicDialog, buoh_add_comic_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohAddComicDialog, buoh_add_comic_dialog, GTK_TYPE_DIALOG)
 
 static void
 buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
 {
-        dialog->priv = BUOH_ADD_COMIC_DIALOG_GET_PRIVATE (dialog);
+        dialog->priv = buoh_add_comic_dialog_get_instance_private (dialog);
 
         gtk_widget_init_template (GTK_WIDGET (dialog));
 
@@ -68,8 +65,6 @@ static void
 buoh_add_comic_dialog_class_init (BuohAddComicDialogClass *klass)
 {
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-        g_type_class_add_private (klass, sizeof (BuohAddComicDialogPrivate));
 
         gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/add-comic-dialog.ui");
 

@@ -47,9 +47,6 @@ struct _BuohPrivate {
         gchar        *datadir;
 };
 
-#define BUOH_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_BUOH, BuohPrivate))
-
 static void          buoh_init                   (Buoh         *buoh);
 static void          buoh_class_init             (BuohClass    *klass);
 static void          buoh_finalize               (GObject      *object);
@@ -62,7 +59,7 @@ static void          buoh_save_comic_list        (GtkTreeModel *model,
                                                   gpointer      gdata);
 static void          buoh_create_user_dir        (Buoh         *buoh);
 
-G_DEFINE_TYPE (Buoh, buoh, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (Buoh, buoh, G_TYPE_OBJECT)
 
 void
 buoh_debug (const gchar *format, ...)
@@ -385,7 +382,7 @@ buoh_create_user_dir (Buoh *buoh)
 static void
 buoh_init (Buoh *buoh)
 {
-        buoh->priv = BUOH_GET_PRIVATE (buoh);
+        buoh->priv = buoh_get_instance_private (buoh);
 
         buoh->priv->datadir = g_build_filename (g_get_home_dir (), ".buoh", NULL);
         buoh_create_user_dir (buoh);
@@ -402,8 +399,6 @@ static void
 buoh_class_init (BuohClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-        g_type_class_add_private (klass, sizeof (BuohPrivate));
 
         object_class->finalize = buoh_finalize;
 }
