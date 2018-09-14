@@ -52,6 +52,8 @@ GtkWidget        *buoh_comic_list_new             (void);
 
 void              buoh_comic_list_set_view        (BuohComicList *comic_list,
                                                    BuohView      *view);
+void              buoh_comic_list_set_model       (BuohComicList *comic_list,
+                                                   GtkTreeModel  *model);
 GtkWidget        *buoh_comic_list_get_list        (BuohComicList *comic_list);
 void              buoh_comic_list_clear_selection (BuohComicList *comic_list);
 BuohComicManager *buoh_comic_list_get_selected    (BuohComicList *comic_list);
