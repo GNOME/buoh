@@ -229,7 +229,7 @@ static const GtkToggleActionEntry menu_toggle_entries[] = {
           G_CALLBACK (buoh_window_cmd_view_zoom_fit_width) }
 };
 
-G_DEFINE_TYPE (BuohWindow, buoh_window, GTK_TYPE_WINDOW)
+G_DEFINE_TYPE (BuohWindow, buoh_window, GTK_TYPE_APPLICATION_WINDOW)
 
 static void
 buoh_window_init (BuohWindow *buoh_window)
@@ -452,12 +452,13 @@ buoh_window_finalize (GObject *object)
 }
 
 GtkWidget *
-buoh_window_new (void)
+buoh_window_new (Buoh *application)
 {
         GtkWidget *buoh_window;
 
         buoh_window = GTK_WIDGET (g_object_new (BUOH_TYPE_WINDOW,
                                                 "type", GTK_WINDOW_TOPLEVEL,
+                                                "application", application,
                                                 "default-width", 600,
                                                 "default-height", 300,
                                                 NULL));

@@ -469,7 +469,7 @@ buoh_create_main_window (Buoh *buoh)
         if (buoh->priv->window) {
                 gtk_window_present (GTK_WINDOW (buoh->priv->window));
         } else {
-                buoh->priv->window = BUOH_WINDOW (buoh_window_new ());
+                buoh->priv->window = BUOH_WINDOW (buoh_window_new (buoh));
         }
 }
 
@@ -487,4 +487,13 @@ buoh_get_datadir (Buoh *buoh)
         g_return_val_if_fail (BUOH_IS_BUOH (buoh), NULL);
 
         return buoh->priv->datadir;
+}
+
+static void
+activate (GtkApplication* app,
+          gpointer        user_data)
+{
+        GtkWidget *window;
+
+        window = buoh_create_main_window (buoh);
 }

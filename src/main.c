@@ -32,22 +32,17 @@
 gint
 main (gint argc, gchar **argv)
 {
-        Buoh *buoh;
+        g_autoptr (Buoh) buoh;
 
         /* Initialize the i18n stuff */
         bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         textdomain (GETTEXT_PACKAGE);
 
-        gtk_init (&argc, &argv);
-
         g_set_application_name (_("Buoh"));
-        gtk_window_set_default_icon_name ("buoh");
 
         buoh = buoh_new ();
-        buoh_create_main_window (buoh);
+        g_application_set_default (G_APPLICATION (buoh));
 
-        gtk_main ();
-
-        return 0;
+        return g_application_run (G_APPLICATION (buoh), argc, argv);
 }
