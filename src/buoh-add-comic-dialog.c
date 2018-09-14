@@ -31,6 +31,8 @@
 
 struct _BuohAddComicDialogPrivate {
         GtkTreeModel *model;
+        GtkWidget    *selected_label;
+        GtkWidget    *tree_view;
         gint          n_selected;
 };
 
@@ -54,7 +56,7 @@ buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
 
         dialog->priv->model = buoh_get_comics_model (BUOH);
 
-        gtk_tree_view_set_model (GTK_TREE_VIEW (dialog->tree_view), dialog->priv->model);
+        gtk_tree_view_set_model (GTK_TREE_VIEW (dialog->priv->tree_view), dialog->priv->model);
 
         /* Counter */
         dialog->priv->n_selected = buoh_add_comic_dialog_get_n_selected (dialog);
@@ -68,8 +70,8 @@ buoh_add_comic_dialog_class_init (BuohAddComicDialogClass *klass)
 
         gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/add-comic-dialog.ui");
 
-        gtk_widget_class_bind_template_child (widget_class, BuohAddComicDialog, selected_label);
-        gtk_widget_class_bind_template_child (widget_class, BuohAddComicDialog, tree_view);
+        gtk_widget_class_bind_template_child_private (widget_class, BuohAddComicDialog, selected_label);
+        gtk_widget_class_bind_template_child_private (widget_class, BuohAddComicDialog, tree_view);
 
         gtk_widget_class_bind_template_callback (widget_class, buoh_add_comic_toggled_cb);
 }
@@ -103,7 +105,7 @@ buoh_comic_add_dialog_update_selected (BuohAddComicDialog *dialog)
         gchar *text;
 
         text = g_strdup_printf (_("Comics selected: %d"), dialog->priv->n_selected);
-        gtk_label_set_text (GTK_LABEL (dialog->selected_label), text);
+        gtk_label_set_text (GTK_LABEL (dialog->priv->selected_label), text);
         g_free (text);
 }
 
