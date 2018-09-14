@@ -34,9 +34,6 @@ struct _BuohComicListPrivate {
         BuohView         *view;
 };
 
-#define BUOH_COMIC_LIST_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC_LIST, BuohComicListPrivate))
-
 static void buoh_comic_list_init                   (BuohComicList *buoh_comic_list);
 static void buoh_comic_list_class_init             (BuohComicListClass *klass);
 static void buoh_comic_list_finalize               (GObject *object);
@@ -52,7 +49,7 @@ static gboolean buoh_comic_list_visible            (GtkTreeModel     *model,
                                                     GtkTreeIter      *iter,
                                                     gpointer          gdata);
 
-G_DEFINE_TYPE (BuohComicList, buoh_comic_list, GTK_TYPE_BIN)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohComicList, buoh_comic_list, GTK_TYPE_BIN)
 
 static void
 buoh_comic_list_selection_changed (GtkTreeSelection *selection, gpointer gdata)
@@ -99,7 +96,7 @@ buoh_comic_list_init (BuohComicList *buoh_comic_list)
         GtkTreeViewColumn *column;
         GtkTreeSelection  *selection;
 
-        buoh_comic_list->priv = BUOH_COMIC_LIST_GET_PRIVATE (buoh_comic_list);
+        buoh_comic_list->priv = buoh_comic_list_get_instance_private (buoh_comic_list);
 
         buoh_comic_list->priv->comic_manager = NULL;
         buoh_comic_list->priv->view = NULL;
@@ -148,8 +145,6 @@ buoh_comic_list_class_init (BuohComicListClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-        g_type_class_add_private (klass, sizeof (BuohComicListPrivate));
 
         widget_class->get_preferred_width = buoh_comic_list_get_preferred_width;
         widget_class->size_allocate = buoh_comic_list_size_allocate;

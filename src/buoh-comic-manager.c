@@ -23,9 +23,6 @@
 #include "buoh-comic-manager.h"
 #include "buoh-comic-manager-date.h"
 
-#define BUOH_COMIC_MANAGER_GET_PRIVATE(object) \
-               (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC_MANAGER, BuohComicManagerPrivate))
-
 enum {
         PROP_0,
         PROP_ID,
@@ -59,12 +56,12 @@ static void buoh_comic_manager_set_property (GObject               *object,
                                              const GValue          *value,
                                              GParamSpec            *pspec);
 
-G_DEFINE_ABSTRACT_TYPE (BuohComicManager, buoh_comic_manager, G_TYPE_OBJECT)
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (BuohComicManager, buoh_comic_manager, G_TYPE_OBJECT)
 
 static void
 buoh_comic_manager_init (BuohComicManager *comic_manager)
 {
-        comic_manager->priv = BUOH_COMIC_MANAGER_GET_PRIVATE (comic_manager);
+        comic_manager->priv = buoh_comic_manager_get_instance_private (comic_manager);
 
         comic_manager->priv->author      = NULL;
         comic_manager->priv->title       = NULL;
@@ -79,8 +76,6 @@ static void
 buoh_comic_manager_class_init (BuohComicManagerClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-        g_type_class_add_private (klass, sizeof (BuohComicManagerPrivate));
 
         object_class->set_property = buoh_comic_manager_set_property;
         object_class->get_property = buoh_comic_manager_get_property;

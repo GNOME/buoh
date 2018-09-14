@@ -23,9 +23,6 @@
 #include "buoh.h"
 #include "buoh-comic-manager-date.h"
 
-#define BUOH_COMIC_MANAGER_DATE_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE((object), BUOH_TYPE_COMIC_MANAGER_DATE, BuohComicManagerDatePrivate))
-
 #define URI_BUFFER 256
 #define ID_BUFFER 100
 
@@ -62,14 +59,14 @@ static const gchar *day_names[] = {
         N_("Sunday")
 };
 
-G_DEFINE_TYPE (BuohComicManagerDate, buoh_comic_manager_date, BUOH_TYPE_COMIC_MANAGER)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohComicManagerDate, buoh_comic_manager_date, BUOH_TYPE_COMIC_MANAGER)
 
 static void
 buoh_comic_manager_date_init (BuohComicManagerDate *comic_manager)
 {
         gint i;
 
-        comic_manager->priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
+        comic_manager->priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
         for (i = G_DATE_BAD_WEEKDAY; i <= G_DATE_SUNDAY; i++) {
                 comic_manager->priv->publications[i] = TRUE;
@@ -87,8 +84,6 @@ buoh_comic_manager_date_class_init (BuohComicManagerDateClass *klass)
         manager_class->get_last     = buoh_comic_manager_date_get_last;
         manager_class->get_first    = buoh_comic_manager_date_get_first;
         manager_class->is_the_first = buoh_comic_manager_date_is_the_first;
-
-        g_type_class_add_private (klass, sizeof (BuohComicManagerDatePrivate));
 
         object_class->finalize = buoh_comic_manager_date_finalize;
 }
@@ -342,7 +337,7 @@ buoh_comic_manager_date_get_last (BuohComicManager *comic_manager)
         BuohComicManagerDatePrivate *priv;
         GList                       *comic_list, *found;
 
-        priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
+        priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
         date = g_date_new ();
 
@@ -398,7 +393,7 @@ buoh_comic_manager_date_is_the_first_comic (BuohComicManager *comic_manager,
 
         g_assert (BUOH_IS_COMIC (comic));
 
-        priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
+        priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
         date = buoh_comic_get_date (comic);
 
@@ -425,7 +420,7 @@ buoh_comic_manager_date_get_first (BuohComicManager *comic_manager)
         BuohComicManagerDatePrivate *priv;
         BuohComic                   *comic;
 
-        priv = BUOH_COMIC_MANAGER_DATE_GET_PRIVATE (comic_manager);
+        priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
         g_object_get (G_OBJECT (comic_manager),
                       "list", &comic_list,

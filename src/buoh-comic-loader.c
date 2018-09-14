@@ -64,9 +64,6 @@ struct _BuohComicLoaderPrivate {
         GError             *error;
 };
 
-#define BUOH_COMIC_LOADER_GET_PRIVATE(object) \
-        (G_TYPE_INSTANCE_GET_PRIVATE ((object), BUOH_TYPE_COMIC_LOADER, BuohComicLoaderPrivate))
-
 
 enum {
         FINISHED,
@@ -81,7 +78,7 @@ static void     buoh_comic_loader_finalize      (GObject              *object);
 
 static void     buoh_comic_loader_clear         (BuohComicLoader      *loader);
 
-G_DEFINE_TYPE (BuohComicLoader, buoh_comic_loader, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (BuohComicLoader, buoh_comic_loader, G_TYPE_OBJECT)
 
 GQuark
 buoh_comic_loader_error_quark (void)
@@ -98,15 +95,13 @@ buoh_comic_loader_error_quark (void)
 static void
 buoh_comic_loader_init (BuohComicLoader *loader)
 {
-        loader->priv = BUOH_COMIC_LOADER_GET_PRIVATE (loader);
+        loader->priv = buoh_comic_loader_get_instance_private (loader);
 }
 
 static void
 buoh_comic_loader_class_init (BuohComicLoaderClass *klass)
 {
         GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-        g_type_class_add_private (klass, sizeof (BuohComicLoaderPrivate));
 
         buoh_comic_loader_signals [FINISHED] =
                 g_signal_new ("finished",
