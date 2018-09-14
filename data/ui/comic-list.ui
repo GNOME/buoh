@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <template class="BuohComicList" id="comic_list" parent="GtkBin">
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="visible">1</property>
+        <property name="can-focus">1</property>
+        <property name="shadow-type">in</property>
+        <child>
+          <object class="GtkTreeView" id="tree_view">
+            <property name="visible">1</property>
+            <property name="can-focus">1</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection">
+                <signal handler="buoh_comic_list_selection_changed" name="changed" object="comic_list" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn">
+                <property name="title" translatable="yes">Title</property>
+                <child>
+                  <object class="GtkCellRendererText">
+                    <property name="xalign">0</property>
+                    <property name="ellipsize">end</property>
+                  </object>
+                  <attributes>
+                    <!-- COMIC_LIST_TITLE -->
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
