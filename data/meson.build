@@ -13,7 +13,7 @@ if gtk_builder_tool.found()
   endforeach
 endif
 
-desktop = 'buoh.desktop'
+desktop = 'org.gnome.buoh.desktop'
 i18n.merge_file(
   desktop,
   type: 'desktop',
