@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="comic_list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="comic">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="7" minOccurs="0" name="restrict" type="xs:int"/>
+            </xs:sequence>
+            <xs:attribute name="author" type="xs:string"/>
+            <xs:attribute name="class">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="date"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="first" type="xs:date"/>
+            <xs:attribute name="generic_uri" type="xs:string"/>
+            <xs:attribute name="id" type="xs:ID" use="required"/>
+            <xs:attribute name="language" type="xs:string"/>
+            <xs:attribute name="offset" type="xs:string"/>
+            <xs:attribute name="title" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
