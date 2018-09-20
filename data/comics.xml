@@ -187,14 +187,6 @@
     <restrict>6</restrict>
     <restrict>7</restrict>
   </comic>
-  <comic author="Ken Cursoe" class="date" first="2003-04-03" generic_uri="http://picayune.uclick.com/comics/tiny/%Y/tiny%y%m%d.gif" id="tiny" language="English" title="Tiny Sepuku">
-    <restrict>1</restrict>
-    <restrict>2</restrict>
-    <restrict>3</restrict>
-    <restrict>5</restrict>
-    <restrict>6</restrict>
-    <restrict>7</restrict>
-  </comic>
   <comic author="Ruben Bolling" class="date" first="1999-06-19" generic_uri="http://picayune.uclick.com/comics/td/%Y/td%y%m%d.gif" id="td" language="English" title="Tom the Dancing Bug">
     <restrict>1</restrict>
     <restrict>2</restrict>
@@ -286,7 +278,7 @@
     <restrict>5</restrict>
     <restrict>7</restrict>
   </comic>
-  <comic author="Isabella Bannerman" class="date" first="2004-02-29" generic_uri="http://cserver.king-online.com/content/6Chix?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=8sdef0&amp;size=hires" id="6chix" language="English" title="Six Chix"/>
+  <comic author="Isabella Bannerman" class="date" first="2004-02-29" generic_uri="http://cserver.king-online.com/content/6Chix?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=8sdef0&amp;size=hires" id="six-chix" language="English" title="Six Chix"/>
   <comic author="Stan Lee, Larry Lieber &amp; Alex Saviuk" class="date" first="2005-01-01" generic_uri="http://cserver.king-online.com/content/Spiderman?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=hkw769&amp;size=hires" id="spiderman" language="English" title="The amazing Spiderman"/>
   <comic author="Dean Young &amp; Denis Lebrun" class="date" first="2005-01-01" generic_uri="http://cserver.king-online.com/content/Blondie?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=lby49o&amp;size=hires" id="blondie" language="English" title="Blondie"/>
   <comic author="Mike Peters" class="date" first="2003-01-27" generic_uri="http://cserver.king-online.com/content/Mgoose?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=bc59ut&amp;size=hires" id="mothergoose" language="English" title="Mother Goose &amp; Grimm"/>
