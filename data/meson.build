@@ -51,10 +51,19 @@ if desktop_file_validate.found()
   )
 endif
 
+comics = 'comics.xml'
 install_data(
-  'comics.xml',
+  comics,
   install_dir: comicsdir,
 )
+if xmllint.found()
+  test(
+    'Validating @0@'.format(comics),
+    xmllint,
+    args: ['--noout', '--schema', 'comic_list.xsd', comics],
+    workdir: meson.current_source_dir(),
+  )
+endif
 
 gnome.mkenums(
   'org.gnome.buoh.enums.xml',
