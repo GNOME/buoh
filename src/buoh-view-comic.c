@@ -425,9 +425,7 @@ buoh_view_comic_new (BuohView *view)
 
         g_return_val_if_fail (BUOH_IS_VIEW (view), NULL);
 
-        c_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW_COMIC,
-                                           "shadow-type", GTK_SHADOW_IN,
-                                           NULL));
+        c_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW_COMIC, NULL));
         BUOH_VIEW_COMIC (c_view)->priv->view = view;
         g_signal_connect (G_OBJECT (BUOH_VIEW_COMIC (c_view)->priv->view),
                           "notify::status",
