@@ -48,7 +48,7 @@ struct _BuohComicListClass {
 };
 
 GType             buoh_comic_list_get_type        (void) G_GNUC_CONST;
-GtkWidget        *buoh_comic_list_new             (void);
+GtkWidget        *buoh_comic_list_new             (GtkTreeModel  *model);
 
 void              buoh_comic_list_set_view        (BuohComicList *comic_list,
                                                    BuohView      *view);

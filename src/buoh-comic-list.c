@@ -90,23 +90,13 @@ buoh_comic_list_visible (GtkTreeModel *model,
 static void
 buoh_comic_list_init (BuohComicList *buoh_comic_list)
 {
-        GtkTreeModel      *model;
 
         buoh_comic_list->priv = buoh_comic_list_get_instance_private (buoh_comic_list);
 
         buoh_comic_list->priv->comic_manager = NULL;
         buoh_comic_list->priv->view = NULL;
 
-        model = buoh_get_comics_model (BUOH);
-        buoh_comic_list->priv->model = gtk_tree_model_filter_new (model, NULL);
-        gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (buoh_comic_list->priv->model),
-                                                buoh_comic_list_visible,
-                                                NULL, NULL);
-
         gtk_widget_init_template (GTK_WIDGET (buoh_comic_list));
-
-        gtk_tree_view_set_model (GTK_TREE_VIEW (buoh_comic_list->priv->tree_view),
-                                 buoh_comic_list->priv->model);
 }
 
 static void
@@ -188,14 +178,23 @@ buoh_comic_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 }
 
 GtkWidget *
-buoh_comic_list_new (void)
+buoh_comic_list_new (GtkTreeModel *model)
 {
-        GtkWidget *buoh_comic_list;
+        GtkWidget *buoh_comic_list_widget;
 
-        buoh_comic_list = GTK_WIDGET (g_object_new (BUOH_TYPE_COMIC_LIST,
-                                                    "border-width", 6,
-                                                    NULL));
-        return buoh_comic_list;
+        buoh_comic_list_widget = GTK_WIDGET (g_object_new (BUOH_TYPE_COMIC_LIST, NULL));
+
+        BuohComicList *buoh_comic_list = BUOH_COMIC_LIST (buoh_comic_list_widget);
+
+        buoh_comic_list->priv->model = gtk_tree_model_filter_new (model, NULL);
+        gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (buoh_comic_list->priv->model),
+                                                buoh_comic_list_visible,
+                                                NULL, NULL);
+
+        gtk_tree_view_set_model (GTK_TREE_VIEW (buoh_comic_list->priv->tree_view),
+                                 buoh_comic_list->priv->model);
+
+        return buoh_comic_list_widget;
 }
 
 void

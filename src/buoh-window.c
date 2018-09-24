@@ -232,6 +232,7 @@ static void
 buoh_window_init (BuohWindow *buoh_window)
 {
         GtkWidget        *tree_view;
+        GtkTreeModel     *model;
         GtkTreeSelection *selection;
         GtkWidget        *vbox, *paned, *menubar;
         GtkWidget        *toolbar;
@@ -344,8 +345,10 @@ buoh_window_init (BuohWindow *buoh_window)
                          TRUE, FALSE);
         gtk_widget_show (GTK_WIDGET (buoh_window->priv->view));
 
+        model = buoh_get_comics_model (BUOH);
+
         /* buoh comic list */
-        buoh_window->priv->comic_list = BUOH_COMIC_LIST (buoh_comic_list_new ());
+        buoh_window->priv->comic_list = BUOH_COMIC_LIST (buoh_comic_list_new (model));
         buoh_comic_list_set_view (buoh_window->priv->comic_list, buoh_window->priv->view);
         gtk_paned_pack1 (GTK_PANED (paned), GTK_WIDGET (buoh_window->priv->comic_list),
                          TRUE, FALSE);
