@@ -24,27 +24,9 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohViewMessage        BuohViewMessage;
-typedef struct _BuohViewMessageClass   BuohViewMessageClass;
-typedef struct _BuohViewMessagePrivate BuohViewMessagePrivate;
+#define BUOH_TYPE_VIEW_MESSAGE buoh_view_message_get_type ()
+G_DECLARE_FINAL_TYPE (BuohViewMessage, buoh_view_message, BUOH, VIEW_MESSAGE, GtkViewport)
 
-#define BUOH_TYPE_VIEW_MESSAGE                  (buoh_view_message_get_type())
-#define BUOH_VIEW_MESSAGE(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_VIEW_MESSAGE, BuohViewMessage))
-#define BUOH_VIEW_MESSAGE_CLASS(klass)          (G_TYPE_CHACK_CLASS_CAST((klass), BUOH_TYPE_VIEW_MESSAGE, BuohViewMessageClass))
-#define BUOH_IS_VIEW_MESSAGE(object)            (G_TYPE_CHECK_INSTANCE_TYPE((object), BUOH_TYPE_VIEW_MESSAGE))
-#define BUOH_IS_VIEW_MESSAGE_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_VIEW_MESSAGE))
-#define BUOH_VIEW_MESSAGE_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_VIEW_MESSAGE, BuohViewMessageClass))
-
-struct _BuohViewMessage {
-        GtkViewport                 parent;
-        BuohViewMessagePrivate *priv;
-};
-
-struct _BuohViewMessageClass {
-        GtkViewportClass   parent_class;
-};
-
-GType      buoh_view_message_get_type  (void) G_GNUC_CONST;
 GtkWidget *buoh_view_message_new       (void);
 
 void       buoh_view_message_set_title (BuohViewMessage *m_view,
