@@ -24,24 +24,12 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohComicManager        BuohComicManager;
-typedef struct _BuohComicManagerClass   BuohComicManagerClass;
 typedef struct _BuohComicManagerPrivate BuohComicManagerPrivate;
 
 #define BUOH_TYPE_COMIC_MANAGER                (buoh_comic_manager_get_type ())
-#define BUOH_COMIC_MANAGER(o)                (G_TYPE_CHECK_INSTANCE_CAST ((o), BUOH_TYPE_COMIC_MANAGER, BuohComicManager))
-#define BUOH_COMIC_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), BUOH_TYPE_COMIC_MANAGER, BuohComicManagerClass))
-#define BUOH_IS_COMIC_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), BUOH_TYPE_COMIC_MANAGER))
-#define BUOH_IS_COMIC_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), BUOH_TYPE_COMIC_MANAGER))
-#define BUOH_COMIC_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), BUOH_TYPE_COMIC_MANAGER, BuohComicManagerClass))
+G_DECLARE_DERIVABLE_TYPE (BuohComicManager, buoh_comic_manager, BUOH, COMIC_MANAGER, GObject)
 
-
-struct _BuohComicManager {
-        GObject parent;
-
-        BuohComicManagerPrivate *priv;
-};
-
+// TODO: not sure what to do about this
 struct _BuohComicManagerClass {
         GObjectClass      parent_class;
 
