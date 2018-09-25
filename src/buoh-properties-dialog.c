@@ -28,7 +28,9 @@
 
 #define DATE_BUFFER 256
 
-struct _BuohPropertiesDialogPrivate {
+struct _BuohPropertiesDialog {
+        GtkDialog         parent;
+
         BuohComicManager *comic_manager;
         GtkWidget        *title;
         GtkWidget        *author;
@@ -42,13 +44,11 @@ struct _BuohPropertiesDialogPrivate {
 static void buoh_properties_dialog_init       (BuohPropertiesDialog      *dialog);
 static void buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass);
 
-G_DEFINE_TYPE_WITH_PRIVATE (BuohPropertiesDialog, buoh_properties_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE (BuohPropertiesDialog, buoh_properties_dialog, GTK_TYPE_DIALOG)
 
 static void
 buoh_properties_dialog_init (BuohPropertiesDialog *dialog)
 {
-        dialog->priv = buoh_properties_dialog_get_instance_private (dialog);
-
         gtk_widget_init_template (GTK_WIDGET (dialog));
 }
 
@@ -59,13 +59,13 @@ buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass)
 
         gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/properties-dialog.ui");
 
-        gtk_widget_class_bind_template_child_private (widget_class, BuohPropertiesDialog, title);
-        gtk_widget_class_bind_template_child_private (widget_class, BuohPropertiesDialog, author);
-        gtk_widget_class_bind_template_child_private (widget_class, BuohPropertiesDialog, uri);
-        gtk_widget_class_bind_template_child_private (widget_class, BuohPropertiesDialog, language);
-        gtk_widget_class_bind_template_child_private (widget_class, BuohPropertiesDialog, date);
-        gtk_widget_class_bind_template_child_private (widget_class, BuohPropertiesDialog, publication_days);
-        gtk_widget_class_bind_template_child_private (widget_class, BuohPropertiesDialog, thumbnail);
+        gtk_widget_class_bind_template_child (widget_class, BuohPropertiesDialog, title);
+        gtk_widget_class_bind_template_child (widget_class, BuohPropertiesDialog, author);
+        gtk_widget_class_bind_template_child (widget_class, BuohPropertiesDialog, uri);
+        gtk_widget_class_bind_template_child (widget_class, BuohPropertiesDialog, language);
+        gtk_widget_class_bind_template_child (widget_class, BuohPropertiesDialog, date);
+        gtk_widget_class_bind_template_child (widget_class, BuohPropertiesDialog, publication_days);
+        gtk_widget_class_bind_template_child (widget_class, BuohPropertiesDialog, thumbnail);
 }
 
 void
@@ -81,18 +81,18 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,
         g_return_if_fail (BUOH_IS_PROPERTIES_DIALOG (dialog));
         g_return_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager));
 
-        dialog->priv->comic_manager = comic_manager;
+        dialog->comic_manager = comic_manager;
 
         comic = buoh_comic_manager_get_current (comic_manager);
 
         thumbnail = buoh_comic_get_thumbnail (comic);
-        gtk_image_set_from_pixbuf (GTK_IMAGE (dialog->priv->thumbnail), thumbnail);
+        gtk_image_set_from_pixbuf (GTK_IMAGE (dialog->thumbnail), thumbnail);
         g_object_unref (thumbnail);
 
-        gtk_label_set_text (GTK_LABEL (dialog->priv->title), buoh_comic_manager_get_title (comic_manager));
-        gtk_label_set_text (GTK_LABEL (dialog->priv->author), buoh_comic_manager_get_author (comic_manager));
-        gtk_label_set_text (GTK_LABEL (dialog->priv->uri), buoh_comic_get_uri (comic));
-        gtk_label_set_text (GTK_LABEL (dialog->priv->language), buoh_comic_manager_get_language (comic_manager));
+        gtk_label_set_text (GTK_LABEL (dialog->title), buoh_comic_manager_get_title (comic_manager));
+        gtk_label_set_text (GTK_LABEL (dialog->author), buoh_comic_manager_get_author (comic_manager));
+        gtk_label_set_text (GTK_LABEL (dialog->uri), buoh_comic_get_uri (comic));
+        gtk_label_set_text (GTK_LABEL (dialog->language), buoh_comic_manager_get_language (comic_manager));
 
         comic_date = buoh_comic_get_date (comic);
         if (g_date_strftime (date, DATE_BUFFER,
@@ -100,11 +100,11 @@ buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,
                              comic_date) == 0) {
                 buoh_debug ("Date buffer too short");
         }
-        gtk_label_set_text (GTK_LABEL (dialog->priv->date), date);
+        gtk_label_set_text (GTK_LABEL (dialog->date), date);
 
         if (BUOH_IS_COMIC_MANAGER_DATE (comic_manager)) {
                 pub_days = buoh_comic_manager_date_get_publication_days (BUOH_COMIC_MANAGER_DATE (comic_manager));
-                gtk_label_set_text (GTK_LABEL (dialog->priv->publication_days), pub_days);
+                gtk_label_set_text (GTK_LABEL (dialog->publication_days), pub_days);
                 g_free (pub_days);
         }
 }
@@ -114,7 +114,7 @@ buoh_properties_dialog_get_comic_manager (BuohPropertiesDialog *dialog)
 {
         g_return_val_if_fail (BUOH_IS_PROPERTIES_DIALOG (dialog), NULL);
 
-        return dialog->priv->comic_manager;
+        return dialog->comic_manager;
 }
 
 GtkWidget *

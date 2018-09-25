@@ -27,25 +27,8 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohPropertiesDialog        BuohPropertiesDialog;
-typedef struct _BuohPropertiesDialogClass   BuohPropertiesDialogClass;
-typedef struct _BuohPropertiesDialogPrivate BuohPropertiesDialogPrivate;
-
-#define BUOH_TYPE_PROPERTIES_DIALOG                  (buoh_properties_dialog_get_type())
-#define BUOH_PROPERTIES_DIALOG(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_PROPERTIES_DIALOG, BuohPropertiesDialog))
-#define BUOH_PROPERTIES_DIALOG_CLASS(klass)          (G_TYPE_CHACK_CLASS_CAST((klass), BUOH_TYPE_PROPERTIES_DIALOG, BuohPropertiesDialogClass))
-#define BUOH_IS_PROPERTIES_DIALOG(object)            (G_TYPE_CHECK_INSTANCE_TYPE((object), BUOH_TYPE_PROPERTIES_DIALOG))
-#define BUOH_IS_PROPERTIES_DIALOG_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_PROPERTIES_DIALOG))
-#define BUOH_PROPERTIES_DIALOG_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_PROPERTIES_DIALOG, BuohPropertiesDialogClass))
-
-struct _BuohPropertiesDialog {
-        GtkDialog                   parent;
-        BuohPropertiesDialogPrivate *priv;
-};
-
-struct _BuohPropertiesDialogClass {
-        GtkDialogClass   parent_class;
-};
+#define BUOH_TYPE_PROPERTIES_DIALOG buoh_properties_dialog_get_type ()
+G_DECLARE_FINAL_TYPE (BuohPropertiesDialog, buoh_properties_dialog, BUOH, PROPERTIES_DIALOG, GtkDialog)
 
 GType             buoh_properties_dialog_get_type          (void) G_GNUC_CONST;
 GtkWidget        *buoh_properties_dialog_new               (void);
