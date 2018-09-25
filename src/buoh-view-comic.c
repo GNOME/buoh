@@ -37,7 +37,9 @@ enum {
         PROP_SCALE
 };
 
-struct _BuohViewComicPrivate {
+struct _BuohViewComic {
+        GtkViewport      parent;
+
         BuohView        *view;
         GtkWidget       *image;
         GString         *comic_data;
@@ -109,21 +111,19 @@ static void     buoh_view_comic_zoom                  (BuohViewComic    *c_view,
                                                        gdouble           factor,
                                                        gboolean          relative);
 
-G_DEFINE_TYPE_WITH_PRIVATE (BuohViewComic, buoh_view_comic, GTK_TYPE_VIEWPORT)
+G_DEFINE_TYPE (BuohViewComic, buoh_view_comic, GTK_TYPE_VIEWPORT)
 
 static void
 buoh_view_comic_init (BuohViewComic *c_view)
 {
-        c_view->priv = buoh_view_comic_get_instance_private (c_view);
-
-        c_view->priv->zoom_mode = VIEW_ZOOM_FIT_WIDTH;
-        c_view->priv->scale = 1.0;
-        c_view->priv->comic_loader = buoh_comic_loader_new ();
-        c_view->priv->comic_data = g_string_sized_new (DATA_SIZE);
+        c_view->zoom_mode = VIEW_ZOOM_FIT_WIDTH;
+        c_view->scale = 1.0;
+        c_view->comic_loader = buoh_comic_loader_new ();
+        c_view->comic_data = g_string_sized_new (DATA_SIZE);
 
         gtk_widget_init_template (GTK_WIDGET (c_view));
 
-        g_signal_connect_swapped (G_OBJECT (c_view->priv->comic_loader),
+        g_signal_connect_swapped (G_OBJECT (c_view->comic_loader),
                                   "finished",
                                   G_CALLBACK (buoh_view_comic_load_finished),
                                   (gpointer) c_view);
@@ -172,7 +172,7 @@ buoh_view_comic_class_init (BuohViewComicClass *klass)
 
         gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/view-comic.ui");
 
-        gtk_widget_class_bind_template_child_private (widget_class, BuohViewComic, image);
+        gtk_widget_class_bind_template_child (widget_class, BuohViewComic, image);
 
         gtk_widget_class_bind_template_callback (widget_class, bouh_view_comic_changed_comic_cb);
         gtk_widget_class_bind_template_callback (widget_class, buoh_view_comic_drag_begin);
@@ -186,15 +186,14 @@ buoh_view_comic_finalize (GObject *object)
 
         buoh_debug ("buoh-view-comic finalize");
 
-        if (c_view->priv->comic_data) {
-                g_string_free (c_view->priv->comic_data, TRUE);
-                c_view->priv->comic_data = NULL;
+        if (c_view->comic_data) {
+                g_string_free (c_view->comic_data, TRUE);
+                c_view->comic_data = NULL;
         }
 
-        if (c_view->priv->pixbuf_loader) {
-                gdk_pixbuf_loader_close (c_view->priv->pixbuf_loader, NULL);
-                g_object_unref (c_view->priv->pixbuf_loader);
-                c_view->priv->pixbuf_loader = NULL;
+        if (c_view->pixbuf_loader) {
+                gdk_pixbuf_loader_close (c_view->pixbuf_loader, NULL);
+                g_clear_object (&c_view->pixbuf_loader);
         }
 
         if (G_OBJECT_CLASS (buoh_view_comic_parent_class)->finalize) {
@@ -207,12 +206,11 @@ buoh_view_comic_dispose (GObject *object)
 {
         BuohViewComic *c_view = BUOH_VIEW_COMIC (object);
 
-        if (c_view->priv->comic_loader) {
-                g_signal_handlers_disconnect_by_func (c_view->priv->comic_loader,
+        if (c_view->comic_loader) {
+                g_signal_handlers_disconnect_by_func (c_view->comic_loader,
                                                       buoh_view_comic_load_finished,
                                                       c_view);
-                g_object_unref (c_view->priv->comic_loader);
-                c_view->priv->comic_loader = NULL;
+                g_clear_object (&c_view->comic_loader);
         }
 
         if (G_OBJECT_CLASS (buoh_view_comic_parent_class)->dispose) {
@@ -230,16 +228,16 @@ buoh_view_comic_set_property (GObject      *object,
 
         switch (prop_id) {
         case PROP_COMIC:
-                c_view->priv->comic = BUOH_COMIC (g_value_get_pointer (value));
+                c_view->comic = BUOH_COMIC (g_value_get_pointer (value));
 
                 break;
         case PROP_ZOOM_MODE:
-                c_view->priv->zoom_mode = g_value_get_enum (value);
+                c_view->zoom_mode = g_value_get_enum (value);
                 buoh_view_comic_update_scrollbar_policy (c_view);
 
                 break;
         case PROP_SCALE:
-                c_view->priv->scale = g_value_get_double (value);
+                c_view->scale = g_value_get_double (value);
 
                 break;
         default:
@@ -257,15 +255,15 @@ buoh_view_comic_get_property (GObject    *object,
 
         switch (prop_id) {
         case PROP_COMIC:
-                g_value_set_pointer (value, c_view->priv->comic);
+                g_value_set_pointer (value, c_view->comic);
 
                 break;
         case PROP_ZOOM_MODE:
-                g_value_set_enum (value, c_view->priv->zoom_mode);
+                g_value_set_enum (value, c_view->zoom_mode);
 
                 break;
         case PROP_SCALE:
-                g_value_set_double (value, c_view->priv->scale);
+                g_value_set_double (value, c_view->scale);
 
                 break;
         default:
@@ -362,14 +360,14 @@ buoh_view_comic_update_zoom_cb (BuohViewComic *c_view)
         GdkPixbuf *pixbuf;
         gdouble    new_scale;
 
-        pixbuf = buoh_comic_get_pixbuf (c_view->priv->comic);
+        pixbuf = buoh_comic_get_pixbuf (c_view->comic);
         if (!pixbuf) {
                 return FALSE;
         }
 
-        switch (c_view->priv->zoom_mode) {
+        switch (c_view->zoom_mode) {
         case VIEW_ZOOM_FREE:
-                new_scale = c_view->priv->scale;
+                new_scale = c_view->scale;
                 break;
         case VIEW_ZOOM_BEST_FIT: {
                 gdouble scale_width;
@@ -394,7 +392,7 @@ buoh_view_comic_update_zoom_cb (BuohViewComic *c_view)
                 g_assert_not_reached ();
         }
 
-        if (new_scale != c_view->priv->scale) {
+        if (new_scale != c_view->scale) {
                 buoh_view_comic_zoom (c_view, new_scale, FALSE);
         }
 
@@ -407,7 +405,7 @@ buoh_view_comic_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
         BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
         static gint    id = 0;
 
-        if (c_view->priv->comic) {
+        if (c_view->comic) {
                 if (id > 0) {
                         g_source_remove (id);
                 }
@@ -426,8 +424,8 @@ buoh_view_comic_new (BuohView *view)
         g_return_val_if_fail (BUOH_IS_VIEW (view), NULL);
 
         c_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW_COMIC, NULL));
-        BUOH_VIEW_COMIC (c_view)->priv->view = view;
-        g_signal_connect (G_OBJECT (BUOH_VIEW_COMIC (c_view)->priv->view),
+        BUOH_VIEW_COMIC (c_view)->view = view;
+        g_signal_connect (G_OBJECT (BUOH_VIEW_COMIC (c_view)->view),
                           "notify::status",
                           G_CALLBACK (bouh_view_comic_view_status_changed),
                           (gpointer) c_view);
@@ -442,7 +440,7 @@ buoh_view_comic_drag_begin (GtkWidget *widget, GdkDragContext *drag_context,
         BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
         GdkPixbuf     *thumbnail = NULL;
 
-        thumbnail = buoh_comic_get_thumbnail (c_view->priv->comic);
+        thumbnail = buoh_comic_get_thumbnail (c_view->comic);
 
         if (thumbnail) {
                 gtk_drag_source_set_icon_pixbuf (widget, thumbnail);
@@ -459,7 +457,7 @@ buoh_view_comic_drag_data_get (GtkWidget *widget, GdkDragContext *drag_context,
         const gchar    *uri;
         gchar          *uris[2];
 
-        uri = buoh_comic_get_uri (c_view->priv->comic);
+        uri = buoh_comic_get_uri (c_view->comic);
         if (uri) {
                 uris[0] = g_strdup (uri);
                 uris[1] = NULL;
@@ -473,7 +471,7 @@ buoh_view_comic_size_prepared (GdkPixbufLoader *loader,
                                gint             height,
                                BuohViewComic   *c_view)
 {
-        switch (c_view->priv->zoom_mode) {
+        switch (c_view->zoom_mode) {
         case VIEW_ZOOM_BEST_FIT: {
                 gdouble scale_width;
                 gdouble scale_height;
@@ -482,7 +480,7 @@ buoh_view_comic_size_prepared (GdkPixbufLoader *loader,
 
                 scale_height = buoh_view_comic_get_scale_for_height (c_view, height);
 
-                c_view->priv->scale = MIN (scale_width, scale_height);
+                c_view->scale = MIN (scale_width, scale_height);
         }
                 break;
         case VIEW_ZOOM_FIT_WIDTH: {
@@ -530,7 +528,7 @@ buoh_view_comic_size_prepared (GdkPixbufLoader *loader,
                         }
                 }
 
-                c_view->priv->scale =
+                c_view->scale =
                         buoh_view_comic_get_scale_for_width (c_view, width);
         }
                 break;
@@ -560,7 +558,7 @@ buoh_view_comic_prepare_load (BuohViewComic *c_view)
                                        NULL);
         }
 
-        gtk_image_clear (GTK_IMAGE (c_view->priv->image));
+        gtk_image_clear (GTK_IMAGE (c_view->image));
 }
 
 static void
@@ -569,7 +567,7 @@ bouh_view_comic_changed_comic_cb (GObject *object, GParamSpec *arg, gpointer gda
         BuohViewComic *c_view = BUOH_VIEW_COMIC (object);
 
         /* Cancel current load if needed */
-        buoh_comic_loader_cancel (c_view->priv->comic_loader);
+        buoh_comic_loader_cancel (c_view->comic_loader);
 
         buoh_view_comic_prepare_load (c_view);
 
@@ -581,7 +579,7 @@ bouh_view_comic_view_status_changed (GObject *object, GParamSpec *arg, gpointer 
 {
         BuohViewComic *c_view = BUOH_VIEW_COMIC (gdata);
 
-        if (buoh_view_get_status (c_view->priv->view) == STATE_COMIC_LOADED) {
+        if (buoh_view_get_status (c_view->view) == STATE_COMIC_LOADED) {
                 gtk_drag_source_set (GTK_WIDGET (c_view),
                                      GDK_BUTTON1_MASK,
                                      targets,
@@ -600,16 +598,16 @@ buoh_view_comic_set_image_from_pixbuf (BuohViewComic *c_view,
 
         g_assert (GDK_IS_PIXBUF (pixbuf));
 
-        if (c_view->priv->scale != 1.0) {
+        if (c_view->scale != 1.0) {
                 new_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
-                                                      gdk_pixbuf_get_width (pixbuf) * c_view->priv->scale,
-                                                      gdk_pixbuf_get_height (pixbuf) * c_view->priv->scale,
+                                                      gdk_pixbuf_get_width (pixbuf) * c_view->scale,
+                                                      gdk_pixbuf_get_height (pixbuf) * c_view->scale,
                                                       GDK_INTERP_BILINEAR);
 
-                gtk_image_set_from_pixbuf (GTK_IMAGE (c_view->priv->image), new_pixbuf);
+                gtk_image_set_from_pixbuf (GTK_IMAGE (c_view->image), new_pixbuf);
                 g_object_unref (new_pixbuf);
         } else {
-                gtk_image_set_from_pixbuf (GTK_IMAGE (c_view->priv->image), pixbuf);
+                gtk_image_set_from_pixbuf (GTK_IMAGE (c_view->image), pixbuf);
         }
 }
 
@@ -622,67 +620,65 @@ buoh_view_comic_load_finished (BuohViewComic *c_view,
 
         buoh_debug ("buoh-view-comic-load finished");
 
-        gdk_pixbuf_loader_close (c_view->priv->pixbuf_loader, NULL);
+        gdk_pixbuf_loader_close (c_view->pixbuf_loader, NULL);
 
         gdk_window_set_cursor (gtk_widget_get_window (GTK_WIDGET (c_view)),
                                NULL);
 
-        buoh_comic_loader_get_error (c_view->priv->comic_loader, &error);
+        buoh_comic_loader_get_error (c_view->comic_loader, &error);
         if (error) {
-                buoh_view_set_message_title (BUOH_VIEW (c_view->priv->view),
+                buoh_view_set_message_title (BUOH_VIEW (c_view->view),
                                              _("Error Loading Comic"));
 
-                buoh_view_set_message_text (BUOH_VIEW (c_view->priv->view),
+                buoh_view_set_message_text (BUOH_VIEW (c_view->view),
                                             error->message);
                 g_error_free (error);
 
-                buoh_view_set_message_icon (BUOH_VIEW (c_view->priv->view),
+                buoh_view_set_message_icon (BUOH_VIEW (c_view->view),
                                             "dialog-error");
 
-                g_object_set (G_OBJECT (c_view->priv->view),
+                g_object_set (G_OBJECT (c_view->view),
                               "status", STATE_MESSAGE_ERROR,
                               NULL);
 
-                g_object_unref (c_view->priv->pixbuf_loader);
-                c_view->priv->pixbuf_loader = NULL;
+                g_clear_object (&c_view->pixbuf_loader);
 
                 return;
         }
 
-        pixbuf = gdk_pixbuf_loader_get_pixbuf (c_view->priv->pixbuf_loader);
+        pixbuf = gdk_pixbuf_loader_get_pixbuf (c_view->pixbuf_loader);
         if (pixbuf) {
                 buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
 
-                if (c_view->priv->scale == 1.0) {
+                if (c_view->scale == 1.0) {
                         /* We have both the compressed and uncompressed image.
                          * By setting the pixbuf to cache we avoid uncompressing
                          * the image again and having a new pixbuf instead of a
                          * reference.
                          */
-                        buoh_comic_set_pixbuf (c_view->priv->comic, pixbuf);
+                        buoh_comic_set_pixbuf (c_view->comic, pixbuf);
                 }
 
-                g_object_set (G_OBJECT (c_view->priv->view),
+                g_object_set (G_OBJECT (c_view->view),
                               "status", STATE_COMIC_LOADED,
                               NULL);
         }
 
-        if (c_view->priv->comic_data->len > 0) {
+        if (c_view->comic_data->len > 0) {
                 BuohComicImage *comic_image;
 
                 comic_image = g_new0 (BuohComicImage, 1);
 
-                comic_image->size = c_view->priv->comic_data->len;
-                comic_image->data = (guchar *) g_memdup (c_view->priv->comic_data->str,
-                                                         c_view->priv->comic_data->len);
+                comic_image->size = c_view->comic_data->len;
+                comic_image->data = (guchar *) g_memdup (c_view->comic_data->str,
+                                                         c_view->comic_data->len);
 
-                buoh_comic_set_image (c_view->priv->comic, comic_image);
+                buoh_comic_set_image (c_view->comic, comic_image);
 
-                c_view->priv->comic_data->len = 0;
+                c_view->comic_data->len = 0;
         }
 
-        g_object_unref (c_view->priv->pixbuf_loader);
-        c_view->priv->pixbuf_loader = NULL;
+        g_clear_object (&c_view->pixbuf_loader);
 }
 
 static gboolean
@@ -690,7 +686,7 @@ buoh_view_comic_set_image_from_loader (BuohViewComic *c_view)
 {
         GdkPixbuf *pixbuf;
 
-        pixbuf = gdk_pixbuf_loader_get_pixbuf (c_view->priv->pixbuf_loader);
+        pixbuf = gdk_pixbuf_loader_get_pixbuf (c_view->pixbuf_loader);
         if (pixbuf) {
                 buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
         }
@@ -706,7 +702,7 @@ buoh_view_comic_load_cb (const gchar   *data,
         static guint id = 0;
         GError *error = NULL;
 
-        gdk_pixbuf_loader_write (c_view->priv->pixbuf_loader,
+        gdk_pixbuf_loader_write (c_view->pixbuf_loader,
                                  (guchar *)data, len, &error);
 
         if (error) {
@@ -715,7 +711,7 @@ buoh_view_comic_load_cb (const gchar   *data,
                 return;
         }
 
-        c_view->priv->comic_data = g_string_append_len (c_view->priv->comic_data,
+        c_view->comic_data = g_string_append_len (c_view->comic_data,
                                                         data, len);
 
         if (id > 0) {
@@ -730,17 +726,17 @@ buoh_view_comic_load (BuohViewComic *c_view)
 {
         GdkPixbuf *pixbuf;
 
-        pixbuf = buoh_comic_get_pixbuf (c_view->priv->comic);
+        pixbuf = buoh_comic_get_pixbuf (c_view->comic);
         if (pixbuf) {
                 buoh_view_comic_update_zoom_cb (c_view);
                 buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
-                g_object_set (G_OBJECT (c_view->priv->view),
+                g_object_set (G_OBJECT (c_view->view),
                               "status", STATE_COMIC_LOADED,
                               NULL);
         } else {
                 GdkCursor *cursor;
 
-                g_object_set (G_OBJECT (c_view->priv->view),
+                g_object_set (G_OBJECT (c_view->view),
                               "status", STATE_COMIC_LOADING,
                               NULL);
 
@@ -749,20 +745,20 @@ buoh_view_comic_load (BuohViewComic *c_view)
                                        cursor);
                 g_object_unref (cursor);
 
-                if (c_view->priv->pixbuf_loader) {
-                        gdk_pixbuf_loader_close (c_view->priv->pixbuf_loader, NULL);
-                        g_object_unref (c_view->priv->pixbuf_loader);
+                if (c_view->pixbuf_loader) {
+                        gdk_pixbuf_loader_close (c_view->pixbuf_loader, NULL);
+                        g_object_unref (c_view->pixbuf_loader);
                 }
-                c_view->priv->pixbuf_loader = gdk_pixbuf_loader_new ();
-                g_signal_connect (G_OBJECT (c_view->priv->pixbuf_loader),
+                c_view->pixbuf_loader = gdk_pixbuf_loader_new ();
+                g_signal_connect (G_OBJECT (c_view->pixbuf_loader),
                                   "size-prepared",
                                   G_CALLBACK (buoh_view_comic_size_prepared),
                                   (gpointer) c_view);
 
-                c_view->priv->comic_data->len = 0;
+                c_view->comic_data->len = 0;
 
-                buoh_comic_loader_load_comic (c_view->priv->comic_loader,
-                                              c_view->priv->comic,
+                buoh_comic_loader_load_comic (c_view->comic_loader,
+                                              c_view->comic,
                                               (BuohComicLoaderLoadFunc) buoh_view_comic_load_cb,
                                               (gpointer) c_view);
         }
@@ -778,7 +774,7 @@ buoh_view_comic_update_scrollbar_policy (BuohViewComic *c_view)
                 return;
         }
 
-        switch (c_view->priv->zoom_mode) {
+        switch (c_view->zoom_mode) {
         case VIEW_ZOOM_FREE:
                 gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
                                                 GTK_POLICY_AUTOMATIC,
@@ -854,15 +850,15 @@ buoh_view_comic_zoom (BuohViewComic *c_view, gdouble factor, gboolean relative)
         GdkPixbuf *pixbuf = NULL;
 
         g_assert (BUOH_IS_VIEW_COMIC (c_view));
-        g_assert (BUOH_IS_COMIC (c_view->priv->comic));
+        g_assert (BUOH_IS_COMIC (c_view->comic));
 
         if (relative) {
-                scale = c_view->priv->scale * factor;
+                scale = c_view->scale * factor;
         } else {
                 scale = factor;
         }
 
-        if (scale == c_view->priv->scale) {
+        if (scale == c_view->scale) {
                 return;
         }
 
@@ -870,7 +866,7 @@ buoh_view_comic_zoom (BuohViewComic *c_view, gdouble factor, gboolean relative)
                       "scale", scale,
                       NULL);
 
-        pixbuf = buoh_comic_get_pixbuf (c_view->priv->comic);
+        pixbuf = buoh_comic_get_pixbuf (c_view->comic);
         if (pixbuf) {
                 buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
         }
@@ -881,7 +877,7 @@ buoh_view_comic_is_min_zoom (BuohViewComic *c_view)
 {
         g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), FALSE);
 
-        return c_view->priv->scale <= MIN_ZOOM_SCALE;
+        return c_view->scale <= MIN_ZOOM_SCALE;
 }
 
 gboolean
@@ -889,7 +885,7 @@ buoh_view_comic_is_max_zoom (BuohViewComic *c_view)
 {
         g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), FALSE);
 
-        return c_view->priv->scale >= MAX_ZOOM_SCALE;
+        return c_view->scale >= MAX_ZOOM_SCALE;
 }
 
 gboolean
@@ -897,7 +893,7 @@ buoh_view_comic_is_normal_size (BuohViewComic *c_view)
 {
         g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), FALSE);
 
-        return c_view->priv->scale == 1.0;
+        return c_view->scale == 1.0;
 }
 
 void
@@ -950,7 +946,7 @@ buoh_view_comic_get_zoom_mode (BuohViewComic *c_view)
 {
         g_return_val_if_fail (BUOH_IS_VIEW_COMIC (c_view), 0);
 
-        return c_view->priv->zoom_mode;
+        return c_view->zoom_mode;
 }
 
 void
