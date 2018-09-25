@@ -24,21 +24,8 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohAddComicDialog        BuohAddComicDialog;
-typedef struct _BuohAddComicDialogClass   BuohAddComicDialogClass;
-typedef struct _BuohAddComicDialogPrivate BuohAddComicDialogPrivate;
-
-#define BUOH_TYPE_ADD_COMIC_DIALOG                  (buoh_add_comic_dialog_get_type())
-#define BUOH_ADD_COMIC_DIALOG(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_ADD_COMIC_DIALOG, BuohAddComicDialog))
-#define BUOH_ADD_COMIC_DIALOG_CLASS(klass)          (G_TYPE_CHACK_CLASS_CAST((klass), BUOH_TYPE_ADD_COMIC_DIALOG, BuohAddComicDialogClass))
-#define BUOH_IS_ADD_COMIC_DIALOG(object)            (G_TYPE_CHECK_INSTANCE_TYPE((object), BUOH_TYPE_ADD_COMIC_DIALOG))
-#define BUOH_IS_ADD_COMIC_DIALOG_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_ADD_COMIC_DIALOG))
-#define BUOH_ADD_COMIC_DIALOG_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_ADD_COMIC_DIALOG, BuohAddComicDialogClass))
-
-struct _BuohAddComicDialog {
-        GtkDialog                  parent;
-        BuohAddComicDialogPrivate *priv;
-};
+#define BUOH_TYPE_ADD_COMIC_DIALOG buoh_add_comic_dialog_get_type ()
+G_DECLARE_FINAL_TYPE (BuohAddComicDialog, buoh_add_comic_dialog, BUOH, ADD_COMIC_DIALOG, GtkDialog)
 
 struct _BuohAddComicDialogClass {
         GtkDialogClass   parent_class;
