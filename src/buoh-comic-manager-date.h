@@ -26,36 +26,16 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohComicManagerDate        BuohComicManagerDate;
-typedef struct _BuohComicManagerDateClass   BuohComicManagerDateClass;
-typedef struct _BuohComicManagerDatePrivate BuohComicManagerDatePrivate;
+#define BUOH_TYPE_COMIC_MANAGER_DATE buoh_comic_manager_date_get_type ()
+G_DECLARE_FINAL_TYPE (BuohComicManagerDate, buoh_comic_manager_date, BUOH, COMIC_MANAGER_DATE, BuohComicManager)
 
-#define BUOH_TYPE_COMIC_MANAGER_DATE             (buoh_comic_manager_date_get_type ())
-#define BUOH_COMIC_MANAGER_DATE(o)             (G_TYPE_CHECK_INSTANCE_CAST ((o), BUOH_TYPE_COMIC_MANAGER_DATE, BuohComicManagerDate))
-#define BUOH_COMIC_MANAGER_DATE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), BUOH_TYPE_COMIC_MANAGER_DATE, BuohComicManagerDateClass))
-#define BUOH_IS_COMIC_MANAGER_DATE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), BUOH_TYPE_COMIC_MANAGER_DATE))
-#define BUOH_IS_COMIC_MANAGER_DATE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), BUOH_TYPE_COMIC_MANAGER_DATE))
-#define BUOH_COMIC_MANAGER_DATE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), BUOH_TYPE_COMIC_MANAGER_DATE, BuohComicManagerDateClass))
-
-struct _BuohComicManagerDate {
-        BuohComicManager parent;
-
-        BuohComicManagerDatePrivate *priv;
-};
-
-struct _BuohComicManagerDateClass {
-        BuohComicManagerClass parent_class;
-};
-
-GType             buoh_comic_manager_date_get_type             (void) G_GNUC_CONST;
-
-BuohComicManager *buoh_comic_manager_date_new                       (const gchar          *id,
+BuohComicManager *buoh_comic_manager_date_new                  (const gchar          *id,
                                                                 const gchar          *title,
                                                                 const gchar          *author,
                                                                 const gchar          *language,
                                                                 const gchar          *generic_uri);
 
-void                  buoh_comic_manager_date_set_offset                (BuohComicManagerDate *comic_manager,
+void              buoh_comic_manager_date_set_offset           (BuohComicManagerDate *comic_manager,
                                                                 guint                 offset);
 void              buoh_comic_manager_date_set_restriction      (BuohComicManagerDate *comic_manager,
                                                                 GDateWeekday          day);
