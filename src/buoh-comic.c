@@ -38,7 +38,9 @@ enum {
         PROP_DATE
 };
 
-struct _BuohComicPrivate {
+struct _BuohComic {
+        GObject         parent;
+
         gchar          *id;
         gchar          *uri;
         GDate          *date;
@@ -58,18 +60,12 @@ static void buoh_comic_set_property (GObject        *object,
                                      const GValue   *value,
                                      GParamSpec     *pspec);
 
-G_DEFINE_TYPE_WITH_PRIVATE (BuohComic, buoh_comic, G_TYPE_OBJECT)
+G_DEFINE_TYPE (BuohComic, buoh_comic, G_TYPE_OBJECT)
 
 static void
 buoh_comic_init (BuohComic *buoh_comic)
 {
-        buoh_comic->priv = buoh_comic_get_instance_private (buoh_comic);
-
-        buoh_comic->priv->id = NULL;
-        buoh_comic->priv->uri = NULL;
-        buoh_comic->priv->date = NULL;
-
-        buoh_comic->priv->cache = buoh_comic_cache_new ();
+        buoh_comic->cache = buoh_comic_cache_new ();
 }
 
 static void
@@ -123,25 +119,10 @@ buoh_comic_finalize (GObject *object)
 
         buoh_debug ("buoh-comic-finalize");
 
-        if (comic->priv->id) {
-                g_free (comic->priv->id);
-                comic->priv->id = NULL;
-        }
-
-        if (comic->priv->uri) {
-                g_free (comic->priv->uri);
-                comic->priv->uri = NULL;
-        }
-
-        if (comic->priv->date) {
-                g_date_free (comic->priv->date);
-                comic->priv->date = NULL;
-        }
-
-        if (comic->priv->cache) {
-                g_object_unref (comic->priv->cache);
-                comic->priv->cache = NULL;
-        }
+        g_clear_pointer (&comic->id, g_free);
+        g_clear_pointer (&comic->uri, g_free);
+        g_clear_pointer (&comic->date, g_date_free);
+        g_clear_object (&comic->cache);
 
         if (G_OBJECT_CLASS (buoh_comic_parent_class)->finalize) {
                 (* G_OBJECT_CLASS (buoh_comic_parent_class)->finalize) (object);
@@ -187,39 +168,39 @@ buoh_comic_set_property (GObject      *object,
 
         switch (prop_id) {
         case PROP_ID:
-                g_free (comic->priv->id);
-                comic->priv->id = g_value_dup_string (value);
+                g_free (comic->id);
+                comic->id = g_value_dup_string (value);
 
                 break;
         case PROP_URI:
-                g_free (comic->priv->uri);
-                comic->priv->uri = g_value_dup_string (value);
+                g_free (comic->uri);
+                comic->uri = g_value_dup_string (value);
 
                 break;
         case PROP_PIXBUF: {
                 GdkPixbuf *pixbuf;
 
                 pixbuf = GDK_PIXBUF (g_value_get_pointer (value));
-                buoh_comic_cache_set_pixbuf (comic->priv->cache,
-                                             comic->priv->uri, pixbuf);
+                buoh_comic_cache_set_pixbuf (comic->cache,
+                                             comic->uri, pixbuf);
         }
                 break;
         case PROP_IMAGE: {
                 BuohComicImage *image;
 
                 image = (BuohComicImage *) g_value_get_pointer (value);
-                buoh_comic_cache_set_image (comic->priv->cache,
-                                            comic->priv->uri, image);
+                buoh_comic_cache_set_image (comic->cache,
+                                            comic->uri, image);
         }
 
                 break;
         case PROP_DATE:
-                if (comic->priv->date) {
-                        g_date_free (comic->priv->date);
+                if (comic->date) {
+                        g_date_free (comic->date);
                 }
                 date = g_value_get_pointer (value);
 
-                comic->priv->date = g_date_new_dmy (g_date_get_day (date),
+                comic->date = g_date_new_dmy (g_date_get_day (date),
                                                     g_date_get_month (date),
                                                     g_date_get_year (date));
                 break;
@@ -238,31 +219,31 @@ buoh_comic_get_property (GObject      *object,
 
         switch (prop_id) {
         case PROP_ID:
-                g_value_set_string (value, comic->priv->id);
+                g_value_set_string (value, comic->id);
 
                 break;
         case PROP_URI:
-                g_value_set_string (value, comic->priv->uri);
+                g_value_set_string (value, comic->uri);
 
                 break;
         case PROP_PIXBUF: {
                 GdkPixbuf *pixbuf;
 
-                pixbuf = buoh_comic_cache_get_pixbuf (comic->priv->cache,
-                                                      comic->priv->uri);
+                pixbuf = buoh_comic_cache_get_pixbuf (comic->cache,
+                                                      comic->uri);
                 g_value_set_pointer (value, pixbuf);
         }
                 break;
         case PROP_IMAGE: {
                 BuohComicImage *image;
 
-                image = buoh_comic_cache_get_image (comic->priv->cache,
-                                                    comic->priv->uri);
+                image = buoh_comic_cache_get_image (comic->cache,
+                                                    comic->uri);
                 g_value_set_pointer (value, image);
         }
                 break;
         case PROP_DATE:
-                g_value_set_pointer (value, comic->priv->date);
+                g_value_set_pointer (value, comic->date);
 
                 break;
         default:
@@ -324,7 +305,7 @@ buoh_comic_get_id (BuohComic *comic)
 {
         g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
 
-        return comic->priv->id;
+        return comic->id;
 }
 
 const gchar *
@@ -332,7 +313,7 @@ buoh_comic_get_uri (BuohComic *comic)
 {
         g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
 
-        return comic->priv->uri;
+        return comic->uri;
 }
 
 GdkPixbuf *
@@ -410,7 +391,7 @@ buoh_comic_get_filename (BuohComic *comic)
 
         g_return_val_if_fail (BUOH_IS_COMIC (comic), NULL);
 
-        filename = g_path_get_basename (comic->priv->uri);
+        filename = g_path_get_basename (comic->uri);
 
         return filename;
 }
