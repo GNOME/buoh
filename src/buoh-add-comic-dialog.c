@@ -29,7 +29,9 @@
 #include "buoh-add-comic-dialog.h"
 #include "buoh.h"
 
-struct _BuohAddComicDialogPrivate {
+struct _BuohAddComicDialog {
+        GtkDialog     parent;
+
         GtkTreeModel *model;
         GtkWidget    *selected_label;
         GtkWidget    *tree_view;
@@ -45,21 +47,19 @@ static void buoh_add_comic_toggled_cb             (GtkCellRendererToggle *render
                                                    gchar                 *path,
                                                    gpointer               gdata);
 
-G_DEFINE_TYPE_WITH_PRIVATE (BuohAddComicDialog, buoh_add_comic_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE(BuohAddComicDialog, buoh_add_comic_dialog, GTK_TYPE_DIALOG)
 
 static void
 buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
 {
-        dialog->priv = buoh_add_comic_dialog_get_instance_private (dialog);
-
         gtk_widget_init_template (GTK_WIDGET (dialog));
 
-        dialog->priv->model = buoh_get_comics_model (BUOH);
+        dialog->model = buoh_get_comics_model (BUOH);
 
-        gtk_tree_view_set_model (GTK_TREE_VIEW (dialog->priv->tree_view), dialog->priv->model);
+        gtk_tree_view_set_model (GTK_TREE_VIEW (dialog->tree_view), dialog->model);
 
         /* Counter */
-        dialog->priv->n_selected = buoh_add_comic_dialog_get_n_selected (dialog);
+        dialog->n_selected = buoh_add_comic_dialog_get_n_selected (dialog);
         buoh_comic_add_dialog_update_selected (dialog);
 }
 
@@ -70,8 +70,8 @@ buoh_add_comic_dialog_class_init (BuohAddComicDialogClass *klass)
 
         gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/add-comic-dialog.ui");
 
-        gtk_widget_class_bind_template_child_private (widget_class, BuohAddComicDialog, selected_label);
-        gtk_widget_class_bind_template_child_private (widget_class, BuohAddComicDialog, tree_view);
+        gtk_widget_class_bind_template_child (widget_class, BuohAddComicDialog, selected_label);
+        gtk_widget_class_bind_template_child (widget_class, BuohAddComicDialog, tree_view);
 
         gtk_widget_class_bind_template_callback (widget_class, buoh_add_comic_toggled_cb);
 }
@@ -84,16 +84,16 @@ buoh_add_comic_dialog_get_n_selected (BuohAddComicDialog *dialog)
         gboolean    active;
         gint        count = 0;
 
-        valid = gtk_tree_model_get_iter_first (dialog->priv->model, &iter);
+        valid = gtk_tree_model_get_iter_first (dialog->model, &iter);
         while (valid) {
-                gtk_tree_model_get (dialog->priv->model, &iter,
+                gtk_tree_model_get (dialog->model, &iter,
                                     COMIC_LIST_VISIBLE, &active,
                                     -1);
                 if (active) {
                         count ++;
                 }
 
-                valid = gtk_tree_model_iter_next (dialog->priv->model, &iter);
+                valid = gtk_tree_model_iter_next (dialog->model, &iter);
         }
 
         return count;
@@ -104,8 +104,8 @@ buoh_comic_add_dialog_update_selected (BuohAddComicDialog *dialog)
 {
         gchar *text;
 
-        text = g_strdup_printf (_("Comics selected: %d"), dialog->priv->n_selected);
-        gtk_label_set_text (GTK_LABEL (dialog->priv->selected_label), text);
+        text = g_strdup_printf (_("Comics selected: %d"), dialog->n_selected);
+        gtk_label_set_text (GTK_LABEL (dialog->selected_label), text);
         g_free (text);
 }
 
@@ -119,16 +119,16 @@ buoh_add_comic_toggled_cb (GtkCellRendererToggle *renderer,
 
         active = gtk_cell_renderer_toggle_get_active (renderer);
 
-        gtk_tree_model_get_iter_from_string (dialog->priv->model, &iter, path);
-        gtk_list_store_set (GTK_LIST_STORE (dialog->priv->model),
+        gtk_tree_model_get_iter_from_string (dialog->model, &iter, path);
+        gtk_list_store_set (GTK_LIST_STORE (dialog->model),
                             &iter,
                             COMIC_LIST_VISIBLE, !active,
                             -1);
 
         if (active) {
-                dialog->priv->n_selected --;
+                dialog->n_selected --;
         } else {
-                dialog->priv->n_selected ++;
+                dialog->n_selected ++;
         }
 
         buoh_comic_add_dialog_update_selected (dialog);
