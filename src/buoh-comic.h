@@ -25,34 +25,14 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohComic        BuohComic;
-typedef struct _BuohComicClass   BuohComicClass;
-typedef struct _BuohComicPrivate BuohComicPrivate;
-
-#define BUOH_TYPE_COMIC                (buoh_comic_get_type ())
-#define BUOH_COMIC(o)                (G_TYPE_CHECK_INSTANCE_CAST ((o), BUOH_TYPE_COMIC, BuohComic))
-#define BUOH_COMIC_CLASS(k)         (G_TYPE_CHECK_CLASS_CAST((k), BUOH_TYPE_COMIC, BuohComicClass))
-#define BUOH_IS_COMIC(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), BUOH_TYPE_COMIC))
-#define BUOH_IS_COMIC_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), BUOH_TYPE_COMIC))
-#define BUOH_COMIC_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), BUOH_TYPE_COMIC, BuohComicClass))
-
+#define BUOH_TYPE_COMIC buoh_comic_get_type ()
+G_DECLARE_FINAL_TYPE (BuohComic, buoh_comic, BUOH, COMIC, GObject)
 
 typedef struct {
         guchar *data;
         gsize   size;
 } BuohComicImage;
 
-struct _BuohComic {
-        GObject           parent;
-
-        BuohComicPrivate *priv;
-};
-
-struct _BuohComicClass {
-        GObjectClass      parent_class;
-};
-
-GType           buoh_comic_get_type             (void) G_GNUC_CONST;
 BuohComic      *buoh_comic_new                  (void);
 BuohComic      *buoh_comic_new_with_info        (const gchar    *id,
                                                  const gchar    *uri,
