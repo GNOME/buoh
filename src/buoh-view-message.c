@@ -25,7 +25,9 @@
 
 #include "buoh-view-message.h"
 
-struct _BuohViewMessagePrivate {
+struct _BuohViewMessage {
+        GtkViewport parent;
+
         GtkWidget *title;
         GtkWidget *text;
         GtkWidget *icon;
@@ -34,13 +36,11 @@ struct _BuohViewMessagePrivate {
 static void buoh_view_message_init          (BuohViewMessage *m_view);
 static void buoh_view_message_class_init    (BuohViewMessageClass *klass);
 
-G_DEFINE_TYPE_WITH_PRIVATE (BuohViewMessage, buoh_view_message, GTK_TYPE_VIEWPORT)
+G_DEFINE_TYPE (BuohViewMessage, buoh_view_message, GTK_TYPE_VIEWPORT)
 
 static void
 buoh_view_message_init (BuohViewMessage *m_view)
 {
-        m_view->priv = buoh_view_message_get_instance_private (m_view);
-
         gtk_widget_init_template (GTK_WIDGET (m_view));
 }
 
@@ -51,9 +51,9 @@ buoh_view_message_class_init (BuohViewMessageClass *klass)
 
         gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/view-message.ui");
 
-        gtk_widget_class_bind_template_child_private (widget_class, BuohViewMessage, title);
-        gtk_widget_class_bind_template_child_private (widget_class, BuohViewMessage, text);
-        gtk_widget_class_bind_template_child_private (widget_class, BuohViewMessage, icon);
+        gtk_widget_class_bind_template_child (widget_class, BuohViewMessage, title);
+        gtk_widget_class_bind_template_child (widget_class, BuohViewMessage, text);
+        gtk_widget_class_bind_template_child (widget_class, BuohViewMessage, icon);
 }
 
 GtkWidget *
@@ -71,7 +71,7 @@ buoh_view_message_set_title (BuohViewMessage *m_view, const gchar *title)
         g_return_if_fail (BUOH_IS_VIEW_MESSAGE (m_view));
         g_return_if_fail (title != NULL);
 
-        gtk_label_set_text (GTK_LABEL (m_view->priv->title), title);
+        gtk_label_set_text (GTK_LABEL (m_view->title), title);
 }
 
 void
@@ -80,7 +80,7 @@ buoh_view_message_set_text (BuohViewMessage *m_view, const gchar *text)
         g_return_if_fail (BUOH_IS_VIEW_MESSAGE (m_view));
         g_return_if_fail (text != NULL);
 
-        gtk_label_set_markup (GTK_LABEL (m_view->priv->text), text);
+        gtk_label_set_markup (GTK_LABEL (m_view->text), text);
 }
 
 void
@@ -89,5 +89,5 @@ buoh_view_message_set_icon (BuohViewMessage *m_view, const gchar *icon)
         g_return_if_fail (BUOH_IS_VIEW_MESSAGE (m_view));
         g_return_if_fail (icon != NULL);
 
-        gtk_image_set_from_icon_name (GTK_IMAGE (m_view->priv->icon), icon, GTK_ICON_SIZE_DIALOG);
+        gtk_image_set_from_icon_name (GTK_IMAGE (m_view->icon), icon, GTK_ICON_SIZE_DIALOG);
 }
