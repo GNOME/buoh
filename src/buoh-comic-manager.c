@@ -61,15 +61,15 @@ G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (BuohComicManager, buoh_comic_manager, G_TYP
 static void
 buoh_comic_manager_init (BuohComicManager *comic_manager)
 {
-        comic_manager->priv = buoh_comic_manager_get_instance_private (comic_manager);
+        BuohComicManagerPrivate *priv = buoh_comic_manager_get_instance_private (comic_manager);
 
-        comic_manager->priv->author      = NULL;
-        comic_manager->priv->title       = NULL;
-        comic_manager->priv->language    = NULL;
-        comic_manager->priv->id          = NULL;
-        comic_manager->priv->generic_uri = NULL;
-        comic_manager->priv->current     = NULL;
-        comic_manager->priv->comic_list  = NULL;
+        priv->author      = NULL;
+        priv->title       = NULL;
+        priv->language    = NULL;
+        priv->id          = NULL;
+        priv->generic_uri = NULL;
+        priv->current     = NULL;
+        priv->comic_list  = NULL;
 }
 
 static void
@@ -138,38 +138,39 @@ static void
 buoh_comic_manager_finalize (GObject *object)
 {
         BuohComicManager *comic_manager = BUOH_COMIC_MANAGER (object);
+        BuohComicManagerPrivate *priv = buoh_comic_manager_get_instance_private (comic_manager);
 
-        if (comic_manager->priv->author) {
-                g_free (comic_manager->priv->author);
-                comic_manager->priv->author = NULL;
+        if (priv->author) {
+                g_free (priv->author);
+                priv->author = NULL;
         }
 
-        if (comic_manager->priv->title) {
-                g_free (comic_manager->priv->title);
-                comic_manager->priv->title = NULL;
+        if (priv->title) {
+                g_free (priv->title);
+                priv->title = NULL;
         }
 
-        if (comic_manager->priv->language) {
-                g_free (comic_manager->priv->language);
-                comic_manager->priv->language = NULL;
+        if (priv->language) {
+                g_free (priv->language);
+                priv->language = NULL;
         }
 
-        if (comic_manager->priv->id) {
-                g_free (comic_manager->priv->id);
-                comic_manager->priv->id = NULL;
+        if (priv->id) {
+                g_free (priv->id);
+                priv->id = NULL;
         }
 
-        if (comic_manager->priv->generic_uri) {
-                g_free (comic_manager->priv->generic_uri);
-                comic_manager->priv->generic_uri = NULL;
+        if (priv->generic_uri) {
+                g_free (priv->generic_uri);
+                priv->generic_uri = NULL;
         }
 
-        if (comic_manager->priv->comic_list) {
-                g_list_foreach (comic_manager->priv->comic_list,
+        if (priv->comic_list) {
+                g_list_foreach (priv->comic_list,
                                 (GFunc) g_object_unref, NULL);
-                g_list_free (comic_manager->priv->comic_list);
+                g_list_free (priv->comic_list);
 
-                comic_manager->priv->comic_list = NULL;
+                priv->comic_list = NULL;
         }
 
         if (G_OBJECT_CLASS (buoh_comic_manager_parent_class)->finalize) {
@@ -208,39 +209,40 @@ buoh_comic_manager_set_property (GObject      *object,
                                  GParamSpec   *pspec)
 {
         BuohComicManager *comic_manager = BUOH_COMIC_MANAGER (object);
+        BuohComicManagerPrivate *priv = buoh_comic_manager_get_instance_private (comic_manager);
 
         switch (prop_id) {
         case PROP_TITLE:
-                g_free (comic_manager->priv->title);
-                comic_manager->priv->title = g_value_dup_string (value);
+                g_free (priv->title);
+                priv->title = g_value_dup_string (value);
 
                 break;
         case PROP_AUTHOR:
-                g_free (comic_manager->priv->author);
-                comic_manager->priv->author = g_value_dup_string (value);
+                g_free (priv->author);
+                priv->author = g_value_dup_string (value);
 
                 break;
         case PROP_LANGUAGE:
-                g_free (comic_manager->priv->language);
-                comic_manager->priv->language = g_value_dup_string (value);
+                g_free (priv->language);
+                priv->language = g_value_dup_string (value);
 
                 break;
         case PROP_ID:
-                g_free (comic_manager->priv->id);
-                comic_manager->priv->id = g_value_dup_string (value);
+                g_free (priv->id);
+                priv->id = g_value_dup_string (value);
 
                 break;
         case PROP_GENERIC_URI:
-                g_free (comic_manager->priv->generic_uri);
-                comic_manager->priv->generic_uri = g_value_dup_string (value);
+                g_free (priv->generic_uri);
+                priv->generic_uri = g_value_dup_string (value);
 
                 break;
         case PROP_LIST:
-                comic_manager->priv->comic_list = g_value_get_pointer (value);
+                priv->comic_list = g_value_get_pointer (value);
 
                 break;
         case PROP_CURRENT:
-                comic_manager->priv->current = g_value_get_pointer (value);
+                priv->current = g_value_get_pointer (value);
 
                 break;
         default:
@@ -255,34 +257,35 @@ buoh_comic_manager_get_property (GObject      *object,
                                  GParamSpec   *pspec)
 {
         BuohComicManager *comic_manager = BUOH_COMIC_MANAGER (object);
+        BuohComicManagerPrivate *priv = buoh_comic_manager_get_instance_private (comic_manager);
 
         switch (prop_id) {
         case PROP_TITLE:
-                g_value_set_string (value, comic_manager->priv->title);
+                g_value_set_string (value, priv->title);
 
                 break;
         case PROP_AUTHOR:
-                g_value_set_string (value, comic_manager->priv->author);
+                g_value_set_string (value, priv->author);
 
                 break;
         case PROP_LANGUAGE:
-                g_value_set_string (value, comic_manager->priv->language);
+                g_value_set_string (value, priv->language);
 
                 break;
         case PROP_ID:
-                g_value_set_string (value, comic_manager->priv->id);
+                g_value_set_string (value, priv->id);
 
                 break;
         case PROP_GENERIC_URI:
-                g_value_set_string (value, comic_manager->priv->generic_uri);
+                g_value_set_string (value, priv->generic_uri);
 
                 break;
         case PROP_LIST:
-                g_value_set_pointer (value, comic_manager->priv->comic_list);
+                g_value_set_pointer (value, priv->comic_list);
 
                 break;
         case PROP_CURRENT:
-                g_value_set_pointer (value, comic_manager->priv->current);
+                g_value_set_pointer (value, priv->current);
 
                 break;
         default:
@@ -342,10 +345,11 @@ BuohComic *
 buoh_comic_manager_get_current (BuohComicManager *comic_manager)
 {
         g_return_val_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager), NULL);
+        BuohComicManagerPrivate *priv = buoh_comic_manager_get_instance_private (comic_manager);
 
-        if (comic_manager->priv->current != NULL) {
+        if (priv->current != NULL) {
                 buoh_debug ("get_current");
-                return comic_manager->priv->current->data;
+                return priv->current->data;
         } else {
                 if (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_last) {
                         return (BUOH_COMIC_MANAGER_GET_CLASS (comic_manager)->get_last) (comic_manager);
@@ -361,10 +365,11 @@ buoh_comic_manager_is_the_last (BuohComicManager *comic_manager)
         GList *current;
 
         g_return_val_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager), FALSE);
+        BuohComicManagerPrivate *priv = buoh_comic_manager_get_instance_private (comic_manager);
 
-        current = comic_manager->priv->current;
+        current = priv->current;
 
-        return (current == g_list_last (comic_manager->priv->comic_list));
+        return (current == g_list_last (priv->comic_list));
 }
 
 gboolean
@@ -383,32 +388,36 @@ const gchar *
 buoh_comic_manager_get_title (BuohComicManager *comic_manager)
 {
         g_return_val_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager), NULL);
+        BuohComicManagerPrivate *priv = buoh_comic_manager_get_instance_private (comic_manager);
 
-        return comic_manager->priv->title;
+        return priv->title;
 }
 
 const gchar *
 buoh_comic_manager_get_author (BuohComicManager *comic_manager)
 {
         g_return_val_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager), NULL);
+        BuohComicManagerPrivate *priv = buoh_comic_manager_get_instance_private (comic_manager);
 
-        return comic_manager->priv->author;
+        return priv->author;
 }
 
 const gchar *
 buoh_comic_manager_get_language (BuohComicManager *comic_manager)
 {
         g_return_val_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager), NULL);
+        BuohComicManagerPrivate *priv = buoh_comic_manager_get_instance_private (comic_manager);
 
-        return comic_manager->priv->language;
+        return priv->language;
 }
 
 const gchar *
 buoh_comic_manager_get_id (BuohComicManager *comic_manager)
 {
         g_return_val_if_fail (BUOH_IS_COMIC_MANAGER (comic_manager), NULL);
+        BuohComicManagerPrivate *priv = buoh_comic_manager_get_instance_private (comic_manager);
 
-        return comic_manager->priv->id;
+        return priv->id;
 }
 
 gint
