@@ -26,27 +26,9 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohComicCache        BuohComicCache;
-typedef struct _BuohComicCacheClass   BuohComicCacheClass;
-typedef struct _BuohComicCachePrivate BuohComicCachePrivate;
+#define BUOH_TYPE_COMIC_CACHE buoh_comic_cache_get_type ()
+G_DECLARE_FINAL_TYPE (BuohComicCache, buoh_comic_cache, BUOH, COMIC_CACHE, GObject)
 
-#define BUOH_TYPE_COMIC_CACHE                  (buoh_comic_cache_get_type())
-#define BUOH_COMIC_CACHE(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_COMIC_CACHE, BuohComicCache))
-#define BUOH_COMIC_CACHE_CLASS(klass)          (G_TYPE_CHACK_CLASS_CAST((klass), BUOH_TYPE_COMIC_LIST, BuohComicCacheClass))
-#define BUOH_IS_COMIC_CACHE(object)            (G_TYPE_CHECK_INSTANCE_TYPE((object), BUOH_TYPE_COMIC_CACHE))
-#define BUOH_IS_COMIC_CACHE_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_COMIC_CACHE))
-#define BUOH_COMIC_CACHE_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_COMIC_CACHE, BuohComicCacheClass))
-
-struct _BuohComicCache {
-        GObject                parent;
-        BuohComicCachePrivate *priv;
-};
-
-struct _BuohComicCacheClass {
-        GObjectClass         parent_class;
-};
-
-GType           buoh_comic_cache_get_type   (void) G_GNUC_CONST;
 BuohComicCache *buoh_comic_cache_new        (void);
 
 void            buoh_comic_cache_set_image  (BuohComicCache *cache,
