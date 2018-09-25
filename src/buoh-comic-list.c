@@ -25,7 +25,9 @@
 #include "buoh.h"
 #include "buoh-comic-list.h"
 
-struct _BuohComicListPrivate {
+struct _BuohComicList {
+        GtkBin            parent;
+
         GtkWidget        *tree_view;
         GtkTreeModel     *model;
         BuohComicManager *comic_manager;
@@ -48,7 +50,7 @@ static gboolean buoh_comic_list_visible            (GtkTreeModel     *model,
                                                     GtkTreeIter      *iter,
                                                     gpointer          gdata);
 
-G_DEFINE_TYPE_WITH_PRIVATE (BuohComicList, buoh_comic_list, GTK_TYPE_BIN)
+G_DEFINE_TYPE (BuohComicList, buoh_comic_list, GTK_TYPE_BIN)
 
 static void
 buoh_comic_list_selection_changed (GtkTreeSelection *selection, gpointer gdata)
@@ -64,15 +66,15 @@ buoh_comic_list_selection_changed (GtkTreeSelection *selection, gpointer gdata)
                                     COMIC_LIST_COMIC_MANAGER, &comic_manager,
                                     -1);
 
-                comic_list->priv->comic_manager = BUOH_COMIC_MANAGER (comic_manager);
-                comic = buoh_comic_manager_get_current (comic_list->priv->comic_manager);
+                comic_list->comic_manager = BUOH_COMIC_MANAGER (comic_manager);
+                comic = buoh_comic_manager_get_current (comic_list->comic_manager);
                 g_object_unref (comic_manager);
 
-                buoh_view_set_comic (comic_list->priv->view, comic);
+                buoh_view_set_comic (comic_list->view, comic);
                 buoh_debug ("selection changed: set comic");
         } else {
-                if (comic_list->priv->view != NULL) {
-                        buoh_view_clear (comic_list->priv->view);
+                if (comic_list->view != NULL) {
+                        buoh_view_clear (comic_list->view);
                 }
         }
 }
@@ -92,12 +94,6 @@ buoh_comic_list_visible (GtkTreeModel *model,
 static void
 buoh_comic_list_init (BuohComicList *buoh_comic_list)
 {
-
-        buoh_comic_list->priv = buoh_comic_list_get_instance_private (buoh_comic_list);
-
-        buoh_comic_list->priv->comic_manager = NULL;
-        buoh_comic_list->priv->view = NULL;
-
         gtk_widget_init_template (GTK_WIDGET (buoh_comic_list));
 }
 
@@ -114,7 +110,7 @@ buoh_comic_list_class_init (BuohComicListClass *klass)
 
         gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/comic-list.ui");
 
-        gtk_widget_class_bind_template_child_private (widget_class, BuohComicList, tree_view);
+        gtk_widget_class_bind_template_child (widget_class, BuohComicList, tree_view);
 
         gtk_widget_class_bind_template_callback (widget_class, buoh_comic_list_selection_changed);
 }
@@ -126,9 +122,9 @@ buoh_comic_list_finalize (GObject *object)
 
         buoh_debug ("comic-list finalize");
 
-        if (comic_list->priv->model) {
-                g_object_unref (comic_list->priv->model);
-                comic_list->priv->model = NULL;
+        if (comic_list->model) {
+                g_object_unref (comic_list->model);
+                comic_list->model = NULL;
         }
 
         if (G_OBJECT_CLASS (buoh_comic_list_parent_class)->finalize) {
@@ -191,11 +187,11 @@ buoh_comic_list_set_view (BuohComicList *comic_list, BuohView *view)
         g_return_if_fail (BUOH_IS_COMIC_LIST (comic_list));
         g_return_if_fail (BUOH_IS_VIEW (view));
 
-        if (comic_list->priv->view) {
+        if (comic_list->view) {
                 return;
         }
 
-        comic_list->priv->view = view;
+        comic_list->view = view;
 }
 
 void
@@ -204,13 +200,13 @@ buoh_comic_list_set_model (BuohComicList *comic_list, GtkTreeModel *model)
         g_return_if_fail (BUOH_IS_COMIC_LIST (comic_list));
         g_return_if_fail (GTK_IS_TREE_MODEL (model));
 
-        comic_list->priv->model = gtk_tree_model_filter_new (model, NULL);
-        gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (comic_list->priv->model),
+        comic_list->model = gtk_tree_model_filter_new (model, NULL);
+        gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (comic_list->model),
                                                 buoh_comic_list_visible,
                                                 NULL, NULL);
 
-        gtk_tree_view_set_model (GTK_TREE_VIEW (comic_list->priv->tree_view),
-                                 comic_list->priv->model);
+        gtk_tree_view_set_model (GTK_TREE_VIEW (comic_list->tree_view),
+                                 comic_list->model);
 }
 
 GtkWidget *
@@ -218,7 +214,7 @@ buoh_comic_list_get_list (BuohComicList *comic_list)
 {
         g_return_val_if_fail (BUOH_IS_COMIC_LIST (comic_list), NULL);
 
-        return comic_list->priv->tree_view;
+        return comic_list->tree_view;
 }
 
 void
@@ -227,7 +223,7 @@ buoh_comic_list_clear_selection (BuohComicList *comic_list)
         g_return_if_fail (BUOH_IS_COMIC_LIST (comic_list));
 
         gtk_tree_selection_unselect_all (
-                gtk_tree_view_get_selection (GTK_TREE_VIEW (comic_list->priv->tree_view)));
+                gtk_tree_view_get_selection (GTK_TREE_VIEW (comic_list->tree_view)));
 }
 
 BuohComicManager *
@@ -235,5 +231,5 @@ buoh_comic_list_get_selected (BuohComicList *comic_list)
 {
         g_return_val_if_fail (BUOH_IS_COMIC_LIST (comic_list), NULL);
 
-        return comic_list->priv->comic_manager;
+        return comic_list->comic_manager;
 }

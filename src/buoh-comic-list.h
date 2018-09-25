@@ -27,27 +27,9 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohComicList        BuohComicList;
-typedef struct _BuohComicListClass   BuohComicListClass;
-typedef struct _BuohComicListPrivate BuohComicListPrivate;
+#define BUOH_TYPE_COMIC_LIST buoh_comic_list_get_type ()
+G_DECLARE_FINAL_TYPE (BuohComicList, buoh_comic_list, BUOH, COMIC_LIST, GtkBin)
 
-#define BUOH_TYPE_COMIC_LIST                  (buoh_comic_list_get_type())
-#define BUOH_COMIC_LIST(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_COMIC_LIST, BuohComicList))
-#define BUOH_COMIC_LIST_CLASS(klass)          (G_TYPE_CHACK_CLASS_CAST((klass), BUOH_TYPE_COMIC_LIST, BuohComicListClass))
-#define BUOH_IS_COMIC_LIST(object)            (G_TYPE_CHECK_INSTANCE_TYPE((object), BUOH_TYPE_COMIC_LIST))
-#define BUOH_IS_COMIC_LIST_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_COMIC_LIST))
-#define BUOH_COMIC_LIST_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_COMIC_LIST, BuohComicListClass))
-
-struct _BuohComicList {
-        GtkBin                parent;
-        BuohComicListPrivate *priv;
-};
-
-struct _BuohComicListClass {
-        GtkBinClass         parent_class;
-};
-
-GType             buoh_comic_list_get_type        (void) G_GNUC_CONST;
 GtkWidget        *buoh_comic_list_new             (void);
 
 void              buoh_comic_list_set_view        (BuohComicList *comic_list,
