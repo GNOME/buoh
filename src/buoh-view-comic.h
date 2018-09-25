@@ -26,27 +26,9 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohViewComic        BuohViewComic;
-typedef struct _BuohViewComicClass   BuohViewComicClass;
-typedef struct _BuohViewComicPrivate BuohViewComicPrivate;
+#define BUOH_TYPE_VIEW_COMIC buoh_view_comic_get_type ()
+G_DECLARE_FINAL_TYPE (BuohViewComic, buoh_view_comic, BUOH, VIEW_COMIC, GtkViewport)
 
-#define BUOH_TYPE_VIEW_COMIC                  (buoh_view_comic_get_type())
-#define BUOH_VIEW_COMIC(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_VIEW_COMIC, BuohViewComic))
-#define BUOH_VIEW_COMIC_CLASS(klass)          (G_TYPE_CHACK_CLASS_CAST((klass), BUOH_TYPE_VIEW_COMIC, BuohViewComicClass))
-#define BUOH_IS_VIEW_COMIC(object)            (G_TYPE_CHECK_INSTANCE_TYPE((object), BUOH_TYPE_VIEW_COMIC))
-#define BUOH_IS_VIEW_COMIC_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_VIEW_COMIC))
-#define BUOH_VIEW_COMIC_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_VIEW_COMIC, BuohViewComicClass))
-
-struct _BuohViewComic {
-        GtkViewport           parent;
-        BuohViewComicPrivate *priv;
-};
-
-struct _BuohViewComicClass {
-        GtkViewportClass   parent_class;
-};
-
-GType            buoh_view_comic_get_type       (void) G_GNUC_CONST;
 GtkWidget       *buoh_view_comic_new            (BuohView        *view);
 
 gboolean         buoh_view_comic_is_min_zoom    (BuohViewComic   *c_view);
