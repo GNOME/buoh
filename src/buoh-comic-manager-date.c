@@ -41,11 +41,15 @@ static BuohComic *buoh_comic_manager_date_get_last          (BuohComicManager   
 static gboolean   buoh_comic_manager_date_is_the_first      (BuohComicManager     *manager);
 static gchar     *buoh_comic_manager_date_get_dayweek       (GDateWeekday          d);
 
-struct _BuohComicManagerDatePrivate {
+typedef struct {
         GDate     *date;
         GDate     *first;
         gboolean   publications[8]; /* Days of week */
         guint      offset;
+} BuohComicManagerDatePrivate;
+
+struct _BuohComicManagerDate {
+        BuohComicManager parent;
 };
 
 static const gchar *day_names[] = {
@@ -66,10 +70,10 @@ buoh_comic_manager_date_init (BuohComicManagerDate *comic_manager)
 {
         gint i;
 
-        comic_manager->priv = buoh_comic_manager_date_get_instance_private (comic_manager);
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
         for (i = G_DATE_BAD_WEEKDAY; i <= G_DATE_SUNDAY; i++) {
-                comic_manager->priv->publications[i] = TRUE;
+                priv->publications[i] = TRUE;
         }
 }
 
@@ -94,15 +98,16 @@ buoh_comic_manager_date_finalize (GObject *object)
         BuohComicManagerDate *comic_manager;
 
         comic_manager = BUOH_COMIC_MANAGER_DATE (object);
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
-        if (comic_manager->priv->date != NULL) {
-                g_date_free (comic_manager->priv->date);
-                comic_manager->priv->date = NULL;
+        if (priv->date != NULL) {
+                g_date_free (priv->date);
+                priv->date = NULL;
         }
 
-        if (comic_manager->priv->first != NULL) {
-                g_date_free (comic_manager->priv->first);
-                comic_manager->priv->first = NULL;
+        if (priv->first != NULL) {
+                g_date_free (priv->first);
+                priv->first = NULL;
         }
 
         if (G_OBJECT_CLASS (buoh_comic_manager_date_parent_class)->finalize) {
@@ -140,8 +145,9 @@ buoh_comic_manager_date_set_offset (BuohComicManagerDate *comic_manager,
 {
         g_return_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager));
         g_return_if_fail (offset > 0);
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
-        comic_manager->priv->offset = offset;
+        priv->offset = offset;
 }
 
 void
@@ -149,8 +155,9 @@ buoh_comic_manager_date_set_restriction (BuohComicManagerDate *comic_manager,
                                          GDateWeekday          day)
 {
         g_return_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager));
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
-        comic_manager->priv->publications[day] = FALSE;
+        priv->publications[day] = FALSE;
 }
 
 void
@@ -158,6 +165,7 @@ buoh_comic_manager_date_set_first (BuohComicManagerDate *comic_manager,
                                    const gchar          *first)
 {
         GDate     *date;
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
         g_return_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager));
         g_return_if_fail (first != NULL);
@@ -169,20 +177,21 @@ buoh_comic_manager_date_set_first (BuohComicManagerDate *comic_manager,
                 return;
         }
 
-        if (comic_manager->priv->first) {
-                g_date_free (comic_manager->priv->first);
+        if (priv->first) {
+                g_date_free (priv->first);
         }
-        comic_manager->priv->first = date;
+        priv->first = date;
 }
 
 static gchar *
 buoh_comic_manager_date_get_id_from_date (BuohComicManagerDate *comic_manager)
 {
         gchar id[ID_BUFFER];
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
         if (g_date_strftime (id, ID_BUFFER,
                              "%x", /* Date in locale preferred format */
-                             comic_manager->priv->date) == 0) {
+                             priv->date) == 0) {
                 buoh_debug ("Id buffer too short");
 
                 return NULL;
@@ -197,6 +206,7 @@ buoh_comic_manager_date_get_uri_from_date (BuohComicManagerDate *comic_manager)
 {
         gchar  uri[URI_BUFFER];
         gchar *uri_aux = NULL;
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
         g_object_get (G_OBJECT (comic_manager),
                       "generic_uri", &uri_aux, NULL);
@@ -204,7 +214,7 @@ buoh_comic_manager_date_get_uri_from_date (BuohComicManagerDate *comic_manager)
 
         if (g_date_strftime (uri, URI_BUFFER,
                              uri_aux,
-                             comic_manager->priv->date) == 0) {
+                             priv->date) == 0) {
                 buoh_debug ("Uri buffer too short");
                 g_free (uri_aux);
 
@@ -223,11 +233,12 @@ buoh_comic_manager_date_new_comic (BuohComicManagerDate *comic_manager)
         BuohComic *comic;
         gchar     *id = NULL;
         gchar     *uri = NULL;
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
         id = buoh_comic_manager_date_get_id_from_date (comic_manager);
         uri = buoh_comic_manager_date_get_uri_from_date (comic_manager);
 
-        comic = buoh_comic_new_with_info (id, uri, comic_manager->priv->date);
+        comic = buoh_comic_new_with_info (id, uri, priv->date);
 
         g_free (id);
         g_free (uri);
@@ -244,14 +255,15 @@ buoh_comic_manager_date_get_next (BuohComicManager *comic_manager)
         GList                *comic_list, *found, *current;
 
         cmd = BUOH_COMIC_MANAGER_DATE (comic_manager);
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (cmd);
 
-        g_date_add_days (cmd->priv->date, 1);
+        g_date_add_days (priv->date, 1);
 
         /* Check the restrictions */
-        weekday = g_date_get_weekday (cmd->priv->date);
-        while (!cmd->priv->publications[weekday]) {
-                g_date_add_days (cmd->priv->date, 1);
-                weekday = g_date_get_weekday (cmd->priv->date);
+        weekday = g_date_get_weekday (priv->date);
+        while (!priv->publications[weekday]) {
+                g_date_add_days (priv->date, 1);
+                weekday = g_date_get_weekday (priv->date);
         }
 
         g_object_get (G_OBJECT (comic_manager),
@@ -292,14 +304,15 @@ buoh_comic_manager_date_get_previous (BuohComicManager *comic_manager)
         GList                *comic_list, *found;
 
         cmd = BUOH_COMIC_MANAGER_DATE (comic_manager);
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (cmd);
 
-        g_date_subtract_days (cmd->priv->date, 1);
+        g_date_subtract_days (priv->date, 1);
 
         /* Check the restrictions */
-        weekday = g_date_get_weekday (cmd->priv->date);
-        while (!cmd->priv->publications[weekday]) {
-                g_date_subtract_days (cmd->priv->date, 1);
-                weekday = g_date_get_weekday (cmd->priv->date);
+        weekday = g_date_get_weekday (priv->date);
+        while (!priv->publications[weekday]) {
+                g_date_subtract_days (priv->date, 1);
+                weekday = g_date_get_weekday (priv->date);
         }
 
         g_object_get (G_OBJECT (comic_manager),
@@ -468,13 +481,14 @@ buoh_comic_manager_date_get_publication_days (BuohComicManagerDate *comic_manage
         gboolean  has_restrict = FALSE, prev = FALSE;
         gchar    *date;
         GString  *aux;
+        BuohComicManagerDatePrivate *priv = buoh_comic_manager_date_get_instance_private (comic_manager);
 
         g_return_val_if_fail (BUOH_IS_COMIC_MANAGER_DATE (comic_manager), NULL);
 
         aux = g_string_new ("");
 
         for (i = G_DATE_MONDAY; i <= G_DATE_SUNDAY; i++) {
-                if (comic_manager->priv->publications[i]) {
+                if (priv->publications[i]) {
                         if (!prev) {
                                 if (aux->len) {
                                         /* Add a separator */
