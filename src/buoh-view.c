@@ -43,7 +43,9 @@ enum {
         N_SIGNALS
 };
 
-struct _BuohViewPrivate {
+struct _BuohView {
+        GtkNotebook      parent;
+
         GtkWidget       *message;
         GtkWidget       *comic;
 
@@ -72,7 +74,7 @@ static void     buoh_view_scale_changed_cb   (GObject        *object,
                                               GParamSpec     *arg,
                                               gpointer        gdata);
 
-G_DEFINE_TYPE_WITH_PRIVATE (BuohView, buoh_view, GTK_TYPE_NOTEBOOK)
+G_DEFINE_TYPE (BuohView, buoh_view, GTK_TYPE_NOTEBOOK)
 
 GType
 buoh_view_status_get_type (void)
@@ -122,19 +124,17 @@ buoh_view_init (BuohView *buoh_view)
 
         gtk_widget_set_can_focus (GTK_WIDGET (buoh_view), TRUE);
 
-        buoh_view->priv = buoh_view_get_instance_private (buoh_view);
-
-        buoh_view->priv->status = STATE_MESSAGE_WELCOME;
+        buoh_view->status = STATE_MESSAGE_WELCOME;
 
         /* Image view */
         swindow = gtk_scrolled_window_new (NULL, NULL);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
                                         GTK_POLICY_AUTOMATIC,
                                         GTK_POLICY_AUTOMATIC);
-        buoh_view->priv->comic = buoh_view_comic_new (buoh_view);
+        buoh_view->comic = buoh_view_comic_new (buoh_view);
         gtk_container_add (GTK_CONTAINER (swindow),
-                           buoh_view->priv->comic);
-        gtk_widget_show (buoh_view->priv->comic);
+                           buoh_view->comic);
+        gtk_widget_show (buoh_view->comic);
 
         gtk_notebook_insert_page (GTK_NOTEBOOK (buoh_view), swindow,
                                   NULL, VIEW_PAGE_IMAGE);
@@ -147,19 +147,19 @@ buoh_view_init (BuohView *buoh_view)
                                         GTK_POLICY_NEVER);
         gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (swindow),
                                              GTK_SHADOW_NONE);
-        buoh_view->priv->message = buoh_view_message_new ();
-        buoh_view_message_set_title (BUOH_VIEW_MESSAGE (buoh_view->priv->message),
+        buoh_view->message = buoh_view_message_new ();
+        buoh_view_message_set_title (BUOH_VIEW_MESSAGE (buoh_view->message),
                                      _("Buoh online comic strips reader"));
-        buoh_view_message_set_text (BUOH_VIEW_MESSAGE (buoh_view->priv->message),
+        buoh_view_message_set_text (BUOH_VIEW_MESSAGE (buoh_view->message),
                                     _("Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
                                       "The list on the left panel contains your favorite comic strips "
                                       "to add or remove comics to the list click on Comic → Add. "
                                       "Just select a comic from the list, and it will be displayed "
                                       "on the right side. Thanks for using Buoh."));
-        buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (buoh_view->priv->message), "buoh");
+        buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (buoh_view->message), "buoh");
         gtk_container_add (GTK_CONTAINER (swindow),
-                           buoh_view->priv->message);
-        gtk_widget_show (buoh_view->priv->message);
+                           buoh_view->message);
+        gtk_widget_show (buoh_view->message);
 
         gtk_notebook_insert_page (GTK_NOTEBOOK (buoh_view), swindow,
                                   NULL, VIEW_PAGE_MESSAGE);
@@ -178,7 +178,7 @@ buoh_view_init (BuohView *buoh_view)
         g_signal_connect (G_OBJECT (buoh_view), "notify::status",
                           G_CALLBACK (buoh_view_status_changed_cb),
                           NULL);
-        g_signal_connect (G_OBJECT (buoh_view->priv->comic),
+        g_signal_connect (G_OBJECT (buoh_view->comic),
                           "notify::scale",
                           G_CALLBACK (buoh_view_scale_changed_cb),
                           (gpointer) buoh_view);
@@ -213,10 +213,12 @@ buoh_view_class_init (BuohViewClass *klass)
                 g_signal_new ("scale-changed",
                               G_TYPE_FROM_CLASS (object_class),
                               G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-                              G_STRUCT_OFFSET (BuohViewClass, scale_changed),
-                              NULL, NULL,
+                              NULL,
+                              NULL,
+                              NULL,
                               g_cclosure_marshal_VOID__VOID,
-                              G_TYPE_NONE, 0);
+                              G_TYPE_NONE,
+                              0);
 }
 
 static void
@@ -229,7 +231,7 @@ buoh_view_set_property (GObject       *object,
 
         switch (prop_id) {
         case PROP_STATUS:
-                view->priv->status = g_value_get_enum (value);
+                view->status = g_value_get_enum (value);
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -246,7 +248,7 @@ buoh_view_get_property (GObject    *object,
 
         switch (prop_id) {
         case PROP_STATUS:
-                g_value_set_enum (value, view->priv->status);
+                g_value_set_enum (value, view->status);
                 break;
         default:
                 G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -258,14 +260,14 @@ buoh_view_grab_focus (GtkWidget *widget)
 {
         BuohView *view = BUOH_VIEW (widget);
 
-        switch (view->priv->status) {
+        switch (view->status) {
         case STATE_MESSAGE_WELCOME:
         case STATE_MESSAGE_ERROR:
-                gtk_widget_grab_focus (view->priv->message);
+                gtk_widget_grab_focus (view->message);
                 break;
         case STATE_COMIC_LOADING:
         case STATE_COMIC_LOADED:
-                gtk_widget_grab_focus (view->priv->comic);
+                gtk_widget_grab_focus (view->comic);
                 break;
         default:
                 break;
@@ -298,7 +300,7 @@ buoh_view_status_changed_cb (GObject *object, GParamSpec *arg, gpointer gdata)
 {
         BuohView *view = BUOH_VIEW (object);
 
-        switch (view->priv->status) {
+        switch (view->status) {
         case STATE_MESSAGE_WELCOME:
         case STATE_MESSAGE_ERROR:
                 gtk_notebook_set_current_page (GTK_NOTEBOOK (view), VIEW_PAGE_MESSAGE);
@@ -328,7 +330,7 @@ buoh_view_is_min_zoom (BuohView *view)
 {
         g_return_val_if_fail (BUOH_IS_VIEW (view), FALSE);
 
-        return buoh_view_comic_is_min_zoom (BUOH_VIEW_COMIC (view->priv->comic));
+        return buoh_view_comic_is_min_zoom (BUOH_VIEW_COMIC (view->comic));
 }
 
 gboolean
@@ -336,7 +338,7 @@ buoh_view_is_max_zoom (BuohView *view)
 {
         g_return_val_if_fail (BUOH_IS_VIEW (view), FALSE);
 
-        return buoh_view_comic_is_max_zoom (BUOH_VIEW_COMIC (view->priv->comic));
+        return buoh_view_comic_is_max_zoom (BUOH_VIEW_COMIC (view->comic));
 }
 
 gboolean
@@ -344,7 +346,7 @@ buoh_view_is_normal_size (BuohView *view)
 {
         g_return_val_if_fail (BUOH_IS_VIEW (view), FALSE);
 
-        return buoh_view_comic_is_normal_size (BUOH_VIEW_COMIC (view->priv->comic));
+        return buoh_view_comic_is_normal_size (BUOH_VIEW_COMIC (view->comic));
 }
 
 void
@@ -352,7 +354,7 @@ buoh_view_zoom_in (BuohView *view)
 {
         g_return_if_fail (BUOH_IS_VIEW (view));
 
-        buoh_view_comic_zoom_in (BUOH_VIEW_COMIC (view->priv->comic));
+        buoh_view_comic_zoom_in (BUOH_VIEW_COMIC (view->comic));
 }
 
 void
@@ -360,7 +362,7 @@ buoh_view_zoom_out (BuohView *view)
 {
         g_return_if_fail (BUOH_IS_VIEW (view));
 
-        buoh_view_comic_zoom_out (BUOH_VIEW_COMIC (view->priv->comic));
+        buoh_view_comic_zoom_out (BUOH_VIEW_COMIC (view->comic));
 }
 
 void
@@ -368,7 +370,7 @@ buoh_view_zoom_normal_size (BuohView *view)
 {
         g_return_if_fail (BUOH_IS_VIEW (view));
 
-        buoh_view_comic_normal_size (BUOH_VIEW_COMIC (view->priv->comic));
+        buoh_view_comic_normal_size (BUOH_VIEW_COMIC (view->comic));
 }
 
 void
@@ -376,7 +378,7 @@ buoh_view_zoom_best_fit (BuohView *view)
 {
         g_return_if_fail (BUOH_IS_VIEW (view));
 
-        buoh_view_comic_best_fit (BUOH_VIEW_COMIC (view->priv->comic));
+        buoh_view_comic_best_fit (BUOH_VIEW_COMIC (view->comic));
 }
 
 void
@@ -384,7 +386,7 @@ buoh_view_zoom_fit_width (BuohView *view)
 {
         g_return_if_fail (BUOH_IS_VIEW (view));
 
-        buoh_view_comic_fit_width (BUOH_VIEW_COMIC (view->priv->comic));
+        buoh_view_comic_fit_width (BUOH_VIEW_COMIC (view->comic));
 }
 
 BuohViewZoomMode
@@ -392,7 +394,7 @@ buoh_view_get_zoom_mode (BuohView *view)
 {
         g_return_val_if_fail (BUOH_IS_VIEW (view), 0);
 
-        return buoh_view_comic_get_zoom_mode (BUOH_VIEW_COMIC (view->priv->comic));
+        return buoh_view_comic_get_zoom_mode (BUOH_VIEW_COMIC (view->comic));
 }
 
 void
@@ -401,7 +403,7 @@ buoh_view_set_zoom_mode (BuohView        *view,
 {
         g_return_if_fail (BUOH_IS_VIEW (view));
 
-        buoh_view_comic_set_zoom_mode (BUOH_VIEW_COMIC (view->priv->comic),
+        buoh_view_comic_set_zoom_mode (BUOH_VIEW_COMIC (view->comic),
                                        mode);
 }
 
@@ -410,7 +412,7 @@ buoh_view_get_status (BuohView *view)
 {
         g_return_val_if_fail (BUOH_IS_VIEW (view), 0);
 
-        return view->priv->status;
+        return view->status;
 }
 
 void
@@ -419,7 +421,7 @@ buoh_view_set_comic (BuohView *view, const BuohComic *comic)
         g_return_if_fail (BUOH_IS_VIEW (view));
         g_return_if_fail (BUOH_IS_COMIC (comic));
 
-        g_object_set (G_OBJECT (view->priv->comic),
+        g_object_set (G_OBJECT (view->comic),
                       "comic", comic,
                       NULL);
 }
@@ -431,7 +433,7 @@ buoh_view_get_comic (BuohView *view)
 
         g_return_val_if_fail (BUOH_IS_VIEW (view), NULL);
 
-        g_object_get (G_OBJECT (view->priv->comic),
+        g_object_get (G_OBJECT (view->comic),
                       "comic", &comic,
                       NULL);
 
@@ -444,7 +446,7 @@ buoh_view_set_message_title (BuohView *view, const gchar *title)
         g_return_if_fail (BUOH_IS_VIEW (view));
         g_return_if_fail (title != NULL);
 
-        buoh_view_message_set_title (BUOH_VIEW_MESSAGE (view->priv->message),
+        buoh_view_message_set_title (BUOH_VIEW_MESSAGE (view->message),
                                      title);
 }
 
@@ -454,7 +456,7 @@ buoh_view_set_message_text (BuohView *view, const gchar *text)
         g_return_if_fail (BUOH_IS_VIEW (view));
         g_return_if_fail (text != NULL);
 
-        buoh_view_message_set_text (BUOH_VIEW_MESSAGE (view->priv->message),
+        buoh_view_message_set_text (BUOH_VIEW_MESSAGE (view->message),
                                     text);
 }
 
@@ -464,7 +466,7 @@ buoh_view_set_message_icon (BuohView *view, const gchar *icon)
         g_return_if_fail (BUOH_IS_VIEW (view));
         g_return_if_fail (icon != NULL);
 
-        buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (view->priv->message),
+        buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (view->message),
                                     icon);
 }
 
