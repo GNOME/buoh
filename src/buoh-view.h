@@ -27,19 +27,11 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohView        BuohView;
-typedef struct _BuohViewClass   BuohViewClass;
-typedef struct _BuohViewPrivate BuohViewPrivate;
+#define BUOH_TYPE_VIEW buoh_view_get_type ()
+G_DECLARE_FINAL_TYPE (BuohView, buoh_view, BUOH, VIEW, GtkNotebook)
 
-#define BUOH_TYPE_VIEW                  (buoh_view_get_type())
-#define BUOH_VIEW(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_VIEW, BuohView))
-#define BUOH_VIEW_CLASS(klass)          (G_TYPE_CHACK_CLASS_CAST((klass), BUOH_TYPE_VIEW, BuohViewClass))
-#define BUOH_IS_VIEW(object)            (G_TYPE_CHECK_INSTANCE_TYPE((object), BUOH_TYPE_VIEW))
-#define BUOH_IS_VIEW_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_VIEW))
-#define BUOH_VIEW_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_VIEW, BuohViewClass))
-
-#define BUOH_TYPE_VIEW_STATUS           (buoh_view_status_get_type ())
-#define BUOH_TYPE_VIEW_ZOOM_MODE        (buoh_view_zoom_mode_get_type ())
+#define BUOH_TYPE_VIEW_STATUS buoh_view_status_get_type ()
+#define BUOH_TYPE_VIEW_ZOOM_MODE buoh_view_zoom_mode_get_type ()
 
 typedef enum {
         STATE_MESSAGE_WELCOME,
@@ -49,20 +41,6 @@ typedef enum {
         STATE_EMPTY
 } BuohViewStatus;
 
-struct _BuohView {
-        GtkNotebook      parent;
-        BuohViewPrivate *priv;
-};
-
-struct _BuohViewClass {
-        GtkNotebookClass   parent_class;
-
-        void (* scale_changed) (BuohView *view);
-};
-
-GType            buoh_view_get_type           (void) G_GNUC_CONST;
-GType            buoh_view_status_get_type    (void) G_GNUC_CONST;
-GType            buoh_view_zoom_mode_get_type (void) G_GNUC_CONST;
 GtkWidget       *buoh_view_new                (void);
 
 /* Zoom */
