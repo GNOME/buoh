@@ -41,7 +41,9 @@
 #include "buoh-comic-manager.h"
 #include "buoh-comic-manager-date.h"
 
-struct _BuohApplicationPrivate {
+struct _BuohApplication {
+        GObject       parent;
+
         BuohWindow   *window;
         GtkTreeModel *comic_list;
         gchar        *datadir;
@@ -59,7 +61,7 @@ static void          buoh_application_save_comic_list        (GtkTreeModel      
                                                               gpointer                 gdata);
 static void          buoh_application_create_user_dir        (BuohApplication         *buoh);
 
-G_DEFINE_TYPE_WITH_PRIVATE (BuohApplication, buoh_application, G_TYPE_OBJECT)
+G_DEFINE_TYPE (BuohApplication, buoh_application, G_TYPE_OBJECT)
 
 void
 buoh_debug (const gchar *format, ...)
@@ -91,7 +93,7 @@ buoh_application_parse_selected (BuohApplication *buoh)
         gchar      *selected;
         xmlChar    *id;
 
-        selected = g_build_filename (buoh->priv->datadir, "comics.xml", NULL);
+        selected = g_build_filename (buoh->datadir, "comics.xml", NULL);
 
         doc = xmlParseFile (selected);
         g_free (selected);
@@ -286,12 +288,12 @@ save_comic_list (gpointer gdata)
 
         buoh_debug ("Buoh comic model changed");
 
-        filter = gtk_tree_model_filter_new (buoh->priv->comic_list, NULL);
+        filter = gtk_tree_model_filter_new (buoh->comic_list, NULL);
         gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (filter),
                                                 buoh_comic_list_visible,
                                                 NULL, NULL);
 
-        filename = g_build_filename (buoh->priv->datadir, "comics.xml", NULL);
+        filename = g_build_filename (buoh->datadir, "comics.xml", NULL);
         writer = xmlNewTextWriterFilename (filename, 0);
         g_free (filename);
 
@@ -348,14 +350,14 @@ buoh_application_create_user_dir (BuohApplication *buoh)
         gchar       *cache_dir;
         const gchar *contents = "<?xml version=\"1.0\"?>\n<comic_list>\n</comic_list>\n";
 
-        if (!g_file_test (buoh->priv->datadir, G_FILE_TEST_IS_DIR)) {
+        if (!g_file_test (buoh->datadir, G_FILE_TEST_IS_DIR)) {
                 buoh_debug ("User directory doesn't exist, creating it ...");
-                if (g_mkdir (buoh->priv->datadir, 0755) != 0) {
+                if (g_mkdir (buoh->datadir, 0755) != 0) {
                         g_error ("Cannot create user's directory");
                 }
         }
 
-        filename = g_build_filename (buoh->priv->datadir, "comics.xml", NULL);
+        filename = g_build_filename (buoh->datadir, "comics.xml", NULL);
 
         if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
                 buoh_debug ("User comics file doesn't exist, creating it ...");
@@ -367,7 +369,7 @@ buoh_application_create_user_dir (BuohApplication *buoh)
 
         g_free (filename);
 
-        cache_dir = g_build_filename (buoh->priv->datadir, "cache", NULL);
+        cache_dir = g_build_filename (buoh->datadir, "cache", NULL);
 
         if (!g_file_test (cache_dir, G_FILE_TEST_IS_DIR)) {
                 buoh_debug ("Cache directory doesn't exist, creating it ...");
@@ -382,15 +384,13 @@ buoh_application_create_user_dir (BuohApplication *buoh)
 static void
 buoh_application_init (BuohApplication *buoh)
 {
-        buoh->priv = buoh_application_get_instance_private (buoh);
-
-        buoh->priv->datadir = g_build_filename (g_get_home_dir (), ".buoh", NULL);
+        buoh->datadir = g_build_filename (g_get_home_dir (), ".buoh", NULL);
         buoh_application_create_user_dir (buoh);
 
-        buoh->priv->comic_list = buoh_application_create_model_from_file (buoh);
-        gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (buoh->priv->comic_list),
+        buoh->comic_list = buoh_application_create_model_from_file (buoh);
+        gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (buoh->comic_list),
                                               COMIC_LIST_TITLE, GTK_SORT_ASCENDING);
-        g_signal_connect (G_OBJECT (buoh->priv->comic_list), "row-changed",
+        g_signal_connect (G_OBJECT (buoh->comic_list), "row-changed",
                           G_CALLBACK (buoh_application_save_comic_list),
                           (gpointer) buoh);
 }
@@ -411,14 +411,14 @@ buoh_application_finalize (GObject *object)
 
         buoh_debug ("buoh finalize");
 
-        if (buoh->priv->datadir) {
-                g_free (buoh->priv->datadir);
-                buoh->priv->datadir = NULL;
+        if (buoh->datadir) {
+                g_free (buoh->datadir);
+                buoh->datadir = NULL;
         }
 
-        if (buoh->priv->comic_list) {
-                g_object_unref (buoh->priv->comic_list);
-                buoh->priv->comic_list = NULL;
+        if (buoh->comic_list) {
+                g_object_unref (buoh->comic_list);
+                buoh->comic_list = NULL;
         }
 
         if (G_OBJECT_CLASS (buoh_application_parent_class)->finalize) {
@@ -461,10 +461,10 @@ buoh_application_create_main_window (BuohApplication *buoh)
 {
         g_return_if_fail (BUOH_IS_APPLICATION (buoh));
 
-        if (buoh->priv->window) {
-                gtk_window_present (GTK_WINDOW (buoh->priv->window));
+        if (buoh->window) {
+                gtk_window_present (GTK_WINDOW (buoh->window));
         } else {
-                buoh->priv->window = BUOH_WINDOW (buoh_window_new ());
+                buoh->window = BUOH_WINDOW (buoh_window_new ());
         }
 }
 
@@ -473,7 +473,7 @@ buoh_application_get_comics_model (BuohApplication *buoh)
 {
         g_return_val_if_fail (BUOH_IS_APPLICATION (buoh), NULL);
 
-        return buoh->priv->comic_list;
+        return buoh->comic_list;
 }
 
 const gchar *
@@ -481,5 +481,5 @@ buoh_application_get_datadir (BuohApplication *buoh)
 {
         g_return_val_if_fail (BUOH_IS_APPLICATION (buoh), NULL);
 
-        return buoh->priv->datadir;
+        return buoh->datadir;
 }
