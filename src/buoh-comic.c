@@ -25,7 +25,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "buoh.h"
+#include "buoh-application.h"
 #include "buoh-comic.h"
 #include "buoh-comic-cache.h"
 

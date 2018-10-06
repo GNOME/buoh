@@ -27,7 +27,7 @@
 #include <gtk/gtk.h>
 
 #include "buoh-add-comic-dialog.h"
-#include "buoh.h"
+#include "buoh-application.h"
 
 struct _BuohAddComicDialog {
         GtkDialog     parent;
@@ -54,7 +54,7 @@ buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)
 {
         gtk_widget_init_template (GTK_WIDGET (dialog));
 
-        dialog->model = buoh_get_comics_model (BUOH);
+        dialog->model = buoh_application_get_comics_model (buoh_application_get_instance ());
 
         gtk_tree_view_set_model (GTK_TREE_VIEW (dialog->tree_view), dialog->model);
 

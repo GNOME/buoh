@@ -28,7 +28,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
 
-#include "buoh.h"
+#include "buoh-application.h"
 #include "buoh-window.h"
 #include "buoh-properties-dialog.h"
 #include "buoh-add-comic-dialog.h"
@@ -347,7 +347,7 @@ buoh_window_init (BuohWindow *buoh_window)
 
         /* buoh comic list */
         buoh_window->priv->comic_list = BUOH_COMIC_LIST (buoh_comic_list_new ());
-        model = buoh_get_comics_model (BUOH);
+        model = buoh_application_get_comics_model (buoh_application_get_instance ());
         buoh_comic_list_set_model (buoh_window->priv->comic_list, model);
         buoh_comic_list_set_view (buoh_window->priv->comic_list, buoh_window->priv->view);
         gtk_paned_pack1 (GTK_PANED (paned), GTK_WIDGET (buoh_window->priv->comic_list),
@@ -446,7 +446,7 @@ buoh_window_finalize (GObject *object)
                 (* G_OBJECT_CLASS (buoh_window_parent_class)->finalize) (object);
         }
 
-        buoh_exit_app (BUOH);
+        buoh_application_exit (buoh_application_get_instance ());
 }
 
 GtkWidget *
@@ -482,7 +482,7 @@ static void
 buoh_window_cmd_comic_remove (GtkAction *action, gpointer gdata)
 {
         BuohWindow       *window = BUOH_WINDOW (gdata);
-        GtkTreeModel     *model = buoh_get_comics_model (BUOH);
+        GtkTreeModel     *model = buoh_application_get_comics_model (buoh_application_get_instance ());
         GtkTreeIter       iter;
         BuohComicManager *cm;
         BuohComicManager *current_cm;

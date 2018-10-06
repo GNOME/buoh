@@ -23,7 +23,7 @@
 #include <gtk/gtk.h>
 
 #include "buoh-properties-dialog.h"
-#include "buoh.h"
+#include "buoh-application.h"
 #include "buoh-comic-manager-date.h"
 
 #define DATE_BUFFER 256
