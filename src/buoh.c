@@ -64,7 +64,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (Buoh, buoh, G_TYPE_OBJECT)
 void
 buoh_debug (const gchar *format, ...)
 {
-#ifdef NDEBUG
+#if !defined(NDEBUG)
         va_list  args;
         gchar   *string;
 
@@ -74,7 +74,7 @@ buoh_debug (const gchar *format, ...)
         string = g_strdup_vprintf (format, args);
         va_end (args);
 
-        g_debug (string);
+        g_debug ("%s", string);
 
         g_free (string);
 #endif
