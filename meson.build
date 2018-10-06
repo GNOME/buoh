@@ -3,6 +3,9 @@ project(
   'c',
   license: 'GPL2+',
   version: '0.8.3',
+  default_options: [
+    'b_ndebug=if-release',
+  ],
 )
 
 gnome = import('gnome')
