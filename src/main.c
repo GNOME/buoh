@@ -27,12 +27,12 @@
 
 #include <gtk/gtk.h>
 
-#include "buoh.h"
+#include "buoh-application.h"
 
 gint
 main (gint argc, gchar **argv)
 {
-        Buoh *buoh;
+        BuohApplication *buoh;
 
         /* Initialize the i18n stuff */
         bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
@@ -44,8 +44,8 @@ main (gint argc, gchar **argv)
         g_set_application_name (_("Buoh"));
         gtk_window_set_default_icon_name ("buoh");
 
-        buoh = buoh_new ();
-        buoh_create_main_window (buoh);
+        buoh = buoh_application_new ();
+        buoh_application_create_main_window (buoh);
 
         gtk_main ();
 

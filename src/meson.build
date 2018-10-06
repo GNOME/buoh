@@ -4,6 +4,7 @@ enum_headers = files(
 
 sources = files(
   'buoh-add-comic-dialog.c',
+  'buoh-application.c',
   'buoh-comic-cache.c',
   'buoh-comic-list.c',
   'buoh-comic-loader.c',
@@ -15,7 +16,6 @@ sources = files(
   'buoh-view-message.c',
   'buoh-view.c',
   'buoh-window.c',
-  'buoh.c',
   'main.c',
 )
 

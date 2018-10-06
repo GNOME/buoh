@@ -20,7 +20,7 @@
 #include <glib/gi18n.h>
 #include <time.h>
 
-#include "buoh.h"
+#include "buoh-application.h"
 #include "buoh-comic-manager-date.h"
 
 #define URI_BUFFER 256

@@ -22,7 +22,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#include "buoh.h"
+#include "buoh-application.h"
 #include "buoh-view.h"
 #include "buoh-view-comic.h"
 #include "buoh-view-message.h"

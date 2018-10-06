@@ -22,7 +22,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#include "buoh.h"
+#include "buoh-application.h"
 #include "buoh-comic-list.h"
 
 struct _BuohComicList {

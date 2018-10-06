@@ -19,7 +19,7 @@
 
 #include <libsoup/soup.h>
 
-#include "buoh.h"
+#include "buoh-application.h"
 #include "buoh-comic-loader.h"
 
 /* BuohComicLoaderJob */

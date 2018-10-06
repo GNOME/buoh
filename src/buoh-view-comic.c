@@ -26,7 +26,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
 
-#include "buoh.h"
+#include "buoh-application.h"
 #include "buoh-view-comic.h"
 #include "buoh-comic-loader.h"
 
