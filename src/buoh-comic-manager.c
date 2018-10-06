@@ -19,7 +19,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
-#include "buoh.h"
+#include "buoh-application.h"
 #include "buoh-comic-manager.h"
 #include "buoh-comic-manager-date.h"
 
