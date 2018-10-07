@@ -24,27 +24,9 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohWindow        BuohWindow;
-typedef struct _BuohWindowClass   BuohWindowClass;
-typedef struct _BuohWindowPrivate BuohWindowPrivate;
+#define BUOH_TYPE_WINDOW buoh_window_get_type()
+G_DECLARE_FINAL_TYPE (BuohWindow, buoh_window, BUOH, WINDOW, GtkWindow)
 
-#define BUOH_TYPE_WINDOW                  (buoh_window_get_type())
-#define BUOH_WINDOW(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_WINDOW, BuohWindow))
-#define BUOH_WINDOW_CLASS(klass)          (G_TYPE_CHACK_CLASS_CAST((klass), BUOH_TYPE_WINDOW, BuohWindowClass))
-#define BUOH_IS_WINDOW(object)            (G_TYPE_CHECK_INSTANCE_TYPE((object), BUOH_TYPE_WINDOW))
-#define BUOH_IS_WINDOW_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_WINDOW))
-#define BUOH_WINDOW_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_WINDOW, BuohWindowClass))
-
-struct _BuohWindow {
-        GtkWindow          parent;
-        BuohWindowPrivate *priv;
-};
-
-struct _BuohWindowClass {
-        GtkWindowClass     parent_class;
-};
-
-GType      buoh_window_get_type (void) G_GNUC_CONST;
 GtkWidget *buoh_window_new      (void);
 
 G_END_DECLS

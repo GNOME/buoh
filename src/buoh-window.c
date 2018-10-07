@@ -35,7 +35,9 @@
 #include "buoh-view.h"
 #include "buoh-comic-list.h"
 
-struct _BuohWindowPrivate {
+struct _BuohWindow {
+        GtkWindow       parent;
+
         GtkActionGroup *action_group;
         GtkUIManager   *ui_manager;
 
@@ -54,7 +56,7 @@ struct _BuohWindowPrivate {
 };
 
 #define GS_BUOH_SCHEMA     "org.gnome.buoh"
-#define GS_SHOW_TOOLBAR           "show-toolbar"
+#define GS_SHOW_TOOLBAR    "show-toolbar"
 #define GS_SHOW_STATUSBAR  "show-statusbar"
 #define GS_ZOOM_MODE       "zoom-mode"
 
@@ -226,7 +228,7 @@ static const GtkToggleActionEntry menu_toggle_entries[] = {
           G_CALLBACK (buoh_window_cmd_view_zoom_fit_width) }
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (BuohWindow, buoh_window, GTK_TYPE_WINDOW)
+G_DEFINE_TYPE (BuohWindow, buoh_window, GTK_TYPE_WINDOW)
 
 static void
 buoh_window_init (BuohWindow *buoh_window)
@@ -244,21 +246,19 @@ buoh_window_init (BuohWindow *buoh_window)
         gboolean          visible_statusbar;
         BuohViewZoomMode  zoom_mode;
 
-        buoh_window->priv = buoh_window_get_instance_private (buoh_window);
-
         gtk_window_set_title (GTK_WINDOW (buoh_window), "Buoh");
         gtk_window_set_icon_name (GTK_WINDOW (buoh_window), "buoh");
 
-        buoh_window->priv->properties = NULL;
-        buoh_window->priv->add_dialog = NULL;
-        buoh_window->priv->buoh_settings = g_settings_new (GS_BUOH_SCHEMA);
-        buoh_window->priv->lockdown_settings = g_settings_new (GS_LOCKDOWN_SCHEMA);
+        buoh_window->properties = NULL;
+        buoh_window->add_dialog = NULL;
+        buoh_window->buoh_settings = g_settings_new (GS_BUOH_SCHEMA);
+        buoh_window->lockdown_settings = g_settings_new (GS_LOCKDOWN_SCHEMA);
 
         vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
         /* Menu bar */
         action_group = gtk_action_group_new ("MenuActions");
-        buoh_window->priv->action_group = action_group;
+        buoh_window->action_group = action_group;
         gtk_action_group_set_translation_domain (action_group, NULL);
         gtk_action_group_add_actions (action_group, menu_entries,
                                       G_N_ELEMENTS (menu_entries),
@@ -268,49 +268,49 @@ buoh_window_init (BuohWindow *buoh_window)
                                              G_N_ELEMENTS (menu_toggle_entries),
                                              (gpointer) buoh_window);
 
-        buoh_window->priv->ui_manager = gtk_ui_manager_new ();
-        gtk_ui_manager_insert_action_group (buoh_window->priv->ui_manager,
+        buoh_window->ui_manager = gtk_ui_manager_new ();
+        gtk_ui_manager_insert_action_group (buoh_window->ui_manager,
                                             action_group, 0);
 
-        accel_group = gtk_ui_manager_get_accel_group (buoh_window->priv->ui_manager);
+        accel_group = gtk_ui_manager_get_accel_group (buoh_window->ui_manager);
         gtk_window_add_accel_group (GTK_WINDOW (buoh_window), accel_group);
 
-        if (!gtk_ui_manager_add_ui_from_resource (buoh_window->priv->ui_manager,
+        if (!gtk_ui_manager_add_ui_from_resource (buoh_window->ui_manager,
                                                   "/org/gnome/buoh/buoh-ui.xml",
                                                   &error)) {
                 buoh_debug ("Could not merge buoh-ui.xml: %s", error->message);
                 g_error_free (error);
         }
 
-        g_signal_connect (buoh_window->priv->ui_manager, "connect_proxy",
+        g_signal_connect (buoh_window->ui_manager, "connect_proxy",
                           G_CALLBACK (buoh_window_ui_manager_connect_proxy_cb),
                           (gpointer) buoh_window);
-        g_signal_connect (buoh_window->priv->ui_manager, "disconnect_proxy",
+        g_signal_connect (buoh_window->ui_manager, "disconnect_proxy",
                           G_CALLBACK (buoh_window_ui_manager_disconnect_proxy_cb),
                           (gpointer) buoh_window);
 
         /* Menu */
-        menubar = gtk_ui_manager_get_widget (buoh_window->priv->ui_manager,
+        menubar = gtk_ui_manager_get_widget (buoh_window->ui_manager,
                                              "/MainMenu");
         gtk_box_pack_start (GTK_BOX (vbox), menubar,
                             FALSE, FALSE, 0);
         gtk_widget_show (menubar);
 
         /* Set the active status to the "View [toolbar | statusbar]" menu entry*/
-        visible_toolbar = g_settings_get_boolean (buoh_window->priv->buoh_settings,
+        visible_toolbar = g_settings_get_boolean (buoh_window->buoh_settings,
                                                   GS_SHOW_TOOLBAR);
         action = gtk_action_group_get_action (action_group, "ViewToolbar");
         gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
                                       visible_toolbar);
 
-        visible_statusbar = g_settings_get_boolean (buoh_window->priv->buoh_settings,
+        visible_statusbar = g_settings_get_boolean (buoh_window->buoh_settings,
                                                     GS_SHOW_STATUSBAR);
         action = gtk_action_group_get_action (action_group, "ViewStatusbar");
         gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
                                       visible_statusbar);
 
         /* Toolbar */
-        toolbar = gtk_ui_manager_get_widget (buoh_window->priv->ui_manager,
+        toolbar = gtk_ui_manager_get_widget (buoh_window->ui_manager,
                                              "/Toolbar");
         gtk_box_pack_start (GTK_BOX (vbox), toolbar,
                             FALSE, FALSE, 0);
@@ -325,55 +325,55 @@ buoh_window_init (BuohWindow *buoh_window)
         gtk_paned_set_position (GTK_PANED (paned), 230);
 
         /* buoh view */
-        buoh_window->priv->view = BUOH_VIEW (buoh_view_new ());
-        zoom_mode = g_settings_get_enum (buoh_window->priv->buoh_settings,
+        buoh_window->view = BUOH_VIEW (buoh_view_new ());
+        zoom_mode = g_settings_get_enum (buoh_window->buoh_settings,
                                          GS_ZOOM_MODE);
-        buoh_view_set_zoom_mode (buoh_window->priv->view, zoom_mode);
-        g_signal_connect (G_OBJECT (buoh_window->priv->view), "notify::status",
+        buoh_view_set_zoom_mode (buoh_window->view, zoom_mode);
+        g_signal_connect (G_OBJECT (buoh_window->view), "notify::status",
                           G_CALLBACK (buoh_window_view_status_change_cb),
                           (gpointer) buoh_window);
-        g_signal_connect (G_OBJECT (buoh_window->priv->view), "scale-changed",
+        g_signal_connect (G_OBJECT (buoh_window->view), "scale-changed",
                           G_CALLBACK (buoh_window_view_zoom_change_cb),
                           (gpointer) buoh_window);
-        g_signal_connect (G_OBJECT (buoh_window->priv->view), "button-press-event",
+        g_signal_connect (G_OBJECT (buoh_window->view), "button-press-event",
                           G_CALLBACK (buoh_window_comic_view_button_press_cb),
                           (gpointer) buoh_window);
-        g_signal_connect (G_OBJECT (buoh_window->priv->view), "key-press-event",
+        g_signal_connect (G_OBJECT (buoh_window->view), "key-press-event",
                           G_CALLBACK (buoh_window_comic_view_key_press_cb),
                           (gpointer) buoh_window);
-        gtk_paned_pack2 (GTK_PANED (paned), GTK_WIDGET (buoh_window->priv->view),
+        gtk_paned_pack2 (GTK_PANED (paned), GTK_WIDGET (buoh_window->view),
                          TRUE, FALSE);
-        gtk_widget_show (GTK_WIDGET (buoh_window->priv->view));
+        gtk_widget_show (GTK_WIDGET (buoh_window->view));
 
         /* buoh comic list */
-        buoh_window->priv->comic_list = BUOH_COMIC_LIST (buoh_comic_list_new ());
+        buoh_window->comic_list = BUOH_COMIC_LIST (buoh_comic_list_new ());
         model = buoh_application_get_comics_model (buoh_application_get_instance ());
-        buoh_comic_list_set_model (buoh_window->priv->comic_list, model);
-        buoh_comic_list_set_view (buoh_window->priv->comic_list, buoh_window->priv->view);
-        gtk_paned_pack1 (GTK_PANED (paned), GTK_WIDGET (buoh_window->priv->comic_list),
+        buoh_comic_list_set_model (buoh_window->comic_list, model);
+        buoh_comic_list_set_view (buoh_window->comic_list, buoh_window->view);
+        gtk_paned_pack1 (GTK_PANED (paned), GTK_WIDGET (buoh_window->comic_list),
                          TRUE, FALSE);
-        gtk_widget_show (GTK_WIDGET (buoh_window->priv->comic_list));
+        gtk_widget_show (GTK_WIDGET (buoh_window->comic_list));
 
         gtk_box_pack_start (GTK_BOX (vbox), paned,
                             TRUE, TRUE, 0);
         gtk_widget_show (paned);
 
         /* Status bar */
-        buoh_window->priv->statusbar = gtk_statusbar_new ();
-        buoh_window->priv->view_message_cid = gtk_statusbar_get_context_id
-                (GTK_STATUSBAR (buoh_window->priv->statusbar), "view_message");
-        buoh_window->priv->help_message_cid = gtk_statusbar_get_context_id
-                (GTK_STATUSBAR (buoh_window->priv->statusbar), "help_message");
-        gtk_box_pack_end (GTK_BOX (vbox), buoh_window->priv->statusbar,
+        buoh_window->statusbar = gtk_statusbar_new ();
+        buoh_window->view_message_cid = gtk_statusbar_get_context_id
+                (GTK_STATUSBAR (buoh_window->statusbar), "view_message");
+        buoh_window->help_message_cid = gtk_statusbar_get_context_id
+                (GTK_STATUSBAR (buoh_window->statusbar), "help_message");
+        gtk_box_pack_end (GTK_BOX (vbox), buoh_window->statusbar,
                           FALSE, TRUE, 0);
-        gtk_widget_show (buoh_window->priv->statusbar);
-        g_object_set (G_OBJECT (buoh_window->priv->statusbar),
+        gtk_widget_show (buoh_window->statusbar);
+        g_object_set (G_OBJECT (buoh_window->statusbar),
                       "visible", visible_statusbar, NULL);
 
         gtk_container_add (GTK_CONTAINER (buoh_window), vbox);
         gtk_widget_show (vbox);
 
-        tree_view = buoh_comic_list_get_list (buoh_window->priv->comic_list);
+        tree_view = buoh_comic_list_get_list (buoh_window->comic_list);
         selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree_view));
         g_signal_connect (G_OBJECT (tree_view), "button-press-event",
                           G_CALLBACK (buoh_window_comic_list_button_press_cb),
@@ -390,7 +390,7 @@ buoh_window_init (BuohWindow *buoh_window)
         buoh_window_set_sensitive (buoh_window, "ComicRemove", FALSE);
         buoh_window_update_zoom_mode (buoh_window);
 
-        gtk_widget_grab_focus (GTK_WIDGET (buoh_window->priv->view));
+        gtk_widget_grab_focus (GTK_WIDGET (buoh_window->view));
 
         gtk_widget_show (GTK_WIDGET (buoh_window));
 }
@@ -410,37 +410,21 @@ buoh_window_finalize (GObject *object)
 
         buoh_debug ("buoh-window finalize");
 
-        if (buoh_window->priv->ui_manager) {
-                g_object_unref (buoh_window->priv->ui_manager);
-                buoh_window->priv->ui_manager = NULL;
-        }
+        g_clear_object (&buoh_window->ui_manager);
 
-        if (buoh_window->priv->action_group) {
-                g_object_unref (buoh_window->priv->action_group);
-                buoh_window->priv->action_group = NULL;
-        }
+        g_clear_object (&buoh_window->action_group);
 
-        if (buoh_window->priv->buoh_settings) {
-                g_object_unref (buoh_window->priv->buoh_settings);
-                buoh_window->priv->buoh_settings = NULL;
-        }
+        g_clear_object (&buoh_window->buoh_settings);
 
-        if (buoh_window->priv->lockdown_settings) {
-                g_object_unref (buoh_window->priv->lockdown_settings);
-                buoh_window->priv->lockdown_settings = NULL;
-        }
+        g_clear_object (&buoh_window->lockdown_settings);
 
-        if (buoh_window->priv->properties) {
-                g_list_foreach (buoh_window->priv->properties,
+        if (buoh_window->properties) {
+                g_list_foreach (buoh_window->properties,
                                 (GFunc) g_object_unref, NULL);
-                g_list_free (buoh_window->priv->properties);
-                buoh_window->priv->properties = NULL;
+                g_clear_pointer (&buoh_window->properties, g_list_free);
         }
 
-        if (buoh_window->priv->add_dialog) {
-                g_object_unref (buoh_window->priv->add_dialog);
-                buoh_window->priv->add_dialog = NULL;
-        }
+        g_clear_object (&buoh_window->add_dialog);
 
         if (G_OBJECT_CLASS (buoh_window_parent_class)->finalize) {
                 (* G_OBJECT_CLASS (buoh_window_parent_class)->finalize) (object);
@@ -467,15 +451,15 @@ buoh_window_cmd_comic_add (GtkAction *action, gpointer gdata)
 {
         BuohWindow *window = BUOH_WINDOW (gdata);
 
-        if (!window->priv->add_dialog) {
-                window->priv->add_dialog = buoh_add_comic_dialog_new ();
-                g_object_add_weak_pointer (G_OBJECT (window->priv->add_dialog),
-                                           (gpointer *) &(window->priv->add_dialog));
-                gtk_window_set_transient_for (GTK_WINDOW (window->priv->add_dialog),
+        if (!window->add_dialog) {
+                window->add_dialog = buoh_add_comic_dialog_new ();
+                g_object_add_weak_pointer (G_OBJECT (window->add_dialog),
+                                           (gpointer *) &(window->add_dialog));
+                gtk_window_set_transient_for (GTK_WINDOW (window->add_dialog),
                                               GTK_WINDOW (window));
         }
 
-        gtk_widget_show (window->priv->add_dialog);
+        gtk_widget_show (window->add_dialog);
 }
 
 static void
@@ -490,7 +474,7 @@ buoh_window_cmd_comic_remove (GtkAction *action, gpointer gdata)
         const gchar      *cm_id;
         gboolean          valid;
 
-        current_cm = buoh_comic_list_get_selected (window->priv->comic_list);
+        current_cm = buoh_comic_list_get_selected (window->comic_list);
 
         if (!current_cm) {
                 return;
@@ -508,7 +492,7 @@ buoh_window_cmd_comic_remove (GtkAction *action, gpointer gdata)
                 g_object_unref (cm);
 
                 if (g_ascii_strcasecmp (current_cm_id, cm_id) == 0) {
-                        buoh_comic_list_clear_selection (window->priv->comic_list);
+                        buoh_comic_list_clear_selection (window->comic_list);
                         gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                                             COMIC_LIST_VISIBLE, FALSE,
                                             -1);
@@ -551,7 +535,7 @@ buoh_window_cmd_comic_save_a_copy (GtkAction *action, gpointer gdata)
                                                          folder);
         }
 
-        comic  = buoh_view_get_comic (window->priv->view);
+        comic  = buoh_view_get_comic (window->view);
         image = buoh_comic_get_image (comic);
 
         suggested = buoh_comic_get_filename (comic);
@@ -604,7 +588,7 @@ static void
 buoh_window_cmd_comic_copy_location (GtkAction *action, gpointer gdata)
 {
         BuohWindow *window = BUOH_WINDOW (gdata);
-        BuohComic  *comic = buoh_view_get_comic (window->priv->view);
+        BuohComic  *comic = buoh_view_get_comic (window->view);
 
         if (comic) {
                 const gchar *uri = buoh_comic_get_uri (comic);
@@ -626,14 +610,14 @@ buoh_window_properties_dialog_destroyed (GtkWidget *dialog, gpointer gdata)
 
         buoh_debug ("porperties-dialog destroyed");
 
-        window->priv->properties = g_list_remove (window->priv->properties, dialog);
+        window->properties = g_list_remove (window->properties, dialog);
 }
 
 static void
 buoh_window_cmd_comic_properties (GtkAction *action, gpointer gdata)
 {
         BuohWindow       *window = BUOH_WINDOW (gdata);
-        BuohComicManager *cm  = buoh_comic_list_get_selected (window->priv->comic_list);
+        BuohComicManager *cm  = buoh_comic_list_get_selected (window->comic_list);
         BuohComicManager *cm2 = NULL;
         GtkWidget        *dialog;
         const gchar      *id1, *id2;
@@ -645,7 +629,7 @@ buoh_window_cmd_comic_properties (GtkAction *action, gpointer gdata)
 
         id1 = buoh_comic_manager_get_id (cm);
 
-        for (l = window->priv->properties; l; l = g_list_next (l)) {
+        for (l = window->properties; l; l = g_list_next (l)) {
                 cm2 = buoh_properties_dialog_get_comic_manager (
                         BUOH_PROPERTIES_DIALOG (l->data));
                 id2 = buoh_comic_manager_get_id (cm2);
@@ -665,7 +649,7 @@ buoh_window_cmd_comic_properties (GtkAction *action, gpointer gdata)
 
         gtk_widget_show (dialog);
 
-        window->priv->properties = g_list_append (window->priv->properties, dialog);
+        window->properties = g_list_append (window->properties, dialog);
 }
 
 static void
@@ -684,10 +668,10 @@ buoh_window_cmd_view_toolbar (GtkAction *action, gpointer gdata)
         gboolean     visible;
 
         visible = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-        g_settings_set_boolean (window->priv->buoh_settings,
+        g_settings_set_boolean (window->buoh_settings,
                                 GS_SHOW_TOOLBAR, visible);
 
-        toolbar = gtk_ui_manager_get_widget (window->priv->ui_manager, "/Toolbar");
+        toolbar = gtk_ui_manager_get_widget (window->ui_manager, "/Toolbar");
         g_object_set (G_OBJECT (toolbar), "visible",
                       visible,
                       NULL);
@@ -700,10 +684,10 @@ buoh_window_cmd_view_statusbar (GtkAction *action, gpointer gdata)
         gboolean     visible;
 
         visible = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
-        g_settings_set_boolean (window->priv->buoh_settings,
+        g_settings_set_boolean (window->buoh_settings,
                                 GS_SHOW_STATUSBAR, visible);
 
-        g_object_set (G_OBJECT (window->priv->statusbar),
+        g_object_set (G_OBJECT (window->statusbar),
                       "visible", visible,
                       NULL);
 }
@@ -713,7 +697,7 @@ buoh_window_cmd_view_zoom_in (GtkAction *action, gpointer gdata)
 {
         BuohWindow *window = BUOH_WINDOW (gdata);
 
-        buoh_view_zoom_in (window->priv->view);
+        buoh_view_zoom_in (window->view);
 }
 
 static void
@@ -721,7 +705,7 @@ buoh_window_cmd_view_zoom_out (GtkAction *action, gpointer gdata)
 {
         BuohWindow *window = BUOH_WINDOW (gdata);
 
-        buoh_view_zoom_out (window->priv->view);
+        buoh_view_zoom_out (window->view);
 }
 
 static void
@@ -729,7 +713,7 @@ buoh_window_cmd_view_zoom_normal (GtkAction *action, gpointer gdata)
 {
         BuohWindow *window = BUOH_WINDOW (gdata);
 
-        buoh_view_zoom_normal_size (window->priv->view);
+        buoh_view_zoom_normal_size (window->view);
 }
 
 static void
@@ -738,12 +722,12 @@ buoh_window_cmd_view_zoom_best_fit (GtkAction *action, gpointer gdata)
         BuohWindow *window = BUOH_WINDOW (gdata);
 
         if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action))) {
-                buoh_view_zoom_best_fit (window->priv->view);
-                g_settings_set_enum (window->priv->buoh_settings,
+                buoh_view_zoom_best_fit (window->view);
+                g_settings_set_enum (window->buoh_settings,
                                      GS_ZOOM_MODE, VIEW_ZOOM_BEST_FIT);
         } else {
-                buoh_view_zoom_normal_size (window->priv->view);
-                g_settings_set_enum (window->priv->buoh_settings,
+                buoh_view_zoom_normal_size (window->view);
+                g_settings_set_enum (window->buoh_settings,
                                      GS_ZOOM_MODE, VIEW_ZOOM_FREE);
         }
 }
@@ -754,12 +738,12 @@ buoh_window_cmd_view_zoom_fit_width (GtkAction *action, gpointer gdata)
         BuohWindow *window = BUOH_WINDOW (gdata);
 
         if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action))) {
-                buoh_view_zoom_fit_width (window->priv->view);
-                g_settings_set_enum (window->priv->buoh_settings,
+                buoh_view_zoom_fit_width (window->view);
+                g_settings_set_enum (window->buoh_settings,
                                      GS_ZOOM_MODE, VIEW_ZOOM_FIT_WIDTH);
         } else {
-                buoh_view_zoom_normal_size (window->priv->view);
-                g_settings_set_enum (window->priv->buoh_settings,
+                buoh_view_zoom_normal_size (window->view);
+                g_settings_set_enum (window->buoh_settings,
                                      GS_ZOOM_MODE, VIEW_ZOOM_FREE);
         }
 }
@@ -771,11 +755,11 @@ buoh_window_cmd_go_previous (GtkAction *action, gpointer gdata)
         BuohComicManager *comic_manager;
         BuohComic        *comic;
 
-        comic_manager = buoh_comic_list_get_selected (window->priv->comic_list);
+        comic_manager = buoh_comic_list_get_selected (window->comic_list);
 
         comic = buoh_comic_manager_get_previous (comic_manager);
 
-        buoh_view_set_comic (window->priv->view, comic);
+        buoh_view_set_comic (window->view, comic);
 }
 
 static void
@@ -785,11 +769,11 @@ buoh_window_cmd_go_next (GtkAction *action, gpointer gdata)
         BuohComicManager *comic_manager;
         BuohComic        *comic;
 
-        comic_manager = buoh_comic_list_get_selected (window->priv->comic_list);
+        comic_manager = buoh_comic_list_get_selected (window->comic_list);
 
         comic = buoh_comic_manager_get_next (comic_manager);
 
-        buoh_view_set_comic (window->priv->view, comic);
+        buoh_view_set_comic (window->view, comic);
 }
 
 static void
@@ -799,11 +783,11 @@ buoh_window_cmd_go_first (GtkAction *action, gpointer gdata)
         BuohComicManager *comic_manager;
         BuohComic        *comic;
 
-        comic_manager = buoh_comic_list_get_selected (window->priv->comic_list);
+        comic_manager = buoh_comic_list_get_selected (window->comic_list);
 
         comic = buoh_comic_manager_get_first (comic_manager);
 
-        buoh_view_set_comic (window->priv->view, comic);
+        buoh_view_set_comic (window->view, comic);
 }
 static void
 buoh_window_cmd_go_last (GtkAction *action, gpointer gdata)
@@ -812,11 +796,11 @@ buoh_window_cmd_go_last (GtkAction *action, gpointer gdata)
         BuohComicManager *comic_manager;
         BuohComic        *comic;
 
-        comic_manager = buoh_comic_list_get_selected (window->priv->comic_list);
+        comic_manager = buoh_comic_list_get_selected (window->comic_list);
 
         comic = buoh_comic_manager_get_last (comic_manager);
 
-        buoh_view_set_comic (window->priv->view, comic);
+        buoh_view_set_comic (window->view, comic);
 }
 
 static void
@@ -847,7 +831,7 @@ buoh_window_update_title (BuohWindow *window)
         BuohComicManager *cm;
         gchar            *title = NULL;
 
-        cm = buoh_comic_list_get_selected (window->priv->comic_list);
+        cm = buoh_comic_list_get_selected (window->comic_list);
 
         if (cm) {
                 title = g_strdup_printf ("%s — Buoh",
@@ -863,7 +847,7 @@ buoh_window_update_title (BuohWindow *window)
 static void
 buoh_window_set_sensitive (BuohWindow *window, const gchar *name, gboolean sensitive)
 {
-        GtkAction *action = gtk_action_group_get_action (window->priv->action_group,
+        GtkAction *action = gtk_action_group_get_action (window->action_group,
                                                          name);
         gtk_action_set_sensitive (action, sensitive);
 }
@@ -873,7 +857,7 @@ buoh_window_comic_browsing_actions_set_sensitive (BuohWindow *window, gboolean s
 {
         BuohComicManager *cm;
 
-        cm = buoh_comic_list_get_selected (window->priv->comic_list);
+        cm = buoh_comic_list_get_selected (window->comic_list);
 
         buoh_window_set_sensitive (window, "GoPrevious",
                                       sensitive ?
@@ -901,13 +885,13 @@ buoh_window_comic_actions_set_sensitive (BuohWindow *window, gboolean sensitive)
         buoh_window_set_sensitive (window, "ComicProperties", sensitive);
         buoh_window_set_sensitive (window, "ComicCopyURI",    sensitive);
         buoh_window_set_sensitive (window, "ViewZoomIn",
-                                   buoh_view_is_max_zoom (window->priv->view) ?
+                                   buoh_view_is_max_zoom (window->view) ?
                                    FALSE : sensitive);
         buoh_window_set_sensitive (window, "ViewZoomOut",
-                                   buoh_view_is_min_zoom (window->priv->view) ?
+                                   buoh_view_is_min_zoom (window->view) ?
                                    FALSE : sensitive);
         buoh_window_set_sensitive (window, "ViewZoomNormal",
-                                   buoh_view_is_normal_size (window->priv->view) ?
+                                   buoh_view_is_normal_size (window->view) ?
                                    FALSE : sensitive);
         buoh_window_set_sensitive (window, "ViewZoomBestFit", sensitive);
         buoh_window_set_sensitive (window, "ViewZoomFitWidth", sensitive);
@@ -918,7 +902,7 @@ buoh_window_comic_save_to_disk_set_sensitive (BuohWindow *window, gboolean sensi
 {
         gboolean save_disabled = FALSE;
 
-        if (g_settings_get_boolean (window->priv->lockdown_settings,
+        if (g_settings_get_boolean (window->lockdown_settings,
                                     GS_LOCKDOWN_SAVE)) {
                 save_disabled = TRUE;
         }
@@ -974,8 +958,8 @@ buoh_window_menu_item_select_cb (GtkMenuItem *proxy, gpointer gdata)
 
         g_object_get (G_OBJECT (action), "tooltip", &message, NULL);
         if (message) {
-                gtk_statusbar_push (GTK_STATUSBAR (window->priv->statusbar),
-                                    window->priv->help_message_cid, message);
+                gtk_statusbar_push (GTK_STATUSBAR (window->statusbar),
+                                    window->help_message_cid, message);
                 g_free (message);
         }
 }
@@ -985,8 +969,8 @@ buoh_window_menu_item_deselect_cb (GtkMenuItem *proxy, gpointer gdata)
 {
         BuohWindow *window = BUOH_WINDOW (gdata);
 
-        gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar),
-                           window->priv->help_message_cid);
+        gtk_statusbar_pop (GTK_STATUSBAR (window->statusbar),
+                           window->help_message_cid);
 }
 
 static void
@@ -996,10 +980,10 @@ buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gd
         BuohWindow       *window = BUOH_WINDOW (gdata);
         BuohComic        *comic = NULL;
         BuohComicManager *cm;
-        GtkStatusbar     *statusbar = GTK_STATUSBAR (window->priv->statusbar);
+        GtkStatusbar     *statusbar = GTK_STATUSBAR (window->statusbar);
         gchar            *message = NULL;
 
-        cm = buoh_comic_list_get_selected (window->priv->comic_list);
+        cm = buoh_comic_list_get_selected (window->comic_list);
 
         switch (buoh_view_get_status (view)) {
         case STATE_MESSAGE_WELCOME:
@@ -1036,9 +1020,9 @@ buoh_window_view_status_change_cb (GObject *object, GParamSpec *arg, gpointer gd
                 break;
         }
 
-        gtk_statusbar_pop (statusbar, window->priv->view_message_cid);
+        gtk_statusbar_pop (statusbar, window->view_message_cid);
         if (message) {
-                gtk_statusbar_push (statusbar, window->priv->view_message_cid,
+                gtk_statusbar_push (statusbar, window->view_message_cid,
                                     message);
                 g_free (message);
         }
@@ -1052,9 +1036,9 @@ buoh_window_update_zoom_mode (BuohWindow *window)
         BuohViewZoomMode  zoom_mode;
         GtkAction        *action;
 
-        zoom_mode = buoh_view_get_zoom_mode (window->priv->view);
+        zoom_mode = buoh_view_get_zoom_mode (window->view);
 
-        action = gtk_action_group_get_action (window->priv->action_group,
+        action = gtk_action_group_get_action (window->action_group,
                                               "ViewZoomBestFit");
         g_signal_handlers_block_by_func
                 (action, G_CALLBACK (buoh_window_cmd_view_zoom_best_fit), window);
@@ -1063,7 +1047,7 @@ buoh_window_update_zoom_mode (BuohWindow *window)
         g_signal_handlers_unblock_by_func
                 (action, G_CALLBACK (buoh_window_cmd_view_zoom_best_fit), window);
 
-        action = gtk_action_group_get_action (window->priv->action_group,
+        action = gtk_action_group_get_action (window->action_group,
                                               "ViewZoomFitWidth");
         g_signal_handlers_block_by_func
                 (action, G_CALLBACK (buoh_window_cmd_view_zoom_fit_width), window);
@@ -1079,11 +1063,11 @@ buoh_window_view_zoom_change_cb (BuohView *view, gpointer gdata)
         BuohWindow *window = BUOH_WINDOW (gdata);
 
         buoh_window_set_sensitive (window, "ViewZoomIn",
-                                   !buoh_view_is_max_zoom (window->priv->view));
+                                   !buoh_view_is_max_zoom (window->view));
         buoh_window_set_sensitive (window, "ViewZoomOut",
-                                   !buoh_view_is_min_zoom (window->priv->view));
+                                   !buoh_view_is_min_zoom (window->view));
         buoh_window_set_sensitive (window, "ViewZoomNormal",
-                                   !buoh_view_is_normal_size (window->priv->view));
+                                   !buoh_view_is_normal_size (window->view));
 
         buoh_window_update_zoom_mode (window);
 
@@ -1100,7 +1084,7 @@ buoh_window_comic_list_button_press_cb (GtkWidget *widget, GdkEventButton *event
         if (event->button == 3) {
                 selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (widget));
                 if (gtk_tree_selection_get_selected (selection, NULL, NULL)) {
-                        popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ListPopup");
+                        popup = gtk_ui_manager_get_widget (window->ui_manager, "/ListPopup");
 
                         gtk_menu_popup_at_pointer (GTK_MENU (popup),
                                                    (const GdkEvent *) event);
@@ -1125,7 +1109,7 @@ buoh_window_comic_list_key_press_cb (GtkWidget *widget, GdkEventKey *event, gpoi
             event->keyval == GDK_KEY_F10) {
                 selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (widget));
                 if (gtk_tree_selection_get_selected (selection, NULL, NULL)) {
-                        popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ListPopup");
+                        popup = gtk_ui_manager_get_widget (window->ui_manager, "/ListPopup");
 
                         gtk_menu_popup_at_pointer (GTK_MENU (popup),
                                                    (const GdkEvent *) event);
@@ -1157,14 +1141,14 @@ buoh_window_comic_view_button_press_cb (GtkWidget *widget, GdkEventButton *event
         GtkWidget      *popup;
         BuohViewStatus  view_status;
 
-        view_status = buoh_view_get_status (window->priv->view);
+        view_status = buoh_view_get_status (window->view);
         if (view_status != STATE_COMIC_LOADING &&
             view_status != STATE_COMIC_LOADED) {
                 return FALSE;
         }
 
         if (event->button == 3) {
-                popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ViewPopup");
+                popup = gtk_ui_manager_get_widget (window->ui_manager, "/ViewPopup");
 
                 gtk_menu_popup_at_pointer (GTK_MENU (popup),
                                            (const GdkEvent *) event);
@@ -1182,7 +1166,7 @@ buoh_window_comic_view_key_press_cb (GtkWidget *widget, GdkEventKey *event, gpoi
         guint           state;
         BuohViewStatus  view_status;
 
-        view_status = buoh_view_get_status (window->priv->view);
+        view_status = buoh_view_get_status (window->view);
         if (view_status != STATE_COMIC_LOADING &&
             view_status != STATE_COMIC_LOADED) {
                 return FALSE;
@@ -1192,7 +1176,7 @@ buoh_window_comic_view_key_press_cb (GtkWidget *widget, GdkEventKey *event, gpoi
 
         if (state == GDK_SHIFT_MASK &&
             event->keyval == GDK_KEY_F10) {
-                popup = gtk_ui_manager_get_widget (window->priv->ui_manager, "/ViewPopup");
+                popup = gtk_ui_manager_get_widget (window->ui_manager, "/ViewPopup");
 
                 gtk_menu_popup_at_pointer (GTK_MENU (popup),
                                            (const GdkEvent *) event);
