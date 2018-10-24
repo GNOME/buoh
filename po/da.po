@@ -1,62 +1,53 @@
 # Danish translation for buoh.
-# Copyright (C) 2010 buoh's COPYRIGHT HOLDER
+# Copyright (C) 2018 buoh's COPYRIGHT HOLDER
 # This file is distributed under the same license as the buoh package.
 # Joe Hansen <j@yahoo.dk>, 2010.
+# Alan Mortensen <alanmortensen.am@gmail.com>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-24 00:13+0200\n"
-"PO-Revision-Date: 2010-08-18 21:05+0000\n"
-"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2018-08-30 00:47+0000\n"
+"PO-Revision-Date: 2018-09-06 20:13+0200\n"
+"Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
-#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+#: data/buoh.desktop.in:3 src/main.c:46
 msgid "Buoh"
 msgstr "Buoh"
 
+# Tegneserielæser er en person, der læser tegneserier
+#: data/buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Tegneserielæsning"
+
 # yndlingstegneserier
-#: ../data/buoh.desktop.in.h:2
-msgid "Read your favourite comic strips"
+#: data/buoh.desktop.in:5
+msgid "Read your favorite comic strips"
 msgstr "Læs dine favorittegneserier"
 
-#: ../data/buoh.schemas.in.h:1
-msgid "Select viewer zoom mode"
-msgstr "Vælg zoomtilstand for visning"
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "tegneserier;webtegneserier;tegneseriestriber;"
 
-#: ../data/buoh.schemas.in.h:2
-msgid "Show statusbar by default"
-msgstr "Vis statusbjælke som standard"
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/buoh.desktop.in:10
+msgid "buoh"
+msgstr "buoh"
 
-#: ../data/buoh.schemas.in.h:3
+#: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
 msgstr "Vis værktøjsbjælke som standard"
 
-#: ../data/buoh.schemas.in.h:4
-msgid ""
-"Statusbar is the bottom bar that contains help and status messages. Two "
-"boolean options, true makes statusbar visible by default while false makes "
-"statusbar not visible by default."
-msgstr ""
-"Statusbjælken er knapbjælken som indeholder hjælp og statusbeskeder. To "
-"booleske indstillinger, true (sand) gør statusbjælken synlig som standard "
-"mens false (falsk) gør at statusbjælken ikke er synlig som standard."
-
-#: ../data/buoh.schemas.in.h:5
-msgid ""
-"There are two zoom modes available, 1 makes the current comic fill the "
-"window, 2 makes the current comic fill the window width."
-msgstr ""
-"Der er to zoomtilstande tilgængelige, 1 gør at den aktuelle tegneserie "
-"fylder vinduet, 2 gør at den aktuelle tegneserie fylder vinduets bredde."
-
-#: ../data/buoh.schemas.in.h:6
+#: data/org.gnome.buoh.gschema.xml:7
 msgid ""
 "Toolbar is the top bar that contains navigation and zoom controls. Two "
 "boolean options, true makes toolbar visible by default while false makes "
@@ -67,317 +58,349 @@ msgstr ""
 "synlig som standard mens false (falsk) gør, at værktøjsbjælken ikke er "
 "synlig som standard."
 
-#: ../src/buoh-add-comic-dialog.c:67
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "Vis statusbjælke som standard"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"Statusbjælken er knapbjælken som indeholder hjælp og statusbeskeder. To "
+"booleske indstillinger, true (sand) gør statusbjælken synlig som standard "
+"mens false (falsk) gør at statusbjælken ikke er synlig som standard."
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "Vælg zoomtilstand for visning"
+
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"Der er to zoomtilstande tilgængelige: “bedste tilpasning” får den aktuelle "
+"tegneserie til at fylde vinduet, mens “tilpas bredde” får den aktuelle tegneserie "
+"til at fylde vinduets bredde."
+
+#: src/buoh-add-comic-dialog.c:67
 msgid "Add Comic"
 msgstr "Tilføj tegneserie"
 
-#: ../src/buoh-add-comic-dialog.c:79
+#: src/buoh-add-comic-dialog.c:79
 msgid "Select Comics"
 msgstr "Vælg tegneserier"
 
-#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
-#: ../src/buoh-properties-dialog.c:104
+#: src/buoh-add-comic-dialog.c:120 src/buoh-comic-list.c:119
+#: src/buoh-properties-dialog.c:103
 msgid "Title"
 msgstr "Titel"
 
-#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:110
+#: src/buoh-add-comic-dialog.c:133 src/buoh-properties-dialog.c:109
 msgid "Author"
 msgstr "Forfatter"
 
-#: ../src/buoh-add-comic-dialog.c:202
+#: src/buoh-add-comic-dialog.c:203
 #, c-format
 msgid "Comics selected: %d"
 msgstr "Tegneserier valgt: %d"
 
-#: ../src/buoh-comic.c:435
-#, c-format
-msgid "Cannot create file '%s': %s"
-msgstr "Kan ikke oprette fil '%s': %s"
-
-#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
-#, c-format
-msgid "Error writting to file '%s': %s"
-msgstr "Fejl under skrivning til fil '%s': %s"
-
 # med lille?
-#: ../src/buoh-comic-manager-date.c:56
+#: src/buoh-comic-manager-date.c:56
 msgid "Monday"
 msgstr "mandag"
 
-#: ../src/buoh-comic-manager-date.c:57
+#: src/buoh-comic-manager-date.c:57
 msgid "Tuesday"
 msgstr "tirsdag"
 
-#: ../src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:58
 msgid "Wednesday"
 msgstr "onsdag"
 
-#: ../src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:59
 msgid "Thursday"
 msgstr "torsdag"
 
-#: ../src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:60
 msgid "Friday"
 msgstr "fredag"
 
-#: ../src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:61
 msgid "Saturday"
 msgstr "lørdag"
 
-#: ../src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:62
 msgid "Sunday"
 msgstr "søndag"
 
 #. It's a range of days
-#: ../src/buoh-comic-manager-date.c:496
+#: src/buoh-comic-manager-date.c:501
 msgid " to "
 msgstr " til "
 
-#: ../src/buoh-comic-manager-date.c:511
+#: src/buoh-comic-manager-date.c:516
 msgid "Every day"
 msgstr "Hver dag"
 
-#: ../src/buoh-properties-dialog.c:48
+#: src/buoh-comic.c:436
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "Kan ikke oprette filen “%s”: %s"
+
+#: src/buoh-comic.c:444 src/buoh-comic.c:453
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "Fejl under skrivning til filen “'%s”: %s"
+
+#: src/buoh-properties-dialog.c:48
 msgid "Comic Properties"
 msgstr "Tegneserieegenskaber"
 
-#: ../src/buoh-properties-dialog.c:116
+#: src/buoh-properties-dialog.c:115
 msgid "Link"
 msgstr "Henvisning"
 
-#: ../src/buoh-properties-dialog.c:122
+#: src/buoh-properties-dialog.c:121
 msgid "Language"
 msgstr "Sprog"
 
-#: ../src/buoh-properties-dialog.c:128
+#: src/buoh-properties-dialog.c:127
 msgid "Date of publication"
 msgstr "Udgivelsesdato"
 
-#: ../src/buoh-properties-dialog.c:186
+#: src/buoh-properties-dialog.c:185
 msgid "Publication days"
 msgstr "Udgivelsesdage"
 
-#: ../src/buoh-view.c:155
-msgid "Buoh online comic strips reader"
-msgstr "Buoh - læsningsprogram til tegneseriestriber der er online"
-
-#: ../src/buoh-view.c:157
-msgid ""
-"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
-"The list on the left panel contains your favourite comic strips to add or "
-"remove comics to the list click on Comic -> Add. Just select a comic from "
-"the list, and it will be displayed on the right side. Thanks for using Buoh."
-msgstr ""
-"Velkommen til <b>Buoh</b>, online tegneserielæser til GNOME-skrivebordet.\n"
-"Listen i det venstre panel indeholder dine favorittegneserier. For at "
-"tilføje eller fjerne tegneserier i listen, skal du klikke på Tegneserie -> "
-"Tilføj. Vælg en tegneserie fra listen, og den vil blive vist i højre side. "
-"Tak fordi du bruger Buoh."
-
-#: ../src/buoh-view-comic.c:638
+#: src/buoh-view-comic.c:653
 msgid "Error Loading Comic"
 msgstr "Fejl under indlæsning af tegneserie"
 
+#: src/buoh-view.c:155
+msgid "Buoh online comic strips reader"
+msgstr "Buoh - læsningsprogram til tegneseriestriber der er online"
+
+#: src/buoh-view.c:157
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Velkommen til <b>Buoh</b>, et program til onlinelæsning af tegneserier på "
+"GNOME-skrivebordet.\n"
+"Listen i det venstre panel indeholder dine favorittegneserier. For at "
+"tilføje eller fjerne tegneserier i listen, skal du klikke på Tegneserie → "
+"Tilføj. Vælg en tegneserie fra listen, og den vil blive vist i højre side. "
+"Tak fordi du bruger Buoh."
+
 #. Top Level
-#: ../src/buoh-window.c:158
+#: src/buoh-window.c:161
 msgid "_Comic"
 msgstr "_Tegneserie"
 
-#: ../src/buoh-window.c:159
+#: src/buoh-window.c:162
 msgid "_View"
 msgstr "_Vis"
 
-#: ../src/buoh-window.c:160
+#: src/buoh-window.c:163
 msgid "_Go"
 msgstr "_Start"
 
-#: ../src/buoh-window.c:161
+#: src/buoh-window.c:164
 msgid "_Help"
 msgstr "_Hjælp"
 
 #. Comic menu
-#: ../src/buoh-window.c:164
-msgid "_Add..."
-msgstr "_Tilføj..."
+#: src/buoh-window.c:167
+msgid "_Add…"
+msgstr "T_ilføj …"
 
-#: ../src/buoh-window.c:165
+#: src/buoh-window.c:168
 msgid "Add a comic to the comic list"
 msgstr "Tilføj en tegneserie til tegneserielisten"
 
-#: ../src/buoh-window.c:167
+#: src/buoh-window.c:170
 msgid "_Remove"
 msgstr "_Fjern"
 
-#: ../src/buoh-window.c:168
+#: src/buoh-window.c:171
 msgid "Remove this comic from the comic list"
 msgstr "Fjern denne tegneserie fra tegneserielisten"
 
-#: ../src/buoh-window.c:170
-msgid "_Save A Copy..."
-msgstr "_Gem en kopi..."
+#: src/buoh-window.c:173
+msgid "_Save a Copy…"
+msgstr "_Gem en kopi …"
 
-#: ../src/buoh-window.c:171
+#: src/buoh-window.c:174
 msgid "Save the current comic with a new filename"
 msgstr "Gem den aktuelle tegneserie med et nyt filnavn"
 
-#: ../src/buoh-window.c:173
+#: src/buoh-window.c:176
 msgid "_Copy Location"
 msgstr "_Kopier placering"
 
-#: ../src/buoh-window.c:174
+#: src/buoh-window.c:177
 msgid "Copy the location of this comic to clipboard"
 msgstr "Kopier placeringen af denne tegneserie til udklipsholderen"
 
-#: ../src/buoh-window.c:176
-msgid "_Properties..."
-msgstr "_Egenskaber..."
+#: src/buoh-window.c:179
+msgid "_Properties…"
+msgstr "_Egenskaber …"
 
-#: ../src/buoh-window.c:177
+#: src/buoh-window.c:180
 msgid "View the properties of this comic"
 msgstr "Vis egenskaberne for denne tegneserie"
 
-#: ../src/buoh-window.c:179
+#: src/buoh-window.c:182
 msgid "_Quit"
 msgstr "_Afslut"
 
-#: ../src/buoh-window.c:180
+#: src/buoh-window.c:183
 msgid "Quit application"
 msgstr "Afslut program"
 
 #. View menu
-#: ../src/buoh-window.c:184
+#: src/buoh-window.c:187
 msgid "Zoom _In"
 msgstr "Zoom _ind"
 
 # måske omskrive
-#: ../src/buoh-window.c:185
+#: src/buoh-window.c:188
 msgid "Increase the comic size"
 msgstr "Øg tegneseriestørrelsen"
 
-#: ../src/buoh-window.c:187
+#: src/buoh-window.c:190
 msgid "Zoom _Out"
 msgstr "Zoom _ud"
 
 # måske omskrive
-#: ../src/buoh-window.c:188
+#: src/buoh-window.c:191
 msgid "Decrease the comic size"
 msgstr "Formindsk tegneseriestørrelsen"
 
-#: ../src/buoh-window.c:190
+#: src/buoh-window.c:193
 msgid "_Normal Size"
 msgstr "_Normal størrelse"
 
-#: ../src/buoh-window.c:191
+#: src/buoh-window.c:194
 msgid "Use the normal comic size"
 msgstr "Brug den normale tegneseriestørrelse"
 
 #. Go menu
-#: ../src/buoh-window.c:195
+#: src/buoh-window.c:198
 msgid "_Previous Comic"
 msgstr "_Forrige tegneserie"
 
-#: ../src/buoh-window.c:196
+#: src/buoh-window.c:199
 msgid "Go to the previous comic"
 msgstr "Gå til den forrige tegneserie"
 
-#: ../src/buoh-window.c:198
+#: src/buoh-window.c:201
 msgid "_Next Comic"
 msgstr "_Næste tegneserie"
 
-#: ../src/buoh-window.c:199
+#: src/buoh-window.c:202
 msgid "Go to the next comic"
 msgstr "Gå til den næste tegneserie"
 
-#: ../src/buoh-window.c:201
+#: src/buoh-window.c:204
 msgid "_First Comic"
 msgstr "_Første tegneserie"
 
-#: ../src/buoh-window.c:202
+#: src/buoh-window.c:205
 msgid "Go to the first comic"
 msgstr "Gå til den første tegneserie"
 
-#: ../src/buoh-window.c:204
+#: src/buoh-window.c:207
 msgid "_Last Comic"
 msgstr "_Sidste tegneserie"
 
-#: ../src/buoh-window.c:205
+#: src/buoh-window.c:208
 msgid "Go to the last comic"
 msgstr "Gå til den sidste tegneserie"
 
 #. Help menu
-#: ../src/buoh-window.c:209
+#: src/buoh-window.c:212
 msgid "_Contents"
 msgstr "_Indhold"
 
-#: ../src/buoh-window.c:210
+#: src/buoh-window.c:213
 msgid "Display help for the Buoh online comic reader"
 msgstr "Vis hjælp for tegneserielæseren Buoh"
 
-#: ../src/buoh-window.c:212
+#: src/buoh-window.c:215
 msgid "_About"
 msgstr "_Om"
 
-#: ../src/buoh-window.c:213
+#: src/buoh-window.c:216
 msgid "Display credits for the Buoh online comic reader creators"
 msgstr "Vis skaberne af tegneserielæseren Buoh"
 
 #. View menu
-#: ../src/buoh-window.c:220
+#: src/buoh-window.c:223
 msgid "_Toolbar"
 msgstr "_Værktøjsbjælke"
 
-#: ../src/buoh-window.c:221
+#: src/buoh-window.c:224
 msgid "Changes the visibility of the toolbar"
 msgstr "Ændrer synligheden af værktøjsbjælken"
 
-#: ../src/buoh-window.c:223
+#: src/buoh-window.c:226
 msgid "St_atusbar"
 msgstr "_Statusbjælken"
 
-#: ../src/buoh-window.c:224
+#: src/buoh-window.c:227
 msgid "Changes the visibility of the statusbar"
 msgstr "Ændrer synligheden af statusbjælken"
 
-#: ../src/buoh-window.c:226
+#: src/buoh-window.c:229
 msgid "_Best Fit"
 msgstr "_Tilpas alt"
 
-#: ../src/buoh-window.c:227
+#: src/buoh-window.c:230
 msgid "Make the current comic fill the window"
 msgstr "Lad den aktuelle tegneserie fylde vinduet"
 
-#: ../src/buoh-window.c:229
+#: src/buoh-window.c:232
 msgid "Fit Comic _Width"
 msgstr "Tilpas tegneserie_bredde"
 
-#: ../src/buoh-window.c:230
+#: src/buoh-window.c:233
 msgid "Make the current comic fill the window width"
 msgstr "Lad den aktuelle tegneserie fylde vinduets bredde"
 
-#: ../src/buoh-window.c:537
+#: src/buoh-window.c:543
 msgid "Images"
 msgstr "Billeder"
 
-#: ../src/buoh-window.c:540
+#: src/buoh-window.c:546
 msgid "Save Comic"
 msgstr "Gem tegneserie"
 
-#: ../src/buoh-window.c:582
+#: src/buoh-window.c:589
 msgid "Unable to save comic"
 msgstr "Kunne ikke gemme tegneserie"
 
-#: ../src/buoh-window.c:844
+#: src/buoh-window.c:848
 msgid "Online comic strips reader"
 msgstr "Online læser af tegneseriestriber"
 
-#: ../src/buoh-window.c:847
+#: src/buoh-window.c:851
 msgid "translator-credits"
 msgstr ""
 "Joe Hansen, 2010.\n"
+"Alan Mortensen, 2018.\n"
 "\n"
 "Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
 "Mere info: http://www.dansk-gruppen.dk"
 
-#: ../src/buoh-window.c:1026
-msgid "Getting comic ..."
-msgstr "Henter tegneserie..."
+#: src/buoh-window.c:1030
+msgid "Getting comic…"
+msgstr "Henter tegneserie …"
+
+#~ msgid "_Add..."
+#~ msgstr "_Tilføj..."
