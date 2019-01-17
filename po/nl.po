@@ -1,0 +1,395 @@
+# Dutch translation for buoh.
+# Copyright (C) 2019 buoh's COPYRIGHT HOLDER
+# This file is distributed under the same license as the buoh package.
+# Nathan Follens <nthn@unseen.is>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: buoh master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2018-10-29 11:23+0000\n"
+"PO-Revision-Date: 2019-01-17 22:03+0100\n"
+"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
+"X-Generator: Poedit 2.2\n"
+
+#: data/org.gnome.buoh.desktop.in:3 src/main.c:44
+msgid "Buoh"
+msgstr "Buoh"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Striplezer"
+
+#: data/org.gnome.buoh.desktop.in:5
+msgid "Read your favorite comic strips"
+msgstr "Lees uw favoriete strips"
+
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "comics;webcomics;comic strips;strips;"
+
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/org.gnome.buoh.desktop.in:10
+msgid "buoh"
+msgstr "buoh"
+
+#: data/org.gnome.buoh.gschema.xml:6
+msgid "Show toolbar by default"
+msgstr "Werkbalk standaard tonen"
+
+#: data/org.gnome.buoh.gschema.xml:7
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+"De werkbalk is de balk bovenaan die de navigatie- en zoomknoppen bevat. Twee "
+"booleaanse opties: ‘true’ toont de werkbalk standaard, ‘false’ verbergt de "
+"werkbalk standaard."
+
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "Statusbalk standaard tonen"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"De statusbalk is de balk onderaan die de hulp- en statusberichten bevat. "
+"Twee booleaanse opties: ‘true’ toont de statusbalk standaard, ‘false’ "
+"verbergt de statusbalk standaard."
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "Zoommodus van weergave selecteren"
+
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"Er zijn twee zoommodi beschikbaar, ‘best-fit’ past de huidige strip aan aan "
+"het venster, ‘fit-width’ past ze aan aan de breedte van het venster."
+
+#: data/ui/add-comic-dialog.ui:7
+msgid "Add Comic"
+msgstr "Strip toevoegen"
+
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "_Sluiten"
+
+#: data/ui/add-comic-dialog.ui:80 src/buoh-comic-list.c:119
+msgid "Title"
+msgstr "Titel"
+
+#: data/ui/add-comic-dialog.ui:95
+msgid "Author"
+msgstr "Auteur"
+
+#: data/ui/add-comic-dialog.ui:115 src/buoh-add-comic-dialog.c:110
+#, c-format
+msgid "Comics selected: %d"
+msgstr "Strips geselecteerd: %d"
+
+#: data/ui/add-comic-dialog.ui:130
+msgid "Select Comics"
+msgstr "Strips selecteren"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "Stripeigenschappen"
+
+#: data/ui/properties-dialog.ui:57
+msgid "Title:"
+msgstr "Titel:"
+
+#: data/ui/properties-dialog.ui:71
+msgid "Author:"
+msgstr "Auteur:"
+
+#: data/ui/properties-dialog.ui:85
+msgid "Link:"
+msgstr "Koppeling:"
+
+#: data/ui/properties-dialog.ui:99
+msgid "Date of publication:"
+msgstr "Datum van publicatie:"
+
+#: data/ui/properties-dialog.ui:113
+msgid "Language:"
+msgstr "Taal:"
+
+#: data/ui/properties-dialog.ui:127
+msgid "Publication days:"
+msgstr "Publicatiedagen:"
+
+#: src/buoh-comic-manager-date.c:56
+msgid "Monday"
+msgstr "Maandag"
+
+#: src/buoh-comic-manager-date.c:57
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+#: src/buoh-comic-manager-date.c:58
+msgid "Wednesday"
+msgstr "Woensdag"
+
+#: src/buoh-comic-manager-date.c:59
+msgid "Thursday"
+msgstr "Donderdag"
+
+#: src/buoh-comic-manager-date.c:60
+msgid "Friday"
+msgstr "Vrijdag"
+
+#: src/buoh-comic-manager-date.c:61
+msgid "Saturday"
+msgstr "Zaterdag"
+
+#: src/buoh-comic-manager-date.c:62
+msgid "Sunday"
+msgstr "Zondag"
+
+#. It's a range of days
+#: src/buoh-comic-manager-date.c:501
+msgid " to "
+msgstr " tot "
+
+#: src/buoh-comic-manager-date.c:516
+msgid "Every day"
+msgstr "Elke dag"
+
+#: src/buoh-comic.c:436
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "Kan bestand ‘%s’ niet aanmaken: %s"
+
+#: src/buoh-comic.c:444 src/buoh-comic.c:453
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "Fout bij schrijven naar bestand ‘%s’: %s"
+
+#: src/buoh-view-comic.c:653
+msgid "Error Loading Comic"
+msgstr "Fout bij laden van strip"
+
+#: src/buoh-view.c:155
+msgid "Buoh online comic strips reader"
+msgstr "Buoh - online striplezer"
+
+#: src/buoh-view.c:157
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Welkom bij <b>Buoh</b>, de online striplezer voor het Gnome-bureaublad.\n"
+"De lijst in het linkerpaneel bevat uw favoriete strips. Om strips aan de "
+"lijst toe te voegen, klikt u op Strip → Toevoegen. Kies een strip uit de "
+"lijst, en deze zal aan de rechterkant worden getoond. Bedankt om Buoh te "
+"gebruiken."
+
+#. Top Level
+#: src/buoh-window.c:159
+msgid "_Comic"
+msgstr "_Strip"
+
+#: src/buoh-window.c:160
+msgid "_View"
+msgstr "Weerga_ve"
+
+#: src/buoh-window.c:161
+msgid "_Go"
+msgstr "_Gaan"
+
+#: src/buoh-window.c:162
+msgid "_Help"
+msgstr "_Hulp"
+
+#. Comic menu
+#: src/buoh-window.c:165
+msgid "_Add…"
+msgstr "_Toevoegen…"
+
+#: src/buoh-window.c:166
+msgid "Add a comic to the comic list"
+msgstr "Voeg een strip toe aan de lijst met strips"
+
+#: src/buoh-window.c:168
+msgid "_Remove"
+msgstr "Ve_rwijderen"
+
+#: src/buoh-window.c:169
+msgid "Remove this comic from the comic list"
+msgstr "Verwijder deze strip uit de lijst met strips"
+
+#: src/buoh-window.c:171
+msgid "_Save a Copy…"
+msgstr "Een kopie op_slaan…"
+
+#: src/buoh-window.c:172
+msgid "Save the current comic with a new filename"
+msgstr "Sla de huidige strip op met een nieuwe bestandsnaam"
+
+#: src/buoh-window.c:174
+msgid "_Copy Location"
+msgstr "Lo_catie kopiëren"
+
+#: src/buoh-window.c:175
+msgid "Copy the location of this comic to clipboard"
+msgstr "Kopieer de locatie van deze strip naar het klembord"
+
+#: src/buoh-window.c:177
+msgid "_Properties…"
+msgstr "_Eigenschappen…"
+
+#: src/buoh-window.c:178
+msgid "View the properties of this comic"
+msgstr "Bekijk de eigenschappen van deze strip"
+
+#: src/buoh-window.c:180
+msgid "_Quit"
+msgstr "Af_sluiten"
+
+#: src/buoh-window.c:181
+msgid "Quit application"
+msgstr "Sluit de toepassing af"
+
+#. View menu
+#: src/buoh-window.c:185
+msgid "Zoom _In"
+msgstr "_Inzoomen"
+
+#: src/buoh-window.c:186
+msgid "Increase the comic size"
+msgstr "Vergroot de strip"
+
+#: src/buoh-window.c:188
+msgid "Zoom _Out"
+msgstr "_Uitzoomen"
+
+#: src/buoh-window.c:189
+msgid "Decrease the comic size"
+msgstr "Verklein de strip"
+
+#: src/buoh-window.c:191
+msgid "_Normal Size"
+msgstr "_Normale grootte"
+
+#: src/buoh-window.c:192
+msgid "Use the normal comic size"
+msgstr "Gebruik de normale stripgrootte"
+
+#. Go menu
+#: src/buoh-window.c:196
+msgid "_Previous Comic"
+msgstr "_Vorige strip"
+
+#: src/buoh-window.c:197
+msgid "Go to the previous comic"
+msgstr "Ga naar de vorige strip"
+
+#: src/buoh-window.c:199
+msgid "_Next Comic"
+msgstr "Volge_nde strip"
+
+#: src/buoh-window.c:200
+msgid "Go to the next comic"
+msgstr "Ga naar de volgende strip"
+
+#: src/buoh-window.c:202
+msgid "_First Comic"
+msgstr "_Eerste strip"
+
+#: src/buoh-window.c:203
+msgid "Go to the first comic"
+msgstr "Ga naar de eerste strip"
+
+#: src/buoh-window.c:205
+msgid "_Last Comic"
+msgstr "_Laatste strip"
+
+#: src/buoh-window.c:206
+msgid "Go to the last comic"
+msgstr "Ga naar de laatste strip"
+
+#. Help menu
+#: src/buoh-window.c:210
+msgid "_About"
+msgstr "_Info"
+
+#: src/buoh-window.c:211
+msgid "Display credits for the Buoh online comic reader creators"
+msgstr "Toon dankwoord voor de makers van Buoh"
+
+#. View menu
+#: src/buoh-window.c:218
+msgid "_Toolbar"
+msgstr "Wer_kbalk"
+
+#: src/buoh-window.c:219
+msgid "Changes the visibility of the toolbar"
+msgstr "Toon/verberg de werkbalk"
+
+#: src/buoh-window.c:221
+msgid "St_atusbar"
+msgstr "St_atusbalk"
+
+#: src/buoh-window.c:222
+msgid "Changes the visibility of the statusbar"
+msgstr "Toon/verberg de statusbalk"
+
+#: src/buoh-window.c:224
+msgid "_Best Fit"
+msgstr "_Passend"
+
+#: src/buoh-window.c:225
+msgid "Make the current comic fill the window"
+msgstr "Pas de grootte van de huidige strip aan aan het venster"
+
+#: src/buoh-window.c:227
+msgid "Fit Comic _Width"
+msgstr "Aanpassen aan _breedte"
+
+#: src/buoh-window.c:228
+msgid "Make the current comic fill the window width"
+msgstr "Pas de grootte van de huidige strip aan aan de breedte van het venster"
+
+#: src/buoh-window.c:538
+msgid "Images"
+msgstr "Afbeeldingen"
+
+#: src/buoh-window.c:541
+msgid "Save Comic"
+msgstr "Strip opslaan"
+
+#: src/buoh-window.c:584
+msgid "Unable to save comic"
+msgstr "Kan strip niet opslaan"
+
+#: src/buoh-window.c:837
+msgid "Online comic strips reader"
+msgstr "Online striplezer"
+
+#: src/buoh-window.c:840
+msgid "translator-credits"
+msgstr ""
+"Nathan Follens\n"
+"\n"
+"Meer info over Gnome-NL http://nl.gnome.org"
+
+#: src/buoh-window.c:1019
+msgid "Getting comic…"
+msgstr "Strip wordt opgehaald…"
