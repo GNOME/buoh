@@ -1,9 +1,11 @@
 ui_files = files(
   'ui/add-comic-dialog.ui',
+  'ui/menus.ui',
   'ui/comic-list.ui',
   'ui/properties-dialog.ui',
   'ui/view-comic.ui',
   'ui/view-message.ui',
+  'ui/window.ui',
 )
 if gtk_builder_tool.found()
   foreach ui : ui_files
