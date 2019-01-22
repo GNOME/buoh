@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="menubar">
+    <submenu>
+      <attribute name="label" translatable="yes">_Comic</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Add…</attribute>
+          <attribute name="action">win.comic-add</attribute>
+          <attribute name="icon">list-add</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Remove</attribute>
+          <attribute name="action">win.comic-remove</attribute>
+          <attribute name="icon">list-remove</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="action">win.comic-save-a-copy</attribute>
+          <attribute name="label" translatable="yes">_Save a Copy…</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Copy Location</attribute>
+          <attribute name="action">win.comic-copy-uri</attribute>
+        </item>
+        <item>
+          <attribute name="action">win.comic-properties</attribute>
+          <attribute name="icon">document-properties</attribute>
+          <attribute name="label" translatable="yes">_Properties…</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Quit</attribute>
+          <attribute name="action">win.comic-quit</attribute>
+          <attribute name="icon">application-exit</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_View</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Toolbar</attribute>
+          <attribute name="action">win.view-toolbar</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">St_atusbar</attribute>
+          <attribute name="action">win.view-statusbar</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Zoom _In</attribute>
+          <attribute name="action">win.view-zoom-in</attribute>
+          <attribute name="icon">zoom-in</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Zoom _Out</attribute>
+          <attribute name="action">win.view-zoom-out</attribute>
+          <attribute name="icon">zoom-out</attribute>
+        </item>
+        <item>
+          <attribute name="action">win.view-zoom-normal</attribute>
+          <attribute name="icon">zoom-original</attribute>
+          <attribute name="label" translatable="yes">_Normal Size</attribute>
+        </item>
+        <item>
+          <attribute name="action">win.view-zoom-best-fit</attribute>
+          <attribute name="icon">zoom-fit-best</attribute>
+          <attribute name="label" translatable="yes">_Best Fit</attribute>
+        </item>
+        <item>
+          <attribute name="action">win.view-zoom-fit-width</attribute>
+          <attribute name="label" translatable="yes">Fit Comic _Width</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Go</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Previous Comic</attribute>
+          <attribute name="action">win.go-previous</attribute>
+          <attribute name="icon">go-previous</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Next Comic</attribute>
+          <attribute name="action">win.go-next</attribute>
+          <attribute name="icon">go-next</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_First Comic</attribute>
+          <attribute name="action">win.go-first</attribute>
+          <attribute name="icon">go-first</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Last Comic</attribute>
+          <attribute name="action">win.go-last</attribute>
+          <attribute name="icon">go-last</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Help</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_About</attribute>
+          <attribute name="action">win.help-about</attribute>
+          <attribute name="icon">help-about</attribute>
+        </item>
+      </section>
+    </submenu>
+  </menu>
+  <menu id="view-popup">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Previous Comic</attribute>
+        <attribute name="action">win.go-previous</attribute>
+        <attribute name="icon">go-previous</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Next Comic</attribute>
+        <attribute name="action">win.go-next</attribute>
+        <attribute name="icon">go-next</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Zoom _In</attribute>
+        <attribute name="action">win.view-zoom-in</attribute>
+        <attribute name="icon">zoom-in</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Zoom _Out</attribute>
+        <attribute name="action">win.view-zoom-out</attribute>
+        <attribute name="icon">zoom-out</attribute>
+      </item>
+      <item>
+        <attribute name="action">win.view-zoom-normal</attribute>
+        <attribute name="icon">zoom-original</attribute>
+        <attribute name="label" translatable="yes">_Normal Size</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">win.comic-save-a-copy</attribute>
+        <attribute name="label" translatable="yes">_Save a Copy…</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Copy Location</attribute>
+        <attribute name="action">win.comic-copy-uri</attribute>
+      </item>
+      <item>
+        <attribute name="action">win.comic-properties</attribute>
+        <attribute name="icon">document-properties</attribute>
+        <attribute name="label" translatable="yes">_Properties…</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="list-popup">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Add…</attribute>
+        <attribute name="action">win.comic-add</attribute>
+        <attribute name="icon">list-add</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Remove</attribute>
+        <attribute name="action">win.comic-remove</attribute>
+        <attribute name="icon">list-remove</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

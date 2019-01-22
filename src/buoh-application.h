@@ -40,6 +40,7 @@ BuohApplication *buoh_application_get_instance       (void);
 BuohApplication *buoh_application_new                (void);
 
 void             buoh_application_activate           (GApplication    *buoh);
+void             buoh_application_startup            (GApplication    *buoh);
 GtkTreeModel    *buoh_application_get_comics_model   (BuohApplication *buoh);
 const gchar     *buoh_application_get_datadir        (BuohApplication *buoh);
 
