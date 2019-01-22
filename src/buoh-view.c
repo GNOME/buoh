@@ -76,27 +76,6 @@ static void     buoh_view_scale_changed_cb   (GObject        *object,
 
 G_DEFINE_TYPE (BuohView, buoh_view, GTK_TYPE_NOTEBOOK)
 
-GType
-buoh_view_status_get_type (void)
-{
-        static GType etype = 0;
-
-        if (G_UNLIKELY (etype == 0)) {
-                static const GEnumValue values[] = {
-                        { STATE_MESSAGE_WELCOME, "STATE_MESSAGE_WELCOME", "welcome" },
-                        { STATE_MESSAGE_ERROR,   "STATE_MESSAGE_ERROR",   "error"   },
-                        { STATE_COMIC_LOADING,   "STATE_COMIC_LOADING",   "loading" },
-                        { STATE_COMIC_LOADED,    "STATE_COMIC_LOADED",    "loaded"  },
-                        { STATE_EMPTY,           "STATE_EMPTY",           "empty"   },
-                        { 0, NULL, NULL }
-                };
-
-                etype = g_enum_register_static ("BuohViewStatus", values);
-        }
-
-        return etype;
-}
-
 static void
 buoh_view_init (BuohView *buoh_view)
 {
