@@ -42,11 +42,10 @@
 #include "buoh-comic-manager-date.h"
 
 struct _BuohApplication {
-        GObject       parent;
+        GtkApplication parent;
 
-        BuohWindow   *window;
-        GtkTreeModel *comic_list;
-        gchar        *datadir;
+        GtkTreeModel  *comic_list;
+        gchar         *datadir;
 };
 
 static void          buoh_application_init                   (BuohApplication         *buoh);
@@ -61,7 +60,7 @@ static void          buoh_application_save_comic_list        (GtkTreeModel      
                                                               gpointer                 gdata);
 static void          buoh_application_create_user_dir        (BuohApplication         *buoh);
 
-G_DEFINE_TYPE (BuohApplication, buoh_application, G_TYPE_OBJECT)
+G_DEFINE_TYPE (BuohApplication, buoh_application, GTK_TYPE_APPLICATION)
 
 void
 buoh_debug (const gchar *format, ...)
@@ -432,7 +431,9 @@ buoh_application_get_instance (void)
         static BuohApplication *buoh = NULL;
 
         if (!buoh) {
-                buoh = g_object_new (BUOH_TYPE_APPLICATION, NULL);
+                buoh = g_object_new (BUOH_TYPE_APPLICATION,
+                                     "application-id", "org.gnome.buoh",
+                                     NULL);
         }
 
         return buoh;
@@ -457,14 +458,21 @@ buoh_application_exit (BuohApplication *buoh)
 }
 
 void
-buoh_application_create_main_window (BuohApplication *buoh)
+buoh_application_activate (BuohApplication *buoh)
 {
         g_return_if_fail (BUOH_IS_APPLICATION (buoh));
 
-        if (buoh->window) {
-                gtk_window_present (GTK_WINDOW (buoh->window));
+        GList *list;
+        GtkWidget *window;
+
+        list = gtk_application_get_windows (GTK_APPLICATION (buoh));
+
+        if (list) {
+                gtk_window_present (GTK_WINDOW (list->data));
         } else {
-                buoh->window = BUOH_WINDOW (buoh_window_new ());
+                window = buoh_window_new ();
+                gtk_window_set_application (GTK_WINDOW (window), GTK_APPLICATION (buoh));
+                gtk_widget_show (window);
         }
 }
 

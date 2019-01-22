@@ -34,14 +34,14 @@ enum {
 };
 
 #define BUOH_TYPE_APPLICATION                  (buoh_application_get_type())
-G_DECLARE_FINAL_TYPE (BuohApplication, buoh_application, BUOH, APPLICATION, GObject)
+G_DECLARE_FINAL_TYPE (BuohApplication, buoh_application, BUOH, APPLICATION, GtkApplication)
 
 BuohApplication *buoh_application_get_instance       (void);
 BuohApplication *buoh_application_new                (void);
 
 void             buoh_application_exit               (BuohApplication *buoh);
 
-void             buoh_application_create_main_window (BuohApplication *buoh);
+void             buoh_application_activate           (BuohApplication *buoh);
 GtkTreeModel    *buoh_application_get_comics_model   (BuohApplication *buoh);
 const gchar     *buoh_application_get_datadir        (BuohApplication *buoh);
 

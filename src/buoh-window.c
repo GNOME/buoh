@@ -391,8 +391,6 @@ buoh_window_init (BuohWindow *buoh_window)
         buoh_window_update_zoom_mode (buoh_window);
 
         gtk_widget_grab_focus (GTK_WIDGET (buoh_window->view));
-
-        gtk_widget_show (GTK_WIDGET (buoh_window));
 }
 
 static void
