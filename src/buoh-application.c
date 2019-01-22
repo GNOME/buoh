@@ -403,6 +403,7 @@ buoh_application_class_init (BuohApplicationClass *klass)
         object_class->finalize = buoh_application_finalize;
 
         app_class->activate = buoh_application_activate;
+        app_class->startup = buoh_application_startup;
 }
 
 static void
@@ -465,6 +466,32 @@ buoh_application_activate (GApplication *buoh)
                 gtk_window_set_application (GTK_WINDOW (window), GTK_APPLICATION (buoh));
                 gtk_widget_show (window);
         }
+}
+
+void
+buoh_application_startup (GApplication *app)
+{
+        const gchar *comic_properties_accel[2] = { "<alt>Return", NULL };
+        const gchar *comic_quit_accel[2] = { "<control>Q", NULL };
+        const gchar *view_zoom_in_accel[2] = { "<control>plus", NULL };
+        const gchar *view_zoom_out_accel[2] = { "<control>minus", NULL };
+        const gchar *view_zoom_normal_accel[2] = { "<control>0", NULL };
+        const gchar *go_previous_accel[2] = { "<alt>Left", NULL };
+        const gchar *go_next_accel[2] = { "<alt>Right", NULL };
+        const gchar *go_first_accel[2] = { "<control>Home", NULL };
+        const gchar *go_last_accel[2] = { "<control>End", NULL };
+
+        G_APPLICATION_CLASS (buoh_application_parent_class)->startup (app);
+
+        gtk_application_set_accels_for_action (GTK_APPLICATION (app), "win.comic-properties", comic_properties_accel);
+        gtk_application_set_accels_for_action (GTK_APPLICATION (app), "win.comic-quit", comic_quit_accel);
+        gtk_application_set_accels_for_action (GTK_APPLICATION (app), "win.view-zoom-in", view_zoom_in_accel);
+        gtk_application_set_accels_for_action (GTK_APPLICATION (app), "win.view-zoom-out", view_zoom_out_accel);
+        gtk_application_set_accels_for_action (GTK_APPLICATION (app), "win.view-zoom-normal", view_zoom_normal_accel);
+        gtk_application_set_accels_for_action (GTK_APPLICATION (app), "win.go-previous", go_previous_accel);
+        gtk_application_set_accels_for_action (GTK_APPLICATION (app), "win.go-next", go_next_accel);
+        gtk_application_set_accels_for_action (GTK_APPLICATION (app), "win.go-first", go_first_accel);
+        gtk_application_set_accels_for_action (GTK_APPLICATION (app), "win.go-last", go_last_accel);
 }
 
 GtkTreeModel *

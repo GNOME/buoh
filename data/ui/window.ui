@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <template class="BuohWindow" parent="GtkApplicationWindow">
+    <property name="default-width">600</property>
+    <property name="default-height">300</property>
+    <property name="title" translatable="yes">Buoh</property>
+    <property name="icon-name">buoh</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">1</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkToolbar" id="toolbar">
+            <property name="visible">1</property>
+            <child>
+              <object class="GtkToolButton" id="GoPreviousItem">
+                <property name="visible">1</property>
+                <property name="tooltip-text" translatable="yes">Go to the previous comic</property>
+                <property name="action-name">win.go-previous</property>
+                <property name="label" translatable="yes">_Previous</property>
+                <property name="use-underline">1</property>
+                <property name="icon-name">go-previous</property>
+              </object>
+              <packing>
+                <property name="homogeneous">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="GoNextItem">
+                <property name="visible">1</property>
+                <property name="tooltip-text" translatable="yes">Go to the next comic</property>
+                <property name="action-name">win.go-next</property>
+                <property name="label" translatable="yes">_Next</property>
+                <property name="use-underline">1</property>
+                <property name="icon-name">go-next</property>
+              </object>
+              <packing>
+                <property name="homogeneous">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem">
+                <property name="visible">1</property>
+              </object>
+              <packing>
+                <property name="homogeneous">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="ViewZoomInItem">
+                <property name="visible">1</property>
+                <property name="tooltip-text" translatable="yes">Increase the comic size</property>
+                <property name="action-name">win.view-zoom-in</property>
+                <property name="label" translatable="yes">Zoom _in</property>
+                <property name="use-underline">1</property>
+                <property name="icon-name">zoom-in</property>
+              </object>
+              <packing>
+                <property name="homogeneous">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="ViewZoomOutItem">
+                <property name="visible">1</property>
+                <property name="tooltip-text" translatable="yes">Decrease the comic size</property>
+                <property name="action-name">win.view-zoom-out</property>
+                <property name="label" translatable="yes">Zoom ou_t</property>
+                <property name="use-underline">1</property>
+                <property name="icon-name">zoom-out</property>
+              </object>
+              <packing>
+                <property name="homogeneous">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="ViewZoomNormalItem">
+                <property name="visible">1</property>
+                <property name="tooltip-text" translatable="yes">Use the normal comic size</property>
+                <property name="action-name">win.view-zoom-normal</property>
+                <property name="label" translatable="yes">N_ormal Size</property>
+                <property name="use-underline">1</property>
+                <property name="icon-name">zoom-original</property>
+              </object>
+              <packing>
+                <property name="homogeneous">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkPaned">
+            <property name="visible">1</property>
+            <property name="can-focus">1</property>
+            <property name="position">230</property>
+            <child>
+              <object class="BuohComicList" id="comic_list">
+                <property name="visible">1</property>
+                <property name="can-focus">1</property>
+              </object>
+            </child>
+            <child>
+              <object class="BuohView" id="view">
+                <property name="visible">1</property>
+                <property name="can-focus">1</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">1</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkStatusbar" id="statusbar">
+            <property name="visible">1</property>
+          </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
