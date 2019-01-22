@@ -24,6 +24,7 @@
 
 #include "buoh-comic.h"
 #include "buoh-settings.h"
+#include "buoh-enums.h"
 
 G_BEGIN_DECLS
 
@@ -31,7 +32,6 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE (BuohView, buoh_view, BUOH, VIEW, GtkNotebook)
 
 #define BUOH_TYPE_VIEW_STATUS buoh_view_status_get_type ()
-#define BUOH_TYPE_VIEW_ZOOM_MODE buoh_view_zoom_mode_get_type ()
 
 typedef enum {
         STATE_MESSAGE_WELCOME,

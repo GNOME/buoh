@@ -97,25 +97,6 @@ buoh_view_status_get_type (void)
         return etype;
 }
 
-GType
-buoh_view_zoom_mode_get_type (void)
-{
-        static GType etype = 0;
-
-        if (G_UNLIKELY (etype == 0)) {
-                static const GEnumValue values[] = {
-                        { VIEW_ZOOM_FREE,      "VIEW_ZOOM_FREE",      "free" },
-                        { VIEW_ZOOM_BEST_FIT,  "VIEW_ZOOM_BEST_FIT",  "best-fit" },
-                        { VIEW_ZOOM_FIT_WIDTH, "VIEW_ZOOM_FIT_WIDTH", "fit-width" },
-                        { 0, NULL, NULL }
-                };
-
-                etype = g_enum_register_static ("BuohViewZoomMode", values);
-        }
-
-        return etype;
-}
-
 static void
 buoh_view_init (BuohView *buoh_view)
 {

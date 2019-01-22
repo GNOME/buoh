@@ -29,6 +29,11 @@ sources += gnome.compile_resources(
   export: true,
 )
 
+sources += gnome.mkenums_simple(
+  'buoh-enums',
+  sources: enum_headers,
+)
+
 cflags = [
   '-DCOMICS_DIR="@0@"'.format(comicsdir),
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
