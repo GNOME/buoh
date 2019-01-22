@@ -173,7 +173,7 @@ buoh_view_class_init (BuohViewClass *klass)
                 g_signal_new ("scale-changed",
                               G_TYPE_FROM_CLASS (object_class),
                               G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-                              NULL,
+                              0,
                               NULL,
                               NULL,
                               g_cclosure_marshal_VOID__VOID,
