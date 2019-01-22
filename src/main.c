@@ -29,25 +29,17 @@
 
 #include "buoh-application.h"
 
-gint
-main (gint argc, gchar **argv)
+int
+main (int argc, char *argv[])
 {
         BuohApplication *buoh;
-
-        /* Initialize the i18n stuff */
-        bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
-        bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-        textdomain (GETTEXT_PACKAGE);
-
-        gtk_init (&argc, &argv);
-
-        g_set_application_name (_("Buoh"));
-        gtk_window_set_default_icon_name ("buoh");
+        gint status;
 
         buoh = buoh_application_new ();
-        buoh_application_create_main_window (buoh);
 
-        gtk_main ();
+        status = g_application_run (G_APPLICATION (buoh), argc, argv);
 
-        return 0;
+        g_object_unref (buoh);
+
+        return status;
 }
