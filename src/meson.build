@@ -1,5 +1,8 @@
-enum_headers = files(
+settings_headers = files(
   'buoh-settings.h',
+)
+enum_headers = settings_headers + files(
+  'buoh-view.h',
 )
 
 sources = files(

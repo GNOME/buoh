@@ -31,8 +31,6 @@ G_BEGIN_DECLS
 #define BUOH_TYPE_VIEW buoh_view_get_type ()
 G_DECLARE_FINAL_TYPE (BuohView, buoh_view, BUOH, VIEW, GtkNotebook)
 
-#define BUOH_TYPE_VIEW_STATUS buoh_view_status_get_type ()
-
 typedef enum {
         STATE_MESSAGE_WELCOME,
         STATE_MESSAGE_ERROR,

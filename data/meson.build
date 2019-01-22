@@ -42,7 +42,7 @@ install_data(
 
 gnome.mkenums(
   'org.gnome.buoh.enums.xml',
-  sources: enum_headers,
+  sources: settings_headers,
   comments: '<!-- @comment@ -->',
   fhead: '<schemalist>',
   vhead: '  <@type@ id="org.gnome.buoh.@EnumName@">',
