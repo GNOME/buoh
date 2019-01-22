@@ -25,7 +25,7 @@
 G_BEGIN_DECLS
 
 #define BUOH_TYPE_WINDOW buoh_window_get_type()
-G_DECLARE_FINAL_TYPE (BuohWindow, buoh_window, BUOH, WINDOW, GtkWindow)
+G_DECLARE_FINAL_TYPE (BuohWindow, buoh_window, BUOH, WINDOW, GtkApplicationWindow)
 
 GtkWidget *buoh_window_new      (void);
 
