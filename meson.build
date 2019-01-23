@@ -32,6 +32,7 @@ libxml2 = dependency('libxml-2.0', version: '>= 2.4.0')
 desktop_file_validate = find_program('desktop-file-validate', required: false)
 gtk_builder_tool = find_program('gtk-builder-tool', required: false)
 xmllint = find_program('xmllint', required: false)
+xsltproc = find_program('xsltproc', required: false)
 
 buoh_deps = [
   gtk,

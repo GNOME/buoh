@@ -8,8 +8,7 @@ ui_files = files(
   'ui/view-message.ui',
   'ui/window.ui',
 )
-xsltproc = find_program('xsltproc')
-if gtk_builder_tool.found()
+if gtk_builder_tool.found() and xsltproc.found()
   foreach ui : ui_files
     # gtk-builder-tool validate does not support custom widgets
     ui_for_validation = configure_file(
