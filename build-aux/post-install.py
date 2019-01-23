@@ -9,8 +9,8 @@ icondir = sys.argv[1]
 schemadir = sys.argv[2]
 
 if not os.environ.get('DESTDIR'):
-  print('Update icon cache...')
+  print('Update icon cache…')
   subprocess.call(['gtk-update-icon-cache', '-f', '-t', icondir])
 
-  print('Compiling gsettings schemas...')
+  print('Compiling gsettings schemas…')
   subprocess.call(['glib-compile-schemas', schemadir])
