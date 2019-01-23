@@ -2,43 +2,44 @@
 # Copyright (C) 2010 buoh's COPYRIGHT HOLDER
 # This file is distributed under the same license as the buoh package.
 # Felipe Borges <felipe10borges@gmail.com>, 2010.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2018.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2018-2019.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
-"POT-Creation-Date: 2018-09-12 16:36+0000\n"
-"PO-Revision-Date: 2018-09-13 10:05-0200\n"
+"POT-Creation-Date: 2019-01-23 11:41+0000\n"
+"PO-Revision-Date: 2019-01-23 13:04-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
+"Language-Team: Portuguese - Brazil <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Virtaal 1.0.0-beta1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 3.31.0\n"
 
-#: data/buoh.desktop.in:3 src/main.c:44
+#: data/org.gnome.buoh.desktop.in:3 data/ui/window.ui:8
 msgid "Buoh"
 msgstr "Buoh"
 
-#: data/buoh.desktop.in:4
+#: data/org.gnome.buoh.desktop.in:4
 msgid "Comics Reader"
 msgstr "Leitor de quadrinhos"
 
-#: data/buoh.desktop.in:5
+#: data/org.gnome.buoh.desktop.in:5
 msgid "Read your favorite comic strips"
 msgstr "Leia suas histórias em quadrinhos favoritas"
 
 #. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
-#: data/buoh.desktop.in:7
+#: data/org.gnome.buoh.desktop.in:7
 msgid "comics;webcomics;comic strips;"
 msgstr ""
 "quadrinhos;revistinha;tirinhas;tira de banda desenhada;comics;webcomics;"
 "comic strips;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/buoh.desktop.in:10
+#: data/org.gnome.buoh.desktop.in:10
 msgid "buoh"
 msgstr "buoh"
 
@@ -92,7 +93,7 @@ msgstr "Adicionar quadrinho"
 msgid "_Close"
 msgstr "_Fechar"
 
-#: data/ui/add-comic-dialog.ui:80 src/buoh-comic-list.c:119
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
 msgid "Title"
 msgstr "Título"
 
@@ -100,105 +101,232 @@ msgstr "Título"
 msgid "Author"
 msgstr "Autor"
 
-#: data/ui/add-comic-dialog.ui:115 src/buoh-add-comic-dialog.c:110
-#, c-format
-msgid "Comics selected: %d"
-msgstr "Quadrinhos selecionados: %d"
-
-#: data/ui/add-comic-dialog.ui:130
+#: data/ui/add-comic-dialog.ui:129
 msgid "Select Comics"
 msgstr "Selecione os quadrinhos"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_Quadrinho"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "_Adicionar…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "_Remover"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+msgid "_Save a Copy…"
+msgstr "_Salvar uma cópia…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "_Copiar localização"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+msgid "_Properties…"
+msgstr "_Propriedades…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "_Sair"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "_Ver"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "Barra de _ferramentas"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "Barra de st_atus"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "Ampliar"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "Reduzir"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "Tamanho _normal"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "_Melhor ajuste"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "Ajustar à altura do quadrinho"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "_Ir"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "Quadrinho _anterior"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "_Próximo quadrinho"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "_Primeiro quadrinho"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "_Último quadrinho"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "Aj_uda"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "_Sobre"
 
 #: data/ui/properties-dialog.ui:7
 msgid "Comic Properties"
 msgstr "Propriedades do quadrinho"
 
 #: data/ui/properties-dialog.ui:57
-#| msgid "Title"
 msgid "Title:"
 msgstr "Título:"
 
 #: data/ui/properties-dialog.ui:71
-#| msgid "Author"
 msgid "Author:"
 msgstr "Autor:"
 
 #: data/ui/properties-dialog.ui:85
-#| msgid "Link"
 msgid "Link:"
 msgstr "Link:"
 
 #: data/ui/properties-dialog.ui:99
-#| msgid "Date of publication"
 msgid "Date of publication:"
 msgstr "Data de publicação:"
 
 #: data/ui/properties-dialog.ui:113
-#| msgid "Language"
 msgid "Language:"
 msgstr "Idioma:"
 
 #: data/ui/properties-dialog.ui:127
-#| msgid "Publication days"
 msgid "Publication days:"
 msgstr "Dias de publicação:"
 
-#: src/buoh-comic-manager-date.c:56
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "Ir para o quadrinho anterior"
+
+#: data/ui/window.ui:22
+#| msgid "_Previous Comic"
+msgid "_Previous"
+msgstr "_Anterior"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "Ir para o próximo quadrinho"
+
+#: data/ui/window.ui:35
+#| msgid "_Next Comic"
+msgid "_Next"
+msgstr "_Próximo"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "Aumentar o tamanho do quadrinho"
+
+#: data/ui/window.ui:56
+#| msgid "Zoom _In"
+msgid "Zoom _in"
+msgstr "A_mpliar"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "Diminuir o tamanho do quadrinho"
+
+#: data/ui/window.ui:69
+#| msgid "Zoom _Out"
+msgid "Zoom ou_t"
+msgstr "_Reduzir"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "Usar o tamanho normal do quadrinho"
+
+#: data/ui/window.ui:82
+#| msgid "_Normal Size"
+msgid "N_ormal Size"
+msgstr "Tamanho _normal"
+
+#: src/buoh-add-comic-dialog.c:107
+#, c-format
+msgid "Comics selected: %d"
+msgstr "Quadrinhos selecionados: %d"
+
+#: src/buoh-comic-manager-date.c:57
 msgid "Monday"
 msgstr "Segunda-feira"
 
-#: src/buoh-comic-manager-date.c:57
+#: src/buoh-comic-manager-date.c:58
 msgid "Tuesday"
 msgstr "Terça-feira"
 
-#: src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:59
 msgid "Wednesday"
 msgstr "Quarta-feira"
 
-#: src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:60
 msgid "Thursday"
 msgstr "Quinta-feira"
 
-#: src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:61
 msgid "Friday"
 msgstr "Sexta-feira"
 
-#: src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:62
 msgid "Saturday"
 msgstr "Sábado"
 
-#: src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:63
 msgid "Sunday"
 msgstr "Domingo"
 
 #. It's a range of days
-#: src/buoh-comic-manager-date.c:501
+#: src/buoh-comic-manager-date.c:510
 msgid " to "
 msgstr " à "
 
-#: src/buoh-comic-manager-date.c:516
+#: src/buoh-comic-manager-date.c:525
 msgid "Every day"
 msgstr "Todos os dias"
 
-#: src/buoh-comic.c:436
+#: src/buoh-comic.c:412
 #, c-format
 msgid "Cannot create file “%s”: %s"
 msgstr "Não foi possível criar arquivo “%s”: %s"
 
-#: src/buoh-comic.c:444 src/buoh-comic.c:453
+#: src/buoh-comic.c:420 src/buoh-comic.c:429
 #, c-format
 msgid "Error writing to file “%s”: %s"
 msgstr "Erro ao escreve para o arquivo “%s”: %s"
 
-#: src/buoh-view-comic.c:653
+#: src/buoh-view-comic.c:634
 msgid "Error Loading Comic"
 msgstr "Erro ao carregar quadrinho"
 
-#: src/buoh-view.c:155
+#: src/buoh-view.c:93
 msgid "Buoh online comic strips reader"
 msgstr "Leitor de histórias em quadrinhos online Buoh"
 
-#: src/buoh-view.c:157
+#: src/buoh-view.c:95
 msgid ""
 "Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
 "The list on the left panel contains your favorite comic strips to add or "
@@ -211,197 +339,79 @@ msgstr ""
 "→ Adicionar. Basta selecionar um quadrinho da lista e ele será exibido no "
 "painel direito. Obrigado por usar o Buoh."
 
-#. Top Level
-#: src/buoh-window.c:159
-msgid "_Comic"
-msgstr "_Quadrinho"
-
-#: src/buoh-window.c:160
-msgid "_View"
-msgstr "_Ver"
-
-#: src/buoh-window.c:161
-msgid "_Go"
-msgstr "_Ir"
-
-#: src/buoh-window.c:162
-msgid "_Help"
-msgstr "Aj_uda"
-
-#. Comic menu
-#: src/buoh-window.c:165
-msgid "_Add…"
-msgstr "_Adicionar…"
-
-#: src/buoh-window.c:166
-msgid "Add a comic to the comic list"
-msgstr "Adicionar um quadrinho à lista de quadrinhos"
-
-#: src/buoh-window.c:168
-msgid "_Remove"
-msgstr "_Remover"
-
-#: src/buoh-window.c:169
-msgid "Remove this comic from the comic list"
-msgstr "Remover este quadrinho da lista de quadrinhos"
-
-#: src/buoh-window.c:171
-msgid "_Save a Copy…"
-msgstr "_Salvar uma cópia…"
-
-#: src/buoh-window.c:172
-msgid "Save the current comic with a new filename"
-msgstr "Salvar este quadrinho com um novo nome de arquivo"
-
-#: src/buoh-window.c:174
-msgid "_Copy Location"
-msgstr "_Copiar localização"
-
-#: src/buoh-window.c:175
-msgid "Copy the location of this comic to clipboard"
-msgstr "Copiar a localização deste quadrinho para a área de transferência"
-
-#: src/buoh-window.c:177
-msgid "_Properties…"
-msgstr "_Propriedades…"
-
-#: src/buoh-window.c:178
-msgid "View the properties of this comic"
-msgstr "Ver as propriedades deste quadrinho"
-
-#: src/buoh-window.c:180
-msgid "_Quit"
-msgstr "_Sair"
-
-#: src/buoh-window.c:181
-msgid "Quit application"
-msgstr "Fecha o aplicativo"
-
-#. View menu
-#: src/buoh-window.c:185
-msgid "Zoom _In"
-msgstr "Ampliar"
-
-#: src/buoh-window.c:186
-msgid "Increase the comic size"
-msgstr "Aumentar o tamanho do quadrinho"
-
-#: src/buoh-window.c:188
-msgid "Zoom _Out"
-msgstr "Reduzir"
-
-#: src/buoh-window.c:189
-msgid "Decrease the comic size"
-msgstr "Diminuir o tamanho do quadrinho"
-
-#: src/buoh-window.c:191
-msgid "_Normal Size"
-msgstr "Tamanho _normal"
-
-#: src/buoh-window.c:192
-msgid "Use the normal comic size"
-msgstr "Usar o tamanho normal do quadrinho"
-
-#. Go menu
-#: src/buoh-window.c:196
-msgid "_Previous Comic"
-msgstr "Quadrinho _anterior"
-
-#: src/buoh-window.c:197
-msgid "Go to the previous comic"
-msgstr "Ir para o quadrinho anterior"
-
-#: src/buoh-window.c:199
-msgid "_Next Comic"
-msgstr "_Próximo quadrinho"
-
-#: src/buoh-window.c:200
-msgid "Go to the next comic"
-msgstr "Ir para o próximo quadrinho"
-
-#: src/buoh-window.c:202
-msgid "_First Comic"
-msgstr "_Primeiro quadrinho"
-
-#: src/buoh-window.c:203
-msgid "Go to the first comic"
-msgstr "Ir para o primeiro quadrinho"
-
-#: src/buoh-window.c:205
-msgid "_Last Comic"
-msgstr "_Último quadrinho"
-
-#: src/buoh-window.c:206
-msgid "Go to the last comic"
-msgstr "Ir para o último quadrinho"
-
-#. Help menu
-#: src/buoh-window.c:210
-msgid "_About"
-msgstr "_Sobre"
-
-#: src/buoh-window.c:211
-msgid "Display credits for the Buoh online comic reader creators"
-msgstr "Exibe créditos para os criadores do leitor de quadrinhos online Buoh"
-
-#. View menu
-#: src/buoh-window.c:218
-msgid "_Toolbar"
-msgstr "Barra de _ferramentas"
-
-#: src/buoh-window.c:219
-msgid "Changes the visibility of the toolbar"
-msgstr "Muda a visibilidade da barra de ferramentas"
-
-#: src/buoh-window.c:221
-msgid "St_atusbar"
-msgstr "Barra de st_atus"
-
-#: src/buoh-window.c:222
-msgid "Changes the visibility of the statusbar"
-msgstr "Muda a visibilidade da barra de status"
-
-#: src/buoh-window.c:224
-msgid "_Best Fit"
-msgstr "_Melhor ajuste"
-
-#: src/buoh-window.c:225
-msgid "Make the current comic fill the window"
-msgstr "Faz com que o quadrinho atual preencha toda a janela"
-
-#: src/buoh-window.c:227
-msgid "Fit Comic _Width"
-msgstr "Ajustar à altura do quadrinho"
-
-#: src/buoh-window.c:228
-msgid "Make the current comic fill the window width"
-msgstr "Faz com que o quadrinho atual preencha toda a altura da janela"
-
-#: src/buoh-window.c:538
+#: src/buoh-window.c:437
 msgid "Images"
 msgstr "Imagens"
 
-#: src/buoh-window.c:541
+#: src/buoh-window.c:440
 msgid "Save Comic"
 msgstr "Salvar quadrinho"
 
-#: src/buoh-window.c:584
+#: src/buoh-window.c:443
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: src/buoh-window.c:444
+msgid "_Save"
+msgstr "_Salvar"
+
+#: src/buoh-window.c:483
 msgid "Unable to save comic"
 msgstr "Erro ao salvar o quadrinho"
 
-#: src/buoh-window.c:837
+#: src/buoh-window.c:745
 msgid "Online comic strips reader"
 msgstr "Leitor de histórias em quadrinhos online"
 
-#: src/buoh-window.c:840
+#: src/buoh-window.c:748
 msgid "translator-credits"
 msgstr ""
 "Felipe Borges <felipe10borges@gmail.com>\n"
 "Rafael Fontenelle <rafaelff@gnome.org>"
 
-#: src/buoh-window.c:1019
+#: src/buoh-window.c:883
 msgid "Getting comic…"
 msgstr "Baixando quadrinho…"
+
+#~ msgid "Add a comic to the comic list"
+#~ msgstr "Adicionar um quadrinho à lista de quadrinhos"
+
+#~ msgid "Remove this comic from the comic list"
+#~ msgstr "Remover este quadrinho da lista de quadrinhos"
+
+#~ msgid "Save the current comic with a new filename"
+#~ msgstr "Salvar este quadrinho com um novo nome de arquivo"
+
+#~ msgid "Copy the location of this comic to clipboard"
+#~ msgstr "Copiar a localização deste quadrinho para a área de transferência"
+
+#~ msgid "View the properties of this comic"
+#~ msgstr "Ver as propriedades deste quadrinho"
+
+#~ msgid "Quit application"
+#~ msgstr "Fecha o aplicativo"
+
+#~ msgid "Go to the first comic"
+#~ msgstr "Ir para o primeiro quadrinho"
+
+#~ msgid "Go to the last comic"
+#~ msgstr "Ir para o último quadrinho"
+
+#~ msgid "Display credits for the Buoh online comic reader creators"
+#~ msgstr ""
+#~ "Exibe créditos para os criadores do leitor de quadrinhos online Buoh"
+
+#~ msgid "Changes the visibility of the toolbar"
+#~ msgstr "Muda a visibilidade da barra de ferramentas"
+
+#~ msgid "Changes the visibility of the statusbar"
+#~ msgstr "Muda a visibilidade da barra de status"
+
+#~ msgid "Make the current comic fill the window"
+#~ msgstr "Faz com que o quadrinho atual preencha toda a janela"
+
+#~ msgid "Make the current comic fill the window width"
+#~ msgstr "Faz com que o quadrinho atual preencha toda a altura da janela"
 
 #~ msgid "_Contents"
 #~ msgstr "S_umário"
