@@ -42,6 +42,14 @@ buoh_deps = [
   libxml2,
 ]
 
+if appstream_util.found()
+  meson.add_dist_script(
+    python3.find_python().path(),
+    join_paths(meson.source_root(), 'build-aux', 'dist-news.py'),
+    appstream_util.path(),
+  )
+endif
+
 # Post-install scripts
 meson.add_install_script(
   python3.find_python().path(),
