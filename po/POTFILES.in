@@ -4,10 +4,14 @@ data/org.gnome.buoh.desktop.in
 data/org.gnome.buoh.gschema.xml
 data/ui/add-comic-dialog.ui
 data/ui/comic-list.ui
+data/ui/menus.ui
 data/ui/properties-dialog.ui
 data/ui/view-comic.ui
 data/ui/view-message.ui
+data/ui/view.ui
+data/ui/window.ui
 src/buoh-add-comic-dialog.c
+src/buoh-application.c
 src/buoh-comic-list.c
 src/buoh-comic-manager-date.c
 src/buoh-comic.c
@@ -15,5 +19,4 @@ src/buoh-properties-dialog.c
 src/buoh-view-comic.c
 src/buoh-view.c
 src/buoh-window.c
-src/buoh.c
 src/main.c
