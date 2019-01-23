@@ -23,8 +23,8 @@
 
 { pkgs ?
     (import (fetchTarball {
-      url = "https://github.com/NixOS/nixpkgs/archive/4477cf04b6779a537cdb5f0bd3dd30e75aeb4a3b.tar.gz";
-      sha256 = "1i39wsfwkvj9yryj8di3jibpdg3b3j86ych7s9rb6z79k08yaaxc";
+      url = "https://github.com/NixOS/nixpkgs/archive/1b3affcbaa8e31af0bfe1be280f91ac3e384d96f.tar.gz";
+      sha256 = "0b7spivfa1fd07ch4plakp3j16pq9rjsg2ird3kz2sg86cwhhkcv";
     }) {})
 , doCheck ? true
 , shell ? false
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   name = "buoh";
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gettext python3 xvfb_run wrapGAppsHook
+    meson ninja pkgconfig gettext python3 xvfb_run libxslt wrapGAppsHook
   ];
 
   buildInputs = [
