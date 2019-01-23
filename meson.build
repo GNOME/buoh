@@ -6,6 +6,7 @@ project(
   default_options: [
     'b_ndebug=if-release',
   ],
+  meson_version: '>= 0.50.0',
 )
 
 gnome = import('gnome')
@@ -41,6 +42,14 @@ buoh_deps = [
   libsoup,
   libxml2,
 ]
+
+if appstream_util.found()
+  meson.add_dist_script(
+    python3.find_python().path(),
+    join_paths(meson.source_root(), 'build-aux', 'dist-news.py'),
+    appstream_util,
+  )
+endif
 
 # Post-install scripts
 meson.add_install_script(
