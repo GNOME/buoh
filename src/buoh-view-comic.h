@@ -29,7 +29,9 @@ G_BEGIN_DECLS
 #define BUOH_TYPE_VIEW_COMIC buoh_view_comic_get_type ()
 G_DECLARE_FINAL_TYPE (BuohViewComic, buoh_view_comic, BUOH, VIEW_COMIC, GtkViewport)
 
-GtkWidget       *buoh_view_comic_new            (BuohView        *view);
+GtkWidget       *buoh_view_comic_new            (void);
+void             buoh_view_comic_setup          (BuohViewComic   *c_view,
+                                                 BuohView        *view);
 
 gboolean         buoh_view_comic_is_min_zoom    (BuohViewComic   *c_view);
 gboolean         buoh_view_comic_is_max_zoom    (BuohViewComic   *c_view);

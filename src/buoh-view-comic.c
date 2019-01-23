@@ -417,20 +417,23 @@ buoh_view_comic_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 }
 
 GtkWidget *
-buoh_view_comic_new (BuohView *view)
+buoh_view_comic_new (void)
 {
         GtkWidget *c_view;
 
-        g_return_val_if_fail (BUOH_IS_VIEW (view), NULL);
-
         c_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW_COMIC, NULL));
-        BUOH_VIEW_COMIC (c_view)->view = view;
-        g_signal_connect (G_OBJECT (BUOH_VIEW_COMIC (c_view)->view),
+
+        return c_view;
+}
+
+void
+buoh_view_comic_setup (BuohViewComic *c_view, BuohView *view)
+{
+        c_view->view = view;
+        g_signal_connect (G_OBJECT (c_view->view),
                           "notify::status",
                           G_CALLBACK (bouh_view_comic_view_status_changed),
                           (gpointer) c_view);
-
-        return c_view;
 }
 
 static void

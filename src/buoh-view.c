@@ -79,35 +79,16 @@ G_DEFINE_TYPE (BuohView, buoh_view, GTK_TYPE_NOTEBOOK)
 static void
 buoh_view_init (BuohView *buoh_view)
 {
-        GtkWidget *label;
-        GtkWidget *swindow;
-
-        gtk_widget_set_can_focus (GTK_WIDGET (buoh_view), TRUE);
-
         buoh_view->status = STATE_MESSAGE_WELCOME;
 
-        /* Image view */
-        swindow = gtk_scrolled_window_new (NULL, NULL);
-        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
-                                        GTK_POLICY_AUTOMATIC,
-                                        GTK_POLICY_AUTOMATIC);
-        buoh_view->comic = buoh_view_comic_new (buoh_view);
-        gtk_container_add (GTK_CONTAINER (swindow),
-                           buoh_view->comic);
-        gtk_widget_show (buoh_view->comic);
+        g_type_ensure (BUOH_TYPE_VIEW_COMIC);
+        g_type_ensure (BUOH_TYPE_VIEW_MESSAGE);
+        gtk_widget_init_template (GTK_WIDGET (buoh_view));
 
-        gtk_notebook_insert_page (GTK_NOTEBOOK (buoh_view), swindow,
-                                  NULL, VIEW_PAGE_IMAGE);
-        gtk_widget_show (swindow);
+        /* Comic view */
+        buoh_view_comic_setup (BUOH_VIEW_COMIC (buoh_view->comic), buoh_view);
 
         /* Message view */
-        swindow = gtk_scrolled_window_new (NULL, NULL);
-        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
-                                        GTK_POLICY_NEVER,
-                                        GTK_POLICY_NEVER);
-        gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (swindow),
-                                             GTK_SHADOW_NONE);
-        buoh_view->message = buoh_view_message_new ();
         buoh_view_message_set_title (BUOH_VIEW_MESSAGE (buoh_view->message),
                                      _("Buoh online comic strips reader"));
         buoh_view_message_set_text (BUOH_VIEW_MESSAGE (buoh_view->message),
@@ -117,33 +98,14 @@ buoh_view_init (BuohView *buoh_view)
                                       "Just select a comic from the list, and it will be displayed "
                                       "on the right side. Thanks for using Buoh."));
         buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (buoh_view->message), "buoh");
-        gtk_container_add (GTK_CONTAINER (swindow),
-                           buoh_view->message);
-        gtk_widget_show (buoh_view->message);
-
-        gtk_notebook_insert_page (GTK_NOTEBOOK (buoh_view), swindow,
-                                  NULL, VIEW_PAGE_MESSAGE);
-        gtk_widget_show (swindow);
-
-        /* Empty view */
-        label = gtk_label_new (NULL);
-        gtk_notebook_insert_page (GTK_NOTEBOOK (buoh_view), label,
-                                  NULL, VIEW_PAGE_EMPTY);
-        gtk_widget_show (label);
-
 
         gtk_notebook_set_current_page (GTK_NOTEBOOK (buoh_view), VIEW_PAGE_MESSAGE);
 
         /* Callbacks */
-        g_signal_connect (G_OBJECT (buoh_view), "notify::status",
-                          G_CALLBACK (buoh_view_status_changed_cb),
-                          NULL);
         g_signal_connect (G_OBJECT (buoh_view->comic),
                           "notify::scale",
                           G_CALLBACK (buoh_view_scale_changed_cb),
                           (gpointer) buoh_view);
-
-        gtk_widget_show (GTK_WIDGET (buoh_view));
 }
 
 static void
@@ -179,6 +141,13 @@ buoh_view_class_init (BuohViewClass *klass)
                               g_cclosure_marshal_VOID__VOID,
                               G_TYPE_NONE,
                               0);
+
+        gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/buoh/ui/view.ui");
+
+        gtk_widget_class_bind_template_child (widget_class, BuohView, message);
+        gtk_widget_class_bind_template_child (widget_class, BuohView, comic);
+
+        gtk_widget_class_bind_template_callback (widget_class, buoh_view_status_changed_cb);
 }
 
 static void
@@ -250,7 +219,6 @@ buoh_view_new (void)
         GtkWidget *buoh_view;
 
         buoh_view = GTK_WIDGET (g_object_new (BUOH_TYPE_VIEW,
-                                              "show-tabs", FALSE,
                                               NULL));
         return buoh_view;
 }
@@ -376,7 +344,7 @@ buoh_view_get_status (BuohView *view)
 }
 
 void
-buoh_view_set_comic (BuohView *view, const BuohComic *comic)
+buoh_view_set_comic (BuohView *view, BuohComic *comic)
 {
         g_return_if_fail (BUOH_IS_VIEW (view));
         g_return_if_fail (BUOH_IS_COMIC (comic));
