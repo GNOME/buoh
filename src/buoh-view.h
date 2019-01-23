@@ -59,7 +59,7 @@ BuohViewStatus   buoh_view_get_status         (BuohView        *view);
 
 /* Comic */
 void             buoh_view_set_comic          (BuohView        *view,
-                                               const BuohComic *comic);
+                                               BuohComic       *comic);
 BuohComic       *buoh_view_get_comic          (BuohView        *view);
 
 /* Message */

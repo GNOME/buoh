@@ -5,6 +5,7 @@
     <file alias="gtk/menus.ui">ui/menus.ui</file>
     <file>ui/comic-list.ui</file>
     <file>ui/properties-dialog.ui</file>
+    <file>ui/view.ui</file>
     <file>ui/view-comic.ui</file>
     <file>ui/view-message.ui</file>
     <file>ui/window.ui</file>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <template class="BuohView" parent="GtkNotebook">
+    <property name="visible">1</property>
+    <property name="can-focus">1</property>
+    <property name="show-tabs">0</property>
+    <signal name="notify::status" handler="buoh_view_status_changed_cb" swapped="no"/>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="visible">1</property>
+        <property name="can-focus">1</property>
+        <property name="shadow-type">in</property>
+        <child>
+          <object class="BuohViewComic" id="comic">
+            <property name="visible">1</property>
+            <property name="can-focus">1</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child type="tab">
+      <object class="GtkLabel">
+        <property name="visible">1</property>
+      </object>
+      <packing>
+        <property name="tab-fill">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="visible">1</property>
+        <property name="can-focus">1</property>
+        <child>
+          <object class="BuohViewMessage" id="message">
+            <property name="visible">1</property>
+            <property name="can-focus">1</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="position">1</property>
+      </packing>
+    </child>
+    <child type="tab">
+      <object class="GtkLabel">
+        <property name="visible">1</property>
+      </object>
+      <packing>
+        <property name="position">1</property>
+        <property name="tab-fill">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">1</property>
+      </object>
+      <packing>
+        <property name="position">2</property>
+      </packing>
+    </child>
+    <child type="tab">
+      <object class="GtkLabel">
+        <property name="visible">1</property>
+      </object>
+      <packing>
+        <property name="position">2</property>
+        <property name="tab-fill">0</property>
+      </packing>
+    </child>
+  </template>
+</interface>
