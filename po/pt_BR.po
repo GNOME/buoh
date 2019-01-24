@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation for buoh.
-# Copyright (C) 2010 buoh's COPYRIGHT HOLDER
+# Copyright (C) 2019 buoh's COPYRIGHT HOLDER
 # This file is distributed under the same license as the buoh package.
 # Felipe Borges <felipe10borges@gmail.com>, 2010.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2018-2019.
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
-"POT-Creation-Date: 2019-01-23 11:41+0000\n"
-"PO-Revision-Date: 2019-01-23 13:04-0200\n"
+"POT-Creation-Date: 2019-01-23 16:02+0000\n"
+"PO-Revision-Date: 2019-01-24 04:32-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese - Brazil <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -19,9 +19,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "X-Generator: Gtranslator 3.31.0\n"
 
-#: data/org.gnome.buoh.desktop.in:3 data/ui/window.ui:8
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
 msgid "Buoh"
 msgstr "Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:741
+msgid "Online comic strips reader"
+msgstr "Leitor de histórias em quadrinhos online"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"O Buoh é um aplicativo para visualização de quadrinhos e webcomics on-line, "
+"projetado para parecer e funcionar bem no ambiente GNOME. Selecione seu "
+"quadrinho favorito em uma lista de mais de 130 quadrinhos e leia-os em uma "
+"interface simples, limpa e fácil de usar. Além disso, você pode navegar "
+"pelos arquivos de histórias em quadrinhos ou salvar uma história em "
+"quadrinhos em disco."
+
+#: data/org.gnome.buoh.appdata.xml.in:135
+msgid "General view of Buoh"
+msgstr "Visão geral do Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:139
+msgid "First execution of Buoh"
+msgstr "Primeira execução do Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:143
+#| msgid "Add Comic"
+msgid "Add comic dialog"
+msgstr "Diálogo de adição de quadrinho"
+
+#: data/org.gnome.buoh.appdata.xml.in:147
+#| msgid "Comic Properties"
+msgid "Comic properties dialog"
+msgstr "Diálogo de propriedades do quadrinho"
 
 #: data/org.gnome.buoh.desktop.in:4
 msgid "Comics Reader"
@@ -226,7 +264,6 @@ msgid "Go to the previous comic"
 msgstr "Ir para o quadrinho anterior"
 
 #: data/ui/window.ui:22
-#| msgid "_Previous Comic"
 msgid "_Previous"
 msgstr "_Anterior"
 
@@ -235,7 +272,6 @@ msgid "Go to the next comic"
 msgstr "Ir para o próximo quadrinho"
 
 #: data/ui/window.ui:35
-#| msgid "_Next Comic"
 msgid "_Next"
 msgstr "_Próximo"
 
@@ -244,7 +280,6 @@ msgid "Increase the comic size"
 msgstr "Aumentar o tamanho do quadrinho"
 
 #: data/ui/window.ui:56
-#| msgid "Zoom _In"
 msgid "Zoom _in"
 msgstr "A_mpliar"
 
@@ -253,7 +288,6 @@ msgid "Decrease the comic size"
 msgstr "Diminuir o tamanho do quadrinho"
 
 #: data/ui/window.ui:69
-#| msgid "Zoom _Out"
 msgid "Zoom ou_t"
 msgstr "_Reduzir"
 
@@ -262,11 +296,10 @@ msgid "Use the normal comic size"
 msgstr "Usar o tamanho normal do quadrinho"
 
 #: data/ui/window.ui:82
-#| msgid "_Normal Size"
 msgid "N_ormal Size"
 msgstr "Tamanho _normal"
 
-#: src/buoh-add-comic-dialog.c:107
+#: src/buoh-add-comic-dialog.c:103
 #, c-format
 msgid "Comics selected: %d"
 msgstr "Quadrinhos selecionados: %d"
@@ -318,7 +351,7 @@ msgstr "Não foi possível criar arquivo “%s”: %s"
 msgid "Error writing to file “%s”: %s"
 msgstr "Erro ao escreve para o arquivo “%s”: %s"
 
-#: src/buoh-view-comic.c:634
+#: src/buoh-view-comic.c:630
 msgid "Error Loading Comic"
 msgstr "Erro ao carregar quadrinho"
 
@@ -333,43 +366,39 @@ msgid ""
 "remove comics to the list click on Comic → Add. Just select a comic from the "
 "list, and it will be displayed on the right side. Thanks for using Buoh."
 msgstr ""
-"Bem vindo ao <b>Buoh</b>, o leitor de quadrinhos online para o GNOME.\n"
+"Seja bem-vindo ao <b>Buoh</b>, o leitor de quadrinhos online para o GNOME.\n"
 "A lista no painel da esquerda contém as suas histórias em quadrinhos "
 "favoritas. Para adicionar ou remover quadrinhos à lista, clique em Quadrinho "
 "→ Adicionar. Basta selecionar um quadrinho da lista e ele será exibido no "
 "painel direito. Obrigado por usar o Buoh."
 
-#: src/buoh-window.c:437
+#: src/buoh-window.c:433
 msgid "Images"
 msgstr "Imagens"
 
-#: src/buoh-window.c:440
+#: src/buoh-window.c:436
 msgid "Save Comic"
 msgstr "Salvar quadrinho"
 
-#: src/buoh-window.c:443
+#: src/buoh-window.c:439
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/buoh-window.c:444
+#: src/buoh-window.c:440
 msgid "_Save"
 msgstr "_Salvar"
 
-#: src/buoh-window.c:483
+#: src/buoh-window.c:479
 msgid "Unable to save comic"
 msgstr "Erro ao salvar o quadrinho"
 
-#: src/buoh-window.c:745
-msgid "Online comic strips reader"
-msgstr "Leitor de histórias em quadrinhos online"
-
-#: src/buoh-window.c:748
+#: src/buoh-window.c:744
 msgid "translator-credits"
 msgstr ""
 "Felipe Borges <felipe10borges@gmail.com>\n"
 "Rafael Fontenelle <rafaelff@gnome.org>"
 
-#: src/buoh-window.c:883
+#: src/buoh-window.c:879
 msgid "Getting comic…"
 msgstr "Baixando quadrinho…"
 
