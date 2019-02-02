@@ -25,28 +25,15 @@
 
 G_BEGIN_DECLS
 
-typedef struct _BuohComicLoader        BuohComicLoader;
-typedef struct _BuohComicLoaderClass   BuohComicLoaderClass;
-typedef struct _BuohComicLoaderPrivate BuohComicLoaderPrivate;
 
 #define BUOH_TYPE_COMIC_LOADER                  (buoh_comic_loader_get_type())
-#define BUOH_COMIC_LOADER(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_COMIC_LOADER, BuohComicLoader))
-#define BUOH_COMIC_LOADER_CLASS(klass)          (G_TYPE_CHACK_CLASS_CAST((klass), BUOH_TYPE_COMIC_LOADER, BuohComicLoaderClass))
-#define BUOH_IS_COMIC_LOADER(object)            (G_TYPE_CHECK_INSTANCE_TYPE((object), BUOH_TYPE_COMIC_LOADER))
-#define BUOH_IS_COMIC_LOADER_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), BUOH_TYPE_COMIC_LOADER))
-#define BUOH_COMIC_LOADER_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), BUOH_TYPE_COMIC_LOADER, BuohComicLoaderClass))
+G_DECLARE_DERIVABLE_TYPE (BuohComicLoader, buoh_comic_loader, BUOH, COMIC_LOADER, GObject)
 
 #define BUOH_COMIC_LOADER_ERROR (buoh_comic_loader_error_quark())
 
 typedef void (*BuohComicLoaderLoadFunc) (const gchar *data,
                                          guint        len,
                                          gpointer     gdata);
-
-struct _BuohComicLoader {
-        GObject    parent;
-
-        BuohComicLoaderPrivate *priv;
-};
 
 struct _BuohComicLoaderClass {
         GObjectClass   parent_class;

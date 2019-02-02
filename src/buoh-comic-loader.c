@@ -58,11 +58,11 @@ static void  buoh_comic_loader_job_finalize     (GObject                 *object
 
 G_DEFINE_TYPE (BuohComicLoaderJob, buoh_comic_loader_job, G_TYPE_OBJECT)
 
-struct _BuohComicLoaderPrivate {
+typedef struct {
         BuohComicLoaderJob *job;
 
         GError             *error;
-};
+} BuohComicLoaderPrivate;
 
 
 enum {
@@ -95,7 +95,6 @@ buoh_comic_loader_error_quark (void)
 static void
 buoh_comic_loader_init (BuohComicLoader *loader)
 {
-        loader->priv = buoh_comic_loader_get_instance_private (loader);
 }
 
 static void
@@ -119,14 +118,15 @@ static void
 buoh_comic_loader_finalize (GObject *object)
 {
         BuohComicLoader *loader = BUOH_COMIC_LOADER (object);
+        BuohComicLoaderPrivate *priv = buoh_comic_loader_get_instance_private (loader);
 
         buoh_debug ("comic-loader finalize");
 
         buoh_comic_loader_clear (loader);
 
-        if (loader->priv->error) {
-                g_error_free (loader->priv->error);
-                loader->priv->error = NULL;
+        if (priv->error) {
+                g_error_free (priv->error);
+                priv->error = NULL;
         }
 
         if (G_OBJECT_CLASS (buoh_comic_loader_parent_class)->finalize) {
@@ -207,13 +207,14 @@ static gpointer
 buoh_comic_loader_job_finished (BuohComicLoaderJob *job)
 {
         if (!job->canceled) {
-                if (job->loader->priv->error) {
-                        g_error_free (job->loader->priv->error);
+                BuohComicLoaderPrivate *priv = buoh_comic_loader_get_instance_private (job->loader);
+                if (priv->error) {
+                        g_error_free (priv->error);
                 }
-                job->loader->priv->error = NULL;
+                priv->error = NULL;
 
                 if (job->error) {
-                        job->loader->priv->error = g_error_copy (job->error);
+                        priv->error = g_error_copy (job->error);
                 }
 
                 g_signal_emit (job->loader, buoh_comic_loader_signals[FINISHED], 0);
@@ -295,13 +296,15 @@ buoh_comic_loader_job_run (BuohComicLoaderJob *job)
 static void
 buoh_comic_loader_clear (BuohComicLoader *loader)
 {
-        if (!loader->priv->job) {
+        BuohComicLoaderPrivate *priv = buoh_comic_loader_get_instance_private (loader);
+
+        if (!priv->job) {
                 return;
         }
 
-        loader->priv->job->canceled = TRUE;
+        priv->job->canceled = TRUE;
         /* job unref is done by current thread */
-        loader->priv->job = NULL;
+        priv->job = NULL;
 }
 
 void
@@ -313,15 +316,17 @@ buoh_comic_loader_load_comic (BuohComicLoader *loader,
         g_return_if_fail (BUOH_IS_COMIC_LOADER (loader));
         g_return_if_fail (BUOH_IS_COMIC (comic));
 
+        BuohComicLoaderPrivate *priv = buoh_comic_loader_get_instance_private (loader);
+
         buoh_comic_loader_clear (loader);
 
-        loader->priv->job = buoh_comic_loader_job_new (buoh_comic_get_uri (comic),
+        priv->job = buoh_comic_loader_job_new (buoh_comic_get_uri (comic),
                                                        callback, gdata);
-        loader->priv->job->loader = loader;
+        priv->job->loader = loader;
 
         g_thread_new ("comic_loader",
                       (GThreadFunc) buoh_comic_loader_job_run,
-                      loader->priv->job);
+                      priv->job);
 }
 
 void
@@ -329,9 +334,10 @@ buoh_comic_loader_get_error (BuohComicLoader *loader,
                              GError         **error)
 {
         g_return_if_fail (BUOH_IS_COMIC_LOADER (loader));
+        BuohComicLoaderPrivate *priv = buoh_comic_loader_get_instance_private (loader);
 
-        if (loader->priv->error) {
-                *error = g_error_copy (loader->priv->error);
+        if (priv->error) {
+                *error = g_error_copy (priv->error);
         }
 }
 
