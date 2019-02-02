@@ -43,11 +43,11 @@
       <section>
         <item>
           <attribute name="label" translatable="yes">_Toolbar</attribute>
-          <attribute name="action">win.view-toolbar</attribute>
+          <attribute name="action">win.show-toolbar</attribute>
         </item>
         <item>
           <attribute name="label" translatable="yes">St_atusbar</attribute>
-          <attribute name="action">win.view-statusbar</attribute>
+          <attribute name="action">win.show-statusbar</attribute>
         </item>
       </section>
       <section>

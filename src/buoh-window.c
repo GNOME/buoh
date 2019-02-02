@@ -113,12 +113,6 @@ static void buoh_window_cmd_comic_properties            (GSimpleAction    *actio
 static void buoh_window_cmd_comic_quit                  (GSimpleAction    *action,
                                                          GVariant         *parameter,
                                                          gpointer          gdata);
-static void buoh_window_cmd_view_toolbar                (GSimpleAction    *action,
-                                                         GVariant         *parameter,
-                                                         gpointer          gdata);
-static void buoh_window_cmd_view_statusbar              (GSimpleAction    *action,
-                                                         GVariant         *parameter,
-                                                         gpointer          gdata);
 static void buoh_window_cmd_view_zoom_in                (GSimpleAction    *action,
                                                          GVariant         *parameter,
                                                          gpointer          gdata);
@@ -147,10 +141,6 @@ static void buoh_window_cmd_help_about                  (GSimpleAction    *actio
                                                          GVariant         *parameter,
                                                          gpointer          gdata);
 
-static void activate_toggle                             (GSimpleAction    *action,
-                                                         GVariant         *parameter,
-                                                         gpointer          gdata);
-
 static void activate_radio                              (GSimpleAction    *action,
                                                          GVariant         *parameter,
                                                          gpointer          gdata);
@@ -174,10 +164,6 @@ static const GActionEntry menu_entries[] = {
           buoh_window_cmd_comic_quit },
 
         /* View menu*/
-        { "view-toolbar",
-          activate_toggle, NULL, "true", buoh_window_cmd_view_toolbar },
-        { "view-statusbar",
-          activate_toggle, NULL, "true", buoh_window_cmd_view_statusbar },
         { "view-zoom-in",
           buoh_window_cmd_view_zoom_in },
         { "view-zoom-out",
@@ -212,8 +198,6 @@ buoh_window_init (BuohWindow *buoh_window)
         GtkTreeSelection *selection;
         GActionMap       *action_map;
         GAction          *action;
-        gboolean          visible_toolbar;
-        gboolean          visible_statusbar;
         BuohViewZoomMode  zoom_mode;
 
         g_type_ensure (BUOH_TYPE_COMIC_LIST);
@@ -231,20 +215,15 @@ buoh_window_init (BuohWindow *buoh_window)
 
         /* Menu */
         /* Set the active status to the "View [toolbar | statusbar]" menu entry*/
-        visible_toolbar = g_settings_get_boolean (buoh_window->buoh_settings,
-                                                  GS_SHOW_TOOLBAR);
-        action = g_action_map_lookup_action (action_map, "view-toolbar");
-        g_action_change_state (G_ACTION (action), g_variant_new_boolean (visible_toolbar));
-
-        visible_statusbar = g_settings_get_boolean (buoh_window->buoh_settings,
-                                                    GS_SHOW_STATUSBAR);
-        action = g_action_map_lookup_action (action_map, "view-statusbar");
-        g_action_change_state (G_ACTION (action), g_variant_new_boolean (visible_statusbar));
+        g_action_map_add_action (action_map, g_settings_create_action (buoh_window->buoh_settings, GS_SHOW_TOOLBAR));
+        g_action_map_add_action (action_map, g_settings_create_action (buoh_window->buoh_settings, GS_SHOW_STATUSBAR));
 
         /* Toolbar */
-        g_object_set (G_OBJECT (buoh_window->toolbar),
-                      "visible", visible_toolbar,
-                      NULL);
+        g_settings_bind (buoh_window->buoh_settings,
+                         GS_SHOW_TOOLBAR,
+                         G_OBJECT (buoh_window->toolbar),
+                         "visible",
+                         G_SETTINGS_BIND_DEFAULT);
 
         /* buoh view */
         zoom_mode = g_settings_get_enum (buoh_window->buoh_settings,
@@ -273,8 +252,11 @@ buoh_window_init (BuohWindow *buoh_window)
                 (GTK_STATUSBAR (buoh_window->statusbar), "view_message");
         buoh_window->help_message_cid = gtk_statusbar_get_context_id
                 (GTK_STATUSBAR (buoh_window->statusbar), "help_message");
-        g_object_set (G_OBJECT (buoh_window->statusbar),
-                      "visible", visible_statusbar, NULL);
+        g_settings_bind (buoh_window->buoh_settings,
+                         GS_SHOW_STATUSBAR,
+                         G_OBJECT (buoh_window->statusbar),
+                         "visible",
+                         G_SETTINGS_BIND_DEFAULT);
 
         tree_view = buoh_comic_list_get_list (BUOH_COMIC_LIST (buoh_window->comic_list));
         selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree_view));
@@ -574,40 +556,6 @@ buoh_window_cmd_comic_quit (GSimpleAction *action, GVariant *parameter, gpointer
 }
 
 static void
-buoh_window_cmd_view_toolbar (GSimpleAction *action, GVariant *parameter, gpointer gdata)
-{
-        BuohWindow  *window = BUOH_WINDOW (gdata);
-        gboolean     visible;
-
-        visible = g_variant_get_boolean (parameter);
-        g_settings_set_boolean (window->buoh_settings,
-                                GS_SHOW_TOOLBAR, visible);
-
-        g_object_set (G_OBJECT (window->toolbar), "visible",
-                      visible,
-                      NULL);
-
-        g_simple_action_set_state (action, parameter);
-}
-
-static void
-buoh_window_cmd_view_statusbar (GSimpleAction *action, GVariant *parameter, gpointer gdata)
-{
-        BuohWindow  *window = BUOH_WINDOW (gdata);
-        gboolean     visible;
-
-        visible = g_variant_get_boolean (parameter);
-        g_settings_set_boolean (window->buoh_settings,
-                                GS_SHOW_STATUSBAR, visible);
-
-        g_object_set (G_OBJECT (window->statusbar),
-                      "visible", visible,
-                      NULL);
-
-        g_simple_action_set_state (action, parameter);
-}
-
-static void
 buoh_window_view_zoom_free (gpointer data)
 {
         GAction *action = g_action_map_lookup_action (G_ACTION_MAP (data), "view-zoom-mode");
@@ -745,18 +693,6 @@ buoh_window_cmd_help_about (GSimpleAction *action, GVariant *parameter, gpointer
                                "version", VERSION,
                                "website", "http://buoh.steve-o.org/",
                                NULL);
-}
-
-static void
-activate_toggle (GSimpleAction *action,
-                 GVariant      *parameter,
-                 gpointer       user_data)
-{
-        GVariant *state;
-
-        state = g_action_get_state (G_ACTION (action));
-        g_action_change_state (G_ACTION (action), g_variant_new_boolean (!g_variant_get_boolean (state)));
-        g_variant_unref (state);
 }
 
 static void
