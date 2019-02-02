@@ -340,6 +340,18 @@ buoh_view_comic_scroll_event (GtkWidget *widget, GdkEventScroll *event)
                 case GDK_SCROLL_RIGHT:
                         buoh_view_comic_zoom_out (c_view);
                         break;
+                case GDK_SCROLL_SMOOTH:
+                {
+                        gdouble delta_x = 0;
+                        gdouble delta_y = 0;
+                        gdk_event_get_scroll_deltas ((GdkEvent *) event, &delta_x, &delta_y);
+                        if (delta_y < 0) {
+                                buoh_view_comic_zoom_in (c_view);
+                        } else if (delta_y > 0) {
+                                buoh_view_comic_zoom_out (c_view);
+                        }
+                        break;
+                }
                 }
 
                 return TRUE;
