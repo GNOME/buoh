@@ -24,12 +24,7 @@
 
 /* BuohComicLoaderJob */
 #define BUOH_TYPE_COMIC_LOADER_JOB          (buoh_comic_loader_job_get_type())
-#define BUOH_COMIC_LOADER_JOB(object)       (G_TYPE_CHECK_INSTANCE_CAST((object), BUOH_TYPE_COMIC_LOADER_JOB, BuohComicLoaderJob))
-#define BUOH_COMIC_LOADER_JOB_CLASS(klass)  (G_TYPE_CHECK_CLASS_CAST((klass), BUOH_TYPE_COMIC_LOADER_JOB, BuohComicLoaderJobClass))
-#define BUOH_COMIC_LOADER_IS_JOB(object)    (G_TYPE_CHECK_INSTANCE_TYPE((object), BUOH_TYPE_COMIC_LOADER_JOB))
-
-typedef struct _BuohComicLoaderJob      BuohComicLoaderJob;
-typedef struct _BuohComicLoaderJobClass BuohComicLoaderJobClass;
+G_DECLARE_FINAL_TYPE (BuohComicLoaderJob, buoh_comic_loader_job, BUOH, COMIC_LOADER_JOB, GObject)
 
 struct _BuohComicLoaderJob {
         GObject parent;
@@ -47,11 +42,6 @@ struct _BuohComicLoaderJob {
         GError          *error;
 };
 
-struct _BuohComicLoaderJobClass {
-        GObjectClass parent_class;
-};
-
-static GType buoh_comic_loader_job_get_type     (void);
 static void  buoh_comic_loader_job_init         (BuohComicLoaderJob      *job);
 static void  buoh_comic_loader_job_class_init   (BuohComicLoaderJobClass *klass);
 static void  buoh_comic_loader_job_finalize     (GObject                 *object);
