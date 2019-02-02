@@ -962,11 +962,11 @@ buoh_window_comic_list_key_press_cb (GtkWidget *widget, GdkEventKey *event, gpoi
 {
         BuohWindow       *window = BUOH_WINDOW (gdata);
         GtkTreeSelection *selection;
-        guint             state;
+        GdkModifierType   modifiers;
 
-        state = event->state & GDK_SHIFT_MASK;
+        modifiers = gtk_accelerator_get_default_mod_mask ();
 
-        if (state == GDK_SHIFT_MASK &&
+        if ((event->state & modifiers) == GDK_SHIFT_MASK &&
             event->keyval == GDK_KEY_F10) {
                 selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (widget));
                 if (gtk_tree_selection_get_selected (selection, NULL, NULL)) {
@@ -1016,8 +1016,8 @@ static gboolean
 buoh_window_comic_view_key_press_cb (GtkWidget *widget, GdkEventKey *event, gpointer gdata)
 {
         BuohWindow     *window = BUOH_WINDOW (gdata);
-        guint           state;
         BuohViewStatus  view_status;
+        GdkModifierType modifiers;
 
         view_status = buoh_view_get_status (BUOH_VIEW (window->view));
         if (view_status != STATE_COMIC_LOADING &&
@@ -1025,9 +1025,9 @@ buoh_window_comic_view_key_press_cb (GtkWidget *widget, GdkEventKey *event, gpoi
                 return FALSE;
         }
 
-        state = event->state & GDK_SHIFT_MASK;
+        modifiers = gtk_accelerator_get_default_mod_mask ();
 
-        if (state == GDK_SHIFT_MASK &&
+        if ((event->state & modifiers) == GDK_SHIFT_MASK &&
             event->keyval == GDK_KEY_F10) {
                 gtk_menu_popup_at_pointer (GTK_MENU (window->view_popup), (const GdkEvent *) event);
 

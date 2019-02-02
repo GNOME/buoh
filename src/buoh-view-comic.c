@@ -325,12 +325,12 @@ buoh_view_comic_key_press_event (GtkWidget *widget, GdkEventKey *event)
 static gboolean
 buoh_view_comic_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 {
-        BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
-        guint          state;
+        BuohViewComic   *c_view = BUOH_VIEW_COMIC (widget);
+        GdkModifierType  modifiers;
 
-        state = event->state & GDK_CONTROL_MASK;
+        modifiers = gtk_accelerator_get_default_mod_mask ();
 
-        if (state == GDK_CONTROL_MASK) {
+        if ((event->state & modifiers) == GDK_CONTROL_MASK) {
                 switch (event->direction) {
                 case GDK_SCROLL_UP:
                 case GDK_SCROLL_LEFT:
