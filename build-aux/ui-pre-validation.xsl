@@ -25,11 +25,11 @@
 
   <!-- Usage of custom elements -->
   <xsl:template match="object/@class[. = 'BuohView']">
-    <!-- GtkBin is abstract -->
-    <xsl:attribute name="class">GtkWindow</xsl:attribute>
+    <xsl:attribute name="class">GtkStack</xsl:attribute>
   </xsl:template>
   <xsl:template match="object/@class[. = 'BuohComicList']">
-    <xsl:attribute name="class">GtkNotebook</xsl:attribute>
+    <!-- GtkBin is abstract -->
+    <xsl:attribute name="class">GtkWindow</xsl:attribute>
   </xsl:template>
   <xsl:template match="object/@class[. = 'BuohViewComic']">
     <xsl:attribute name="class">GtkViewport</xsl:attribute>

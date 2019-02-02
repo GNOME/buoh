@@ -33,18 +33,12 @@ enum {
 };
 
 enum {
-        VIEW_PAGE_IMAGE,
-        VIEW_PAGE_MESSAGE,
-        VIEW_PAGE_EMPTY
-};
-
-enum {
         SCALE_CHANGED,
         N_SIGNALS
 };
 
 struct _BuohView {
-        GtkNotebook      parent;
+        GtkStack         parent;
 
         GtkWidget       *message;
         GtkWidget       *comic;
@@ -74,7 +68,7 @@ static void     buoh_view_scale_changed_cb   (GObject        *object,
                                               GParamSpec     *arg,
                                               gpointer        gdata);
 
-G_DEFINE_TYPE (BuohView, buoh_view, GTK_TYPE_NOTEBOOK)
+G_DEFINE_TYPE (BuohView, buoh_view, GTK_TYPE_STACK)
 
 static void
 buoh_view_init (BuohView *buoh_view)
@@ -99,7 +93,7 @@ buoh_view_init (BuohView *buoh_view)
                                       "on the right side. Thanks for using Buoh."));
         buoh_view_message_set_icon (BUOH_VIEW_MESSAGE (buoh_view->message), "buoh");
 
-        gtk_notebook_set_current_page (GTK_NOTEBOOK (buoh_view), VIEW_PAGE_MESSAGE);
+        gtk_stack_set_visible_child_name (GTK_STACK (buoh_view), "message");
 
         /* Callbacks */
         g_signal_connect (G_OBJECT (buoh_view->comic),
@@ -231,14 +225,14 @@ buoh_view_status_changed_cb (GObject *object, GParamSpec *arg, gpointer gdata)
         switch (view->status) {
         case STATE_MESSAGE_WELCOME:
         case STATE_MESSAGE_ERROR:
-                gtk_notebook_set_current_page (GTK_NOTEBOOK (view), VIEW_PAGE_MESSAGE);
+                gtk_stack_set_visible_child_name (GTK_STACK (view), "message");
                 break;
         case STATE_COMIC_LOADING:
         case STATE_COMIC_LOADED:
-                gtk_notebook_set_current_page (GTK_NOTEBOOK (view), VIEW_PAGE_IMAGE);
+                gtk_stack_set_visible_child_name (GTK_STACK (view), "image");
                 break;
         case STATE_EMPTY:
-                gtk_notebook_set_current_page (GTK_NOTEBOOK (view), VIEW_PAGE_EMPTY);
+                gtk_stack_set_visible_child_name (GTK_STACK (view), "empty");
                 break;
         default:
                 break;
