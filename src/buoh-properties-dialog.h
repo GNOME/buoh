@@ -30,7 +30,6 @@ G_BEGIN_DECLS
 #define BUOH_TYPE_PROPERTIES_DIALOG buoh_properties_dialog_get_type ()
 G_DECLARE_FINAL_TYPE (BuohPropertiesDialog, buoh_properties_dialog, BUOH, PROPERTIES_DIALOG, GtkDialog)
 
-GType             buoh_properties_dialog_get_type          (void) G_GNUC_CONST;
 GtkWidget        *buoh_properties_dialog_new               (void);
 
 void              buoh_properties_dialog_set_comic_manager (BuohPropertiesDialog   *dialog,

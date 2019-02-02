@@ -38,8 +38,6 @@ struct _BuohComicManagerClass {
         gboolean   (* is_the_first)   (BuohComicManager *comic_manager);
 };
 
-GType           buoh_comic_manager_get_type (void) G_GNUC_CONST;
-
 BuohComicManager *buoh_comic_manager_new    (const gchar      *type,
                                              const gchar      *id,
                                              const gchar      *title,

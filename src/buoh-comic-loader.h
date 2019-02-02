@@ -54,7 +54,6 @@ struct _BuohComicLoaderClass {
         void (* finished) (BuohComicLoader *loader);
 };
 
-GType            buoh_comic_loader_get_type    (void) G_GNUC_CONST;
 GQuark           buoh_comic_loader_error_quark (void);
 BuohComicLoader *buoh_comic_loader_new         (void);
 
