@@ -25,6 +25,7 @@
          <li>Updated GTK stuff</li>
          <li>Updated buoh.dia UML diagram</li>
          <li>Added different sizes icons</li>
+         <li>Added support for XDG directory specification; feel free to move your configuration to $XDG_CONFIG_HOME/buoh</li>
       </ul>
     </description>
   </release>

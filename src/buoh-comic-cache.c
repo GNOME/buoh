@@ -52,7 +52,9 @@ static void
 buoh_comic_cache_init (BuohComicCache *buoh_comic_cache)
 {
         buoh_comic_cache->cache_dir =
-                g_build_filename (buoh_application_get_datadir (buoh_application_get_instance ()), "cache", NULL);
+                g_build_filename (g_get_user_cache_dir (),
+                                  "buoh",
+                                  NULL);
 
         buoh_comic_cache->image_hash =
                 g_hash_table_new_full (g_str_hash,

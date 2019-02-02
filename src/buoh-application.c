@@ -364,7 +364,7 @@ buoh_application_create_user_dir (BuohApplication *buoh)
 
         g_free (filename);
 
-        cache_dir = g_build_filename (buoh->datadir, "cache", NULL);
+        cache_dir = g_build_filename (g_get_user_cache_dir (), "buoh", NULL);
 
         if (!g_file_test (cache_dir, G_FILE_TEST_IS_DIR)) {
                 buoh_debug ("Cache directory doesn't exist, creating it ...");
@@ -379,7 +379,12 @@ buoh_application_create_user_dir (BuohApplication *buoh)
 static void
 buoh_application_init (BuohApplication *buoh)
 {
+        // If legacy path exists, use that
         buoh->datadir = g_build_filename (g_get_home_dir (), ".buoh", NULL);
+        if (!g_file_test (buoh->datadir, G_FILE_TEST_IS_DIR)) {
+                g_free (buoh->datadir);
+                buoh->datadir = g_build_filename (g_get_user_config_dir (), "buoh", NULL);
+        }
         buoh_application_create_user_dir (buoh);
 
         buoh->comic_list = buoh_application_create_model_from_file (buoh);
