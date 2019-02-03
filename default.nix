@@ -64,6 +64,8 @@ in pkgs.stdenv.mkDerivation rec {
     meson
     ninja
     pkg-config
+    gobject-introspection
+    vala
     gettext
     python3
     xvfb_run
