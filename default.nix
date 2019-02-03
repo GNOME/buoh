@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   name = "buoh";
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gettext python3 xvfb_run libxslt wrapGAppsHook
+    meson ninja gobject-introspection vala pkgconfig gettext python3 xvfb_run libxslt wrapGAppsHook
   ];
 
   buildInputs = [

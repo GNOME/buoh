@@ -1,6 +1,7 @@
 project(
   'buoh',
   'c',
+  'vala',
   license: 'GPL2+',
   version: '0.8.3',
   default_options: [
@@ -11,6 +12,7 @@ project(
 gnome = import('gnome')
 i18n = import('i18n')
 python3 = import('python3')
+valac = meson.get_compiler('vala')
 data_dir = join_paths(meson.source_root(), 'data')
 po_dir = join_paths(meson.source_root(), 'po')
 
