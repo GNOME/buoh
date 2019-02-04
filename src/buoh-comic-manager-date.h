@@ -43,6 +43,6 @@ void              buoh_comic_manager_date_set_first            (BuohComicManager
                                                                 const gchar          *first);
 gchar *           buoh_comic_manager_date_get_publication_days (BuohComicManagerDate *comic_manager);
 
-G_END_DECLS;
+G_END_DECLS
 
 #endif /* BUOH_COMIC_MANAGER_DATE_H */
