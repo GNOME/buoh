@@ -27,10 +27,6 @@ G_BEGIN_DECLS
 #define BUOH_TYPE_ADD_COMIC_DIALOG buoh_add_comic_dialog_get_type ()
 G_DECLARE_FINAL_TYPE (BuohAddComicDialog, buoh_add_comic_dialog, BUOH, ADD_COMIC_DIALOG, GtkDialog)
 
-struct _BuohAddComicDialogClass {
-        GtkDialogClass   parent_class;
-};
-
 GtkWidget *buoh_add_comic_dialog_new       (void);
 
 G_END_DECLS
