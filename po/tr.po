@@ -2,362 +2,442 @@
 # Copyright (C) 2014 buoh's COPYRIGHT HOLDER
 # This file is distributed under the same license as the buoh package.
 # Muhammet Kara <muhammetk@gmail.com>, 2014.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=buoh&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2014-06-19 14:59+0000\n"
-"PO-Revision-Date: 2014-06-19 20:16+0300\n"
-"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2019-02-04 19:05+0000\n"
+"PO-Revision-Date: 2019-02-23 10:23+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Gtranslator 3.30.1\n"
 
-#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
 msgid "Buoh"
 msgstr "Buoh"
 
-#: ../data/buoh.desktop.in.h:2
-msgid "Read your favourite comic strips"
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:689
+msgid "Online comic strips reader"
+msgstr "Çevrimiçi çizgi roman okuyucu"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Buoh, GNOME masaüstü ortamıyla uyumlu biçimde çalışmak üzere tasarlanmış "
+"çevrim içi çizgi roman ve internet çizgi roman (webcomic) okuma uygulamadır. "
+"Listemizde bulunan, 130ʼdan çok çizgi roman içinden beğendiğiniz çizgi "
+"romanları seçin ve bunları basit, temiz ve kullanımı kolay bir arayüzde "
+"okuyun. Ayrıca, çizgi roman arşivlerine göz atabilir ya da çizgi romanları "
+"diske kaydedebilirsiniz."
+
+#: data/org.gnome.buoh.appdata.xml.in:136
+msgid "General view of Buoh"
+msgstr "Buoh genel görünümü"
+
+#: data/org.gnome.buoh.appdata.xml.in:140
+msgid "First execution of Buoh"
+msgstr "Buoh ilk çalıştırması"
+
+#: data/org.gnome.buoh.appdata.xml.in:144
+msgid "Add comic dialog"
+msgstr "Çizgi roman ekleme penceresi"
+
+#: data/org.gnome.buoh.appdata.xml.in:148
+msgid "Comic properties dialog"
+msgstr "Çizgi roman özellikleri penceresi"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Çizgi Roman Okuyucu"
+
+#: data/org.gnome.buoh.desktop.in:5
+msgid "Read your favorite comic strips"
 msgstr "En sevdiğiniz çizgi romanları okuyun"
 
-#: ../data/buoh.schemas.in.h:1
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "çizgi roman;web çizgi roman;manga;karikatür;"
+
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/org.gnome.buoh.desktop.in:10
+msgid "buoh"
+msgstr "buoh"
+
+#: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
 msgstr "Araç çubuğunu öntanımlı olarak göster"
 
-#: ../data/buoh.schemas.in.h:2
+#: data/org.gnome.buoh.gschema.xml:7
 msgid ""
 "Toolbar is the top bar that contains navigation and zoom controls. Two "
 "boolean options, true makes toolbar visible by default while false makes "
 "toolbar not visible by default."
 msgstr ""
+"Araç çubuğu, gezgin ve yakınlaştırma denetimlerini içeren üst çubuktur. İki "
+"mantıki seçeneğe sahiptir. true, varsayılan olarak araç çubuğunu görünür "
+"kılarken false, araç çubuğunu varsayılan olarak görünmez kılar."
 
-#: ../data/buoh.schemas.in.h:3
+#: data/org.gnome.buoh.gschema.xml:11
 msgid "Show statusbar by default"
 msgstr "Durum çubuğunu öntanımlı olarak göster"
 
-#: ../data/buoh.schemas.in.h:4
+#: data/org.gnome.buoh.gschema.xml:12
 msgid ""
 "Statusbar is the bottom bar that contains help and status messages. Two "
 "boolean options, true makes statusbar visible by default while false makes "
 "statusbar not visible by default."
 msgstr ""
+"Durum çubuğu yardım ve durum mesajlarını içeren alt çubuktur. İki mantıki "
+"seçeneğe sahiptir. true, varsayılan olarak durum çubuğunu görünür kılarken "
+"false, durum çubuğunu varsayılan olarak görünmez kılar."
 
-#: ../data/buoh.schemas.in.h:5
+#: data/org.gnome.buoh.gschema.xml:16
 msgid "Select viewer zoom mode"
 msgstr "Görüntüleyici yakınlaştırma kipini seçin"
 
-#: ../data/buoh.schemas.in.h:6
+#: data/org.gnome.buoh.gschema.xml:17
 msgid ""
-"There are two zoom modes available, 1 makes the current comic fill the "
-"window, 2 makes the current comic fill the window width."
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
 msgstr ""
+"Kullanılabilir iki yakınlaştırma kipi vardır, 'best-fit' (en uygun) geçerli "
+"çizgi roman pencereyi doldurur, 'fit-width' (genişliğe uydur) seçeneğinde "
+"ise geçerli çizgi roman pencere genişliğini doldurur."
 
-#: ../src/buoh-add-comic-dialog.c:67
+#: data/ui/add-comic-dialog.ui:7
 msgid "Add Comic"
 msgstr "Çizgi Roman Ekle"
 
-#: ../src/buoh-add-comic-dialog.c:79
-msgid "Select Comics"
-msgstr "Çizgi Roman Seç"
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "_Kapat"
 
-#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
-#: ../src/buoh-properties-dialog.c:103
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
 msgid "Title"
 msgstr "Başlık"
 
-#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:109
+#: data/ui/add-comic-dialog.ui:95
 msgid "Author"
 msgstr "Yazar"
 
-#: ../src/buoh-add-comic-dialog.c:202
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "Çizgi Roman Seç"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_Çizgi Roman"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "_Ekle…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "_Kaldır"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+msgid "_Save a Copy…"
+msgstr "Kopya _Kaydet…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "Konumu _Kopyala"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+msgid "_Properties…"
+msgstr "_Özellikler…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "_Çıkış"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "_Görüntü"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "_Araç Çubuğu"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "_Durum Çubuğu"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "_Yakınlaştır"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "_Uzaklaştır"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "_Olağan Boyut"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "_Sığdır"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "_Genişliğe Sığdır"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "_Git"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "_Önceki Çizgi Roman"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "_Sonraki Çizgi Roman"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "_İlk Çizgi Roman"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "_Son Çizgi Roman"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "_Yardım"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "_Hakkında"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "Çizgi Roman Özellikleri"
+
+#: data/ui/properties-dialog.ui:57
+msgid "Title:"
+msgstr "Başlık:"
+
+#: data/ui/properties-dialog.ui:71
+msgid "Author:"
+msgstr "Yazar:"
+
+#: data/ui/properties-dialog.ui:85
+msgid "Link:"
+msgstr "Bağlantı:"
+
+#: data/ui/properties-dialog.ui:99
+msgid "Date of publication:"
+msgstr "Yayımlanma tarihi:"
+
+#: data/ui/properties-dialog.ui:113
+msgid "Language:"
+msgstr "Dil:"
+
+#: data/ui/properties-dialog.ui:127
+msgid "Publication days:"
+msgstr "Yayımlanma günleri:"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "Önceki çizgi romana git"
+
+#: data/ui/window.ui:22
+msgid "_Previous"
+msgstr "_Önceki"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "Sonraki çizgi romana git"
+
+#: data/ui/window.ui:35
+msgid "_Next"
+msgstr "_Sonraki"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "Çizgi roman boyutunu artır"
+
+#: data/ui/window.ui:56
+msgid "Zoom _in"
+msgstr "_Yakınlaştır"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "Çizgi roman boyutunu düşür"
+
+#: data/ui/window.ui:69
+msgid "Zoom ou_t"
+msgstr "_Uzaklaştır"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "Olağan çizgi roman boyutunu kullan"
+
+#: data/ui/window.ui:82
+msgid "N_ormal Size"
+msgstr "_Olağan Boyut"
+
+#: src/buoh-add-comic-dialog.c:103
 #, c-format
 msgid "Comics selected: %d"
-msgstr "Çizgi romanlar seçildi: %d"
+msgstr "Seçilen çizgi romanlar: %d"
 
-#: ../src/buoh-comic.c:435
-#, c-format
-msgid "Cannot create file '%s': %s"
-msgstr "'%s' dosyası oluşturulamıyor: %s"
-
-#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
-#, c-format
-msgid "Error writting to file '%s': %s"
-msgstr "'%s' dosyasına yazılırken hata: %s"
-
-#: ../src/buoh-comic-manager-date.c:56
+#: src/buoh-comic-manager-date.c:57
 msgid "Monday"
 msgstr "Pazartesi"
 
-#: ../src/buoh-comic-manager-date.c:57
+#: src/buoh-comic-manager-date.c:58
 msgid "Tuesday"
 msgstr "Salı"
 
-#: ../src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:59
 msgid "Wednesday"
 msgstr "Çarşamba"
 
-#: ../src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:60
 msgid "Thursday"
 msgstr "Perşembe"
 
-#: ../src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:61
 msgid "Friday"
 msgstr "Cuma"
 
-#: ../src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:62
 msgid "Saturday"
 msgstr "Cumartesi"
 
-#: ../src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:63
 msgid "Sunday"
 msgstr "Pazar"
 
 #. It's a range of days
-#: ../src/buoh-comic-manager-date.c:496
+#: src/buoh-comic-manager-date.c:510
 msgid " to "
-msgstr ""
+msgstr " - "
 
-#: ../src/buoh-comic-manager-date.c:511
+#: src/buoh-comic-manager-date.c:525
 msgid "Every day"
 msgstr "Her gün"
 
-#: ../src/buoh-properties-dialog.c:48
-msgid "Comic Properties"
-msgstr "Çizgi Roman Özellikleri"
+#: src/buoh-comic.c:412
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "“%s” dosyası oluşturulamıyor: %s"
 
-#: ../src/buoh-properties-dialog.c:115
-msgid "Link"
-msgstr "Bağlantı"
+#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "“%s” dosyasına yazılırken hata: %s"
 
-#: ../src/buoh-properties-dialog.c:121
-msgid "Language"
-msgstr "Dil"
+#: src/buoh-view-comic.c:638
+msgid "Error Loading Comic"
+msgstr "Çizgi Roman Yüklemesi Hatalı"
 
-#: ../src/buoh-properties-dialog.c:127
-msgid "Date of publication"
-msgstr "Yayınlanma tarihi"
-
-#: ../src/buoh-properties-dialog.c:185
-msgid "Publication days"
-msgstr "Yayınlanma günleri"
-
-#: ../src/buoh-view.c:155
+#: src/buoh-view.c:87
 msgid "Buoh online comic strips reader"
-msgstr "Buoh çevrimiçi çizgi roman okuyucu"
+msgstr "Buoh çevrim içi çizgi roman okuyucu"
 
-#: ../src/buoh-view.c:157
+#: src/buoh-view.c:89
 msgid ""
 "Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
-"The list on the left panel contains your favourite comic strips to add or "
-"remove comics to the list click on Comic -> Add. Just select a comic from "
-"the list, and it will be displayed on the right side. Thanks for using Buoh."
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
 msgstr ""
+"GNOME Masaüstü için çevrimiçi çizgi roman okuyucusu <b>Buoh</b> uygulamasına "
+"hoş geldiniz.\n"
+"Sol bölmedeki liste, çizgi roman ekleyip çıkarabileceğiniz sık kullanılan "
+"çizgi romanlar listesini içerir. Listeden çizgi roman seçtiğinizde sağ "
+"bölmede gösterilecektir. Buohʼu kullandığınız için teşekkür ederiz."
 
-#: ../src/buoh-view-comic.c:647
-msgid "Error Loading Comic"
-msgstr ""
-
-#. Top Level
-#: ../src/buoh-window.c:158
-msgid "_Comic"
-msgstr ""
-
-#: ../src/buoh-window.c:159
-msgid "_View"
-msgstr ""
-
-#: ../src/buoh-window.c:160
-msgid "_Go"
-msgstr "_Git"
-
-#: ../src/buoh-window.c:161
-msgid "_Help"
-msgstr "_Yardım"
-
-#. Comic menu
-#: ../src/buoh-window.c:164
-msgid "_Add..."
-msgstr "_Ekle..."
-
-#: ../src/buoh-window.c:165
-msgid "Add a comic to the comic list"
-msgstr ""
-
-#: ../src/buoh-window.c:167
-msgid "_Remove"
-msgstr "_Kaldır"
-
-#: ../src/buoh-window.c:168
-msgid "Remove this comic from the comic list"
-msgstr ""
-
-#: ../src/buoh-window.c:170
-msgid "_Save A Copy..."
-msgstr "Bir Kopya _Kaydet..."
-
-#: ../src/buoh-window.c:171
-msgid "Save the current comic with a new filename"
-msgstr ""
-
-#: ../src/buoh-window.c:173
-msgid "_Copy Location"
-msgstr ""
-
-#: ../src/buoh-window.c:174
-msgid "Copy the location of this comic to clipboard"
-msgstr ""
-
-#: ../src/buoh-window.c:176
-msgid "_Properties..."
-msgstr "Ö_zellikler..."
-
-#: ../src/buoh-window.c:177
-msgid "View the properties of this comic"
-msgstr ""
-
-#: ../src/buoh-window.c:179
-msgid "_Quit"
-msgstr "_Çıkış"
-
-#: ../src/buoh-window.c:180
-msgid "Quit application"
-msgstr "Uygulamadan çık"
-
-#. View menu
-#: ../src/buoh-window.c:184
-msgid "Zoom _In"
-msgstr ""
-
-#: ../src/buoh-window.c:185
-msgid "Increase the comic size"
-msgstr ""
-
-#: ../src/buoh-window.c:187
-msgid "Zoom _Out"
-msgstr ""
-
-#: ../src/buoh-window.c:188
-msgid "Decrease the comic size"
-msgstr ""
-
-#: ../src/buoh-window.c:190
-msgid "_Normal Size"
-msgstr "_Normal Boyut"
-
-#: ../src/buoh-window.c:191
-msgid "Use the normal comic size"
-msgstr ""
-
-#. Go menu
-#: ../src/buoh-window.c:195
-msgid "_Previous Comic"
-msgstr ""
-
-#: ../src/buoh-window.c:196
-msgid "Go to the previous comic"
-msgstr ""
-
-#: ../src/buoh-window.c:198
-msgid "_Next Comic"
-msgstr ""
-
-#: ../src/buoh-window.c:199
-msgid "Go to the next comic"
-msgstr ""
-
-#: ../src/buoh-window.c:201
-msgid "_First Comic"
-msgstr ""
-
-#: ../src/buoh-window.c:202
-msgid "Go to the first comic"
-msgstr ""
-
-#: ../src/buoh-window.c:204
-msgid "_Last Comic"
-msgstr ""
-
-#: ../src/buoh-window.c:205
-msgid "Go to the last comic"
-msgstr ""
-
-#. Help menu
-#: ../src/buoh-window.c:209
-msgid "_Contents"
-msgstr "_İçindekiler"
-
-#: ../src/buoh-window.c:210
-msgid "Display help for the Buoh online comic reader"
-msgstr ""
-
-#: ../src/buoh-window.c:212
-msgid "_About"
-msgstr "_Hakkında"
-
-#: ../src/buoh-window.c:213
-msgid "Display credits for the Buoh online comic reader creators"
-msgstr ""
-
-#. View menu
-#: ../src/buoh-window.c:220
-msgid "_Toolbar"
-msgstr "_Araç Çubuğu"
-
-#: ../src/buoh-window.c:221
-msgid "Changes the visibility of the toolbar"
-msgstr ""
-
-#: ../src/buoh-window.c:223
-msgid "St_atusbar"
-msgstr "_Durum Çubuğu"
-
-#: ../src/buoh-window.c:224
-msgid "Changes the visibility of the statusbar"
-msgstr ""
-
-#: ../src/buoh-window.c:226
-msgid "_Best Fit"
-msgstr "_Sığdır"
-
-#: ../src/buoh-window.c:227
-msgid "Make the current comic fill the window"
-msgstr ""
-
-#: ../src/buoh-window.c:229
-msgid "Fit Comic _Width"
-msgstr ""
-
-#: ../src/buoh-window.c:230
-msgid "Make the current comic fill the window width"
-msgstr ""
-
-#: ../src/buoh-window.c:535
+#: src/buoh-window.c:415
 msgid "Images"
-msgstr ""
+msgstr "Görüntüler"
 
-#: ../src/buoh-window.c:538
+#: src/buoh-window.c:418
 msgid "Save Comic"
-msgstr ""
+msgstr "Çizgi Romanı Kaydet"
 
-#: ../src/buoh-window.c:580
+#: src/buoh-window.c:421
+msgid "_Cancel"
+msgstr "_İptal Et"
+
+#: src/buoh-window.c:422
+msgid "_Save"
+msgstr "_Kaydet"
+
+#: src/buoh-window.c:461
 msgid "Unable to save comic"
-msgstr ""
+msgstr "Çizgi roman kaydedilemedi"
 
-#: ../src/buoh-window.c:842
-msgid "Online comic strips reader"
-msgstr ""
-
-#: ../src/buoh-window.c:845
+#: src/buoh-window.c:692
 msgid "translator-credits"
-msgstr "Muhammet Kara <muhammetk@gmail.com>"
-
-#: ../src/buoh-window.c:1024
-msgid "Getting comic ..."
 msgstr ""
+"Muhammet Kara <muhammetk@gmail.com> 2014\n"
+"Sabri Ünal <libreajans@gmail.com> 2019"
+
+#: src/buoh-window.c:815
+msgid "Getting comic…"
+msgstr "Çizgi roman indiriliyor…"
+
+#~ msgid "Add a comic to the comic list"
+#~ msgstr "Çizgi roman listesine çizgi roman ekle"
+
+#~ msgid "Remove this comic from the comic list"
+#~ msgstr "Çizgi romanı çizgi roman listesinden kaldır"
+
+#~ msgid "Save the current comic with a new filename"
+#~ msgstr "Geçerli çizgi romanı yeni bir isimle kaydet"
+
+#~ msgid "Copy the location of this comic to clipboard"
+#~ msgstr "Bu çizgi romanın konumunu panoya kopyala"
+
+#~ msgid "View the properties of this comic"
+#~ msgstr "Bu çizgi romanın özelliklerini göster"
+
+#~ msgid "Quit application"
+#~ msgstr "Uygulamadan çık"
+
+#~ msgid "Go to the first comic"
+#~ msgstr "İlk çizgi romana git"
+
+#~ msgid "Go to the last comic"
+#~ msgstr "Son çizgi romana git"
+
+#~ msgid "Display credits for the Buoh online comic reader creators"
+#~ msgstr "Buoh çevirimiçi çizgi roman okuyucu için sanatçı bilgilerini göster"
+
+#~ msgid "Changes the visibility of the toolbar"
+#~ msgstr "Araç çubuğunun görünürlüğünü değiştirir"
+
+#~ msgid "Changes the visibility of the statusbar"
+#~ msgstr "Durum çubuğunun görünürlüğünü değiştirir"
+
+#~ msgid "Make the current comic fill the window"
+#~ msgstr "Geçerli çizgi roman pencereyi doldursun"
+
+#~ msgid "Make the current comic fill the window width"
+#~ msgstr "Geçerli çizgi roman pencere genişliğini doldursun"
+
+#~ msgid "_Add..."
+#~ msgstr "_Ekle..."
+
+#~ msgid "_Contents"
+#~ msgstr "_İçindekiler"
