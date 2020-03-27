@@ -1,63 +1,85 @@
 # Ukrainian translation for buoh.
 # Copyright (C) 2011 buoh's COPYRIGHT HOLDER
 # This file is distributed under the same license as the buoh package.
-# Sergiy Gavrylov <sergiovana@bigmir.net>, 2011.
 #
+# Sergiy Gavrylov <sergiovana@bigmir.net>, 2011.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=buoh&component=General\n"
-"POT-Creation-Date: 2010-12-26 19:25+0000\n"
-"PO-Revision-Date: 2011-04-18 11:22+0300\n"
-"Last-Translator: Sergiy Gavrylov <sergiovana@bigmir.net>\n"
-"Language-Team: Ukrainian <uk@li.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2019-09-29 07:01+0000\n"
+"PO-Revision-Date: 2020-03-27 22:33+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 20.03.70\n"
 
-#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
 msgid "Buoh"
 msgstr "Buoh"
 
-#: ../data/buoh.desktop.in.h:2
-msgid "Read your favourite comic strips"
-msgstr "Читайте свої улюблені комікси"
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:689
+msgid "Online comic strips reader"
+msgstr "Онлайнова програма для читання коміксів"
 
-#: ../data/buoh.schemas.in.h:1
-msgid "Select viewer zoom mode"
-msgstr "Вибрати режим перегляду"
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Buoh — програма для перегляду стрічок коміксів з інтернету, яку розроблено"
+" для якнайкращої сумісності із середовищем GNOME. Виберіть ваш улюблений"
+" комікс з понад 130 коміксів і читайте його за допомогою простого,"
+" незахаращеного і зручного інтерфейсу. Крім того, ви можете здійснювати"
+" навігацію архівом коміксів та зберігати комікси на диск."
 
-#: ../data/buoh.schemas.in.h:2
-msgid "Show statusbar by default"
-msgstr "Показувати смужку стану"
+#: data/org.gnome.buoh.appdata.xml.in:136
+msgid "General view of Buoh"
+msgstr "Загальний вигляд Buoh"
 
-#: ../data/buoh.schemas.in.h:3
+#: data/org.gnome.buoh.appdata.xml.in:140
+msgid "First execution of Buoh"
+msgstr "Перший запуск Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:144
+#| msgid "Add Comic"
+msgid "Add comic dialog"
+msgstr "Додати вікно коміксу"
+
+#: data/org.gnome.buoh.appdata.xml.in:148
+#| msgid "Comic Properties"
+msgid "Comic properties dialog"
+msgstr "Вікно властивостей коміксу"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Програма для читання коміксів"
+
+#: data/org.gnome.buoh.desktop.in:5
+#| msgid "Read your favourite comic strips"
+msgid "Read your favorite comic strips"
+msgstr "Читайте ваші улюблені стрічки коміксів"
+
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "comics;webcomics;comic strips;комікси;стрічки;комікс;стрічка;"
+
+#: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
 msgstr "Показувати панель інструментів"
 
-#: ../data/buoh.schemas.in.h:4
-msgid ""
-"Statusbar is the bottom bar that contains help and status messages. Two "
-"boolean options, true makes statusbar visible by default while false makes "
-"statusbar not visible by default."
-msgstr ""
-"Смужка стану розташований у нижній частині вікна і містить довідку та "
-"повідомлення про стан. Два булевих параметри: «true» — смужку стану типово "
-"видимий, «false» — типово не видимий."
-
-#: ../data/buoh.schemas.in.h:5
-msgid ""
-"There are two zoom modes available, 1 makes the current comic fill the "
-"window, 2 makes the current comic fill the window width."
-msgstr ""
-"Доступні два режими масштабування: 1 — комікс заповнює все вікно, 2 — комікс "
-"заповнює вікно в ширину."
-
-#: ../data/buoh.schemas.in.h:6
+#: data/org.gnome.buoh.gschema.xml:7
 msgid ""
 "Toolbar is the top bar that contains navigation and zoom controls. Two "
 "boolean options, true makes toolbar visible by default while false makes "
@@ -67,309 +89,330 @@ msgstr ""
 "навігації та масштабування. Два булевих параметри: «true» — панель "
 "інструментів типово видима, «false» — типово не видима."
 
-#: ../src/buoh-add-comic-dialog.c:67
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "Показувати смужку стану"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"Смужка стану розташований у нижній частині вікна і містить довідку та "
+"повідомлення про стан. Два булевих параметри: «true» — смужку стану типово "
+"видимий, «false» — типово не видимий."
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "Вибрати режим перегляду"
+
+#: data/org.gnome.buoh.gschema.xml:17
+#| msgid ""
+#| "There are two zoom modes available, 1 makes the current comic fill the "
+#| "window, 2 makes the current comic fill the window width."
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"Доступні два режими масштабування: «best-fit» — комікс заповнює все вікно,"
+" «fit-width» — комікс "
+"заповнює вікно у ширину."
+
+#: data/ui/add-comic-dialog.ui:7
 msgid "Add Comic"
 msgstr "Додати комікс"
 
-#: ../src/buoh-add-comic-dialog.c:79
-msgid "Select Comics"
-msgstr "Вибрати комікси"
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "З_акрити"
 
-#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
-#: ../src/buoh-properties-dialog.c:104
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
 msgid "Title"
 msgstr "Назва"
 
-#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:110
+#: data/ui/add-comic-dialog.ui:95
 msgid "Author"
 msgstr "Автор"
 
-#: ../src/buoh-add-comic-dialog.c:202
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "Вибрати комікси"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_Комікс"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "_Додати…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "_Вилучити"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+#| msgid "_Save A Copy..."
+msgid "_Save a Copy…"
+msgstr "З_берегти копію…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "_Копіювати адресу"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+#| msgid "_Properties..."
+msgid "_Properties…"
+msgstr "В_ластивості…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "Ви_йти"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "П_ерегляд"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "_Панель інструментів"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "Смужка _стану"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "З_більшити"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "З_меншити"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "_Звичайний розмір"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "Піді_гнати"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "За _шириною вікна"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "Пере_хід"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "_Попередній комікс"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "_Наступний комікс"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "П_ерший комікс"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "_Останній комікс"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "_Довідка"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "_Про програму"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "Властивості коміксу"
+
+#: data/ui/properties-dialog.ui:57
+#| msgid "Title"
+msgid "Title:"
+msgstr "Заголовок:"
+
+#: data/ui/properties-dialog.ui:71
+#| msgid "Author"
+msgid "Author:"
+msgstr "Автор:"
+
+#: data/ui/properties-dialog.ui:85
+#| msgid "Link"
+msgid "Link:"
+msgstr "Посилання:"
+
+#: data/ui/properties-dialog.ui:99
+#| msgid "Date of publication"
+msgid "Date of publication:"
+msgstr "Дата публікації:"
+
+#: data/ui/properties-dialog.ui:113
+#| msgid "Language"
+msgid "Language:"
+msgstr "Мова:"
+
+#: data/ui/properties-dialog.ui:127
+#| msgid "Publication days"
+msgid "Publication days:"
+msgstr "Дні публікації:"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "Перейти до попереднього коміксу"
+
+#: data/ui/window.ui:22
+#| msgid "_Previous Comic"
+msgid "_Previous"
+msgstr "_Назад"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "Перейти до наступного коміксу"
+
+#: data/ui/window.ui:35
+#| msgid "_Next Comic"
+msgid "_Next"
+msgstr "_Далі"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "Збільшує розмір коміксу"
+
+#: data/ui/window.ui:56
+#| msgid "Zoom _In"
+msgid "Zoom _in"
+msgstr "На_близити"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "Зменшує розмір коміксу"
+
+#: data/ui/window.ui:69
+#| msgid "Zoom _Out"
+msgid "Zoom ou_t"
+msgstr "З_меншити"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "Звичайний розмір коміксу"
+
+#: data/ui/window.ui:82
+#| msgid "_Normal Size"
+msgid "N_ormal Size"
+msgstr "_Звичайний розмір"
+
+#: src/buoh-add-comic-dialog.c:103
 #, c-format
 msgid "Comics selected: %d"
 msgstr "Вибрані комікси: %d"
 
-#: ../src/buoh-comic.c:435
-#, c-format
-msgid "Cannot create file '%s': %s"
-msgstr "Не вдалось створити файл «%s»: %s"
-
-#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
-#, c-format
-msgid "Error writting to file '%s': %s"
-msgstr "Помилка запису у файл «%s»: %s"
-
-#: ../src/buoh-comic-manager-date.c:56
+#: src/buoh-comic-manager-date.c:57
 msgid "Monday"
 msgstr "Понеділок"
 
-#: ../src/buoh-comic-manager-date.c:57
+#: src/buoh-comic-manager-date.c:58
 msgid "Tuesday"
 msgstr "Вівторок"
 
-#: ../src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:59
 msgid "Wednesday"
 msgstr "Середа"
 
-#: ../src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:60
 msgid "Thursday"
 msgstr "Четвер"
 
-#: ../src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:61
 msgid "Friday"
 msgstr "П'ятниця"
 
-#: ../src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:62
 msgid "Saturday"
 msgstr "Субота"
 
-#: ../src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:63
 msgid "Sunday"
 msgstr "Неділя"
 
 #. It's a range of days
-#: ../src/buoh-comic-manager-date.c:496
+#: src/buoh-comic-manager-date.c:510
 msgid " to "
 msgstr " до "
 
-#: ../src/buoh-comic-manager-date.c:511
+#: src/buoh-comic-manager-date.c:525
 msgid "Every day"
 msgstr "Кожний день"
 
-#: ../src/buoh-properties-dialog.c:48
-msgid "Comic Properties"
-msgstr "Властивості коміксу"
+#: src/buoh-comic.c:412
+#, c-format
+#| msgid "Cannot create file '%s': %s"
+msgid "Cannot create file “%s”: %s"
+msgstr "Не вдалося створити файл «%s»: %s"
 
-#: ../src/buoh-properties-dialog.c:116
-msgid "Link"
-msgstr "Посилання"
+#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#, c-format
+#| msgid "Error writting to file '%s': %s"
+msgid "Error writing to file “%s”: %s"
+msgstr "Помилка запису у файл «%s»: %s"
 
-#: ../src/buoh-properties-dialog.c:122
-msgid "Language"
-msgstr "Мова"
-
-#: ../src/buoh-properties-dialog.c:128
-msgid "Date of publication"
-msgstr "Дата публікації"
-
-#: ../src/buoh-properties-dialog.c:186
-msgid "Publication days"
-msgstr "Дні публікації"
-
-#: ../src/buoh-view.c:155
-msgid "Buoh online comic strips reader"
-msgstr "Онлайновий переглядач коміксів Buoh"
-
-#: ../src/buoh-view.c:157
-msgid ""
-"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
-"The list on the left panel contains your favourite comic strips to add or "
-"remove comics to the list click on Comic -> Add. Just select a comic from "
-"the list, and it will be displayed on the right side. Thanks for using Buoh."
-msgstr ""
-"Ласкаво просимо до <b>Buoh</b>, онлайнового переглядача коміксів для GNOME.\n"
-"У лівій панелі міститься список ваших улюблених коміксів, щоб додати або "
-"вилучити комікс зі списку, натисніть Комікс -> Додати. Лише виберіть один зі "
-"списку і він буде показаний праворуч у вікні. Дякуємо за те, що вибрали Buoh."
-
-#: ../src/buoh-view-comic.c:638
+#: src/buoh-view-comic.c:638
 msgid "Error Loading Comic"
 msgstr "Помилка завантаженні коміксу"
 
-#. Top Level
-#: ../src/buoh-window.c:158
-msgid "_Comic"
-msgstr "_Комікс"
+#: src/buoh-view.c:87
+msgid "Buoh online comic strips reader"
+msgstr "Онлайновий переглядач коміксів Buoh"
 
-#: ../src/buoh-window.c:159
-msgid "_View"
-msgstr "П_ерегляд"
+#: src/buoh-view.c:89
+#| msgid ""
+#| "Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+#| "The list on the left panel contains your favourite comic strips to add or "
+#| "remove comics to the list click on Comic -> Add. Just select a comic from "
+#| "the list, and it will be displayed on the right side. Thanks for using "
+#| "Buoh."
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Ласкаво просимо до <b>Buoh</b>, онлайнового переглядача коміксів для GNOME.\n"
+"У лівій панелі міститься список ваших улюблених коміксів, щоб додати або "
+"вилучити комікс зі списку, натисніть «Комікс → Додати». Лише виберіть один зі "
+"списку і він буде показаний праворуч у вікні. Дякуємо за те, що вибрали Buoh."
 
-#: ../src/buoh-window.c:160
-msgid "_Go"
-msgstr "Пере_хід"
-
-#: ../src/buoh-window.c:161
-msgid "_Help"
-msgstr "_Довідка"
-
-#. Comic menu
-#: ../src/buoh-window.c:164
-msgid "_Add..."
-msgstr "_Додати…"
-
-#: ../src/buoh-window.c:165
-msgid "Add a comic to the comic list"
-msgstr "Додати комікс до списку"
-
-#: ../src/buoh-window.c:167
-msgid "_Remove"
-msgstr "_Вилучити"
-
-#: ../src/buoh-window.c:168
-msgid "Remove this comic from the comic list"
-msgstr "Вилучити комікс зі списку"
-
-#: ../src/buoh-window.c:170
-msgid "_Save A Copy..."
-msgstr "З_берегти копію…"
-
-#: ../src/buoh-window.c:171
-msgid "Save the current comic with a new filename"
-msgstr "Зберегти комікс під новою назвою"
-
-#: ../src/buoh-window.c:173
-msgid "_Copy Location"
-msgstr "_Копіювати адресу"
-
-#: ../src/buoh-window.c:174
-msgid "Copy the location of this comic to clipboard"
-msgstr "Копіювати адресу цього коміксу до буферу"
-
-#: ../src/buoh-window.c:176
-msgid "_Properties..."
-msgstr "В_ластивості…"
-
-#: ../src/buoh-window.c:177
-msgid "View the properties of this comic"
-msgstr "Перегляд властивостей коміксу"
-
-#: ../src/buoh-window.c:179
-msgid "_Quit"
-msgstr "Ви_йти"
-
-#: ../src/buoh-window.c:180
-msgid "Quit application"
-msgstr "Вийти з програми"
-
-#. View menu
-#: ../src/buoh-window.c:184
-msgid "Zoom _In"
-msgstr "З_більшити"
-
-#: ../src/buoh-window.c:185
-msgid "Increase the comic size"
-msgstr "Збільшує розмір коміксу"
-
-#: ../src/buoh-window.c:187
-msgid "Zoom _Out"
-msgstr "З_меншити"
-
-#: ../src/buoh-window.c:188
-msgid "Decrease the comic size"
-msgstr "Зменшує розмір коміксу"
-
-#: ../src/buoh-window.c:190
-msgid "_Normal Size"
-msgstr "_Звичайний розмір"
-
-#: ../src/buoh-window.c:191
-msgid "Use the normal comic size"
-msgstr "Звичайний розмір коміксу"
-
-#. Go menu
-#: ../src/buoh-window.c:195
-msgid "_Previous Comic"
-msgstr "_Попередній комікс"
-
-#: ../src/buoh-window.c:196
-msgid "Go to the previous comic"
-msgstr "Перейти до попереднього коміксу"
-
-#: ../src/buoh-window.c:198
-msgid "_Next Comic"
-msgstr "_Наступний комікс"
-
-#: ../src/buoh-window.c:199
-msgid "Go to the next comic"
-msgstr "Перейти до наступного коміксу"
-
-#: ../src/buoh-window.c:201
-msgid "_First Comic"
-msgstr "П_ерший комікс"
-
-#: ../src/buoh-window.c:202
-msgid "Go to the first comic"
-msgstr "Перейти до першого коміксу"
-
-#: ../src/buoh-window.c:204
-msgid "_Last Comic"
-msgstr "_Останній комікс"
-
-#: ../src/buoh-window.c:205
-msgid "Go to the last comic"
-msgstr "Перейти до останнього коміксу"
-
-#. Help menu
-#: ../src/buoh-window.c:209
-msgid "_Contents"
-msgstr "_Зміст"
-
-#: ../src/buoh-window.c:210
-msgid "Display help for the Buoh online comic reader"
-msgstr "Показує довідку переглядача коміксів Buoh"
-
-#: ../src/buoh-window.c:212
-msgid "_About"
-msgstr "_Про програму"
-
-#: ../src/buoh-window.c:213
-msgid "Display credits for the Buoh online comic reader creators"
-msgstr "Показує авторів переглядача коміксів Buoh"
-
-#. View menu
-#: ../src/buoh-window.c:220
-msgid "_Toolbar"
-msgstr "_Панель інструментів"
-
-#: ../src/buoh-window.c:221
-msgid "Changes the visibility of the toolbar"
-msgstr "Змінює видимість панелі інструментів"
-
-#: ../src/buoh-window.c:223
-msgid "St_atusbar"
-msgstr "Смужка _стану"
-
-#: ../src/buoh-window.c:224
-msgid "Changes the visibility of the statusbar"
-msgstr "Змінює видимість смужки стану"
-
-#: ../src/buoh-window.c:226
-msgid "_Best Fit"
-msgstr "Піді_гнати"
-
-#: ../src/buoh-window.c:227
-msgid "Make the current comic fill the window"
-msgstr "Комікс заповнює все вікно"
-
-#: ../src/buoh-window.c:229
-msgid "Fit Comic _Width"
-msgstr "За _шириною вікна"
-
-#: ../src/buoh-window.c:230
-msgid "Make the current comic fill the window width"
-msgstr "Комікс заповнює все вікно в ширину"
-
-#: ../src/buoh-window.c:537
+#: src/buoh-window.c:415
 msgid "Images"
 msgstr "Зображення"
 
-#: ../src/buoh-window.c:540
+#: src/buoh-window.c:418
 msgid "Save Comic"
 msgstr "Зберегти комікс"
 
-#: ../src/buoh-window.c:582
+#: src/buoh-window.c:421
+msgid "_Cancel"
+msgstr "_Скасувати"
+
+#: src/buoh-window.c:422
+msgid "_Save"
+msgstr "З_берегти"
+
+#: src/buoh-window.c:461
 msgid "Unable to save comic"
 msgstr "Не вдалось зберегти комікс"
 
-#: ../src/buoh-window.c:844
-msgid "Online comic strips reader"
-msgstr "Онлайнова програма для читання коміксів"
-
-#: ../src/buoh-window.c:847
+#: src/buoh-window.c:692
 msgid "translator-credits"
 msgstr "Sergiy Gavrylov <sergiovana@bigmir.net>, 2011."
 
-#: ../src/buoh-window.c:1026
-msgid "Getting comic ..."
+#: src/buoh-window.c:815
+#| msgid "Getting comic ..."
+msgid "Getting comic…"
 msgstr "Отримання коміксу…"
