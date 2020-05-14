@@ -6,11 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
-"Report-Msgid-Bugs-To: "
-"http://bugzilla.gnome.org/enter_bug.cgi?product=buoh&component=General\n"
-"POT-Creation-Date: 2010-11-14 15:15+0000\n"
-"PO-Revision-Date: 2010-12-03 21:23+0300\n"
-"Last-Translator: Lucian Adrian Grijincu <lucian.grijincu@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2020-03-27 20:34+0000\n"
+"PO-Revision-Date: 2020-05-07 14:53+0300\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28 [at] gmail [dot] "
+"com>\n"
 "Language-Team: Romanian Gnome Team <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -18,48 +18,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);;\n"
-"X-Generator: Virtaal 0.6.1\n"
+"X-Generator: Poedit 2.3\n"
 
-#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
 msgid "Buoh"
-msgstr "Buoh "
+msgstr "Buoh"
 
-#: ../data/buoh.desktop.in.h:2
-msgid "Read your favourite comic strips"
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:689
+msgid "Online comic strips reader"
+msgstr "Cititor online de benzi desenate"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Buoh este o aplicație pentru a vizualiza online benzi desenate și benzi "
+"desenate web, proiectată să arate și să funcționeze bine sub desktopul "
+"GNOME. Selectați banda desenată favorită dintr-o listă de mai bine de 130 "
+"benzi desenate și citiți-le într-o interfață simplă, curată și ușor de "
+"folosit. Adițional, puteți naviga prin arhivele benzii desenate sau puteți "
+"salva o bandă desenată pe disc."
+
+#: data/org.gnome.buoh.appdata.xml.in:136
+msgid "General view of Buoh"
+msgstr "Vizualizare generală a Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:140
+msgid "First execution of Buoh"
+msgstr "Prima execuție a Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:144
+msgid "Add comic dialog"
+msgstr "Adaugă dialog de bandă desenată"
+
+#: data/org.gnome.buoh.appdata.xml.in:148
+msgid "Comic properties dialog"
+msgstr "Dialogul proprietăților benzii desenate"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Cititor benzi desenate"
+
+#: data/org.gnome.buoh.desktop.in:5
+msgid "Read your favorite comic strips"
 msgstr "Citiți benzile desenate preferate"
 
-#: ../data/buoh.schemas.in.h:1
-msgid "Select viewer zoom mode"
-msgstr "Selectează modul de zoom al vizualizatorului"
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "comics;webcomics;comic strips;benzi deseneate; benzi desenate web;"
 
-#: ../data/buoh.schemas.in.h:2
-msgid "Show statusbar by default"
-msgstr "Arată bara de stare în mod implicit"
-
-#: ../data/buoh.schemas.in.h:3
+#: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
 msgstr "Arată bara de instrumente în mod implicit"
 
-#: ../data/buoh.schemas.in.h:4
-msgid ""
-"Statusbar is the bottom bar that contains help and status messages. Two "
-"boolean options, true makes statusbar visible by default while false makes "
-"statusbar not visible by default."
-msgstr ""
-"Bara de stare este bara de la bază care conține mesaje de ajutor și stare. "
-"Două opțiuni logice, adevărat va face bara de stare să fie vizibilă în mod "
-"implicit pe când fals va face bara de stare sa nu fie vizibilă în mod "
-"implicit."
-
-#: ../data/buoh.schemas.in.h:5
-msgid ""
-"There are two zoom modes available, 1 makes the current comic fill the "
-"window, 2 makes the current comic fill the window width."
-msgstr ""
-"Există două moduri de zoom, 1 face ca banda desenată curentă sa umple "
-"fereastra, 2 face ca banda desenată să se încadreze la lățimea ferestrei."
-
-#: ../data/buoh.schemas.in.h:6
+#: data/org.gnome.buoh.gschema.xml:7
 msgid ""
 "Toolbar is the top bar that contains navigation and zoom controls. Two "
 "boolean options, true makes toolbar visible by default while false makes "
@@ -70,311 +88,358 @@ msgstr ""
 "vizibilă în mod implicit, pe când fals va face bara de instrumente să nu fie "
 "vizibilă în mod implicit."
 
-#: ../src/buoh-add-comic-dialog.c:67
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "Arată bara de stare în mod implicit"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"Bara de stare este bara de la bază care conține mesaje de ajutor și stare. "
+"Două opțiuni logice, adevărat va face bara de stare să fie vizibilă în mod "
+"implicit pe când fals va face bara de stare sa nu fie vizibilă în mod "
+"implicit."
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "Selectează modul de zoom al vizualizatorului"
+
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"Există două moduri de zoom, „cea mai bună potrivire” face ca banda desenată "
+"curentă sa umple fereastra, „potrivire la lățime” face ca banda desenată să "
+"se încadreze la lățimea ferestrei."
+
+#: data/ui/add-comic-dialog.ui:7
 msgid "Add Comic"
 msgstr "Adaugă bandă desenată"
 
-#: ../src/buoh-add-comic-dialog.c:79
-msgid "Select Comics"
-msgstr "Selectează benzi desenate"
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "În_chide"
 
-#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
-#: ../src/buoh-properties-dialog.c:104
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
 msgid "Title"
 msgstr "Titlu"
 
-#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:110
+#: data/ui/add-comic-dialog.ui:95
 msgid "Author"
 msgstr "Autor"
 
-#: ../src/buoh-add-comic-dialog.c:202
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "Selectează benzi desenate"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_Bandă desenată"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "_Adaugă…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "_Elimină"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+msgid "_Save a Copy…"
+msgstr "_Salvează o copie…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "_Copiază locația"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+msgid "_Properties…"
+msgstr "_Proprietăți…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "_Ieșire"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "_Vizualizare"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "Bară de unel_te"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "Bară de st_are"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "_Mărește"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "Micș_orează"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "Dimensiuni _normale"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "Cea mai _bună potrivire"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "Potrivire la lățimea _benzii desenate"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "_Start"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "_Banda desenată anterioară"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "Banda dese_nată următoare"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "_Prima bandă desenată"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "U_ltima bandă desenată"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "_Ajutor"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "_Despre"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "Proprietățile benzii desenate"
+
+#: data/ui/properties-dialog.ui:57
+msgid "Title:"
+msgstr "Titlu:"
+
+#: data/ui/properties-dialog.ui:71
+msgid "Author:"
+msgstr "Autor:"
+
+#: data/ui/properties-dialog.ui:85
+msgid "Link:"
+msgstr "Legătură:"
+
+#: data/ui/properties-dialog.ui:99
+msgid "Date of publication:"
+msgstr "Data publicării:"
+
+#: data/ui/properties-dialog.ui:113
+msgid "Language:"
+msgstr "Limbă:"
+
+#: data/ui/properties-dialog.ui:127
+msgid "Publication days:"
+msgstr "Zilele publicării:"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "Salt la banda desenată anterioară"
+
+#: data/ui/window.ui:22
+msgid "_Previous"
+msgstr "_Anterioară"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "Salt la banda desenată următoare"
+
+#: data/ui/window.ui:35
+msgid "_Next"
+msgstr "_Următoare"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "Mărește banda desenată"
+
+#: data/ui/window.ui:56
+msgid "Zoom _in"
+msgstr "_Mărește"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "Micșorează banda desenată"
+
+#: data/ui/window.ui:69
+msgid "Zoom ou_t"
+msgstr "Mi_cșorează"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "Folosește mărimea normală a benzii desenate"
+
+#: data/ui/window.ui:82
+msgid "N_ormal Size"
+msgstr "Dimensiuni n_ormale"
+
+#: src/buoh-add-comic-dialog.c:103
 #, c-format
 msgid "Comics selected: %d"
 msgstr "Benzi desenate selectate: %d"
 
-#: ../src/buoh-comic.c:435
-#, c-format
-msgid "Cannot create file '%s': %s"
-msgstr "Nu se poate crea fișierul „%s”: %s "
-
-#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
-#, c-format
-msgid "Error writting to file '%s': %s"
-msgstr "Eroare la scrierea în fișierul „%s”: %s"
-
-#: ../src/buoh-comic-manager-date.c:56
+#: src/buoh-comic-manager-date.c:57
 msgid "Monday"
 msgstr "Luni"
 
-#: ../src/buoh-comic-manager-date.c:57
+#: src/buoh-comic-manager-date.c:58
 msgid "Tuesday"
 msgstr "Marți"
 
-#: ../src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:59
 msgid "Wednesday"
 msgstr "Miercuri"
 
-#: ../src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:60
 msgid "Thursday"
 msgstr "Joi"
 
-#: ../src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:61
 msgid "Friday"
 msgstr "Vineri"
 
-#: ../src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:62
 msgid "Saturday"
 msgstr "Sâmbătă"
 
-#: ../src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:63
 msgid "Sunday"
 msgstr "Duminică"
 
 #. It's a range of days
-#: ../src/buoh-comic-manager-date.c:496
+#: src/buoh-comic-manager-date.c:510
 msgid " to "
 msgstr " spre "
 
-#: ../src/buoh-comic-manager-date.c:511
+#: src/buoh-comic-manager-date.c:525
 msgid "Every day"
 msgstr "În fiecare zi"
 
-#: ../src/buoh-properties-dialog.c:48
-msgid "Comic Properties"
-msgstr "Proprietățile benzii desenate"
+#: src/buoh-comic.c:412
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "Nu se poate crea fișierul „%s”: %s"
 
-#: ../src/buoh-properties-dialog.c:116
-msgid "Link"
-msgstr "Legătură"
+#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "Eroare la scrierea în fișierul „%s”: %s"
 
-#: ../src/buoh-properties-dialog.c:122
-msgid "Language"
-msgstr "Limbă"
+#: src/buoh-view-comic.c:638
+msgid "Error Loading Comic"
+msgstr "Eroare la încărcarea benzii desenate"
 
-#: ../src/buoh-properties-dialog.c:128
-msgid "Date of publication"
-msgstr "Data publicării"
-
-#: ../src/buoh-properties-dialog.c:186
-msgid "Publication days"
-msgstr "Zilele publicării"
-
-#: ../src/buoh-view.c:155
+#: src/buoh-view.c:87
 msgid "Buoh online comic strips reader"
 msgstr "Buoh - cititor de benzi desenate online"
 
-#: ../src/buoh-view.c:157
+#: src/buoh-view.c:89
 msgid ""
 "Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
-"The list on the left panel contains your favourite comic strips to add or "
-"remove comics to the list click on Comic -> Add. Just select a comic from "
-"the list, and it will be displayed on the right side. Thanks for using Buoh."
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
 msgstr ""
 "Bine ați venit la <b>Buoh</b>, cititorul online de benzi desenate pentru "
 "desktopul GNOME.\n"
 "Lista afișată în panoul din stânga conține banda desenată favorită. Pentru a "
 "adăuga sau a elimina benzi desenate din listă faceți clic pe Bandă Desenată "
-"-> Adaugă. Alegeți o bandă desenată din listă și va fi afișată în partea "
+"→ Adaugă. Alegeți o bandă desenată din listă și va fi afișată în partea "
 "dreaptă. Mulțumim pentru că utilizați Buoh."
 
-#: ../src/buoh-view-comic.c:638
-msgid "Error Loading Comic"
-msgstr "Eroare la încărcarea benzii desenate"
-
-#. Top Level
-#: ../src/buoh-window.c:158
-msgid "_Comic"
-msgstr "_Bandă desenată"
-
-#: ../src/buoh-window.c:159
-msgid "_View"
-msgstr "_Vizualizare"
-
-#: ../src/buoh-window.c:160
-msgid "_Go"
-msgstr "_Start"
-
-#: ../src/buoh-window.c:161
-msgid "_Help"
-msgstr "_Ajutor"
-
-#. Comic menu
-#: ../src/buoh-window.c:164
-msgid "_Add..."
-msgstr "_Adaugă..."
-
-#: ../src/buoh-window.c:165
-msgid "Add a comic to the comic list"
-msgstr "Adaugă o bandă desenată la listă"
-
-#: ../src/buoh-window.c:167
-msgid "_Remove"
-msgstr "_Elimină"
-
-#: ../src/buoh-window.c:168
-msgid "Remove this comic from the comic list"
-msgstr "Elimină această bandă desenată din listă"
-
-#: ../src/buoh-window.c:170
-msgid "_Save A Copy..."
-msgstr "_Salvează o copie..."
-
-#: ../src/buoh-window.c:171
-msgid "Save the current comic with a new filename"
-msgstr "Salvează banda desenată curentă cu un nou nume"
-
-#: ../src/buoh-window.c:173
-msgid "_Copy Location"
-msgstr "_Copiază locația"
-
-#: ../src/buoh-window.c:174
-msgid "Copy the location of this comic to clipboard"
-msgstr "Copiază locația acestei benzi desenate în clipboard"
-
-#: ../src/buoh-window.c:176
-msgid "_Properties..."
-msgstr "_Proprietăți..."
-
-#: ../src/buoh-window.c:177
-msgid "View the properties of this comic"
-msgstr "Vizualizează proprietățile acestei benzi desenate"
-
-#: ../src/buoh-window.c:179
-msgid "_Quit"
-msgstr "_Ieșire"
-
-#: ../src/buoh-window.c:180
-msgid "Quit application"
-msgstr "Ieșire din aplicație"
-
-#. View menu
-#: ../src/buoh-window.c:184
-msgid "Zoom _In"
-msgstr "_Mărește"
-
-#: ../src/buoh-window.c:185
-msgid "Increase the comic size"
-msgstr "Mărește banda desenată"
-
-#: ../src/buoh-window.c:187
-msgid "Zoom _Out"
-msgstr "Micș_orează"
-
-#: ../src/buoh-window.c:188
-msgid "Decrease the comic size"
-msgstr "Micșorează banda desenată"
-
-#: ../src/buoh-window.c:190
-msgid "_Normal Size"
-msgstr "Dimensiuni _normale"
-
-#: ../src/buoh-window.c:191
-msgid "Use the normal comic size"
-msgstr "Folosește mărimea normală a benzii desenate"
-
-#. Go menu
-#: ../src/buoh-window.c:195
-msgid "_Previous Comic"
-msgstr "_Banda desenată anterioară"
-
-#: ../src/buoh-window.c:196
-msgid "Go to the previous comic"
-msgstr "Salt la banda desenată anterioară"
-
-#: ../src/buoh-window.c:198
-msgid "_Next Comic"
-msgstr "Banda dese_nată următoare"
-
-#: ../src/buoh-window.c:199
-msgid "Go to the next comic"
-msgstr "Salt la banda desenată următoare"
-
-#: ../src/buoh-window.c:201
-msgid "_First Comic"
-msgstr "_Prima bandă desenată"
-
-#: ../src/buoh-window.c:202
-msgid "Go to the first comic"
-msgstr "Salt la următoarea bandă desenată"
-
-#: ../src/buoh-window.c:204
-msgid "_Last Comic"
-msgstr "U_ltima bandă desenată"
-
-#: ../src/buoh-window.c:205
-msgid "Go to the last comic"
-msgstr "Salt la ultima bandă desenată"
-
-#. Help menu
-#: ../src/buoh-window.c:209
-msgid "_Contents"
-msgstr "_Conținut"
-
-#: ../src/buoh-window.c:210
-msgid "Display help for the Buoh online comic reader"
-msgstr "Afișează ajutor pentru cititorul de benzi desenate online Buoh"
-
-#: ../src/buoh-window.c:212
-msgid "_About"
-msgstr "_Despre"
-
-#: ../src/buoh-window.c:213
-msgid "Display credits for the Buoh online comic reader creators"
-msgstr "Afișează creatorii cititorului de benzi desenate online Buoh"
-
-#. View menu
-#: ../src/buoh-window.c:220
-msgid "_Toolbar"
-msgstr "Bară de unel_te"
-
-#: ../src/buoh-window.c:221
-msgid "Changes the visibility of the toolbar"
-msgstr "Schimbă vizibilitatea barei de instrumente"
-
-#: ../src/buoh-window.c:223
-msgid "St_atusbar"
-msgstr "Bară de st_are"
-
-#: ../src/buoh-window.c:224
-msgid "Changes the visibility of the statusbar"
-msgstr "Schimbă vizibilitatea barei de stare"
-
-#: ../src/buoh-window.c:226
-msgid "_Best Fit"
-msgstr "Cea mai _bună potrivire"
-
-#: ../src/buoh-window.c:227
-msgid "Make the current comic fill the window"
-msgstr "Face ca banda desenată curentă să umple fereastra"
-
-#: ../src/buoh-window.c:229
-msgid "Fit Comic _Width"
-msgstr "Potrivire la lățimea _benzii desenate"
-
-#: ../src/buoh-window.c:230
-msgid "Make the current comic fill the window width"
-msgstr "Face ca banda desenată să se încadreze la lățimea ferestrei"
-
-#: ../src/buoh-window.c:537
+#: src/buoh-window.c:415
 msgid "Images"
 msgstr "Imagini"
 
-#: ../src/buoh-window.c:540
+#: src/buoh-window.c:418
 msgid "Save Comic"
 msgstr "Salvează banda desenată"
 
-#: ../src/buoh-window.c:582
+#: src/buoh-window.c:421
+msgid "_Cancel"
+msgstr "_Anulează"
+
+#: src/buoh-window.c:422
+msgid "_Save"
+msgstr "_Salvează"
+
+#: src/buoh-window.c:461
 msgid "Unable to save comic"
 msgstr "Banda desenată nu poate fi salvată"
 
-#: ../src/buoh-window.c:844
-msgid "Online comic strips reader"
-msgstr "Cititor online de benzi desenate"
-
-#: ../src/buoh-window.c:847
+#: src/buoh-window.c:692
 msgid "translator-credits"
-msgstr "Tudor Vioreanu <tudor_dude93@yahoo.com>"
+msgstr ""
+"Tudor Vioreanu <tudor_dude93@yahoo.com>\n"
+"Florentina Mușat <emryslokadottir [at] gmail [dot] com>, 2020"
 
-#: ../src/buoh-window.c:1026
-msgid "Getting comic ..."
-msgstr "Se obține banda desenată..."
+#: src/buoh-window.c:815
+msgid "Getting comic…"
+msgstr "Se obține banda desenată…"
+
+#~ msgid "_Add..."
+#~ msgstr "_Adaugă..."
+
+#~ msgid "Add a comic to the comic list"
+#~ msgstr "Adaugă o bandă desenată la listă"
+
+#~ msgid "Remove this comic from the comic list"
+#~ msgstr "Elimină această bandă desenată din listă"
+
+#~ msgid "Save the current comic with a new filename"
+#~ msgstr "Salvează banda desenată curentă cu un nou nume"
+
+#~ msgid "Copy the location of this comic to clipboard"
+#~ msgstr "Copiază locația acestei benzi desenate în clipboard"
+
+#~ msgid "View the properties of this comic"
+#~ msgstr "Vizualizează proprietățile acestei benzi desenate"
+
+#~ msgid "Quit application"
+#~ msgstr "Ieșire din aplicație"
+
+#~ msgid "Go to the first comic"
+#~ msgstr "Salt la următoarea bandă desenată"
+
+#~ msgid "Go to the last comic"
+#~ msgstr "Salt la ultima bandă desenată"
+
+#~ msgid "_Contents"
+#~ msgstr "_Conținut"
+
+#~ msgid "Display help for the Buoh online comic reader"
+#~ msgstr "Afișează ajutor pentru cititorul de benzi desenate online Buoh"
+
+#~ msgid "Display credits for the Buoh online comic reader creators"
+#~ msgstr "Afișează creatorii cititorului de benzi desenate online Buoh"
+
+#~ msgid "Changes the visibility of the toolbar"
+#~ msgstr "Schimbă vizibilitatea barei de instrumente"
+
+#~ msgid "Changes the visibility of the statusbar"
+#~ msgstr "Schimbă vizibilitatea barei de stare"
+
+#~ msgid "Make the current comic fill the window"
+#~ msgstr "Face ca banda desenată curentă să umple fereastra"
+
+#~ msgid "Make the current comic fill the window width"
+#~ msgstr "Face ca banda desenată să se încadreze la lățimea ferestrei"
