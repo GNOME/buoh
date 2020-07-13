@@ -77,7 +77,7 @@ if (appstream_util.found())
   test(
     'Validating ' + appdata,
     appstream_util,
-    args: ['validate', '--nonet', appdata],
+    args: ['validate-relax', '--nonet', appdata],
     workdir: meson.current_build_dir(),
   )
 endif

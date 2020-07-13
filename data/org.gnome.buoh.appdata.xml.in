@@ -12,124 +12,127 @@
   <url type="homepage">http://buoh.steve-o.org/</url>
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/buoh/issues</url>
   <project_group>GNOME</project_group>
-  <release date="0000-00-00" version="0.9.0">
-    <description>
-      <p>“Back to life”</p>
-      <p>Changes:</p>
-      <ul>
-         <li>Moved to gitlab.gnome.org</li>
-         <li>Ported to meson and modern gettext (removing intltool dependency)</li>
-         <li>Ported to libsoup 2.4</li>
-         <li>Get rid of libgnomeui</li>
-         <li>Get rid of GConf</li>
-         <li>Updated GTK stuff</li>
-         <li>Updated buoh.dia UML diagram</li>
-         <li>Added different sizes icons</li>
-         <li>Added support for XDG directory specification; feel free to move your configuration to $XDG_CONFIG_HOME/buoh</li>
-      </ul>
-    </description>
-  </release>
-  <release date="2006-10-23" version="0.8.2">
-    <description>
-      <p>“Quicker than a cheetah”</p>
-      <p>Changes:</p>
-      <ul>
-        <li>The comics loading has been improved to make it faster. (Carlos García Campos)</li>
-        <li>Icons are installed according to icon theme specification. (Carlos García Campos)</li>
-        <li>Implement best fit and fit width zoom modes. Fit width is now the mode by default. (Carlos García Campos)</li>
-        <li>Make libgnomeui an optional dependency enabled by default when available. (Carlos García Campos)</li>
-        <li>Remember zoom mode between sessions. (Carlos García Campos)</li>
-      </ul>
-      <p>Comics:</p>
-      <ul>
-        <li>
-          <p>Added:</p>
-          <ul>
-            <li>Calvin and Hobbes (english version)</li>
-            <li>The Pink Panther</li>
-            <li>Ronaldinho Gaucho</li>
-            <li>Schlock mercenary</li>
-            <li>Carla Ventresca &amp; Herny Beckett</li>
-            <li>Brainwaves</li>
-            <li>C'est la vie</li>
-            <li>Work it out</li>
-            <li>Nichtlustig (German)</li>
-            <li>…and many more. (Esteban Sánchez Muñoz)</li>
-          </ul>
-        </li>
-        <li>
-          <p>Removed:</p>
-          <ul>
-            <li>Cats With Hands</li>
-            <li>Frank &amp; Ernest</li>
-            <li>Wigu</li>
-            <li>Owlie</li>
-            <li>Bruno the Bandit</li>
-            <li>Not available comics</li>
-            <li>…and many more.</li>
-          </ul>
-        </li>
-        <li>
-          <p>Fixed:</p>
-          <ul>
-            <li>Sinfest</li>
-            <li>Forges (Esteban Sánchez Muñoz)</li>
-            <li>A Lawyer, A Doctor &amp; A Cop. (Carlos García Campos)</li>
-          </ul>
-        </li>
-      </ul>
-    </description>
-  </release>
-  <release date="2005-12-02" version="0.8.1">
-    <description>
-      <p>“Smaller than an ant”</p>
-      <p>Changes:</p>
-      <ul>
-        <li>Added a cache system that improves drastically the memory usage and reduce the comic access time. (Carlos García Campos)</li>
-        <li>Save the original image instead of a new png when saving a copy. (Carlos García Campos)</li>
-        <li>Support for code translation. (Esteban Sánchez Muñoz)</li>
-        <li>Buoh also works now with GTK+ ≤ 2.6.(Bastien Nocera)</li>
-        <li>Many other bugfixes, memory leaks and code cleanups. (Carlos García Campos)</li>
-      </ul>
-      <p>Comics:</p>
-      <p>Added 28 new comics, including:</p>
-      <ul>
-        <li>Ctrl+Alt+Del (thanks to James Hall)</li>
-        <li>Penny Arcade</li>
-        <li>PvP</li>
-        <li>Alpha Luna</li>
-        <li>Sinfest</li>
-        <li>The amazing Spiderman</li>
-        <li>Blondie</li>
-        <li>Mother Goose &amp; Grimm</li>
-        <li>Dennis the menace</li>
-        <li>Hagar the horrible</li>
-        <li>Do you know Flo? (Dutch)</li>
-        <li>Doorzon (Dutch)</li>
-        <li>Lectrrland (Dutch)</li>
-        <li>…and many more (Esteban Sánchez Muñoz)</li>
-        <li>There are comics in dutch. (Esteban Sánchez Muñoz)</li>
-      </ul>
-      <p>Thanks to all the people who have proposed new comics.</p>
-    </description>
-  </release>
-  <release date="2005-11-08" version="0.8">
-    <description>
-      <p>First public release.</p>
-      <p>Comics:</p>
-      <ul>
-        <li>Including 128 online comics stripes.</li>
-        <li>There are comics in english and in spanish.</li>
-        <li>Browsing through an historical archive in each strip.</li>
-      </ul>
-      <p>Miscellaneous:</p>
-      <ul>
-        <li>It is possible to save a comic to disk.</li>
-        <li>Integration with GNOME lockdowns.</li>
-        <li>The GUI follows the HIG.</li>
-      </ul>
-    </description>
-  </release>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release date="0000-00-00" version="0.9.0">
+      <description>
+        <p>“Back to life”</p>
+        <p>Changes:</p>
+        <ul>
+           <li>Moved to gitlab.gnome.org</li>
+           <li>Ported to meson and modern gettext (removing intltool dependency)</li>
+           <li>Ported to libsoup 2.4</li>
+           <li>Get rid of libgnomeui</li>
+           <li>Get rid of GConf</li>
+           <li>Updated GTK stuff</li>
+           <li>Updated buoh.dia UML diagram</li>
+           <li>Added different sizes icons</li>
+           <li>Added support for XDG directory specification; feel free to move your configuration to $XDG_CONFIG_HOME/buoh</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2006-10-23" version="0.8.2">
+      <description>
+        <p>“Quicker than a cheetah”</p>
+        <p>Changes:</p>
+        <ul>
+          <li>The comics loading has been improved to make it faster. (Carlos García Campos)</li>
+          <li>Icons are installed according to icon theme specification. (Carlos García Campos)</li>
+          <li>Implement best fit and fit width zoom modes. Fit width is now the mode by default. (Carlos García Campos)</li>
+          <li>Make libgnomeui an optional dependency enabled by default when available. (Carlos García Campos)</li>
+          <li>Remember zoom mode between sessions. (Carlos García Campos)</li>
+        </ul>
+        <p>Comics:</p>
+        <ul>
+          <li>
+            <p>Added:</p>
+            <ul>
+              <li>Calvin and Hobbes (english version)</li>
+              <li>The Pink Panther</li>
+              <li>Ronaldinho Gaucho</li>
+              <li>Schlock mercenary</li>
+              <li>Carla Ventresca &amp; Herny Beckett</li>
+              <li>Brainwaves</li>
+              <li>C'est la vie</li>
+              <li>Work it out</li>
+              <li>Nichtlustig (German)</li>
+              <li>…and many more. (Esteban Sánchez Muñoz)</li>
+            </ul>
+          </li>
+          <li>
+            <p>Removed:</p>
+            <ul>
+              <li>Cats With Hands</li>
+              <li>Frank &amp; Ernest</li>
+              <li>Wigu</li>
+              <li>Owlie</li>
+              <li>Bruno the Bandit</li>
+              <li>Not available comics</li>
+              <li>…and many more.</li>
+            </ul>
+          </li>
+          <li>
+            <p>Fixed:</p>
+            <ul>
+              <li>Sinfest</li>
+              <li>Forges (Esteban Sánchez Muñoz)</li>
+              <li>A Lawyer, A Doctor &amp; A Cop. (Carlos García Campos)</li>
+            </ul>
+          </li>
+        </ul>
+      </description>
+    </release>
+    <release date="2005-12-02" version="0.8.1">
+      <description>
+        <p>“Smaller than an ant”</p>
+        <p>Changes:</p>
+        <ul>
+          <li>Added a cache system that improves drastically the memory usage and reduce the comic access time. (Carlos García Campos)</li>
+          <li>Save the original image instead of a new png when saving a copy. (Carlos García Campos)</li>
+          <li>Support for code translation. (Esteban Sánchez Muñoz)</li>
+          <li>Buoh also works now with GTK+ ≤ 2.6.(Bastien Nocera)</li>
+          <li>Many other bugfixes, memory leaks and code cleanups. (Carlos García Campos)</li>
+        </ul>
+        <p>Comics:</p>
+        <p>Added 28 new comics, including:</p>
+        <ul>
+          <li>Ctrl+Alt+Del (thanks to James Hall)</li>
+          <li>Penny Arcade</li>
+          <li>PvP</li>
+          <li>Alpha Luna</li>
+          <li>Sinfest</li>
+          <li>The amazing Spiderman</li>
+          <li>Blondie</li>
+          <li>Mother Goose &amp; Grimm</li>
+          <li>Dennis the menace</li>
+          <li>Hagar the horrible</li>
+          <li>Do you know Flo? (Dutch)</li>
+          <li>Doorzon (Dutch)</li>
+          <li>Lectrrland (Dutch)</li>
+          <li>…and many more (Esteban Sánchez Muñoz)</li>
+          <li>There are comics in dutch. (Esteban Sánchez Muñoz)</li>
+        </ul>
+        <p>Thanks to all the people who have proposed new comics.</p>
+      </description>
+    </release>
+    <release date="2005-11-08" version="0.8">
+      <description>
+        <p>First public release.</p>
+        <p>Comics:</p>
+        <ul>
+          <li>Including 128 online comics stripes.</li>
+          <li>There are comics in english and in spanish.</li>
+          <li>Browsing through an historical archive in each strip.</li>
+        </ul>
+        <p>Miscellaneous:</p>
+        <ul>
+          <li>It is possible to save a comic to disk.</li>
+          <li>Integration with GNOME lockdowns.</li>
+          <li>The GUI follows the HIG.</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
   <screenshots>
     <screenshot height="421" width="754">
       <image>http://buoh.steve-o.org/buoh-images/Screenshot-Buoh.png</image>
