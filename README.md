@@ -6,7 +6,7 @@ Buoh aims to help the comic lovers by providing an easy way of browsing and read
 * Merge requests: https://gitlab.gnome.org/GNOME/buoh/merge_requests
 
 ## Building
-For building Buoh, you will need `meson`, `ninja` and `pkgconfig`, as well as the following libraries with their development headers.
+For building Buoh, you will need `meson`, `ninja` and `pkg-config`, as well as the following libraries with their development headers.
 
 * `glib2`
 * `gtk3`
