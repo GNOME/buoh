@@ -128,7 +128,7 @@ msgstr "Diumenge"
 #. It's a range of days
 #: ../src/buoh-comic-manager-date.c:496
 msgid " to "
-msgstr "fins a"
+msgstr " fins a "
 
 #: ../src/buoh-comic-manager-date.c:511
 msgid "Every day"
@@ -220,11 +220,11 @@ msgstr "Desa el còmic actual amb un nom de fitxer nou"
 
 #: ../src/buoh-window.c:173
 msgid "_Copy Location"
-msgstr "_Copia l'ubicació"
+msgstr "_Copia la ubicació"
 
 #: ../src/buoh-window.c:174
 msgid "Copy the location of this comic to clipboard"
-msgstr "Copia l'ubicació del còmic al porta-retalls"
+msgstr "Copia la ubicació del còmic al porta-retalls"
 
 #: ../src/buoh-window.c:176
 msgid "_Properties..."
