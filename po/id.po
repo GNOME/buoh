@@ -6,355 +6,383 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=buoh&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2012-05-16 20:14+0000\n"
-"PO-Revision-Date: 2012-07-16 11:37+0700\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2020-07-14 00:33+0000\n"
+"PO-Revision-Date: 2020-10-04 16:44+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-Language: Indonesian\n"
-"X-Poedit-Country: INDONESIA\n"
+"Plural-Forms: nplurals=2; plural= n!=1;\n"
+"X-Generator: Poedit 2.4.1\n"
 
-#: ../data/buoh.desktop.in.h:1
-#: ../src/main.c:46
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
 msgid "Buoh"
 msgstr "Buoh"
 
-#: ../data/buoh.desktop.in.h:2
-msgid "Read your favourite comic strips"
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:689
+msgid "Online comic strips reader"
+msgstr "Pembaca strip komik daring"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Buoh adalah aplikasi untuk melihat strip komik daring dan komik web, yang "
+"dirancang untuk terlihat dan bekerja dengan baik di bawah desktop GNOME. "
+"Pilih komik favorit Anda dari daftar lebih dari 130 komik dan baca dalam "
+"antarmuka yang sederhana, bersih, dan mudah digunakan. Selain itu, Anda "
+"dapat menelusuri arsip strip komik atau menyimpan komik ke disk."
+
+#: data/org.gnome.buoh.appdata.xml.in:139
+msgid "General view of Buoh"
+msgstr "Pandangan umum Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:143
+msgid "First execution of Buoh"
+msgstr "Eksekusi pertama Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:147
+msgid "Add comic dialog"
+msgstr "Dialog tambah komik"
+
+#: data/org.gnome.buoh.appdata.xml.in:151
+msgid "Comic properties dialog"
+msgstr "Dialog properti komik"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Pembaca Komik"
+
+#: data/org.gnome.buoh.desktop.in:5
+msgid "Read your favorite comic strips"
 msgstr "Baca strip komik favorit Anda"
 
-#: ../data/buoh.schemas.in.h:1
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "komik;komik web;strip komik;"
+
+#: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
 msgstr "Tampilkan bilah alat secara baku"
 
-#: ../data/buoh.schemas.in.h:2
-msgid "Toolbar is the top bar that contains navigation and zoom controls. Two boolean options, true makes toolbar visible by default while false makes toolbar not visible by default."
-msgstr "Bilah alat adalah bilah di bagian puncak yang memuat kendali zum dan navigasi. Dua opsi boolean, true membuat bilah alat nampak secara baku, sedangkan false membuat bilah alat tak nampak secara baku."
+#: data/org.gnome.buoh.gschema.xml:7
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+"Bilah alat adalah bilah di bagian puncak yang memuat kendali zum dan "
+"navigasi. Dua opsi boolean, true membuat bilah alat nampak secara baku, "
+"sedangkan false membuat bilah alat tak nampak secara baku."
 
-#: ../data/buoh.schemas.in.h:3
+#: data/org.gnome.buoh.gschema.xml:11
 msgid "Show statusbar by default"
 msgstr "Tampilkan bilah status secara baku"
 
-#: ../data/buoh.schemas.in.h:4
-msgid "Statusbar is the bottom bar that contains help and status messages. Two boolean options, true makes statusbar visible by default while false makes statusbar not visible by default."
-msgstr "Bilah status adalah bilah di bagian bawah yang memuat bantuan dan pesan status. Dua opsi boolean, true membuat bilah status nampak secara baku, sedangkan false membuat bilah status tak nampak secara baku."
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"Bilah status adalah bilah di bagian bawah yang memuat bantuan dan pesan "
+"status. Dua opsi boolean, true membuat bilah status nampak secara baku, "
+"sedangkan false membuat bilah status tak nampak secara baku."
 
-#: ../data/buoh.schemas.in.h:5
+#: data/org.gnome.buoh.gschema.xml:16
 msgid "Select viewer zoom mode"
 msgstr "Pilih mode zum penilik"
 
-#: ../data/buoh.schemas.in.h:6
-msgid "There are two zoom modes available, 1 makes the current comic fill the window, 2 makes the current comic fill the window width."
-msgstr "Tersedia dua mode zum, 1 akan membuat komik memenuhi jendela, 2 akan membuat lebar komik kini dipaskan lebar jendela."
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"Tersedia dua mode zum, 1 akan membuat komik memenuhi jendela, 2 akan membuat "
+"lebar komik kini dipaskan lebar jendela."
 
-#: ../src/buoh-add-comic-dialog.c:67
+#: data/ui/add-comic-dialog.ui:7
 msgid "Add Comic"
 msgstr "Tambah Komik"
 
-#: ../src/buoh-add-comic-dialog.c:79
-msgid "Select Comics"
-msgstr "Pilih Komik"
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "_Tutup"
 
-#: ../src/buoh-add-comic-dialog.c:120
-#: ../src/buoh-comic-list.c:119
-#: ../src/buoh-properties-dialog.c:103
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
 msgid "Title"
 msgstr "Judul"
 
-#: ../src/buoh-add-comic-dialog.c:133
-#: ../src/buoh-properties-dialog.c:109
+#: data/ui/add-comic-dialog.ui:95
 msgid "Author"
 msgstr "Pengarang"
 
-#: ../src/buoh-add-comic-dialog.c:202
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "Pilih Komik"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_Komik"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "T_ambah…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "_Hapus"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+msgid "_Save a Copy…"
+msgstr "_Simpan Salinan…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "_Salin Lokasi"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+msgid "_Properties…"
+msgstr "_Properti…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "_Keluar"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "_Tilik"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "Bilah Ala_t"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "Bilah St_atus"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "Per_besar"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "Per_kecil"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "Ukuran _Normal"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "Paskan _Ukuran"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "Paskan _Lebar Komik"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "_Ayo"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "Komik Sebelu_mnya"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "Komik Sela_njutnya"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "Komik _Pertama"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "Komik _Terakhir"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "_Bantuan"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "Tent_ang"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "Properti Komik"
+
+#: data/ui/properties-dialog.ui:57
+msgid "Title:"
+msgstr "Judul:"
+
+#: data/ui/properties-dialog.ui:71
+msgid "Author:"
+msgstr "Penulis:"
+
+#: data/ui/properties-dialog.ui:85
+msgid "Link:"
+msgstr "Taut:"
+
+#: data/ui/properties-dialog.ui:99
+msgid "Date of publication:"
+msgstr "Tanggal publikasi:"
+
+#: data/ui/properties-dialog.ui:113
+msgid "Language:"
+msgstr "Bahasa:"
+
+#: data/ui/properties-dialog.ui:127
+msgid "Publication days:"
+msgstr "Hari publikasi:"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "Pergi ke komik sebelumnya"
+
+#: data/ui/window.ui:22
+msgid "_Previous"
+msgstr "Se_belumnya"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "Pergi ke komik selanjutnya"
+
+#: data/ui/window.ui:35
+msgid "_Next"
+msgstr "Sela_njutnya"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "Perbesar ukuran komik"
+
+#: data/ui/window.ui:56
+msgid "Zoom _in"
+msgstr "Per_besar"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "Perkecil ukuran komik"
+
+#: data/ui/window.ui:69
+msgid "Zoom ou_t"
+msgstr "Per_kecil"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "Pakai ukuran komik normal"
+
+#: data/ui/window.ui:82
+msgid "N_ormal Size"
+msgstr "Ukuran _Normal"
+
+#: src/buoh-add-comic-dialog.c:103
 #, c-format
 msgid "Comics selected: %d"
 msgstr "Komik yang dipilih: %d"
 
-#: ../src/buoh-comic.c:435
-#, c-format
-msgid "Cannot create file '%s': %s"
-msgstr "Tak bisa membuat berkas '%s': %s"
-
-#: ../src/buoh-comic.c:443
-#: ../src/buoh-comic.c:452
-#, c-format
-msgid "Error writting to file '%s': %s"
-msgstr "Galat saat menulis ke berkas '%s': %s"
-
-#: ../src/buoh-comic-manager-date.c:56
+#: src/buoh-comic-manager-date.c:57
 msgid "Monday"
 msgstr "Senin"
 
-#: ../src/buoh-comic-manager-date.c:57
+#: src/buoh-comic-manager-date.c:58
 msgid "Tuesday"
 msgstr "Selasa"
 
-#: ../src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:59
 msgid "Wednesday"
 msgstr "Rabu"
 
-#: ../src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:60
 msgid "Thursday"
 msgstr "Kamis"
 
-#: ../src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:61
 msgid "Friday"
 msgstr "Jumat"
 
-#: ../src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:62
 msgid "Saturday"
 msgstr "Sabtu"
 
-#: ../src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:63
 msgid "Sunday"
 msgstr "Minggu"
 
 #. It's a range of days
-#: ../src/buoh-comic-manager-date.c:496
+#: src/buoh-comic-manager-date.c:510
 msgid " to "
 msgstr " sampai "
 
-#: ../src/buoh-comic-manager-date.c:511
+#: src/buoh-comic-manager-date.c:525
 msgid "Every day"
 msgstr "Setiap hari"
 
-#: ../src/buoh-properties-dialog.c:48
-msgid "Comic Properties"
-msgstr "Properti Komik"
+#: src/buoh-comic.c:412
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "Tak bisa membuat berkas \"%s\": %s"
 
-#: ../src/buoh-properties-dialog.c:115
-msgid "Link"
-msgstr "Taut"
+#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "Galat saat menulis ke berkas \"%s\": %s"
 
-#: ../src/buoh-properties-dialog.c:121
-msgid "Language"
-msgstr "Bahasa"
-
-#: ../src/buoh-properties-dialog.c:127
-msgid "Date of publication"
-msgstr "Tanggal publikasi"
-
-#: ../src/buoh-properties-dialog.c:185
-msgid "Publication days"
-msgstr "Hari publikasi"
-
-#: ../src/buoh-view.c:155
-msgid "Buoh online comic strips reader"
-msgstr "Buoh pembaca strip komik daring"
-
-#: ../src/buoh-view.c:157
-msgid ""
-"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
-"The list on the left panel contains your favourite comic strips to add or remove comics to the list click on Comic -> Add. Just select a comic from the list, and it will be displayed on the right side. Thanks for using Buoh."
-msgstr ""
-"Selamat datang ke <b>Buoh</b>, pembaca komik daring bagi Desktop GNOME.\n"
-"Daftar pada panel kiri memuat strip komik favorit Anda. Untuk menambah atau menghapus komik ke daftar, klik pada Komik -> Tambah. Pilih saja suatu komik pada daftar, itu akan ditampilkan di sisi kanan. Terima kasih telah memakai Buoh."
-
-#: ../src/buoh-view-comic.c:647
+#: src/buoh-view-comic.c:638
 msgid "Error Loading Comic"
 msgstr "Galat Saat Memuat Komik"
 
-#. Top Level
-#: ../src/buoh-window.c:158
-msgid "_Comic"
-msgstr "_Komik"
+#: src/buoh-view.c:87
+msgid "Buoh online comic strips reader"
+msgstr "Buoh pembaca strip komik daring"
 
-#: ../src/buoh-window.c:159
-msgid "_View"
-msgstr "_Tilik"
+#: src/buoh-view.c:89
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Selamat datang ke <b>Buoh</b>, pembaca komik daring bagi Desktop GNOME.\n"
+"Daftar pada panel kiri memuat strip komik favorit Anda. Untuk menambah atau "
+"menghapus komik ke daftar, klik pada Komik → Tambah. Pilih saja suatu komik "
+"pada daftar, itu akan ditampilkan di sisi kanan. Terima kasih telah memakai "
+"Buoh."
 
-#: ../src/buoh-window.c:160
-msgid "_Go"
-msgstr "_Ayo"
-
-#: ../src/buoh-window.c:161
-msgid "_Help"
-msgstr "_Bantuan"
-
-#. Comic menu
-#: ../src/buoh-window.c:164
-msgid "_Add..."
-msgstr "T_ambah..."
-
-#: ../src/buoh-window.c:165
-msgid "Add a comic to the comic list"
-msgstr "Tambahkan komik ke daftar komik"
-
-#: ../src/buoh-window.c:167
-msgid "_Remove"
-msgstr "_Hapus"
-
-#: ../src/buoh-window.c:168
-msgid "Remove this comic from the comic list"
-msgstr "Hapus komik ini dari daftar komik"
-
-#: ../src/buoh-window.c:170
-msgid "_Save A Copy..."
-msgstr "_Simpan Salinan..."
-
-#: ../src/buoh-window.c:171
-msgid "Save the current comic with a new filename"
-msgstr "Simpan komik kini dengan nama berkas baru"
-
-#: ../src/buoh-window.c:173
-msgid "_Copy Location"
-msgstr "_Salin Lokasi"
-
-#: ../src/buoh-window.c:174
-msgid "Copy the location of this comic to clipboard"
-msgstr "Salin lokasi komik ini ke papan klip"
-
-#: ../src/buoh-window.c:176
-msgid "_Properties..."
-msgstr "_Properti..."
-
-#: ../src/buoh-window.c:177
-msgid "View the properties of this comic"
-msgstr "Tilik properti komik ini"
-
-#: ../src/buoh-window.c:179
-msgid "_Quit"
-msgstr "_Keluar"
-
-#: ../src/buoh-window.c:180
-msgid "Quit application"
-msgstr "Keluar dari aplikasi"
-
-#. View menu
-#: ../src/buoh-window.c:184
-msgid "Zoom _In"
-msgstr "Per_besar"
-
-#: ../src/buoh-window.c:185
-msgid "Increase the comic size"
-msgstr "Perbesar ukuran komik"
-
-#: ../src/buoh-window.c:187
-msgid "Zoom _Out"
-msgstr "Per_kecil"
-
-#: ../src/buoh-window.c:188
-msgid "Decrease the comic size"
-msgstr "Perkecil ukuran komik"
-
-#: ../src/buoh-window.c:190
-msgid "_Normal Size"
-msgstr "Ukuran _Normal"
-
-#: ../src/buoh-window.c:191
-msgid "Use the normal comic size"
-msgstr "Pakai ukuran komik normal"
-
-#. Go menu
-#: ../src/buoh-window.c:195
-msgid "_Previous Comic"
-msgstr "Komik Sebelu_mnya"
-
-#: ../src/buoh-window.c:196
-msgid "Go to the previous comic"
-msgstr "Pergi ke komik sebelumnya"
-
-#: ../src/buoh-window.c:198
-msgid "_Next Comic"
-msgstr "Komik Sela_njutnya"
-
-#: ../src/buoh-window.c:199
-msgid "Go to the next comic"
-msgstr "Pergi ke komik selanjutnya"
-
-#: ../src/buoh-window.c:201
-msgid "_First Comic"
-msgstr "Komik _Pertama"
-
-#: ../src/buoh-window.c:202
-msgid "Go to the first comic"
-msgstr "Pergi ke komik pertama"
-
-#: ../src/buoh-window.c:204
-msgid "_Last Comic"
-msgstr "Komik _Terakhir"
-
-#: ../src/buoh-window.c:205
-msgid "Go to the last comic"
-msgstr "Pergi ke komik terakhir"
-
-#. Help menu
-#: ../src/buoh-window.c:209
-msgid "_Contents"
-msgstr "_Isi"
-
-#: ../src/buoh-window.c:210
-msgid "Display help for the Buoh online comic reader"
-msgstr "Tampilkan bantuan bagi pembaca komik daring Buoh"
-
-#: ../src/buoh-window.c:212
-msgid "_About"
-msgstr "Tent_ang"
-
-#: ../src/buoh-window.c:213
-msgid "Display credits for the Buoh online comic reader creators"
-msgstr "Tampilkan kredit bagi para pembuat pembaca komik daring Buoh"
-
-#. View menu
-#: ../src/buoh-window.c:220
-msgid "_Toolbar"
-msgstr "Bilah Ala_t"
-
-#: ../src/buoh-window.c:221
-msgid "Changes the visibility of the toolbar"
-msgstr "Ubah kenampakan bilah alat"
-
-#: ../src/buoh-window.c:223
-msgid "St_atusbar"
-msgstr "Bilah St_atus"
-
-#: ../src/buoh-window.c:224
-msgid "Changes the visibility of the statusbar"
-msgstr "Ubah kenampakan bilah status"
-
-#: ../src/buoh-window.c:226
-msgid "_Best Fit"
-msgstr "Paskan _Ukuran"
-
-#: ../src/buoh-window.c:227
-msgid "Make the current comic fill the window"
-msgstr "Buat komik kini memenuhi jendela"
-
-#: ../src/buoh-window.c:229
-msgid "Fit Comic _Width"
-msgstr "Paskan _Lebar Komik"
-
-#: ../src/buoh-window.c:230
-msgid "Make the current comic fill the window width"
-msgstr "Buat komik kini selebar jendela"
-
-#: ../src/buoh-window.c:535
+#: src/buoh-window.c:415
 msgid "Images"
 msgstr "Gambar"
 
-#: ../src/buoh-window.c:538
+#: src/buoh-window.c:418
 msgid "Save Comic"
 msgstr "Simpan Komik"
 
-#: ../src/buoh-window.c:580
+#: src/buoh-window.c:421
+msgid "_Cancel"
+msgstr "_Batal"
+
+#: src/buoh-window.c:422
+msgid "_Save"
+msgstr "_Simpan"
+
+#: src/buoh-window.c:461
 msgid "Unable to save comic"
 msgstr "Tak bisa menyimpan komik"
 
-#: ../src/buoh-window.c:842
-msgid "Online comic strips reader"
-msgstr "Pembaca strip komik daring"
-
-#: ../src/buoh-window.c:845
+#: src/buoh-window.c:692
 msgid "translator-credits"
-msgstr "Andika Triwidada <andika@gmail.com>, 2012"
+msgstr "Andika Triwidada <andika@gmail.com>, 2012, 2020."
 
-#: ../src/buoh-window.c:1024
-msgid "Getting comic ..."
-msgstr "Mengambil komik ..."
-
+#: src/buoh-window.c:815
+msgid "Getting comic…"
+msgstr "Mengambil komik…"
