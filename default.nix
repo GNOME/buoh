@@ -36,8 +36,8 @@ Or to speed up the build by not running the test suite:
 
 { pkgs ?
     (import (fetchTarball {
-      url = "https://github.com/NixOS/nixpkgs/archive/8d05772134f17180fb2711d0660702dae2a67313.tar.gz";
-      sha256 = "0pnyg26c1yhnp3ymzglc71pd9j0567ymqy6il5ywc82bbm1zy25a";
+      url = "https://github.com/NixOS/nixpkgs/archive/9c304aa09649e6ccbbd58d6a4bf6da8a29e84304.tar.gz";
+      sha256 = "0ff71213j49nj0wn0rdydv9ahxm1lkb90k8d17rziyqyfh3j11rv";
     }) {})
 , doCheck ? true
 , shell ? false
