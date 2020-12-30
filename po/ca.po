@@ -44,8 +44,8 @@ msgid ""
 "statusbar not visible by default."
 msgstr ""
 "La barra d'estat és la barra inferior que conté els missatges d'ajuda i "
-"d'estat. Teniu dues opcions: «true» (cert) per mostrar la barra d'estat "
-"(opció predeterminada) i «false» (fals) per ocultar-la."
+"d'estat. Teniu dues opcions: «true» (cert) per a mostrar la barra d'estat "
+"(opció predeterminada) i «false» (fals) per a ocultar-la."
 
 #: ../data/buoh.schemas.in.h:5
 msgid ""
@@ -62,8 +62,8 @@ msgid ""
 "toolbar not visible by default."
 msgstr ""
 "La barra d'eines és la barra superior que conté els controls d'ampliació i "
-"navegació. Teniu dues opcions: «true» (cert) per mostrar la barra d'eines "
-"(opció predeterminada) i «false» (fals) per ocultar-la."
+"navegació. Teniu dues opcions: «true» (cert) per a mostrar la barra d'eines "
+"(opció predeterminada) i «false» (fals) per a ocultar-la."
 
 #: ../src/buoh-add-comic-dialog.c:67
 msgid "Add Comic"
@@ -168,9 +168,9 @@ msgstr ""
 "Us donem la benvinguda al <b>Buoh</b>, el lector de còmics en línia per "
 "l'escriptori GNOME.\n"
 "La llista en el quadre esquerra conté les vostres tires còmiques preferides. "
-"Per afegir o suprimir còmics a la llista, feu clic a Còmic -> Afegeix. Només "
-"heu de seleccionar un còmic de la llista i es mostrarà a la part dreta. "
-"Gràcies per utilitzar el Buoh."
+"Per a afegir o suprimir còmics a la llista, feu clic a Còmic -> Afegeix. "
+"Només heu de seleccionar un còmic de la llista i es mostrarà a la part "
+"dreta. Gràcies per a utilitzar el Buoh."
 
 #: ../src/buoh-view-comic.c:638
 msgid "Error Loading Comic"
@@ -187,7 +187,7 @@ msgstr "V_isualitza"
 
 #: ../src/buoh-window.c:160
 msgid "_Go"
-msgstr "_Vés"
+msgstr "_Ves"
 
 #: ../src/buoh-window.c:161
 msgid "_Help"
@@ -274,7 +274,7 @@ msgstr "Còmic _anterior"
 
 #: ../src/buoh-window.c:196
 msgid "Go to the previous comic"
-msgstr "Vés al còmic anterior"
+msgstr "Ves al còmic anterior"
 
 #: ../src/buoh-window.c:198
 msgid "_Next Comic"
@@ -282,7 +282,7 @@ msgstr "Còmic _següent"
 
 #: ../src/buoh-window.c:199
 msgid "Go to the next comic"
-msgstr "Vés al còmic següent"
+msgstr "Ves al còmic següent"
 
 #: ../src/buoh-window.c:201
 msgid "_First Comic"
@@ -290,7 +290,7 @@ msgstr "_Primer còmic"
 
 #: ../src/buoh-window.c:202
 msgid "Go to the first comic"
-msgstr "Vés al primer còmic"
+msgstr "Ves al primer còmic"
 
 #: ../src/buoh-window.c:204
 msgid "_Last Comic"
@@ -298,7 +298,7 @@ msgstr "_Darrer còmic"
 
 #: ../src/buoh-window.c:205
 msgid "Go to the last comic"
-msgstr "Vés al darrer còmic"
+msgstr "Ves al darrer còmic"
 
 #. Help menu
 #: ../src/buoh-window.c:209
