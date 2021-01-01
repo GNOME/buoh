@@ -316,7 +316,7 @@ buoh_comic_loader_load_comic (BuohComicLoader *loader,
 
         g_thread_new ("comic_loader",
                       (GThreadFunc) buoh_comic_loader_job_run,
-                      priv->job);
+                      g_object_ref (priv->job));
 }
 
 void
