@@ -44,6 +44,10 @@ struct _BuohViewComic {
         BuohViewZoomMode zoom_mode;
         gdouble          scale;
 
+        guint update_zoom_source_id;
+        GMutex set_image_from_loader_source_id_mutex;
+        guint set_image_from_loader_source_id;
+
         BuohComicLoader *comic_loader;
         GdkPixbufLoader *pixbuf_loader;
 };
@@ -115,6 +119,10 @@ buoh_view_comic_init (BuohViewComic *c_view)
         c_view->scale = 1.0;
         c_view->comic_loader = buoh_comic_loader_new ();
         c_view->comic_data = g_string_sized_new (DATA_SIZE);
+
+        c_view->update_zoom_source_id = 0;
+        g_mutex_init (&c_view->set_image_from_loader_source_id_mutex);
+        c_view->set_image_from_loader_source_id = 0;
 
         gtk_widget_init_template (GTK_WIDGET (c_view));
 
@@ -190,6 +198,8 @@ buoh_view_comic_finalize (GObject *object)
                 gdk_pixbuf_loader_close (c_view->pixbuf_loader, NULL);
                 g_clear_object (&c_view->pixbuf_loader);
         }
+
+        g_mutex_clear (&c_view->set_image_from_loader_source_id_mutex);
 
         if (G_OBJECT_CLASS (buoh_view_comic_parent_class)->finalize) {
                 (* G_OBJECT_CLASS (buoh_view_comic_parent_class)->finalize) (object);
@@ -366,9 +376,13 @@ buoh_view_comic_update_zoom_cb (BuohViewComic *c_view)
         GdkPixbuf *pixbuf;
         gdouble    new_scale;
 
+        if (!g_source_is_destroyed (g_main_current_source ())) {
+                c_view->update_zoom_source_id = 0;
+        }
+
         pixbuf = buoh_comic_get_pixbuf (c_view->comic);
         if (!pixbuf) {
-                return FALSE;
+                return G_SOURCE_REMOVE;
         }
 
         switch (c_view->zoom_mode) {
@@ -402,21 +416,20 @@ buoh_view_comic_update_zoom_cb (BuohViewComic *c_view)
                 buoh_view_comic_zoom (c_view, new_scale, FALSE);
         }
 
-        return FALSE;
+        return G_SOURCE_REMOVE;
 }
 
 static void
 buoh_view_comic_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
         BuohViewComic *c_view = BUOH_VIEW_COMIC (widget);
-        static gint    id = 0;
 
         if (c_view->comic) {
-                if (id > 0) {
-                        g_source_remove (id);
+                if (c_view->update_zoom_source_id > 0) {
+                        g_source_remove (c_view->update_zoom_source_id);
                 }
-                id = g_idle_add ((GSourceFunc) buoh_view_comic_update_zoom_cb,
-                                 c_view);
+                c_view->update_zoom_source_id = g_idle_add ((GSourceFunc) buoh_view_comic_update_zoom_cb,
+                                                         c_view);
         }
 
         GTK_WIDGET_CLASS (buoh_view_comic_parent_class)->size_allocate (widget, allocation);
@@ -693,12 +706,18 @@ buoh_view_comic_set_image_from_loader (BuohViewComic *c_view)
 {
         GdkPixbuf *pixbuf;
 
+        g_mutex_lock (&c_view->set_image_from_loader_source_id_mutex);
+        if (!g_source_is_destroyed (g_main_current_source ())) {
+                c_view->set_image_from_loader_source_id = 0;
+        }
+        g_mutex_unlock (&c_view->set_image_from_loader_source_id_mutex);
+
         pixbuf = gdk_pixbuf_loader_get_pixbuf (c_view->pixbuf_loader);
         if (pixbuf) {
                 buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
         }
 
-        return FALSE;
+        return G_SOURCE_REMOVE;
 }
 
 static void
@@ -706,7 +725,6 @@ buoh_view_comic_load_cb (const gchar   *data,
                          guint          len,
                          BuohViewComic *c_view)
 {
-        static guint id = 0;
         GError *error = NULL;
 
         gdk_pixbuf_loader_write (c_view->pixbuf_loader,
@@ -721,11 +739,13 @@ buoh_view_comic_load_cb (const gchar   *data,
         c_view->comic_data = g_string_append_len (c_view->comic_data,
                                                         data, len);
 
-        if (id > 0) {
-                g_source_remove (id);
+        g_mutex_lock (&c_view->set_image_from_loader_source_id_mutex);
+        if (c_view->set_image_from_loader_source_id > 0) {
+                g_source_remove (c_view->set_image_from_loader_source_id);
         }
-        id = g_idle_add ((GSourceFunc) buoh_view_comic_set_image_from_loader,
-                         (gpointer) c_view);
+        c_view->set_image_from_loader_source_id = g_idle_add ((GSourceFunc) buoh_view_comic_set_image_from_loader,
+                                                           (gpointer) c_view);
+        g_mutex_unlock (&c_view->set_image_from_loader_source_id_mutex);
 }
 
 static void
