@@ -91,7 +91,7 @@
     <restrict>6</restrict>
     <restrict>7</restrict>
   </comic>
-  <comic author="Rich Tennant" class="date" first="2005-02-27" generic_uri="http://images.ucomics.com/comics/fw/%Y/fw%y%m%d.gif" id="fw" language="English" title="The 5th Wave">
+  <comic author="Rich Tennant" class="date" first="2005-02-27" generic_uri="http://picayune.uclick.com/comics/fw/%Y/fw%y%m%d.gif" id="fw" language="English" title="The 5th Wave">
     <restrict>1</restrict>
     <restrict>2</restrict>
     <restrict>3</restrict>
@@ -195,7 +195,6 @@
     <restrict>5</restrict>
     <restrict>7</restrict>
   </comic>
-  <comic author="Forges" class="date" first="2001-01-02" generic_uri="http://www.elpais.es/recorte.php?xref=%Y%m%delpepivin_1&amp;id=XLCO&amp;type=Ges" id="forges-elpais" language="Spanish" title="Forges (El Pais)"/>
   <comic author="Ken Cursoe" class="date" first="2003-04-03" generic_uri="http://picayune.uclick.com/comics/tiny/%Y/tiny%y%m%d.gif" id="tiny" language="English" title="Tiny Sepuku">
     <restrict>1</restrict>
     <restrict>2</restrict>
@@ -209,75 +208,27 @@
   </comic>
   <comic author="John Deering" class="date" first="2003-05-18" generic_uri="http://picayune.uclick.com/comics/crzhi/%Y/crzhi%y%m%d.gif" id="crzhi" language="English" title="Zack Hill"/>
   <comic author="Tom Wilson &amp; Tom II" class="date" first="1996-06-01" generic_uri="http://picayune.uclick.com/comics/zi/%Y/zi%y%m%d.gif" id="zi" language="English" title="Ziggy"/>
-  <comic author="Robert Koch" class="date" first="2004-06-07" generic_uri="http://www.boredandevil.com/strips/%Y-%m-%d.gif" id="boredandevil" language="English" title="Bored and evil">
+  <comic author="Robert Koch" class="date" first="2004-06-07" generic_uri="https://d1fy23birokowe.cloudfront.net/boredandevil/comics/%Y-%m-%d.gif" id="boredandevil" language="English" title="Bored and evil">
     <restrict>2</restrict>
     <restrict>4</restrict>
     <restrict>6</restrict>
     <restrict>7</restrict>
   </comic>
-  <comic author="Chris Crosby" class="date" first="2001-06-05" generic_uri="http://www.superosity.com/comics/sup%Y%m%d.gif" id="superosity" language="English" title="Superosity"/>
-  <comic author="John Allison" class="date" first="2004-04-26" generic_uri="http://www.scarygoround.com/strips/%Y%m%d.png" id="scarygoround" language="English" title="Scary go round">
-    <restrict>6</restrict>
-    <restrict>7</restrict>
-  </comic>
-  <comic author="Chris Crosby" class="date" first="2004-03-08" generic_uri="http://www.sorethumbsonline.com/comics/st%Y%m%d.gif" id="sorethumbs" language="English" title="Sore Thumbs">
+  <comic author="Chris Crosby" class="date" first="2001-06-05" generic_uri="http://superosity.keenspot.com/comics/sup%Y%m%d.gif" id="superosity" language="English" title="Superosity"/>
+  <comic author="Chris Crosby" class="date" first="2004-03-08" generic_uri="http://sorethumbs.keenspot.com/comics/st%Y%m%d.gif" id="sorethumbs" language="English" title="Sore Thumbs">
     <restrict>2</restrict>
     <restrict>4</restrict>
-    <restrict>6</restrict>
-    <restrict>7</restrict>
-  </comic>
-  <comic author="Don Simpson" class="date" first="2005-06-27" generic_uri="http://www.worldfamouscomics.com/megatonman/%Y/mm%y%m%d.jpg" id="megatonman" language="English" title="Megaton man">
     <restrict>6</restrict>
     <restrict>7</restrict>
   </comic>
   <comic author="Brant Parker &amp; Johnny Hart" class="date" first="2002-08-12" generic_uri="http://picayune.uclick.com/comics/crwiz/%Y/crwiz%y%m%d.gif" id="crwiz" language="English" title="Wizard of Id"/>
-  <comic author="Jonathan Rosenberg" class="date" first="1997-04-30" generic_uri="http://www.goats.com/comix/%y%m/goats%y%m%d.png" id="goats" language="English" title="Goats">
-    <restrict>5</restrict>
-    <restrict>6</restrict>
-    <restrict>7</restrict>
-  </comic>
   <comic author="Bob Roberds" class="date" first="2000-05-26" generic_uri="http://www.soaprope.com/comics/soar%Y%m%d.gif" id="soar" language="English" title="Soap on a Rope">
     <restrict>6</restrict>
     <restrict>7</restrict>
   </comic>
-  <comic author="Mingote" class="date" first="2005-03-19" generic_uri="http://www.abc.es/humor/pic.asp?fl=min%d%m.jpg&amp;an=400&amp;ff=%Y%m%d" id="mingote-abc" language="Spanish" title="Mingote (ABC)"/>
-  <comic author="Mena" class="date" first="2005-03-16" generic_uri="http://www.abc.es/humor/pic.asp?fl=mena%d%m.jpg&amp;an=500&amp;ff=%Y%m%d" id="mena-abc" language="Spanish" title="Mena (ABC)"/>
   <comic author="James Kemsley" class="date" first="2005-05-30" generic_uri="http://picayune.uclick.com/comics/gin/%Y/gin%y%m%d.gif" id="gin" language="English" title="Ginger Meggs"/>
-  <comic author="Penny Arcade" class="date" first="1998-11-18" generic_uri="http://www.penny-arcade.com/images/%Y/%Y%m%dl.jpg" id="pa" language="English" title="Penny Arcade">
-    <restrict>2</restrict>
-    <restrict>4</restrict>
-    <restrict>6</restrict>
-    <restrict>7</restrict>
-  </comic>
-  <comic author="Tim Buckley" class="date" first="2002-10-23" generic_uri="http://www.ctrlaltdel-online.com/comics/%Y%m%d.jpg" id="ctrlaltdel" language="English" title="Ctrl+Alt+Del">
-    <restrict>2</restrict>
-    <restrict>4</restrict>
-    <restrict>7</restrict>
-  </comic>
-  <comic author="Scott Kurtx" class="date" first="1998-05-04" generic_uri="http://www.pvponline.com/archive/%Y/pvp%Y%m%d.gif" id="pvponline" language="English" title="PvP"/>
-  <comic author="Leonardo Vidal F." class="date" first="2005-01-03" generic_uri="http://www.alphaluna.net/PAGINAS/%Y%m%d.jpg" id="alphaluna" language="English" title="Alpha Luna">
-    <restrict>1</restrict>
-    <restrict>3</restrict>
-    <restrict>4</restrict>
-    <restrict>5</restrict>
-    <restrict>6</restrict>
-    <restrict>7</restrict>
-  </comic>
-  <comic author="Tatsuya Ishida" class="date" first="2000-01-17" generic_uri="http://www.sinfest.net/comikaze/comics/%Y-%m-%d.gif" id="sinfest" language="English" title="Sinfest"/>
-  <comic author="Floor de Goede" class="date" first="2005-01-04" generic_uri="http://www.doyouknowflo.nl/daily/%Y/%m/%d-%m-%y.jpg" id="flo" language="Dutch" title="Do you know Flo?">
-    <restrict>6</restrict>
-    <restrict>7</restrict>
-  </comic>
-  <comic author="Mand van Staal" class="date" first="2005-01-04" generic_uri="http://www.doorzon.nl/images/john/%y/john_%m%d.gif" id="doorzon" language="Dutch" title="Doorzon">
-    <restrict>6</restrict>
-    <restrict>7</restrict>
-  </comic>
-  <comic author="Lectrr" class="date" first="2005-01-01" generic_uri="http://www.lectrr.be/day/%m%d.gif" id="lectrr" language="Dutch" title="Lectrrland">
-    <restrict>1</restrict>
-    <restrict>3</restrict>
-    <restrict>5</restrict>
-    <restrict>7</restrict>
-  </comic>
+  <comic author="Scott Kurtx" class="date" first="1998-05-04" generic_uri="http://s3-us-west-2.amazonaws.com/pvponlinenew/img/comic/%Y/%m/pvp%Y%m%d.gif" id="pvponline" language="English" title="PvP"/>
+  <comic author="Tatsuya Ishida" class="date" first="2000-01-17" generic_uri="https://www.sinfest.net/btphp/comics/%Y-%m-%d.gif" id="sinfest" language="English" title="Sinfest"/>
   <comic author="Isabella Bannerman" class="date" first="2004-02-29" generic_uri="http://cserver.king-online.com/content/6Chix?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=8sdef0&amp;size=hires" id="six-chix" language="English" title="Six Chix"/>
   <comic author="Stan Lee, Larry Lieber &amp; Alex Saviuk" class="date" first="2005-01-01" generic_uri="http://cserver.king-online.com/content/Spiderman?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=hkw769&amp;size=hires" id="spiderman" language="English" title="The amazing Spiderman"/>
   <comic author="Dean Young &amp; Denis Lebrun" class="date" first="2005-01-01" generic_uri="http://cserver.king-online.com/content/Blondie?date=%Y-%m-%d&amp;referer=http://www.dailyink.com&amp;uid=xvkv6o&amp;token=lby49o&amp;size=hires" id="blondie" language="English" title="Blondie"/>
