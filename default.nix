@@ -75,6 +75,7 @@ in pkgs.stdenv.mkDerivation rec {
   buildInputs = with pkgs; [
     glib
     gtk3
+    glib-networking # For TLS
     libsoup
     libxml2
   ];
