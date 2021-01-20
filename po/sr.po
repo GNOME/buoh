@@ -1,51 +1,97 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012.
+# Serbian translation of bouh.
+# Copyright © YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the bouh package.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012–2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=buoh&k"
-"eywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2012-02-26 00:11+0000\n"
-"PO-Revision-Date: 2012-03-21 11:46+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2020-07-14 00:33+0000\n"
+"PO-Revision-Date: 2021-01-20 07:21+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <gnom@prevod.org>\n"
+"Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
-"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
 
-#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
 msgid "Buoh"
-msgstr "Бувац"
+msgstr "Бувица"
 
-#: ../data/buoh.desktop.in.h:2
-msgid "Read your favourite comic strips"
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:689
+msgid "Online comic strips reader"
+msgstr "Читач стрипова на мрежи"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Бувица је програм за прегледање стрипова и вебстрипова на мрежи, осмишљен да "
+"изгледа и да ради лепо под Гномовим окружењем. Изаберите ваш омиљени стрип "
+"са списка са више од 130 стрипова и читајте их у једноставном и чистом "
+"сучељу лаком за коришћење. Уз то, можете да разгледате архиву стрипова или "
+"да сачувате стрип на диск."
+
+#: data/org.gnome.buoh.appdata.xml.in:139
+msgid "General view of Buoh"
+msgstr "Главни преглед Бувице"
+
+#: data/org.gnome.buoh.appdata.xml.in:143
+msgid "First execution of Buoh"
+msgstr "Прво покретање Бувице"
+
+#: data/org.gnome.buoh.appdata.xml.in:147
+#| msgid "Add Comic"
+msgid "Add comic dialog"
+msgstr "Додајте дијалог стрипа"
+
+#: data/org.gnome.buoh.appdata.xml.in:151
+#| msgid "Comic Properties"
+msgid "Comic properties dialog"
+msgstr "Својства дијалога стрипа"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Читач стрипова"
+
+#: data/org.gnome.buoh.desktop.in:5
+#| msgid "Read your favourite comic strips"
+msgid "Read your favorite comic strips"
 msgstr "Читајте ваше омиљене стрипове"
 
-#: ../data/buoh.schemas.in.h:1
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "стрипови;вебстрипови;comics;webcomics;comic strips;"
+
+#: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
 msgstr "Приказује линију алата по основи"
 
-#: ../data/buoh.schemas.in.h:2
+#: data/org.gnome.buoh.gschema.xml:7
 msgid ""
 "Toolbar is the top bar that contains navigation and zoom controls. Two "
 "boolean options, true makes toolbar visible by default while false makes "
 "toolbar not visible by default."
 msgstr ""
 "Линија алата је горња трака која садржи дугмад за кретање и увеличавање. Ако "
-"желите да буде приказана онда изаберите опцију (true), у супротном "
-"поништите избор (false)."
+"желите да буде приказана онда изаберите опцију (true), у супротном поништите "
+"избор (false)."
 
-#: ../data/buoh.schemas.in.h:3
+#: data/org.gnome.buoh.gschema.xml:11
 msgid "Show statusbar by default"
 msgstr "Приказује линију стања по основи"
 
-#: ../data/buoh.schemas.in.h:4
+#: data/org.gnome.buoh.gschema.xml:12
 msgid ""
 "Statusbar is the bottom bar that contains help and status messages. Two "
 "boolean options, true makes statusbar visible by default while false makes "
@@ -55,324 +101,366 @@ msgstr ""
 "буде приказана онда изаберите опцију (true), у супротном поништите избор "
 "(false)."
 
-#: ../data/buoh.schemas.in.h:5
+#: data/org.gnome.buoh.gschema.xml:16
 msgid "Select viewer zoom mode"
 msgstr "Бира режим увећања прегледа"
 
-#: ../data/buoh.schemas.in.h:6
+#: data/org.gnome.buoh.gschema.xml:17
+#| msgid ""
+#| "There are two zoom modes available, 1 makes the current comic fill the "
+#| "window, 2 makes the current comic fill the window width."
 msgid ""
-"There are two zoom modes available, 1 makes the current comic fill the "
-"window, 2 makes the current comic fill the window width."
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
 msgstr ""
-"Постоје два режима увећања, 1 чини да текући стрип испуни прозор, 2 чини да "
-"стрип испуни ширину прозора."
+"Доступна су два режима увећања, „best-fit“ чини да текући стрип испуни "
+"прозор, „fit-width“ чини да стрип испуни ширину прозора."
 
-#: ../src/buoh-add-comic-dialog.c:67
+#: data/ui/add-comic-dialog.ui:7
 msgid "Add Comic"
 msgstr "Додај стрип"
 
-#: ../src/buoh-add-comic-dialog.c:79
-msgid "Select Comics"
-msgstr "Изаберите стрипове"
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "_Затвори"
 
-#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
-#: ../src/buoh-properties-dialog.c:103
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
 msgid "Title"
 msgstr "Наслов"
 
-#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:109
+#: data/ui/add-comic-dialog.ui:95
 msgid "Author"
 msgstr "Аутор"
 
-#: ../src/buoh-add-comic-dialog.c:202
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "Изаберите стрипове"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_Стрип"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "Дод_ај…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "_Уклони"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+#| msgid "_Save A Copy..."
+msgid "_Save a Copy…"
+msgstr "_Сачувај умножак…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "Умножи _путању"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+#| msgid "_Properties..."
+msgid "_Properties…"
+msgstr "_Својства…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "_Изађи"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "_Преглед"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "Линија _алата"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "Линија _стања"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "У_већај"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "У_мањи"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "_Уобичајена величина"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "_Најбоље уклапање"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "Испуни _ширину стрипа"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "_Иди"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "_Претходни стрип"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "_Следећи стрип"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "Пр_ви стрип"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "По_следњи стрип"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "По_моћ"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "_О програму"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "Својства стрипа"
+
+#: data/ui/properties-dialog.ui:57
+#| msgid "Title"
+msgid "Title:"
+msgstr "Наслов:"
+
+#: data/ui/properties-dialog.ui:71
+#| msgid "Author"
+msgid "Author:"
+msgstr "Аутор:"
+
+#: data/ui/properties-dialog.ui:85
+#| msgid "Link"
+msgid "Link:"
+msgstr "Веза:"
+
+#: data/ui/properties-dialog.ui:99
+#| msgid "Date of publication"
+msgid "Date of publication:"
+msgstr "Датум издавања:"
+
+#: data/ui/properties-dialog.ui:113
+#| msgid "Language"
+msgid "Language:"
+msgstr "Језик:"
+
+#: data/ui/properties-dialog.ui:127
+#| msgid "Publication days"
+msgid "Publication days:"
+msgstr "Дани издавања:"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "Идите на претходни стрип"
+
+#: data/ui/window.ui:22
+#| msgid "_Previous Comic"
+msgid "_Previous"
+msgstr "_Претходни"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "Идите на следећи стрип"
+
+#: data/ui/window.ui:35
+#| msgid "_Next Comic"
+msgid "_Next"
+msgstr "_Следећи"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "Увећајте величину стрипа"
+
+#: data/ui/window.ui:56
+#| msgid "Zoom _In"
+msgid "Zoom _in"
+msgstr "У_већај"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "Умањите величину стрипа"
+
+#: data/ui/window.ui:69
+#| msgid "Zoom _Out"
+msgid "Zoom ou_t"
+msgstr "У_мањи"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "Користите уобичајену величину стрипа"
+
+#: data/ui/window.ui:82
+#| msgid "_Normal Size"
+msgid "N_ormal Size"
+msgstr "_Уобичајена величина"
+
+#: src/buoh-add-comic-dialog.c:103
 #, c-format
 msgid "Comics selected: %d"
 msgstr "Изабрани стрипови: %d"
 
-#: ../src/buoh-comic.c:435
-#, c-format
-msgid "Cannot create file '%s': %s"
-msgstr "Не могу да направим датотеку „%s“: %s"
-
-#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
-#, c-format
-msgid "Error writting to file '%s': %s"
-msgstr "Грешка писања у датотеку „%s“: %s"
-
-#: ../src/buoh-comic-manager-date.c:56
+#: src/buoh-comic-manager-date.c:57
 msgid "Monday"
 msgstr "Понедељак"
 
-#: ../src/buoh-comic-manager-date.c:57
+#: src/buoh-comic-manager-date.c:58
 msgid "Tuesday"
 msgstr "Уторак"
 
-#: ../src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:59
 msgid "Wednesday"
 msgstr "Среда"
 
-#: ../src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:60
 msgid "Thursday"
 msgstr "Четвртак"
 
-#: ../src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:61
 msgid "Friday"
 msgstr "Петак"
 
-#: ../src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:62
 msgid "Saturday"
 msgstr "Субота"
 
-#: ../src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:63
 msgid "Sunday"
 msgstr "Недеља"
 
 #. It's a range of days
-#: ../src/buoh-comic-manager-date.c:496
+#: src/buoh-comic-manager-date.c:510
 msgid " to "
 msgstr " до "
 
-#: ../src/buoh-comic-manager-date.c:511
+#: src/buoh-comic-manager-date.c:525
 msgid "Every day"
 msgstr "Сваког дана"
 
-#: ../src/buoh-properties-dialog.c:48
-msgid "Comic Properties"
-msgstr "Својства стрипа"
+#: src/buoh-comic.c:412
+#, c-format
+#| msgid "Cannot create file '%s': %s"
+msgid "Cannot create file “%s”: %s"
+msgstr "Не могу да направим датотеку „%s“: %s"
 
-#: ../src/buoh-properties-dialog.c:115
-msgid "Link"
-msgstr "Веза"
+#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#, c-format
+#| msgid "Error writting to file '%s': %s"
+msgid "Error writing to file “%s”: %s"
+msgstr "Грешка писања у датотеку „%s“: %s"
 
-#: ../src/buoh-properties-dialog.c:121
-msgid "Language"
-msgstr "Језик"
-
-#: ../src/buoh-properties-dialog.c:127
-msgid "Date of publication"
-msgstr "Датум издавања"
-
-#: ../src/buoh-properties-dialog.c:185
-msgid "Publication days"
-msgstr "Дани издавања"
-
-#: ../src/buoh-view.c:155
-msgid "Buoh online comic strips reader"
-msgstr "Бувица читач стрипова на мрежи"
-
-#: ../src/buoh-view.c:157
-msgid ""
-"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
-"The list on the left panel contains your favourite comic strips to add or "
-"remove comics to the list click on Comic -> Add. Just select a comic from "
-"the list, and it will be displayed on the right side. Thanks for using Buoh."
-msgstr ""
-"Добродошли у <b>Бувицу</b>, мрежног читача стрипова за Гномово окружење.\n"
-"Списак на левом панелу садржи ваше омиљене стрипове. Да додате или уклоните "
-"стрип са списка кликните на Стрип —> Додај. Само изаберите стрип са списка, "
-"и биће приказан на десној страни. Хвала вам што користите Бувицу."
-
-#: ../src/buoh-view-comic.c:647
+#: src/buoh-view-comic.c:638
 msgid "Error Loading Comic"
 msgstr "Грешка учитавања стрипа"
 
-#. Top Level
-#: ../src/buoh-window.c:158
-msgid "_Comic"
-msgstr "_Стрип"
+#: src/buoh-view.c:87
+msgid "Buoh online comic strips reader"
+msgstr "Бувица читач стрипова на мрежи"
 
-#: ../src/buoh-window.c:159
-msgid "_View"
-msgstr "_Преглед"
+#: src/buoh-view.c:89
+#| msgid ""
+#| "Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+#| "The list on the left panel contains your favourite comic strips to add or "
+#| "remove comics to the list click on Comic -> Add. Just select a comic from "
+#| "the list, and it will be displayed on the right side. Thanks for using "
+#| "Buoh."
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Добродошли у <b>Бувицу</b>, мрежног читача стрипова за Гномово окружење.\n"
+"Списак на левом панелу садржи ваше омиљене стрипове. Да додате или уклоните "
+"стрип са списка кликните на Стрип → Додај. Само изаберите стрип са списка, и "
+"биће приказан на десној страни. Хвала вам што користите Бувицу."
 
-#: ../src/buoh-window.c:160
-msgid "_Go"
-msgstr "_Иди"
-
-#: ../src/buoh-window.c:161
-msgid "_Help"
-msgstr "По_моћ"
-
-#. Comic menu
-#: ../src/buoh-window.c:164
-msgid "_Add..."
-msgstr "_Додај..."
-
-#: ../src/buoh-window.c:165
-msgid "Add a comic to the comic list"
-msgstr "Додајте стрип на списак"
-
-#: ../src/buoh-window.c:167
-msgid "_Remove"
-msgstr "_Уклони"
-
-#: ../src/buoh-window.c:168
-msgid "Remove this comic from the comic list"
-msgstr "Уклоните овај стрип са списка"
-
-#: ../src/buoh-window.c:170
-msgid "_Save A Copy..."
-msgstr "_Сачувај умножак..."
-
-#: ../src/buoh-window.c:171
-msgid "Save the current comic with a new filename"
-msgstr "Сачувајте текући стрип под новим називом"
-
-#: ../src/buoh-window.c:173
-msgid "_Copy Location"
-msgstr "Умножи _путању"
-
-#: ../src/buoh-window.c:174
-msgid "Copy the location of this comic to clipboard"
-msgstr "Умножите путању овог стрипа међу исечке"
-
-#: ../src/buoh-window.c:176
-msgid "_Properties..."
-msgstr "_Својства..."
-
-#: ../src/buoh-window.c:177
-msgid "View the properties of this comic"
-msgstr "Прегледајте својства овог стрипа"
-
-#: ../src/buoh-window.c:179
-msgid "_Quit"
-msgstr "_Изађи"
-
-#: ../src/buoh-window.c:180
-msgid "Quit application"
-msgstr "Изађите из програма"
-
-#. View menu
-#: ../src/buoh-window.c:184
-msgid "Zoom _In"
-msgstr "У_већај"
-
-#: ../src/buoh-window.c:185
-msgid "Increase the comic size"
-msgstr "Увећајте величину стрипа"
-
-#: ../src/buoh-window.c:187
-msgid "Zoom _Out"
-msgstr "У_мањи"
-
-#: ../src/buoh-window.c:188
-msgid "Decrease the comic size"
-msgstr "Умањите величину стрипа"
-
-#: ../src/buoh-window.c:190
-msgid "_Normal Size"
-msgstr "_Уобичајена величина"
-
-#: ../src/buoh-window.c:191
-msgid "Use the normal comic size"
-msgstr "Користите уобичајену величину стрипа"
-
-#. Go menu
-#: ../src/buoh-window.c:195
-msgid "_Previous Comic"
-msgstr "_Претходни стрип"
-
-#: ../src/buoh-window.c:196
-msgid "Go to the previous comic"
-msgstr "Идите на претходни стрип"
-
-#: ../src/buoh-window.c:198
-msgid "_Next Comic"
-msgstr "_Следећи стрип"
-
-#: ../src/buoh-window.c:199
-msgid "Go to the next comic"
-msgstr "Идите на следећи стрип"
-
-#: ../src/buoh-window.c:201
-msgid "_First Comic"
-msgstr "Пр_ви стрип"
-
-#: ../src/buoh-window.c:202
-msgid "Go to the first comic"
-msgstr "Идите на први стрип"
-
-#: ../src/buoh-window.c:204
-msgid "_Last Comic"
-msgstr "По_следњи стрип"
-
-#: ../src/buoh-window.c:205
-msgid "Go to the last comic"
-msgstr "Идите на последњи стрип"
-
-#. Help menu
-#: ../src/buoh-window.c:209
-msgid "_Contents"
-msgstr "_Садржај"
-
-#: ../src/buoh-window.c:210
-msgid "Display help for the Buoh online comic reader"
-msgstr "Прикажите помоћ за Бувицу читача стрипова на мрежи"
-
-#: ../src/buoh-window.c:212
-msgid "_About"
-msgstr "_О програму"
-
-#: ../src/buoh-window.c:213
-msgid "Display credits for the Buoh online comic reader creators"
-msgstr "Прикажите заслуге ствараоца Бувице читача стрипова на мрежи"
-
-#. View menu
-#: ../src/buoh-window.c:220
-msgid "_Toolbar"
-msgstr "Линија _алата"
-
-#: ../src/buoh-window.c:221
-msgid "Changes the visibility of the toolbar"
-msgstr "Измените видљивост линије алата"
-
-#: ../src/buoh-window.c:223
-msgid "St_atusbar"
-msgstr "Линија _стања"
-
-#: ../src/buoh-window.c:224
-msgid "Changes the visibility of the statusbar"
-msgstr "Измените видљивост линије стања"
-
-#: ../src/buoh-window.c:226
-msgid "_Best Fit"
-msgstr "_Најбоље уклапање"
-
-#: ../src/buoh-window.c:227
-msgid "Make the current comic fill the window"
-msgstr "Учините да текући стрип испуни прозор"
-
-#: ../src/buoh-window.c:229
-msgid "Fit Comic _Width"
-msgstr "Испуни _ширину стрипа"
-
-#: ../src/buoh-window.c:230
-msgid "Make the current comic fill the window width"
-msgstr "Учините да текући стрип испуни ширину прозора"
-
-#: ../src/buoh-window.c:535
+#: src/buoh-window.c:415
 msgid "Images"
 msgstr "Слике"
 
-#: ../src/buoh-window.c:538
+#: src/buoh-window.c:418
 msgid "Save Comic"
 msgstr "Сачувајте стрип"
 
-#: ../src/buoh-window.c:580
+#: src/buoh-window.c:421
+msgid "_Cancel"
+msgstr "_Откажи"
+
+#: src/buoh-window.c:422
+msgid "_Save"
+msgstr "_Сачувај"
+
+#: src/buoh-window.c:461
 msgid "Unable to save comic"
 msgstr "Не могу да сачувам стрип"
 
-#: ../src/buoh-window.c:842
-msgid "Online comic strips reader"
-msgstr "Читач стрипова на мрежи"
-
-#: ../src/buoh-window.c:845
+#: src/buoh-window.c:692
 msgid "translator-credits"
 msgstr ""
 "  Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "\n"
 "http://prevod.org — превод на српски језик"
 
-#: ../src/buoh-window.c:1024
-msgid "Getting comic ..."
-msgstr "Преузимам стрип ..."
+#: src/buoh-window.c:815
+#| msgid "Getting comic ..."
+msgid "Getting comic…"
+msgstr "Преузимам стрип…"
+
+#~ msgid "_Add..."
+#~ msgstr "_Додај..."
+
+#~ msgid "Add a comic to the comic list"
+#~ msgstr "Додајте стрип на списак"
+
+#~ msgid "Remove this comic from the comic list"
+#~ msgstr "Уклоните овај стрип са списка"
+
+#~ msgid "Save the current comic with a new filename"
+#~ msgstr "Сачувајте текући стрип под новим називом"
+
+#~ msgid "Copy the location of this comic to clipboard"
+#~ msgstr "Умножите путању овог стрипа међу исечке"
+
+#~ msgid "View the properties of this comic"
+#~ msgstr "Прегледајте својства овог стрипа"
+
+#~ msgid "Quit application"
+#~ msgstr "Изађите из програма"
+
+#~ msgid "Go to the first comic"
+#~ msgstr "Идите на први стрип"
+
+#~ msgid "Go to the last comic"
+#~ msgstr "Идите на последњи стрип"
+
+#~ msgid "_Contents"
+#~ msgstr "_Садржај"
+
+#~ msgid "Display help for the Buoh online comic reader"
+#~ msgstr "Прикажите помоћ за Бувицу читача стрипова на мрежи"
+
+#~ msgid "Display credits for the Buoh online comic reader creators"
+#~ msgstr "Прикажите заслуге ствараоца Бувице читача стрипова на мрежи"
+
+#~ msgid "Changes the visibility of the toolbar"
+#~ msgstr "Измените видљивост линије алата"
+
+#~ msgid "Changes the visibility of the statusbar"
+#~ msgstr "Измените видљивост линије стања"
+
+#~ msgid "Make the current comic fill the window"
+#~ msgstr "Учините да текући стрип испуни прозор"
+
+#~ msgid "Make the current comic fill the window width"
+#~ msgstr "Учините да текући стрип испуни ширину прозора"
