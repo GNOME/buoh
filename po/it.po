@@ -1,0 +1,393 @@
+# Italian translation for buoh.
+# Copyright (C) 2021 buoh's COPYRIGHT HOLDER
+# This file is distributed under the same license as the buoh package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Michele Pappalardo <pappalardosystem@gmail.com>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: buoh master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2021-01-20 06:24+0000\n"
+"PO-Revision-Date: 2021-03-12 19:58+0100\n"
+"Last-Translator: Michele Pappalardo <pappalardosystem@gmail.com>\n"
+"Language-Team: Italian <gnome-it-list@gnome.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Gtranslator 3.38.0\n"
+
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
+msgid "Buoh"
+msgstr "Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:689
+msgid "Online comic strips reader"
+msgstr "Lettore di fumetti online"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Buoh è un'applicazione per leggere fumetti e webcomics online, progettata "
+"per apparire e funzionare bene con il desktop GNOME. Seleziona da una lista "
+"di oltre 130 fumetti il tuo preferito e leggili con un'interfaccia pulita e "
+"facile da usare. Inoltre, puoi cercare negli archivi o salvare una copia "
+"locale di un fumetto."
+
+#: data/org.gnome.buoh.appdata.xml.in:139
+msgid "General view of Buoh"
+msgstr "Tour di Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:143
+msgid "First execution of Buoh"
+msgstr "Primo avvio di Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:147
+msgid "Add comic dialog"
+msgstr "Aggiungi un fumetto"
+
+#: data/org.gnome.buoh.appdata.xml.in:151
+msgid "Comic properties dialog"
+msgstr "Proprietà del fumetto"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Lettore di fumetti"
+
+#: data/org.gnome.buoh.desktop.in:5
+msgid "Read your favorite comic strips"
+msgstr "Leggi i tuoi fumetti preferiti"
+
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "fumetti;webcomic;fumetti a strisce;"
+
+#: data/org.gnome.buoh.gschema.xml:6
+msgid "Show toolbar by default"
+msgstr "Mostra automaticamente la barra degli strumenti"
+
+#: data/org.gnome.buoh.gschema.xml:7
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+"La barra degli strumenti, che si trova in alto, contiene i controlli per la "
+"navigazione e l'ingrandimento. Possiede due opzioni booleane: true rende la "
+"barra visibile come impostazione predefinita mentre false la rende non "
+"visibile come impostazione predefinita."
+
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "Mostra automaticamente la barra di stato"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"La barra di stato, che si trova in basso, contiene i messaggi di stato e "
+"aiuto. Possiede due opzioni booleane: true rende la barra di stato visibile "
+"come impostazione predefinita mentre false la rende non visibile come "
+"impostazione predefinita."
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "Seleziona la modalità di ingrandimento"
+
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"Ci sono due modalità di ingrandimento disponibili, 'best-fit' riempie "
+"l'intera finestra col fumetto corrente, 'fit-width' riempie la finestra col "
+"fumetto corrente rispettando la sua larghezza."
+
+#: data/ui/add-comic-dialog.ui:7
+msgid "Add Comic"
+msgstr "Aggiungi un fumetto"
+
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "_Chiudi"
+
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
+msgid "Title"
+msgstr "Titolo"
+
+#: data/ui/add-comic-dialog.ui:95
+msgid "Author"
+msgstr "Autore"
+
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "Seleziona fumetti"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_Fumetto"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "_Aggiungi…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "_Rimuovi"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+msgid "_Save a Copy…"
+msgstr "_Salva una copia…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "_Copia posizione"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+msgid "_Properties…"
+msgstr "_Proprietà…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "_Esci"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "_Visualizza"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "Barra degli s_trumenti"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "Barra di st_ato"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "_Ingrandisci"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "_Riduci"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "Dimensione _normale"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "Dimensione _massima"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "Rispetta la larghezza del _fumetto"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "Va_i"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "Fumetto _precedente"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "Fumetto _successivo"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "Pr_imo fumetto"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "_Ultimo fumetto"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "_Aiuto"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "_Informazioni"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "Proprietà del fumetto"
+
+#: data/ui/properties-dialog.ui:57
+msgid "Title:"
+msgstr "Titolo:"
+
+#: data/ui/properties-dialog.ui:71
+msgid "Author:"
+msgstr "Autore:"
+
+#: data/ui/properties-dialog.ui:85
+msgid "Link:"
+msgstr "Collegamento:"
+
+#: data/ui/properties-dialog.ui:99
+msgid "Date of publication:"
+msgstr "Data di pubblicazione:"
+
+#: data/ui/properties-dialog.ui:113
+msgid "Language:"
+msgstr "Lingua:"
+
+#: data/ui/properties-dialog.ui:127
+msgid "Publication days:"
+msgstr "Giorni di pubblicazione:"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "Vai al fumetto precedente"
+
+#: data/ui/window.ui:22
+msgid "_Previous"
+msgstr "_Precedente"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "Vai al fumetto successivo"
+
+#: data/ui/window.ui:35
+msgid "_Next"
+msgstr "_Successivo"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "Aumenta la grandezza del fumetto"
+
+#: data/ui/window.ui:56
+msgid "Zoom _in"
+msgstr "_Ingrandisci"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "Diminuisce la grandezza del fumetto"
+
+#: data/ui/window.ui:69
+msgid "Zoom ou_t"
+msgstr "_Riduci"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "Usa la dimensione normale del fumetto"
+
+#: data/ui/window.ui:82
+msgid "N_ormal Size"
+msgstr "Dimensione n_ormale"
+
+#: src/buoh-add-comic-dialog.c:103
+#, c-format
+msgid "Comics selected: %d"
+msgstr "Fumetti selezionati: %d"
+
+#: src/buoh-comic-manager-date.c:57
+msgid "Monday"
+msgstr "Lunedì"
+
+#: src/buoh-comic-manager-date.c:58
+msgid "Tuesday"
+msgstr "Martedì"
+
+#: src/buoh-comic-manager-date.c:59
+msgid "Wednesday"
+msgstr "Mercoledì"
+
+#: src/buoh-comic-manager-date.c:60
+msgid "Thursday"
+msgstr "Giovedì"
+
+#: src/buoh-comic-manager-date.c:61
+msgid "Friday"
+msgstr "Venerdì"
+
+#: src/buoh-comic-manager-date.c:62
+msgid "Saturday"
+msgstr "Sabato"
+
+#: src/buoh-comic-manager-date.c:63
+msgid "Sunday"
+msgstr "Domenica"
+
+#. It's a range of days
+#: src/buoh-comic-manager-date.c:510
+msgid " to "
+msgstr " fino a "
+
+#: src/buoh-comic-manager-date.c:525
+msgid "Every day"
+msgstr "Tutti i giorni"
+
+#: src/buoh-comic.c:412
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "Impossibile creare il file “%s”: %s"
+
+#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "Errore durante la scrittura del file “%s”: %s"
+
+#: src/buoh-view-comic.c:651
+msgid "Error Loading Comic"
+msgstr "Errore nel caricamento del fumetto"
+
+#: src/buoh-view.c:87
+msgid "Buoh online comic strips reader"
+msgstr "Lettore di fumetti online Buoh"
+
+#: src/buoh-view.c:89
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Benvenuti su <b>Buoh</b>, il lettore di fumetti online per il desktop "
+"GNOME.\n"
+"La lista nel pannello a.sinistra contiene i tuoi fumetti preferiti per "
+"aggiungere o rimuovere fumetti dalla lista clicca su Comic → Add. Seleziona "
+"un fumetto dalla lista e sarà mostrato nel pannello a destra. Grazie di aver "
+"scelto Buoh."
+
+#: src/buoh-window.c:415
+msgid "Images"
+msgstr "Immagini"
+
+#: src/buoh-window.c:418
+msgid "Save Comic"
+msgstr "Salva il fumetto"
+
+#: src/buoh-window.c:421
+msgid "_Cancel"
+msgstr "_Annulla"
+
+#: src/buoh-window.c:422
+msgid "_Save"
+msgstr "_Salva"
+
+#: src/buoh-window.c:461
+msgid "Unable to save comic"
+msgstr "Impossibile salvare il fumetto"
+
+#: src/buoh-window.c:692
+msgid "translator-credits"
+msgstr "Michele Pappalardo <pappalardosystem@gmail.com>"
+
+#: src/buoh-window.c:815
+msgid "Getting comic…"
+msgstr "Caricamento del fumetto…"
