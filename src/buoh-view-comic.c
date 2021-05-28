@@ -690,7 +690,7 @@ buoh_view_comic_load_finished (BuohViewComic *c_view,
                 comic_image = g_new0 (BuohComicImage, 1);
 
                 comic_image->size = c_view->comic_data->len;
-                comic_image->data = (guchar *) g_memdup (c_view->comic_data->str,
+                comic_image->data = (guchar *) g_memdup2 (c_view->comic_data->str,
                                                          c_view->comic_data->len);
 
                 buoh_comic_set_image (c_view->comic, comic_image);
