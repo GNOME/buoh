@@ -46,7 +46,7 @@ Or to speed up the build by not running the test suite:
 }:
 
 let
-  inherit (pkgs.stdenv) lib;
+  inherit (pkgs) lib;
 in pkgs.stdenv.mkDerivation rec {
   name = "buoh";
 
