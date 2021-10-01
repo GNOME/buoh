@@ -105,7 +105,7 @@ buoh_comic_class_init (BuohComicClass *klass)
                                          g_param_spec_pointer ("pixbuf",
                                                                "Pixbuf",
                                                                "Pixbuf of the comic",
-                                                               G_PARAM_READWRITE));
+                                                               G_PARAM_READABLE));
         g_object_class_install_property (object_class,
                                          PROP_IMAGE,
                                          g_param_spec_pointer ("image",
@@ -187,14 +187,6 @@ buoh_comic_set_property (GObject      *object,
                 comic->uri = g_value_dup_string (value);
 
                 break;
-        case PROP_PIXBUF: {
-                GdkPixbuf *pixbuf;
-
-                pixbuf = GDK_PIXBUF (g_value_get_pointer (value));
-                buoh_comic_cache_set_pixbuf (comic->cache,
-                                             comic->uri, pixbuf);
-        }
-                break;
         case PROP_IMAGE: {
                 BuohComicImage *image;
 
@@ -271,15 +263,6 @@ buoh_comic_set_id (BuohComic *comic, const gchar *id)
 }
 
 void
-buoh_comic_set_pixbuf (BuohComic *comic, GdkPixbuf *pixbuf)
-{
-        g_return_if_fail (BUOH_IS_COMIC (comic));
-        g_return_if_fail (GDK_IS_PIXBUF (pixbuf));
-
-        g_object_set (G_OBJECT (comic), "pixbuf", pixbuf, NULL);
-}
-
-void
 buoh_comic_set_image (BuohComic *comic, BuohComicImage *image)
 {
         g_return_if_fail (BUOH_IS_COMIC (comic));
@@ -295,19 +278,6 @@ buoh_comic_set_date (BuohComic *comic, GDate *date)
         g_return_if_fail (date != NULL);
 
         g_object_set (G_OBJECT (comic), "date", date, NULL);
-}
-
-void
-buoh_comic_set_pixbuf_from_file (BuohComic *comic, const gchar *filename)
-{
-        GdkPixbuf *pixbuf = NULL;
-
-        g_return_if_fail (BUOH_IS_COMIC (comic));
-        g_return_if_fail (filename != NULL);
-
-        pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
-
-        buoh_comic_set_pixbuf (comic, pixbuf);
 }
 
 const gchar *

@@ -35,9 +35,6 @@ struct _BuohComicCache {
         GList      *image_list;
         GList      *image_disk;
         gulong      size;
-
-        GdkPixbuf  *current_pixbuf;
-        gchar      *current_uri;
 };
 
 #define CACHE_SIZE 1048576 /* 1MB */
@@ -99,10 +96,6 @@ buoh_comic_cache_finalize (GObject *object)
                                 NULL);
                 g_clear_pointer (&comic_cache->image_disk, g_list_free);
         }
-
-        g_clear_object (&comic_cache->current_pixbuf);
-
-        g_clear_pointer (&comic_cache->current_uri, g_free);
 
         if (G_OBJECT_CLASS (buoh_comic_cache_parent_class)->finalize) {
                 (* G_OBJECT_CLASS (buoh_comic_cache_parent_class)->finalize) (object);
@@ -175,26 +168,12 @@ buoh_comic_cache_to_disk (BuohComicCache *cache,
         g_free (path);
 }
 
-static void
-buoh_comic_cache_set_current (BuohComicCache *cache,
-                              const gchar    *uri,
-                              BuohComicImage *image)
+static GdkPixbuf *
+image_to_pixbuf (BuohComicImage *image)
 {
         GdkPixbufLoader *loader;
+        GdkPixbuf *pixbuf;
         GError          *error = NULL;
-
-        if (cache->current_uri &&
-            (g_ascii_strcasecmp (uri, cache->current_uri) == 0) &&
-            GDK_IS_PIXBUF (cache->current_pixbuf)) {
-                return;
-        }
-
-        if (cache->current_pixbuf) {
-                g_object_unref (cache->current_pixbuf);
-        }
-        if (cache->current_uri) {
-                g_free (cache->current_uri);
-        }
 
         loader = gdk_pixbuf_loader_new ();
         gdk_pixbuf_loader_write (loader, image->data,
@@ -203,17 +182,14 @@ buoh_comic_cache_set_current (BuohComicCache *cache,
                 g_warning ("%s", error->message);
                 g_clear_error (&error);
 
-                cache->current_pixbuf = NULL;
-                cache->current_uri = NULL;
                 gdk_pixbuf_loader_close (loader, NULL);
                 g_object_unref (loader);
 
-                return;
+                return NULL;
         }
 
-        cache->current_pixbuf =
-                gdk_pixbuf_loader_get_pixbuf (loader);
-        g_object_ref (cache->current_pixbuf);
+        pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
+        g_object_ref (pixbuf);
         gdk_pixbuf_loader_close (loader, &error);
         g_object_unref (loader);
 
@@ -221,13 +197,10 @@ buoh_comic_cache_set_current (BuohComicCache *cache,
                 g_warning ("%s", error->message);
                 g_clear_error (&error);
 
-                cache->current_pixbuf = NULL;
-                cache->current_uri = NULL;
-
-                return;
+                return NULL;
         }
 
-        cache->current_uri = g_strdup (uri);
+        return pixbuf;
 }
 
 void
@@ -244,8 +217,8 @@ buoh_comic_cache_set_image (BuohComicCache *cache,
 
         buoh_debug ("CACHE: uri %s", uri);
 
-        if ((img = g_hash_table_lookup (cache->image_hash, uri))) {
-                buoh_comic_cache_set_current (cache, uri, img);
+        if (g_hash_table_lookup (cache->image_hash, uri)) {
+                // Already in cache.
                 return;
         }
 
@@ -253,7 +226,6 @@ buoh_comic_cache_set_image (BuohComicCache *cache,
 
         if (image->size > CACHE_SIZE) {
                 buoh_comic_cache_to_disk (cache, uri, image);
-                buoh_comic_cache_set_current (cache, uri, image);
                 return;
         }
 
@@ -286,7 +258,6 @@ buoh_comic_cache_set_image (BuohComicCache *cache,
         buoh_debug ("CACHE: caching (memory) %s", key_uri);
         cache->image_list = g_list_prepend (cache->image_list, key_uri);
         g_hash_table_insert (cache->image_hash, key_uri, image);
-        buoh_comic_cache_set_current (cache, uri, image);
 
         cache->size += image->size;
         buoh_debug ("CACHE: cache size %d\n", cache->size);
@@ -338,26 +309,6 @@ buoh_comic_cache_get_image (BuohComicCache *cache,
         return NULL;
 }
 
-void
-buoh_comic_cache_set_pixbuf (BuohComicCache *cache,
-                             const gchar    *uri,
-                             GdkPixbuf      *pixbuf)
-{
-        g_return_if_fail (BUOH_IS_COMIC_CACHE (cache));
-        g_return_if_fail (uri != NULL);
-        g_return_if_fail (GDK_IS_PIXBUF (pixbuf));
-
-        if (cache->current_uri) {
-                g_free (cache->current_uri);
-        }
-        if (cache->current_pixbuf) {
-                g_object_unref (cache->current_pixbuf);
-        }
-
-        cache->current_uri = g_strdup (uri);
-        cache->current_pixbuf = g_object_ref (pixbuf);
-}
-
 GdkPixbuf *
 buoh_comic_cache_get_pixbuf (BuohComicCache *cache,
                              const gchar    *uri)
@@ -367,17 +318,10 @@ buoh_comic_cache_get_pixbuf (BuohComicCache *cache,
         g_return_val_if_fail (BUOH_IS_COMIC_CACHE (cache), NULL);
         g_return_val_if_fail (uri != NULL, NULL);
 
-        if (cache->current_uri &&
-            g_ascii_strcasecmp (uri, cache->current_uri) == 0) {
-                buoh_debug ("is the current pixbuf");
-                return cache->current_pixbuf;
-        }
-
         image = buoh_comic_cache_get_image (cache, uri);
 
         if (image) {
-                buoh_comic_cache_set_current (cache, uri, image);
-                return cache->current_pixbuf;
+                return image_to_pixbuf (image);
         }
 
         return NULL;

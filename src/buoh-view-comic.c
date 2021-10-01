@@ -683,15 +683,6 @@ buoh_view_comic_load_finished (BuohViewComic *c_view,
         if (pixbuf) {
                 buoh_view_comic_set_image_from_pixbuf (c_view, pixbuf);
 
-                if (c_view->scale == 1.0) {
-                        /* We have both the compressed and uncompressed image.
-                         * By setting the pixbuf to cache we avoid uncompressing
-                         * the image again and having a new pixbuf instead of a
-                         * reference.
-                         */
-                        buoh_comic_set_pixbuf (c_view->comic, pixbuf);
-                }
-
                 g_object_set (G_OBJECT (c_view->view),
                               "status", STATE_COMIC_LOADED,
                               NULL);

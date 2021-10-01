@@ -36,9 +36,6 @@ void            buoh_comic_cache_set_image  (BuohComicCache *cache,
                                              BuohComicImage *image);
 BuohComicImage *buoh_comic_cache_get_image  (BuohComicCache *cache,
                                              const gchar    *uri);
-void            buoh_comic_cache_set_pixbuf (BuohComicCache *cache,
-                                             const gchar    *uri,
-                                             GdkPixbuf      *pixbuf);
 GdkPixbuf      *buoh_comic_cache_get_pixbuf (BuohComicCache *cache,
                                              const gchar    *uri);
 

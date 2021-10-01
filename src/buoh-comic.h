@@ -48,14 +48,10 @@ void            buoh_comic_set_id               (BuohComic      *comic,
                                                  const gchar    *id);
 void            buoh_comic_go_next              (BuohComic      *comic);
 void            buoh_comic_go_previous          (BuohComic      *comic);
-void            buoh_comic_set_pixbuf           (BuohComic      *comic,
-                                                 GdkPixbuf      *pixbuf);
 void            buoh_comic_set_image            (BuohComic      *comic,
                                                  BuohComicImage *image);
 void                buoh_comic_set_date             (BuohComic      *comic,
                                                  GDate          *date);
-void            buoh_comic_set_pixbuf_from_file (BuohComic      *comic,
-                                                 const gchar    *filename);
 
 const gchar    *buoh_comic_get_uri              (BuohComic      *comic);
 const gchar    *buoh_comic_get_id               (BuohComic      *comic);
