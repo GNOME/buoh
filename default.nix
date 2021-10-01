@@ -34,11 +34,12 @@ Or to speed up the build by not running the test suite:
 
 */
 
-{ pkgs ?
-    (import (fetchTarball {
-      url = "https://github.com/NixOS/nixpkgs/archive/5658fadedb748cb0bdbcb569a53bd6065a5704a9.tar.gz";
-      sha256 = "1kpmhd9v5a3fbwq86spd1p5s4npfd1jrjl14kl6h1n1l1qd6cbp6";
-    }) {})
+{ sources ? import ./nix/sources.nix
+, pkgs ?
+    import sources.nixpkgs {
+      overlays = [];
+      config = {};
+    }
 , doCheck ? true
 , shell ? false
   # We do not use lib.inNixShell because that would also apply
@@ -47,7 +48,7 @@ Or to speed up the build by not running the test suite:
 
 let
   inherit (pkgs) lib;
-in pkgs.stdenv.mkDerivation rec {
+in (if shell then pkgs.mkShell else pkgs.stdenv.mkDerivation) rec {
   name = "buoh";
 
   src =
@@ -66,9 +67,11 @@ in pkgs.stdenv.mkDerivation rec {
     pkg-config
     gettext
     python3
-    xvfb_run
+    xvfb-run
     libxslt
     wrapGAppsHook
+  ] ++ lib.optionals shell [
+    niv
   ];
 
   # Dependencies for host platform
