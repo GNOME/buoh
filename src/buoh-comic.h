@@ -28,6 +28,12 @@ G_BEGIN_DECLS
 #define BUOH_TYPE_COMIC buoh_comic_get_type ()
 G_DECLARE_FINAL_TYPE (BuohComic, buoh_comic, BUOH, COMIC, GObject)
 
+/**
+ * BuohComicImage:
+ *
+ * Raw data for a comic strip (with size).
+ */
+
 typedef struct {
         guchar *data;
         gsize   size;

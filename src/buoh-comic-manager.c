@@ -56,6 +56,13 @@ static void buoh_comic_manager_set_property (GObject               *object,
                                              const GValue          *value,
                                              GParamSpec            *pspec);
 
+/**
+ * BuohComicManager:
+ *
+ * An abstract class representing a comic series.
+ * Currently, #BuohComicManagerDate is the only implementation.
+ */
+
 G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (BuohComicManager, buoh_comic_manager, G_TYPE_OBJECT)
 
 static void

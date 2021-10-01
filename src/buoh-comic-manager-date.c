@@ -48,6 +48,12 @@ typedef struct {
         guint      offset;
 } BuohComicManagerDatePrivate;
 
+/**
+ * BuohComicManagerDate:
+ *
+ * A class representing a comic series where new strips are released periodically on a certain day of a week.
+ */
+
 struct _BuohComicManagerDate {
         BuohComicManager parent;
 };

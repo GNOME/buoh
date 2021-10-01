@@ -38,6 +38,16 @@ enum {
         PROP_DATE
 };
 
+/**
+ * BuohComic:
+ * @id: Description of the comic strip (displayed in status bar).
+ * @uri: URI of the strip’s image file.
+ * @date: Publish date of the strip.
+ * @cache: Cache manager that actually stores the pixbuf and image (raw data) objects (keyed by URI).
+ *
+ * A class representing a single comic strip.
+ */
+
 struct _BuohComic {
         GObject         parent;
 

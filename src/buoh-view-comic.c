@@ -33,6 +33,19 @@ enum {
         PROP_SCALE
 };
 
+/**
+ * BuohViewComic:
+ * @view: The parent widget showing this one.
+ * @image: #GtkImage widget that will display the comic strip.
+ * @comic_data: Raw image data for the currently displayed comic strip.
+ * @comic: An object representing the currently displayed comic strip.
+ *
+ * @comic_loader: A class that fetches image data for given comic.
+ * @pixbuf_loader: #GdkPixbufLoader responsible for parsing the raw data and returning #GdkPixbuf.
+ *
+ * A widget showing a comic strip.
+ */
+
 struct _BuohViewComic {
         GtkViewport      parent;
 

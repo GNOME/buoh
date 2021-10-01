@@ -37,6 +37,12 @@ enum {
         N_SIGNALS
 };
 
+/**
+ * BuohView:
+ *
+ * A widget controlling the main application view. Will either display a comic strip or a message page.
+ */
+
 struct _BuohView {
         GtkStack         parent;
 

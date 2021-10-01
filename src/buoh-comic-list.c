@@ -25,6 +25,15 @@
 #include "buoh-application.h"
 #include "buoh-comic-list.h"
 
+/**
+ * BuohComicList:
+ * @tree_view: The #GtkTreeView displaying the list subscribed comic series.
+ * @model: The model of @tree_view.
+ * @comic_manager: Manager representing the currently selected series in the @tree_view.
+ *
+ * A widget displaying the list of subscribed comic series for switching between them.
+ */
+
 struct _BuohComicList {
         GtkBin            parent;
 
