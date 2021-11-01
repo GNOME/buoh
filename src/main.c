@@ -28,8 +28,7 @@
 int
 main (int argc, char *argv[])
 {
-        BuohApplication *buoh;
-        gint status;
+        g_autoptr (BuohApplication) buoh;
 
         bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -37,9 +36,5 @@ main (int argc, char *argv[])
 
         buoh = buoh_application_new ();
 
-        status = g_application_run (G_APPLICATION (buoh), argc, argv);
-
-        g_object_unref (buoh);
-
-        return status;
+        return g_application_run (G_APPLICATION (buoh), argc, argv);
 }

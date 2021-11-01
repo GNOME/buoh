@@ -456,16 +456,15 @@ buoh_application_activate (GApplication *buoh)
         g_return_if_fail (BUOH_IS_APPLICATION (buoh));
 
         GList *list;
-        GtkWidget *window;
+        BuohWindow *window;
 
         list = gtk_application_get_windows (GTK_APPLICATION (buoh));
 
         if (list) {
                 gtk_window_present (GTK_WINDOW (list->data));
         } else {
-                window = buoh_window_new ();
-                gtk_window_set_application (GTK_WINDOW (window), GTK_APPLICATION (buoh));
-                gtk_widget_show (window);
+                window = buoh_window_new (BUOH_APPLICATION (buoh));
+                gtk_widget_show (GTK_WIDGET (window));
         }
 }
 

@@ -332,12 +332,14 @@ buoh_window_finalize (GObject *object)
         }
 }
 
-GtkWidget *
-buoh_window_new (void)
+BuohWindow *
+buoh_window_new (BuohApplication *application)
 {
-        GtkWidget *buoh_window;
+        BuohWindow *buoh_window;
 
-        buoh_window = GTK_WIDGET (g_object_new (BUOH_TYPE_WINDOW, NULL));
+        buoh_window = g_object_new (BUOH_TYPE_WINDOW,
+                                    "application", GTK_APPLICATION (application),
+                                    NULL);
         return buoh_window;
 }
 
