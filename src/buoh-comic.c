@@ -70,7 +70,7 @@ static void buoh_comic_set_property (GObject        *object,
                                      const GValue   *value,
                                      GParamSpec     *pspec);
 
-G_DEFINE_TYPE (BuohComic, buoh_comic, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (BuohComic, buoh_comic, G_TYPE_OBJECT)
 
 static void
 buoh_comic_init (BuohComic *buoh_comic)

@@ -56,7 +56,7 @@ static void          buoh_application_save_comic_list        (GtkTreeModel      
                                                               gpointer                 gdata);
 static void          buoh_application_create_user_dir        (BuohApplication         *buoh);
 
-G_DEFINE_TYPE (BuohApplication, buoh_application, GTK_TYPE_APPLICATION)
+G_DEFINE_FINAL_TYPE (BuohApplication, buoh_application, GTK_TYPE_APPLICATION)
 
 void
 buoh_debug (const gchar *format, ...)

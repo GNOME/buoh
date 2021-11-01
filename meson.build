@@ -25,7 +25,7 @@ comicsdir = join_paths(pkgdatadir, 'comics')
 
 # Dependencies
 gtk = dependency('gtk+-3.0', version: '>= 3.22.0')
-glib = dependency('glib-2.0', version: '>= 2.26.0')
+glib = dependency('glib-2.0', version: '>= 2.70.0')
 libsoup = dependency('libsoup-2.4', version: '>= 2.4.0')
 libxml2 = dependency('libxml-2.0', version: '>= 2.4.0')
 

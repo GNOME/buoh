@@ -44,7 +44,7 @@ struct _BuohPropertiesDialog {
 static void buoh_properties_dialog_init       (BuohPropertiesDialog      *dialog);
 static void buoh_properties_dialog_class_init (BuohPropertiesDialogClass *klass);
 
-G_DEFINE_TYPE (BuohPropertiesDialog, buoh_properties_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_FINAL_TYPE (BuohPropertiesDialog, buoh_properties_dialog, GTK_TYPE_DIALOG)
 
 static void
 buoh_properties_dialog_init (BuohPropertiesDialog *dialog)

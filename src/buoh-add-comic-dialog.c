@@ -43,7 +43,7 @@ static void buoh_add_comic_toggled_cb             (GtkCellRendererToggle *render
                                                    gchar                 *path,
                                                    gpointer               gdata);
 
-G_DEFINE_TYPE(BuohAddComicDialog, buoh_add_comic_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_FINAL_TYPE(BuohAddComicDialog, buoh_add_comic_dialog, GTK_TYPE_DIALOG)
 
 static void
 buoh_add_comic_dialog_init (BuohAddComicDialog *dialog)

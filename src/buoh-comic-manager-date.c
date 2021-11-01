@@ -69,7 +69,7 @@ static const gchar *day_names[] = {
         N_("Sunday")
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (BuohComicManagerDate, buoh_comic_manager_date, BUOH_TYPE_COMIC_MANAGER)
+G_DEFINE_FINAL_TYPE_WITH_PRIVATE (BuohComicManagerDate, buoh_comic_manager_date, BUOH_TYPE_COMIC_MANAGER)
 
 static void
 buoh_comic_manager_date_init (BuohComicManagerDate *comic_manager)

@@ -32,7 +32,7 @@ struct _BuohViewMessage {
 static void buoh_view_message_init          (BuohViewMessage *m_view);
 static void buoh_view_message_class_init    (BuohViewMessageClass *klass);
 
-G_DEFINE_TYPE (BuohViewMessage, buoh_view_message, GTK_TYPE_VIEWPORT)
+G_DEFINE_FINAL_TYPE (BuohViewMessage, buoh_view_message, GTK_TYPE_VIEWPORT)
 
 static void
 buoh_view_message_init (BuohViewMessage *m_view)

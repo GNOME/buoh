@@ -123,7 +123,7 @@ static void     buoh_view_comic_zoom                  (BuohViewComic    *c_view,
                                                        gdouble           factor,
                                                        gboolean          relative);
 
-G_DEFINE_TYPE (BuohViewComic, buoh_view_comic, GTK_TYPE_VIEWPORT)
+G_DEFINE_FINAL_TYPE (BuohViewComic, buoh_view_comic, GTK_TYPE_VIEWPORT)
 
 static void
 buoh_view_comic_init (BuohViewComic *c_view)

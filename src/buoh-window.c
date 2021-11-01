@@ -188,7 +188,7 @@ static const GActionEntry menu_entries[] = {
           buoh_window_cmd_help_about }
 };
 
-G_DEFINE_TYPE (BuohWindow, buoh_window, GTK_TYPE_APPLICATION_WINDOW)
+G_DEFINE_FINAL_TYPE (BuohWindow, buoh_window, GTK_TYPE_APPLICATION_WINDOW)
 
 static void
 buoh_window_init (BuohWindow *buoh_window)

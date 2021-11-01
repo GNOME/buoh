@@ -59,7 +59,7 @@ static gboolean buoh_comic_list_visible            (GtkTreeModel     *model,
                                                     GtkTreeIter      *iter,
                                                     gpointer          gdata);
 
-G_DEFINE_TYPE (BuohComicList, buoh_comic_list, GTK_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (BuohComicList, buoh_comic_list, GTK_TYPE_BIN)
 
 static void
 buoh_comic_list_selection_changed (GtkTreeSelection *selection, gpointer gdata)

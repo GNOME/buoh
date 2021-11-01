@@ -43,7 +43,7 @@ static void buoh_comic_cache_init       (BuohComicCache *buoh_comic_cache);
 static void buoh_comic_cache_class_init (BuohComicCacheClass *klass);
 static void buoh_comic_cache_finalize   (GObject *object);
 
-G_DEFINE_TYPE (BuohComicCache, buoh_comic_cache, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (BuohComicCache, buoh_comic_cache, G_TYPE_OBJECT)
 
 static void
 buoh_comic_cache_init (BuohComicCache *buoh_comic_cache)

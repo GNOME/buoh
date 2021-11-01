@@ -46,7 +46,7 @@ static void  buoh_comic_loader_job_init         (BuohComicLoaderJob      *job);
 static void  buoh_comic_loader_job_class_init   (BuohComicLoaderJobClass *klass);
 static void  buoh_comic_loader_job_finalize     (GObject                 *object);
 
-G_DEFINE_TYPE (BuohComicLoaderJob, buoh_comic_loader_job, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (BuohComicLoaderJob, buoh_comic_loader_job, G_TYPE_OBJECT)
 
 typedef struct {
         BuohComicLoaderJob *job;

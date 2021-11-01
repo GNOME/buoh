@@ -74,7 +74,7 @@ static void     buoh_view_scale_changed_cb   (GObject        *object,
                                               GParamSpec     *arg,
                                               gpointer        gdata);
 
-G_DEFINE_TYPE (BuohView, buoh_view, GTK_TYPE_STACK)
+G_DEFINE_FINAL_TYPE (BuohView, buoh_view, GTK_TYPE_STACK)
 
 static void
 buoh_view_init (BuohView *buoh_view)
