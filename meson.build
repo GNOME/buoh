@@ -1,7 +1,7 @@
 project(
   'buoh',
   'c',
-  license: 'GPL2+',
+  license: 'GPL-2.0-or-later',
   version: '0.8.3',
   default_options: [
     'b_ndebug=if-release',
