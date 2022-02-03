@@ -2,58 +2,81 @@
 # Copyright (C) 2010 buoh's COPYRIGHT HOLDER
 # This file is distributed under the same license as the buoh package.
 # Yinghua_Wang <wantinghard@gmail.com>, 2010.
+# lumingzh <lumingzh@qq.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=buoh&component=General\n"
-"POT-Creation-Date: 2010-08-12 11:34+0000\n"
-"PO-Revision-Date: 2010-08-12 21:06+0800\n"
-"Last-Translator: Yinghua Wang <wantinghard@gmail.com>\n"
-"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2020-07-14 00:33+0000\n"
+"PO-Revision-Date: 2022-02-03 09:57+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 41.0\n"
 
-#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
 msgid "Buoh"
 msgstr "Buoh"
 
-#: ../data/buoh.desktop.in.h:2
-msgid "Read your favourite comic strips"
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:689
+msgid "Online comic strips reader"
+msgstr "在线连环漫画阅读器"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Buoh 是用来阅读在线连环漫画和网络漫画的应用程序，设计的与 GNOME 桌面外观统一"
+"工作良好。用简单、干净且易于使用的界面从超过 130 个漫画列表中选择您的最爱并阅"
+"读它们。而且您可以通过连环漫画归档浏览或将漫画保存到磁盘上。"
+
+#: data/org.gnome.buoh.appdata.xml.in:139
+msgid "General view of Buoh"
+msgstr "Buoh 的常规视图"
+
+#: data/org.gnome.buoh.appdata.xml.in:143
+msgid "First execution of Buoh"
+msgstr "Buoh 的首次运行"
+
+#: data/org.gnome.buoh.appdata.xml.in:147
+#| msgid "Add Comic"
+msgid "Add comic dialog"
+msgstr "添加漫画对话框"
+
+#: data/org.gnome.buoh.appdata.xml.in:151
+#| msgid "Comic Properties"
+msgid "Comic properties dialog"
+msgstr "漫画属性对话框"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "漫画阅读器"
+
+#: data/org.gnome.buoh.desktop.in:5
+#| msgid "Read your favourite comic strips"
+msgid "Read your favorite comic strips"
 msgstr "阅读您喜爱的连环漫画"
 
-#: ../data/buoh.schemas.in.h:1
-msgid "Select viewer zoom mode"
-msgstr "选择查看器缩放方式"
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "comics;webcomics;comic strips;漫画;连环画;网络漫画;"
 
-#: ../data/buoh.schemas.in.h:2
-msgid "Show statusbar by default"
-msgstr "默认显示状态栏"
-
-#: ../data/buoh.schemas.in.h:3
+#: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
 msgstr "默认显示工具栏"
 
-#: ../data/buoh.schemas.in.h:4
-msgid ""
-"Statusbar is the bottom bar that contains help and status messages. Two "
-"boolean options, true makes statusbar visible by default while false makes "
-"statusbar not visible by default."
-msgstr ""
-"状态栏位于窗口底部，显示帮助和状态消息。有两个布尔选项，true(真) 使状态栏默认"
-"可见而 false(假) 让状态栏默认隐藏。"
-
-#: ../data/buoh.schemas.in.h:5
-msgid ""
-"There are two zoom modes available, 1 makes the current comic fill the "
-"window, 2 makes the current comic fill the window width."
-msgstr ""
-"有两种绽放模式可用，1 使得当前漫画充满窗口，2 使得当前漫画充满窗口宽度。"
-
-#: ../data/buoh.schemas.in.h:6
+#: data/org.gnome.buoh.gschema.xml:7
 msgid ""
 "Toolbar is the top bar that contains navigation and zoom controls. Two "
 "boolean options, true makes toolbar visible by default while false makes "
@@ -62,308 +85,377 @@ msgstr ""
 "工具栏位于顶部，包含导航和缩放控件。有两个布尔选项，true(真) 使工具栏默认可"
 "见，而 false(假) 使工具栏默认隐藏。"
 
-#: ../src/buoh-add-comic-dialog.c:67
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "默认显示状态栏"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"状态栏位于窗口底部，显示帮助和状态消息。有两个布尔选项，true(真) 使状态栏默认"
+"可见而 false(假) 让状态栏默认隐藏。"
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "选择查看器缩放方式"
+
+#: data/org.gnome.buoh.gschema.xml:17
+#| msgid ""
+#| "There are two zoom modes available, 1 makes the current comic fill the "
+#| "window, 2 makes the current comic fill the window width."
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"有两种缩放模式可用，“best-fit”使当前漫画充满窗口，“fit-width”使当前漫画缩放到"
+"窗口宽度。"
+
+#: data/ui/add-comic-dialog.ui:7
 msgid "Add Comic"
 msgstr "添加漫画"
 
-#: ../src/buoh-add-comic-dialog.c:79
-msgid "Select Comics"
-msgstr "选择漫画"
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "关闭(_C)"
 
-#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
-#: ../src/buoh-properties-dialog.c:104
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
 msgid "Title"
 msgstr "标题"
 
-#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:110
+#: data/ui/add-comic-dialog.ui:95
 msgid "Author"
 msgstr "作者"
 
-#: ../src/buoh-add-comic-dialog.c:202
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "选择漫画"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "漫画(_C)"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "添加(_A)…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "移除(_R)"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+#| msgid "_Save A Copy..."
+msgid "_Save a Copy…"
+msgstr "保存副本(_S)…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "复制位置(_C)"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+#| msgid "_Properties..."
+msgid "_Properties…"
+msgstr "属性(_P)…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "退出(_Q)"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "查看(_V)"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "工具栏(_T)"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "状态栏(_A)"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "放大(_I)"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "缩小(_O)"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "正常大小(_N)"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "最适合(_B)"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "适合漫画宽度(_W)"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "前往(_G)"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "上一漫画(_P)"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "下一漫画(_N)"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "第一幅漫画(_F)"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "最后一幅漫画(_L)"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "帮助(_H)"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "关于(_A)"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "漫画属性"
+
+#: data/ui/properties-dialog.ui:57
+#| msgid "Title"
+msgid "Title:"
+msgstr "标题："
+
+#: data/ui/properties-dialog.ui:71
+#| msgid "Author"
+msgid "Author:"
+msgstr "作者："
+
+#: data/ui/properties-dialog.ui:85
+#| msgid "Link"
+msgid "Link:"
+msgstr "链接："
+
+#: data/ui/properties-dialog.ui:99
+#| msgid "Date of publication"
+msgid "Date of publication:"
+msgstr "出版日期："
+
+#: data/ui/properties-dialog.ui:113
+#| msgid "Language"
+msgid "Language:"
+msgstr "语言："
+
+#: data/ui/properties-dialog.ui:127
+#| msgid "Publication days"
+msgid "Publication days:"
+msgstr "出版天数："
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "前往上一漫画"
+
+#: data/ui/window.ui:22
+#| msgid "_Previous Comic"
+msgid "_Previous"
+msgstr "上一个(_P)"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "前往下一漫画"
+
+#: data/ui/window.ui:35
+#| msgid "_Next Comic"
+msgid "_Next"
+msgstr "下一个(_N)"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "增加漫画尺寸"
+
+#: data/ui/window.ui:56
+#| msgid "Zoom _In"
+msgid "Zoom _in"
+msgstr "放大(_I)"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "减小漫画尺寸"
+
+#: data/ui/window.ui:69
+#| msgid "Zoom _Out"
+msgid "Zoom ou_t"
+msgstr "缩小(_T)"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "使用正常的漫画尺寸"
+
+#: data/ui/window.ui:82
+#| msgid "_Normal Size"
+msgid "N_ormal Size"
+msgstr "正常(_O)"
+
+#: src/buoh-add-comic-dialog.c:103
 #, c-format
 msgid "Comics selected: %d"
 msgstr "已选择的漫画：%d"
 
-#: ../src/buoh-comic.c:435
-#, c-format
-msgid "Cannot create file '%s': %s"
-msgstr "无法创建“%s”文件：%s"
-
-#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
-#, c-format
-msgid "Error writting to file '%s': %s"
-msgstr "写入“%s”文件出错：%s"
-
-#: ../src/buoh-comic-manager-date.c:56
+#: src/buoh-comic-manager-date.c:57
 msgid "Monday"
 msgstr "周一"
 
-#: ../src/buoh-comic-manager-date.c:57
+#: src/buoh-comic-manager-date.c:58
 msgid "Tuesday"
 msgstr "周二"
 
-#: ../src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:59
 msgid "Wednesday"
 msgstr "周三"
 
-#: ../src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:60
 msgid "Thursday"
 msgstr "周四"
 
-#: ../src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:61
 msgid "Friday"
 msgstr "周五"
 
-#: ../src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:62
 msgid "Saturday"
 msgstr "周六"
 
-#: ../src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:63
 msgid "Sunday"
 msgstr "周日"
 
 #. It's a range of days
-#: ../src/buoh-comic-manager-date.c:496
+#: src/buoh-comic-manager-date.c:510
 msgid " to "
 msgstr "到"
 
-#: ../src/buoh-comic-manager-date.c:511
+#: src/buoh-comic-manager-date.c:525
 msgid "Every day"
 msgstr "每天"
 
-#: ../src/buoh-properties-dialog.c:48
-msgid "Comic Properties"
-msgstr "漫画属性"
+#: src/buoh-comic.c:412
+#, c-format
+#| msgid "Cannot create file '%s': %s"
+msgid "Cannot create file “%s”: %s"
+msgstr "无法创建文件“%s”：%s"
 
-#: ../src/buoh-properties-dialog.c:116
-msgid "Link"
-msgstr "链接"
+#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#, c-format
+#| msgid "Error writting to file '%s': %s"
+msgid "Error writing to file “%s”: %s"
+msgstr "写入文件“%s”出错：%s"
 
-#: ../src/buoh-properties-dialog.c:122
-msgid "Language"
-msgstr "语言"
-
-#: ../src/buoh-properties-dialog.c:128
-msgid "Date of publication"
-msgstr "出版日期"
-
-#: ../src/buoh-properties-dialog.c:186
-msgid "Publication days"
-msgstr "出版天数"
-
-#: ../src/buoh-view.c:155
-msgid "Buoh online comic strips reader"
-msgstr "Buoh 在线连环漫画阅读器"
-
-#: ../src/buoh-view.c:157
-msgid ""
-"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
-"The list on the left panel contains your favourite comic strips to add or "
-"remove comics to the list click on Comic -> Add. Just select a comic from "
-"the list, and it will be displayed on the right side. Thanks for using Buoh."
-msgstr ""
-"欢迎使用 <b>Buoh</b>，GNOME 桌面环境中的在线漫画阅读器，\n"
-"左侧列表包含了您喜爱的连环漫画。要向列表中添加或移除漫画，点击 漫画 -> 添加。"
-"选择列表中的漫画，它就会在右侧显示。感谢您使用 Buoh。"
-
-#: ../src/buoh-view-comic.c:638
+#: src/buoh-view-comic.c:638
 msgid "Error Loading Comic"
 msgstr "载入漫画出错"
 
-#. Top Level
-#: ../src/buoh-window.c:158
-msgid "_Comic"
-msgstr "漫画(_C)"
+#: src/buoh-view.c:87
+msgid "Buoh online comic strips reader"
+msgstr "Buoh 在线连环漫画阅读器"
 
-#: ../src/buoh-window.c:159
-msgid "_View"
-msgstr "查看(_V)"
+#: src/buoh-view.c:89
+#| msgid ""
+#| "Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+#| "The list on the left panel contains your favourite comic strips to add or "
+#| "remove comics to the list click on Comic -> Add. Just select a comic from "
+#| "the list, and it will be displayed on the right side. Thanks for using "
+#| "Buoh."
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"欢迎使用 <b>Buoh</b>，GNOME 桌面的在线漫画阅读器。\n"
+"左侧面板的列表包含了您的最爱连环漫画且可以点击“漫画→添加”来向列表添加或移除漫"
+"画。选择列表中的漫画，它就会在右侧显示。感谢您使用 Buoh。"
 
-#: ../src/buoh-window.c:160
-msgid "_Go"
-msgstr "前往(_G)"
-
-#: ../src/buoh-window.c:161
-msgid "_Help"
-msgstr "帮助(_H)"
-
-#. Comic menu
-#: ../src/buoh-window.c:164
-msgid "_Add..."
-msgstr "添加(_A)..."
-
-#: ../src/buoh-window.c:165
-msgid "Add a comic to the comic list"
-msgstr "向漫画列表中添加漫画"
-
-#: ../src/buoh-window.c:167
-msgid "_Remove"
-msgstr "移除(_R)"
-
-#: ../src/buoh-window.c:168
-msgid "Remove this comic from the comic list"
-msgstr "从漫画列表中移除此漫画"
-
-#: ../src/buoh-window.c:170
-msgid "_Save A Copy..."
-msgstr "保存副本(_S)..."
-
-#: ../src/buoh-window.c:171
-msgid "Save the current comic with a new filename"
-msgstr "以新文件名保存当前漫画"
-
-#: ../src/buoh-window.c:173
-msgid "_Copy Location"
-msgstr "复制位置(_C)"
-
-#: ../src/buoh-window.c:174
-msgid "Copy the location of this comic to clipboard"
-msgstr "将此漫画的位置复制到剪贴板"
-
-#: ../src/buoh-window.c:176
-msgid "_Properties..."
-msgstr "属性(_P)..."
-
-#: ../src/buoh-window.c:177
-msgid "View the properties of this comic"
-msgstr "查看此漫画的属性"
-
-#: ../src/buoh-window.c:179
-msgid "_Quit"
-msgstr "退出(_Q)"
-
-#: ../src/buoh-window.c:180
-msgid "Quit application"
-msgstr "退出应用程序"
-
-#. View menu
-#: ../src/buoh-window.c:184
-msgid "Zoom _In"
-msgstr "放大(_I)"
-
-#: ../src/buoh-window.c:185
-msgid "Increase the comic size"
-msgstr "增加漫画尺寸"
-
-#: ../src/buoh-window.c:187
-msgid "Zoom _Out"
-msgstr "缩小(_O)"
-
-#: ../src/buoh-window.c:188
-msgid "Decrease the comic size"
-msgstr "减小漫画尺寸"
-
-#: ../src/buoh-window.c:190
-msgid "_Normal Size"
-msgstr "正常大小(_N)"
-
-#: ../src/buoh-window.c:191
-msgid "Use the normal comic size"
-msgstr "使用正常的漫画尺寸"
-
-#. Go menu
-#: ../src/buoh-window.c:195
-msgid "_Previous Comic"
-msgstr "上一漫画(_P)"
-
-#: ../src/buoh-window.c:196
-msgid "Go to the previous comic"
-msgstr "前往上一漫画"
-
-#: ../src/buoh-window.c:198
-msgid "_Next Comic"
-msgstr "下一漫画(_N)"
-
-#: ../src/buoh-window.c:199
-msgid "Go to the next comic"
-msgstr "前往下一漫画"
-
-#: ../src/buoh-window.c:201
-msgid "_First Comic"
-msgstr "第一幅漫画(_F)"
-
-#: ../src/buoh-window.c:202
-msgid "Go to the first comic"
-msgstr "前往第一幅漫画"
-
-#: ../src/buoh-window.c:204
-msgid "_Last Comic"
-msgstr "最后一幅漫画(_L)"
-
-#: ../src/buoh-window.c:205
-msgid "Go to the last comic"
-msgstr "前往最后一幅漫画"
-
-#. Help menu
-#: ../src/buoh-window.c:209
-msgid "_Contents"
-msgstr "内容(_C)"
-
-#: ../src/buoh-window.c:210
-msgid "Display help for the Buoh online comic reader"
-msgstr "显示 Buoh 在线漫画阅读器的帮助"
-
-#: ../src/buoh-window.c:212
-msgid "_About"
-msgstr "关于(_A)"
-
-#: ../src/buoh-window.c:213
-msgid "Display credits for the Buoh online comic reader creators"
-msgstr "显示 Buoh 在线漫画阅读器作者的致谢界面"
-
-#. View menu
-#: ../src/buoh-window.c:220
-msgid "_Toolbar"
-msgstr "工具栏(_T)"
-
-#: ../src/buoh-window.c:221
-msgid "Changes the visibility of the toolbar"
-msgstr "更改工具栏的可见性"
-
-#: ../src/buoh-window.c:223
-msgid "St_atusbar"
-msgstr "状态栏(_A)"
-
-#: ../src/buoh-window.c:224
-msgid "Changes the visibility of the statusbar"
-msgstr "更改状态栏的可见性"
-
-#: ../src/buoh-window.c:226
-msgid "_Best Fit"
-msgstr "最适合(_B)"
-
-#: ../src/buoh-window.c:227
-msgid "Make the current comic fill the window"
-msgstr "让当前漫画充满窗口"
-
-#: ../src/buoh-window.c:229
-msgid "Fit Comic _Width"
-msgstr "适合漫画宽度(_W)"
-
-#: ../src/buoh-window.c:230
-msgid "Make the current comic fill the window width"
-msgstr "让当前漫画充满窗口宽度"
-
-#: ../src/buoh-window.c:537
+#: src/buoh-window.c:415
 msgid "Images"
 msgstr "图像"
 
-#: ../src/buoh-window.c:540
+#: src/buoh-window.c:418
 msgid "Save Comic"
 msgstr "保存漫画"
 
-#: ../src/buoh-window.c:582
+#: src/buoh-window.c:421
+msgid "_Cancel"
+msgstr "取消(_C)"
+
+#: src/buoh-window.c:422
+msgid "_Save"
+msgstr "保存(S)"
+
+#: src/buoh-window.c:461
 msgid "Unable to save comic"
 msgstr "无法保存漫画"
 
-#: ../src/buoh-window.c:844
-msgid "Online comic strips reader"
-msgstr "在线连环漫画阅读器"
-
-#: ../src/buoh-window.c:847
+#: src/buoh-window.c:692
 msgid "translator-credits"
-msgstr "Yinghua Wang <wantinghard@gmail.com>"
+msgstr ""
+"Yinghua Wang <wantinghard@gmail.com>\n"
+"lumingzh <lumingzh@qq.com>"
 
-#: ../src/buoh-window.c:1026
-msgid "Getting comic ..."
-msgstr "获取漫画..."
+#: src/buoh-window.c:815
+#| msgid "Getting comic ..."
+msgid "Getting comic…"
+msgstr "获取漫画…"
+
+#~ msgid "_Add..."
+#~ msgstr "添加(_A)..."
+
+#~ msgid "Add a comic to the comic list"
+#~ msgstr "向漫画列表中添加漫画"
+
+#~ msgid "Remove this comic from the comic list"
+#~ msgstr "从漫画列表中移除此漫画"
+
+#~ msgid "Save the current comic with a new filename"
+#~ msgstr "以新文件名保存当前漫画"
+
+#~ msgid "Copy the location of this comic to clipboard"
+#~ msgstr "将此漫画的位置复制到剪贴板"
+
+#~ msgid "View the properties of this comic"
+#~ msgstr "查看此漫画的属性"
+
+#~ msgid "Quit application"
+#~ msgstr "退出应用程序"
+
+#~ msgid "Go to the first comic"
+#~ msgstr "前往第一幅漫画"
+
+#~ msgid "Go to the last comic"
+#~ msgstr "前往最后一幅漫画"
+
+#~ msgid "_Contents"
+#~ msgstr "内容(_C)"
+
+#~ msgid "Display help for the Buoh online comic reader"
+#~ msgstr "显示 Buoh 在线漫画阅读器的帮助"
+
+#~ msgid "Display credits for the Buoh online comic reader creators"
+#~ msgstr "显示 Buoh 在线漫画阅读器作者的致谢界面"
+
+#~ msgid "Changes the visibility of the toolbar"
+#~ msgstr "更改工具栏的可见性"
+
+#~ msgid "Changes the visibility of the statusbar"
+#~ msgstr "更改状态栏的可见性"
+
+#~ msgid "Make the current comic fill the window"
+#~ msgstr "让当前漫画充满窗口"
+
+#~ msgid "Make the current comic fill the window width"
+#~ msgstr "让当前漫画充满窗口宽度"
