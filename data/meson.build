@@ -16,7 +16,7 @@ if gtk_builder_tool.found() and xsltproc.found()
       output: '@PLAINNAME@',
       command: [
         xsltproc,
-        join_paths(meson.source_root(), 'build-aux', 'ui-pre-validation.xsl'),
+        join_paths(meson.project_source_root(), 'build-aux', 'ui-pre-validation.xsl'),
         '@INPUT@',
       ],
       capture: true,

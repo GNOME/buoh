@@ -10,8 +10,8 @@ project(
 
 gnome = import('gnome')
 i18n = import('i18n')
-data_dir = join_paths(meson.source_root(), 'data')
-po_dir = join_paths(meson.source_root(), 'po')
+data_dir = join_paths(meson.current_source_dir(), 'data')
+po_dir = join_paths(meson.current_source_dir(), 'po')
 
 prefix = get_option('prefix')
 bindir = join_paths(prefix, get_option('bindir'))
@@ -45,8 +45,8 @@ buoh_deps = [
 if appstream_util.found()
   meson.add_dist_script(
     python3,
-    join_paths(meson.source_root(), 'build-aux', 'dist-news.py'),
-    appstream_util.path(),
+    join_paths(meson.current_source_dir(), 'build-aux', 'dist-news.py'),
+    appstream_util.full_path(),
   )
 endif
 
