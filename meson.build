@@ -6,6 +6,7 @@ project(
   default_options: [
     'b_ndebug=if-release',
   ],
+  meson_version: '>= 0.57.0'
 )
 
 gnome = import('gnome')
@@ -50,12 +51,9 @@ if appstream_util.found()
   )
 endif
 
-# Post-install scripts
-meson.add_install_script(
-  python3,
-  join_paths(meson.source_root(), 'build-aux', 'post-install.py'),
-  icondir,
-  schemadir,
+gnome.post_install(
+  glib_compile_schemas: true,
+  gtk_update_icon_cache: true,
 )
 
 # Subfolders

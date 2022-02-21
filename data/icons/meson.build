@@ -10,6 +10,6 @@ icon_sizes = [
 foreach icon_size : icon_sizes
   install_data(
     join_paths(icon_size, 'buoh.png'),
-    install_dir: join_paths(datadir, 'icons', 'hicolor', icon_size, 'apps'),
+    install_dir: join_paths(icondir, icon_size, 'apps'),
   )
 endforeach
