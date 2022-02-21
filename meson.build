@@ -10,7 +10,6 @@ project(
 
 gnome = import('gnome')
 i18n = import('i18n')
-python3 = import('python3')
 data_dir = join_paths(meson.source_root(), 'data')
 po_dir = join_paths(meson.source_root(), 'po')
 
@@ -29,6 +28,7 @@ glib = dependency('glib-2.0', version: '>= 2.70.0')
 libsoup = dependency('libsoup-2.4', version: '>= 2.4.0')
 libxml2 = dependency('libxml-2.0', version: '>= 2.4.0')
 
+python3 = find_program('python3')
 appstream_util = find_program('appstream-util', required: false)
 desktop_file_validate = find_program('desktop-file-validate', required: false)
 gtk_builder_tool = find_program('gtk-builder-tool', required: false)
@@ -44,7 +44,7 @@ buoh_deps = [
 
 if appstream_util.found()
   meson.add_dist_script(
-    python3.find_python().path(),
+    python3,
     join_paths(meson.source_root(), 'build-aux', 'dist-news.py'),
     appstream_util.path(),
   )
@@ -52,7 +52,7 @@ endif
 
 # Post-install scripts
 meson.add_install_script(
-  python3.find_python().path(),
+  python3,
   join_paths(meson.source_root(), 'build-aux', 'post-install.py'),
   icondir,
   schemadir,
