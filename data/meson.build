@@ -33,7 +33,6 @@ endif
 
 desktop = 'org.gnome.buoh.desktop'
 i18n.merge_file(
-  desktop,
   type: 'desktop',
   input: desktop + '.in',
   output: desktop,
@@ -66,7 +65,6 @@ endif
 
 appdata = 'org.gnome.buoh.appdata.xml'
 i18n.merge_file(
-  appdata,
   input: appdata + '.in',
   output: appdata,
   po_dir: po_dir,
