@@ -1,14 +1,14 @@
 # Basque translation for buoh.
 # Copyright (C) 2019 buoh's COPYRIGHT HOLDER
 # This file is distributed under the same license as the buoh package.
-# Asier Sarasua Garmendia <asier.sarasua@gmail.com>, 2019.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2019, 2022.
 #
 msgid ""
 msgstr "Project-Id-Version: buoh master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
-"POT-Creation-Date: 2019-05-27 16:45+0000\n"
-"PO-Revision-Date: 2019-09-29 10:00+0100\n"
-"Last-Translator: Asier Sarasua Garmendia <asier.sarasua@gmail.com>\n"
+"POT-Creation-Date: 2020-07-14 00:33+0000\n"
+"PO-Revision-Date: 2022-03-26 10:00+0100\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -31,21 +31,21 @@ msgid ""
 "comic from a list of more than 130 comics and read them in a simple, clean, "
 "and easy to use interface. Additionally, you can browse through the comic "
 "strip archives or save a comic to disk."
-msgstr ""
+msgstr "Buoh lineako komikiak ikusteko aplikazio bat da, GNOME mahaigainean ongi funtzionatu dezan diseinatutakoa. Hautatu gogokoen duzun komikia 130 komikiko zerrenda batetik, eta irakurri ezazu sinplea, garbia eta erabilerraza den interfaze batekin. Horrez gain, komiki-tiren artxiboak arakatu ditzakezu, edo komikiak zure diskoan gorde ditzakezu."
 
-#: data/org.gnome.buoh.appdata.xml.in:136
+#: data/org.gnome.buoh.appdata.xml.in:139
 msgid "General view of Buoh"
 msgstr "Buoh-ren ikuspegi orokorra"
 
-#: data/org.gnome.buoh.appdata.xml.in:140
+#: data/org.gnome.buoh.appdata.xml.in:143
 msgid "First execution of Buoh"
 msgstr "Buoh-ren lehen exekuzioa"
 
-#: data/org.gnome.buoh.appdata.xml.in:144
+#: data/org.gnome.buoh.appdata.xml.in:147
 msgid "Add comic dialog"
 msgstr "Gehitu komikien elkarrizketa-koadroa"
 
-#: data/org.gnome.buoh.appdata.xml.in:148
+#: data/org.gnome.buoh.appdata.xml.in:151
 msgid "Comic properties dialog"
 msgstr "Komikiaren propietateen elkarrizketa-koadroa"
 
@@ -71,7 +71,7 @@ msgid ""
 "Toolbar is the top bar that contains navigation and zoom controls. Two "
 "boolean options, true makes toolbar visible by default while false makes "
 "toolbar not visible by default."
-msgstr ""
+msgstr "Tresna-barra nabigazioarko eta zoom egiteko kontrolak dituen goiko barra da. Bi aukera boolear ditu, egiak tresna-barra ikusgai jartzen du modu lehenetsian eta faltsuak ezkutatu egiten du modu lehenetsian."
 
 #: data/org.gnome.buoh.gschema.xml:11
 msgid "Show statusbar by default"
@@ -82,7 +82,7 @@ msgid ""
 "Statusbar is the bottom bar that contains help and status messages. Two "
 "boolean options, true makes statusbar visible by default while false makes "
 "statusbar not visible by default."
-msgstr ""
+msgstr "Egoera-barra laguntza eta egoeraren mezuak erakusten dituen beheko barra da. Bi aukera boolear ditu, egiak egoera-barra ikusgai jartzen du modu lehenetsian eta faltsuak ezkutatu egiten du modu lehenetsian."
 
 #: data/org.gnome.buoh.gschema.xml:16
 msgid "Select viewer zoom mode"
@@ -92,7 +92,7 @@ msgstr "Erakutsi ikustailearen zoom modua"
 msgid ""
 "There are two zoom modes available, 'best-fit' makes the current comic fill "
 "the window, 'fit-width' makes the current comic fill the window width."
-msgstr ""
+msgstr "Bi zoom modu daude erabilgarri, 'best-fit' aukerarekin uneko komikiak leihoa betetzen du eta 'fit-width' aukerarekin uneko komikiak leihoaren zabalera betetzen du."
 
 #: data/ui/add-comic-dialog.ui:7
 msgid "Add Comic"
@@ -336,7 +336,8 @@ msgid ""
 "The list on the left panel contains your favorite comic strips to add or "
 "remove comics to the list click on Comic → Add. Just select a comic from the "
 "list, and it will be displayed on the right side. Thanks for using Buoh."
-msgstr ""
+msgstr "Ongi etorri <b>Buoh</b> aplikaziora. Buoh lineako komikien irakurlea da GNOME mahaigainerako.\n"
+"Ezkerreko paneleko zerrendak zure komiki gogokoenak ditu. Komikiak gehitu edo kentzeko, egin klik 'Komikia -> Gehitu' aukeran, eskuineko aldean bistaratu daitezen. Eskerrik asko Buoh erabiltzeagatik."
 
 #: src/buoh-window.c:415
 msgid "Images"
