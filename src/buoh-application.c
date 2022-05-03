@@ -347,7 +347,7 @@ buoh_application_create_user_dir (BuohApplication *buoh)
 
         if (!g_file_test (buoh->datadir, G_FILE_TEST_IS_DIR)) {
                 buoh_debug ("User directory doesn't exist, creating it ...");
-                if (g_mkdir (buoh->datadir, 0755) != 0) {
+                if (g_mkdir_with_parents (buoh->datadir, 0755) != 0) {
                         g_error ("Cannot create user's directory");
                 }
         }
@@ -368,7 +368,7 @@ buoh_application_create_user_dir (BuohApplication *buoh)
 
         if (!g_file_test (cache_dir, G_FILE_TEST_IS_DIR)) {
                 buoh_debug ("Cache directory doesn't exist, creating it ...");
-                if (g_mkdir (cache_dir, 0755) != 0) {
+                if (g_mkdir_with_parents (cache_dir, 0755) != 0) {
                         g_error ("Cannot create cache directory");
                 }
         }
