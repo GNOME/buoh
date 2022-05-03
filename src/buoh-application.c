@@ -31,6 +31,10 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#ifdef ENABLE_INTROSPECTION
+#include <girepository.h>
+#endif
+
 #include "buoh-application.h"
 #include "buoh-window.h"
 #include "buoh-comic.h"
@@ -58,6 +62,16 @@ static void          buoh_application_create_user_dir        (BuohApplication   
 
 G_DEFINE_FINAL_TYPE (BuohApplication, buoh_application, GTK_TYPE_APPLICATION)
 
+static GOptionEntry buoh_options[] =
+{
+#ifdef ENABLE_INTROSPECTION
+        { "introspect-dump", '\0', 0, G_OPTION_ARG_STRING, NULL,
+          N_("Dump gobject introspection file"),
+          N_("input.txt,output.xml") },
+#endif
+        { NULL }
+};
+
 void
 buoh_debug (const gchar *format, ...)
 {
@@ -76,6 +90,26 @@ buoh_debug (const gchar *format, ...)
         g_free (string);
 #endif
         return;
+}
+
+static gint
+buoh_handle_local_options (GApplication *self, GVariantDict *options, gpointer user_data)
+{
+#ifdef ENABLE_INTROSPECTION
+        g_autoptr (GVariant) introspect_dump = g_variant_dict_lookup_value(options, "introspect-dump", NULL);
+
+        if (introspect_dump != NULL) {
+                g_autofree GError *error = NULL;
+                if (!g_irepository_dump (g_variant_get_string (introspect_dump, NULL), &error)) {
+                        g_critical ("Failed to dump introspection data: %s", error->message);
+                        return EXIT_FAILURE;
+                }
+
+                return EXIT_SUCCESS;
+        }
+#endif
+
+        return -1;
 }
 
 static GList *
@@ -379,6 +413,10 @@ buoh_application_create_user_dir (BuohApplication *buoh)
 static void
 buoh_application_init (BuohApplication *buoh)
 {
+        g_application_add_main_option_entries (G_APPLICATION (buoh), buoh_options);
+
+        g_signal_connect(G_APPLICATION (buoh), "handle-local-options", G_CALLBACK (buoh_handle_local_options), NULL);
+
         // If legacy path exists, use that
         buoh->datadir = g_build_filename (g_get_home_dir (), ".buoh", NULL);
         if (!g_file_test (buoh->datadir, G_FILE_TEST_IS_DIR)) {

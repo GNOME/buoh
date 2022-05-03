@@ -66,6 +66,7 @@ in (if shell then pkgs.mkShell else pkgs.stdenv.mkDerivation) rec {
     ninja
     pkg-config
     gettext
+    gobject-introspection
     python3
     xvfb-run
     libxslt
@@ -79,6 +80,7 @@ in (if shell then pkgs.mkShell else pkgs.stdenv.mkDerivation) rec {
     glib
     gtk3
     glib-networking # For TLS
+    gobject-introspection # for libgirepository
     libsoup
     libxml2
   ];
@@ -86,6 +88,10 @@ in (if shell then pkgs.mkShell else pkgs.stdenv.mkDerivation) rec {
   checkInputs = with pkgs; [
     desktop-file-utils
     appstream-glib
+  ];
+
+  mesonFlags = [
+    "-Dintrospection=enabled"
   ];
 
   inherit doCheck;

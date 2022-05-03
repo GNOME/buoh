@@ -37,6 +37,23 @@ sources += gnome.mkenums_simple(
   sources: enum_headers,
 )
 
+headers = files(
+  'buoh-add-comic-dialog.h',
+  'buoh-application.h',
+  'buoh-comic-cache.h',
+  'buoh-comic.h',
+  'buoh-comic-list.h',
+  'buoh-comic-loader.h',
+  'buoh-comic-manager-date.h',
+  'buoh-comic-manager.h',
+  'buoh-properties-dialog.h',
+  'buoh-settings.h',
+  'buoh-view-comic.h',
+  'buoh-view.h',
+  'buoh-view-message.h',
+  'buoh-window.h',
+)
+
 cflags = [
   '-DCOMICS_DIR="@0@"'.format(comicsdir),
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
@@ -44,10 +61,37 @@ cflags = [
   '-DLOCALE_DIR="@0@"'.format(localedir),
 ]
 
+if introspection_enabled
+  cflags += '-DENABLE_INTROSPECTION'
+endif
+
+link_args = []
+
+if introspection_enabled
+  # Required for GIRepository to be able to dump symbols.
+  link_args += '-Wl,--export-dynamic'
+endif
+
 buoh = executable(
   meson.project_name(),
   sources,
   dependencies: buoh_deps,
   c_args: cflags,
+  link_args: link_args,
   install: true,
 )
+
+if introspection_enabled
+  buoh_gir = gnome.generate_gir(
+    buoh,
+    sources: [
+      sources,
+      headers,
+    ],
+    namespace: 'Buoh',
+    nsversion: '0',
+    includes: [
+      'Gtk-3.0',
+    ],
+  )
+endif

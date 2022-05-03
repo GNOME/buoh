@@ -26,6 +26,7 @@ comicsdir = join_paths(pkgdatadir, 'comics')
 # Dependencies
 gtk = dependency('gtk+-3.0', version: '>= 3.22.0')
 glib = dependency('glib-2.0', version: '>= 2.70.0')
+gobject_introspection = dependency('gobject-introspection-1.0', required: get_option('introspection'))
 libsoup = dependency('libsoup-2.4', version: '>= 2.4.0')
 libxml2 = dependency('libxml-2.0', version: '>= 2.4.0')
 
@@ -36,12 +37,18 @@ gtk_builder_tool = find_program('gtk-builder-tool', required: false)
 xmllint = find_program('xmllint', required: false)
 xsltproc = find_program('xsltproc', required: false)
 
+introspection_enabled = gobject_introspection.found()
+
 buoh_deps = [
   gtk,
   glib,
   libsoup,
   libxml2,
 ]
+
+if introspection_enabled
+  buoh_deps += gobject_introspection
+endif
 
 if appstream_util.found()
   meson.add_dist_script(
