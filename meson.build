@@ -17,6 +17,7 @@ po_dir = join_paths(meson.current_source_dir(), 'po')
 prefix = get_option('prefix')
 bindir = join_paths(prefix, get_option('bindir'))
 datadir = join_paths(prefix, get_option('datadir'))
+docdir = join_paths(datadir, 'doc')
 icondir = join_paths(datadir, 'icons', 'hicolor')
 localedir = join_paths(prefix, get_option('localedir'))
 pkgdatadir = join_paths(datadir, meson.project_name())
@@ -37,7 +38,18 @@ gtk_builder_tool = find_program('gtk-builder-tool', required: false)
 xmllint = find_program('xmllint', required: false)
 xsltproc = find_program('xsltproc', required: false)
 
+gi_docgen = find_program(
+  'gi-docgen',
+  version: '>= 2021.1',
+  required: get_option('api_docs'),
+)
+
 introspection_enabled = gobject_introspection.found()
+api_docs_enabled = gi_docgen.found()
+
+if api_docs_enabled and not introspection_enabled
+  error('Building “api_docs” requires the “introspection” feature to be enabled as well, make sure you have libgirepository installed.')
+endif
 
 buoh_deps = [
   gtk,
@@ -67,3 +79,4 @@ gnome.post_install(
 subdir('src')
 subdir('data')
 subdir('po')
+subdir('docs')

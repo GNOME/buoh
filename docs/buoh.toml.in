@@ -1,0 +1,26 @@
+[library]
+version = "@VERSION@"
+description = "Comic strip viewer for GNOME"
+license = "GPL-2.0-or-later"
+browse_url = "https://gitlab.gnome.org/GNOME/buoh/"
+repository_url = "https://gitlab.gnome.org/GNOME/buoh.git"
+logo_url = "buoh.png"
+devhelp = true
+search_index = true
+
+[theme]
+name = "basic"
+show_index_summary = true
+show_class_hierarchy = true
+
+[source-location]
+# The base URL for the web UI
+base_url = "https://gitlab.gnome.org/GNOME/buoh/-/blob/master/"
+# The format for links, using "filename" and "line" for the format
+file_format = "{filename}#L{line}"
+
+[extra]
+urlmap_file = "urlmap.js"
+content_images = [
+  "../data/icons/64x64/buoh.png",
+]

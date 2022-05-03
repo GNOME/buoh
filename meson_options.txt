@@ -4,3 +4,10 @@ option(
   value: 'disabled',
   description: 'Generate introspection data for the executable (e.g. for static analysis)',
 )
+
+option(
+  'api_docs',
+  type: 'feature',
+  value: 'disabled',
+  description: 'Use gi-docgen to build API documentation',
+)

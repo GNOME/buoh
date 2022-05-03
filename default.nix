@@ -66,6 +66,7 @@ in (if shell then pkgs.mkShell else pkgs.stdenv.mkDerivation) rec {
     ninja
     pkg-config
     gettext
+    gi-docgen
     gobject-introspection
     python3
     xvfb-run
@@ -92,9 +93,17 @@ in (if shell then pkgs.mkShell else pkgs.stdenv.mkDerivation) rec {
 
   mesonFlags = [
     "-Dintrospection=enabled"
+    "-Dapi_docs=enabled"
   ];
 
   inherit doCheck;
+
+  preBuild = ''
+    # Generating introspection needed for building docs runs BuohApplication,
+    # which tries to create config file in XDG_CONFIG_DIR,
+    # so we need to point HOME to an existing directory.
+    export HOME="$TMPDIR"
+  '';
 
   # Hardening does not work in debug mode
   hardeningDisable = lib.optionals shell [ "all" ];
