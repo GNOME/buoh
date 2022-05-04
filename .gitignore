@@ -1,0 +1,7 @@
+# Meson files
+/_build
+/build
+
+# Nix files
+/result*
+/.direnv

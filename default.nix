@@ -48,17 +48,20 @@ Or to speed up the build by not running the test suite:
 
 let
   inherit (pkgs) lib;
+
+  gitignore_nix = import sources."gitignore.nix" {
+    inherit lib;
+  };
+  inherit (gitignore_nix) gitignoreFilter;
+
 in (if shell then pkgs.mkShell else pkgs.stdenv.mkDerivation) rec {
   name = "buoh";
 
   src =
     let
-      # Do not copy to the store:
-      # - build directory, since Meson will want to use it
-      # - .git directory, since it would unnecessarily bloat the source
-      cleanSource = path: _: !lib.elem (builtins.baseNameOf path) [ "build" ".git" ];
+      sourcePath = ./.;
     in
-      if shell then null else builtins.filterSource cleanSource ./.;
+    if shell then null else builtins.filterSource (gitignoreFilter sourcePath) sourcePath;
 
   # Dependencies for build platform
   nativeBuildInputs = with pkgs; [
