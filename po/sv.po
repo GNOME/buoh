@@ -1,29 +1,29 @@
 # Swedish translation for buoh.
-# Copyright © 2010-2019 Free Software Foundation, Inc.
+# Copyright © 2010-2022 Free Software Foundation, Inc.
 # This file is distributed under the same license as the buoh package.
 # Daniel Nylander <po@danielnylander.se>, 2010.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
-"POT-Creation-Date: 2019-09-29 07:01+0000\n"
-"PO-Revision-Date: 2019-12-23 15:32+0100\n"
+"POT-Creation-Date: 2022-05-04 00:16+0000\n"
+"PO-Revision-Date: 2022-05-04 16:20+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
 #: data/ui/window.ui:8
 msgid "Buoh"
 msgstr "Buoh"
 
-#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:689
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:691
 msgid "Online comic strips reader"
 msgstr "Nätseriestrippläsare"
 
@@ -41,19 +41,19 @@ msgstr ""
 "enkelt, stilrent och lättanvänt gränssnitt. Du kan dessutom bläddra genom "
 "seriestripparkiven eller spara en stripp till disk."
 
-#: data/org.gnome.buoh.appdata.xml.in:136
+#: data/org.gnome.buoh.appdata.xml.in:139
 msgid "General view of Buoh"
 msgstr "Allmän vy över Buoh"
 
-#: data/org.gnome.buoh.appdata.xml.in:140
+#: data/org.gnome.buoh.appdata.xml.in:143
 msgid "First execution of Buoh"
 msgstr "Första körningen av Buoh"
 
-#: data/org.gnome.buoh.appdata.xml.in:144
+#: data/org.gnome.buoh.appdata.xml.in:147
 msgid "Add comic dialog"
 msgstr "Dialogruta för att lägga till serier"
 
-#: data/org.gnome.buoh.appdata.xml.in:148
+#: data/org.gnome.buoh.appdata.xml.in:151
 msgid "Comic properties dialog"
 msgstr "Dialogruta för serieegenskaper"
 
@@ -292,62 +292,70 @@ msgstr "N_ormal storlek"
 msgid "Comics selected: %d"
 msgstr "Valda serier: %d"
 
-#: src/buoh-comic-manager-date.c:57
+#: src/buoh-application.c:69
+msgid "Dump gobject introspection file"
+msgstr "Mata ut gobject-introspektionsfil"
+
+#: src/buoh-application.c:70
+msgid "input.txt,output.xml"
+msgstr "indata.txt,utdata.xml"
+
+#: src/buoh-comic-manager-date.c:63
 msgid "Monday"
 msgstr "Måndag"
 
-#: src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:64
 msgid "Tuesday"
 msgstr "Tisdag"
 
-#: src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:65
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:66
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:67
 msgid "Friday"
 msgstr "Fredag"
 
-#: src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:68
 msgid "Saturday"
 msgstr "Lördag"
 
-#: src/buoh-comic-manager-date.c:63
+#: src/buoh-comic-manager-date.c:69
 msgid "Sunday"
 msgstr "Söndag"
 
 #. It's a range of days
-#: src/buoh-comic-manager-date.c:510
+#: src/buoh-comic-manager-date.c:516
 msgid " to "
 msgstr " till "
 
-#: src/buoh-comic-manager-date.c:525
+#: src/buoh-comic-manager-date.c:531
 msgid "Every day"
 msgstr "Varje dag"
 
-#: src/buoh-comic.c:412
+#: src/buoh-comic.c:392
 #, c-format
 msgid "Cannot create file “%s”: %s"
 msgstr "Kan inte skapa filen ”%s”: %s"
 
-#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#: src/buoh-comic.c:400 src/buoh-comic.c:409
 #, c-format
 msgid "Error writing to file “%s”: %s"
 msgstr "Fel vid skrivning till filen ”%s”: %s"
 
-#: src/buoh-view-comic.c:638
+#: src/buoh-view-comic.c:664
 msgid "Error Loading Comic"
 msgstr "Fel vid inläsning av stripp"
 
-#: src/buoh-view.c:87
+#: src/buoh-view.c:93
 msgid "Buoh online comic strips reader"
 msgstr "Buoh nätseriestrippläsare"
 
-#: src/buoh-view.c:89
+#: src/buoh-view.c:95
 msgid ""
 "Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
 "The list on the left panel contains your favorite comic strips to add or "
@@ -360,27 +368,27 @@ msgstr ""
 "bara en serie från listan så kommer den att visas till höger. Tack för att "
 "du använder Buoh."
 
-#: src/buoh-window.c:415
+#: src/buoh-window.c:417
 msgid "Images"
 msgstr "Bilder"
 
-#: src/buoh-window.c:418
+#: src/buoh-window.c:420
 msgid "Save Comic"
 msgstr "Spara stripp"
 
-#: src/buoh-window.c:421
+#: src/buoh-window.c:423
 msgid "_Cancel"
 msgstr "A_vbryt"
 
-#: src/buoh-window.c:422
+#: src/buoh-window.c:424
 msgid "_Save"
 msgstr "_Spara"
 
-#: src/buoh-window.c:461
+#: src/buoh-window.c:463
 msgid "Unable to save comic"
 msgstr "Kunde inte spara stripp"
 
-#: src/buoh-window.c:692
+#: src/buoh-window.c:694
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
@@ -388,7 +396,7 @@ msgstr ""
 "Skicka synpunkter på översättningen\n"
 "till <tp-sv@listor.tp-sv.se>."
 
-#: src/buoh-window.c:815
+#: src/buoh-window.c:817
 msgid "Getting comic…"
 msgstr "Hämtar stripp…"
 
