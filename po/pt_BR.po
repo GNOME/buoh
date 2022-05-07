@@ -3,28 +3,28 @@
 # This file is distributed under the same license as the buoh package.
 # Felipe Borges <felipe10borges@gmail.com>, 2010.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2018-2019.
-#
+# Enrico Nicoletto <hiko@duck.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
-"POT-Creation-Date: 2019-01-23 16:02+0000\n"
-"PO-Revision-Date: 2019-01-24 04:32-0200\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"POT-Creation-Date: 2022-05-04 00:16+0000\n"
+"PO-Revision-Date: 2022-05-06 23:28-0300\n"
+"Last-Translator: Enrico Nicoletto <hiko@duck.com>\n"
 "Language-Team: Portuguese - Brazil <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 3.31.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
 #: data/ui/window.ui:8
 msgid "Buoh"
 msgstr "Buoh"
 
-#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:741
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:691
 msgid "Online comic strips reader"
 msgstr "Leitor de histórias em quadrinhos online"
 
@@ -43,21 +43,19 @@ msgstr ""
 "pelos arquivos de histórias em quadrinhos ou salvar uma história em "
 "quadrinhos em disco."
 
-#: data/org.gnome.buoh.appdata.xml.in:135
+#: data/org.gnome.buoh.appdata.xml.in:139
 msgid "General view of Buoh"
 msgstr "Visão geral do Buoh"
 
-#: data/org.gnome.buoh.appdata.xml.in:139
+#: data/org.gnome.buoh.appdata.xml.in:143
 msgid "First execution of Buoh"
 msgstr "Primeira execução do Buoh"
 
-#: data/org.gnome.buoh.appdata.xml.in:143
-#| msgid "Add Comic"
+#: data/org.gnome.buoh.appdata.xml.in:147
 msgid "Add comic dialog"
 msgstr "Diálogo de adição de quadrinho"
 
-#: data/org.gnome.buoh.appdata.xml.in:147
-#| msgid "Comic Properties"
+#: data/org.gnome.buoh.appdata.xml.in:151
 msgid "Comic properties dialog"
 msgstr "Diálogo de propriedades do quadrinho"
 
@@ -75,11 +73,6 @@ msgid "comics;webcomics;comic strips;"
 msgstr ""
 "quadrinhos;revistinha;tirinhas;tira de banda desenhada;comics;webcomics;"
 "comic strips;"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.buoh.desktop.in:10
-msgid "buoh"
-msgstr "buoh"
 
 #: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
@@ -304,54 +297,62 @@ msgstr "Tamanho _normal"
 msgid "Comics selected: %d"
 msgstr "Quadrinhos selecionados: %d"
 
-#: src/buoh-comic-manager-date.c:57
+#: src/buoh-application.c:69
+msgid "Dump gobject introspection file"
+msgstr "Despejar arquivo de introspeção gobject"
+
+#: src/buoh-application.c:70
+msgid "input.txt,output.xml"
+msgstr "entrada.txt,saida.xml"
+
+#: src/buoh-comic-manager-date.c:63
 msgid "Monday"
 msgstr "Segunda-feira"
 
-#: src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:64
 msgid "Tuesday"
 msgstr "Terça-feira"
 
-#: src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:65
 msgid "Wednesday"
 msgstr "Quarta-feira"
 
-#: src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:66
 msgid "Thursday"
 msgstr "Quinta-feira"
 
-#: src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:67
 msgid "Friday"
 msgstr "Sexta-feira"
 
-#: src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:68
 msgid "Saturday"
 msgstr "Sábado"
 
-#: src/buoh-comic-manager-date.c:63
+#: src/buoh-comic-manager-date.c:69
 msgid "Sunday"
 msgstr "Domingo"
 
 #. It's a range of days
-#: src/buoh-comic-manager-date.c:510
+#: src/buoh-comic-manager-date.c:516
 msgid " to "
 msgstr " à "
 
-#: src/buoh-comic-manager-date.c:525
+#: src/buoh-comic-manager-date.c:531
 msgid "Every day"
 msgstr "Todos os dias"
 
-#: src/buoh-comic.c:412
+#: src/buoh-comic.c:392
 #, c-format
 msgid "Cannot create file “%s”: %s"
 msgstr "Não foi possível criar arquivo “%s”: %s"
 
-#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#: src/buoh-comic.c:400 src/buoh-comic.c:409
 #, c-format
 msgid "Error writing to file “%s”: %s"
 msgstr "Erro ao escreve para o arquivo “%s”: %s"
 
-#: src/buoh-view-comic.c:630
+#: src/buoh-view-comic.c:664
 msgid "Error Loading Comic"
 msgstr "Erro ao carregar quadrinho"
 
@@ -372,81 +373,32 @@ msgstr ""
 "→ Adicionar. Basta selecionar um quadrinho da lista e ele será exibido no "
 "painel direito. Obrigado por usar o Buoh."
 
-#: src/buoh-window.c:433
+#: src/buoh-window.c:417
 msgid "Images"
 msgstr "Imagens"
 
-#: src/buoh-window.c:436
+#: src/buoh-window.c:420
 msgid "Save Comic"
 msgstr "Salvar quadrinho"
 
-#: src/buoh-window.c:439
+#: src/buoh-window.c:423
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/buoh-window.c:440
+#: src/buoh-window.c:424
 msgid "_Save"
 msgstr "_Salvar"
 
-#: src/buoh-window.c:479
+#: src/buoh-window.c:463
 msgid "Unable to save comic"
 msgstr "Erro ao salvar o quadrinho"
 
-#: src/buoh-window.c:744
+#: src/buoh-window.c:694
 msgid "translator-credits"
 msgstr ""
 "Felipe Borges <felipe10borges@gmail.com>\n"
 "Rafael Fontenelle <rafaelff@gnome.org>"
 
-#: src/buoh-window.c:879
+#: src/buoh-window.c:817
 msgid "Getting comic…"
 msgstr "Baixando quadrinho…"
-
-#~ msgid "Add a comic to the comic list"
-#~ msgstr "Adicionar um quadrinho à lista de quadrinhos"
-
-#~ msgid "Remove this comic from the comic list"
-#~ msgstr "Remover este quadrinho da lista de quadrinhos"
-
-#~ msgid "Save the current comic with a new filename"
-#~ msgstr "Salvar este quadrinho com um novo nome de arquivo"
-
-#~ msgid "Copy the location of this comic to clipboard"
-#~ msgstr "Copiar a localização deste quadrinho para a área de transferência"
-
-#~ msgid "View the properties of this comic"
-#~ msgstr "Ver as propriedades deste quadrinho"
-
-#~ msgid "Quit application"
-#~ msgstr "Fecha o aplicativo"
-
-#~ msgid "Go to the first comic"
-#~ msgstr "Ir para o primeiro quadrinho"
-
-#~ msgid "Go to the last comic"
-#~ msgstr "Ir para o último quadrinho"
-
-#~ msgid "Display credits for the Buoh online comic reader creators"
-#~ msgstr ""
-#~ "Exibe créditos para os criadores do leitor de quadrinhos online Buoh"
-
-#~ msgid "Changes the visibility of the toolbar"
-#~ msgstr "Muda a visibilidade da barra de ferramentas"
-
-#~ msgid "Changes the visibility of the statusbar"
-#~ msgstr "Muda a visibilidade da barra de status"
-
-#~ msgid "Make the current comic fill the window"
-#~ msgstr "Faz com que o quadrinho atual preencha toda a janela"
-
-#~ msgid "Make the current comic fill the window width"
-#~ msgstr "Faz com que o quadrinho atual preencha toda a altura da janela"
-
-#~ msgid "_Contents"
-#~ msgstr "S_umário"
-
-#~ msgid "Display help for the Buoh online comic reader"
-#~ msgstr "Exibe a ajuda do leitor de quadrinhos online Buoh"
-
-#~ msgid "_Add..."
-#~ msgstr "_Adicionar..."
