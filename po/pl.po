@@ -1,16 +1,16 @@
 # Polish translation for buoh.
-# Copyright © 2012-2019 the buoh authors.
+# Copyright © 2012-2022 the buoh authors.
 # This file is distributed under the same license as the buoh package.
 # Mateusz Kacprzak <mateusz.kacprzak@yandex.ru>, 2012.
-# Piotr Drąg <piotrdrag@gmail.com>, 2018-2019.
-# Aviary.pl <community-poland@mozilla.org>, 2012-2019.
+# Piotr Drąg <piotrdrag@gmail.com>, 2018-2022.
+# Aviary.pl <community-poland@mozilla.org>, 2012-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
-"POT-Creation-Date: 2019-01-23 16:02+0000\n"
-"PO-Revision-Date: 2019-01-26 10:55+0100\n"
+"POT-Creation-Date: 2022-05-07 02:30+0000\n"
+"PO-Revision-Date: 2022-05-08 11:18+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Buoh"
 msgstr "Buoh"
 
-#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:741
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:691
 msgid "Online comic strips reader"
 msgstr "Czytnik komiksów internetowych"
 
@@ -43,19 +43,19 @@ msgstr ""
 "i łatwego w użyciu interfejsu. Dodatkowo można przeglądać archiwa pasków "
 "komiksowych i zapisywać komiksy na dysku."
 
-#: data/org.gnome.buoh.appdata.xml.in:135
+#: data/org.gnome.buoh.appdata.xml.in:139
 msgid "General view of Buoh"
 msgstr "Ogólny widok programu Buoh"
 
-#: data/org.gnome.buoh.appdata.xml.in:139
+#: data/org.gnome.buoh.appdata.xml.in:143
 msgid "First execution of Buoh"
 msgstr "Pierwsze uruchomienie programu Buoh"
 
-#: data/org.gnome.buoh.appdata.xml.in:143
+#: data/org.gnome.buoh.appdata.xml.in:147
 msgid "Add comic dialog"
 msgstr "Okno dodawania komiksu"
 
-#: data/org.gnome.buoh.appdata.xml.in:147
+#: data/org.gnome.buoh.appdata.xml.in:151
 msgid "Comic properties dialog"
 msgstr "Okno właściwości komiksu"
 
@@ -71,11 +71,6 @@ msgstr "Czytanie ulubionych komiksów"
 #: data/org.gnome.buoh.desktop.in:7
 msgid "comics;webcomics;comic strips;"
 msgstr "komiksy;comics;webkomiksy;paski komiksowe;manga;"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.buoh.desktop.in:10
-msgid "buoh"
-msgstr "buoh"
 
 #: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
@@ -299,54 +294,62 @@ msgstr "_Zwykły rozmiar"
 msgid "Comics selected: %d"
 msgstr "Zaznaczone komiksy: %d"
 
-#: src/buoh-comic-manager-date.c:57
+#: src/buoh-application.c:69
+msgid "Dump gobject introspection file"
+msgstr "Zrzuca plik introspekcji GObject"
+
+#: src/buoh-application.c:70
+msgid "input.txt,output.xml"
+msgstr "dane-wejściowe.txt,dane-wyjściowe.xml"
+
+#: src/buoh-comic-manager-date.c:63
 msgid "Monday"
 msgstr "Poniedziałek"
 
-#: src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:64
 msgid "Tuesday"
 msgstr "Wtorek"
 
-#: src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:65
 msgid "Wednesday"
 msgstr "Środa"
 
-#: src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:66
 msgid "Thursday"
 msgstr "Czwartek"
 
-#: src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:67
 msgid "Friday"
 msgstr "Piątek"
 
-#: src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:68
 msgid "Saturday"
 msgstr "Sobota"
 
-#: src/buoh-comic-manager-date.c:63
+#: src/buoh-comic-manager-date.c:69
 msgid "Sunday"
 msgstr "Niedziela"
 
 #. It's a range of days
-#: src/buoh-comic-manager-date.c:510
+#: src/buoh-comic-manager-date.c:516
 msgid " to "
 msgstr " do "
 
-#: src/buoh-comic-manager-date.c:525
+#: src/buoh-comic-manager-date.c:531
 msgid "Every day"
 msgstr "Codziennie"
 
-#: src/buoh-comic.c:412
+#: src/buoh-comic.c:392
 #, c-format
 msgid "Cannot create file “%s”: %s"
 msgstr "Nie można utworzyć pliku „%s”: %s"
 
-#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#: src/buoh-comic.c:400 src/buoh-comic.c:409
 #, c-format
 msgid "Error writing to file “%s”: %s"
 msgstr "Błąd podczas zapisywania do pliku „%s”: %s"
 
-#: src/buoh-view-comic.c:630
+#: src/buoh-view-comic.c:664
 msgid "Error Loading Comic"
 msgstr "Błąd podczas wczytywania komiksu"
 
@@ -368,33 +371,33 @@ msgstr ""
 "z listy i zostanie on wyświetlony po prawej stronie. Dziękujemy za używanie "
 "programu Buoh."
 
-#: src/buoh-window.c:433
+#: src/buoh-window.c:417
 msgid "Images"
 msgstr "Obrazy"
 
-#: src/buoh-window.c:436
+#: src/buoh-window.c:420
 msgid "Save Comic"
 msgstr "Zapis komiksu"
 
-#: src/buoh-window.c:439
+#: src/buoh-window.c:423
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: src/buoh-window.c:440
+#: src/buoh-window.c:424
 msgid "_Save"
 msgstr "_Zapisz"
 
-#: src/buoh-window.c:479
+#: src/buoh-window.c:463
 msgid "Unable to save comic"
 msgstr "Nie można zapisać komiksu"
 
-#: src/buoh-window.c:744
+#: src/buoh-window.c:694
 msgid "translator-credits"
 msgstr ""
 "Mateusz Kacprzak <mateusz.kacprzak@yandex.ru>, 2012\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2018-2019\n"
-"Aviary.pl <community-poland@mozilla.org>, 2012-2019"
+"Piotr Drąg <piotrdrag@gmail.com>, 2018-2022\n"
+"Aviary.pl <community-poland@mozilla.org>, 2012-2022"
 
-#: src/buoh-window.c:879
+#: src/buoh-window.c:817
 msgid "Getting comic…"
 msgstr "Pobieranie komiksu…"
