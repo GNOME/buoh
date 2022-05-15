@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
-"POT-Creation-Date: 2020-07-14 00:33+0000\n"
-"PO-Revision-Date: 2022-01-18 21:46+1000\n"
-"Last-Translator: Ser82-png\n"
+"POT-Creation-Date: 2022-05-08 09:19+0000\n"
+"PO-Revision-Date: 2022-05-14 22:58+1000\n"
+"Last-Translator: Ser82-png <sw@atrus.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Buoh"
 msgstr "Buoh"
 
-#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:689
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:691
 msgid "Online comic strips reader"
 msgstr "Приложения для чтения онлайн-комиксов"
 
@@ -294,62 +294,70 @@ msgstr "_Обычный размер"
 msgid "Comics selected: %d"
 msgstr "Выбранные комиксы: %d"
 
-#: src/buoh-comic-manager-date.c:57
+#: src/buoh-application.c:69
+msgid "Dump gobject introspection file"
+msgstr "Дамп файла самоанализа gobject"
+
+#: src/buoh-application.c:70
+msgid "input.txt,output.xml"
+msgstr "input.txt,output.xml"
+
+#: src/buoh-comic-manager-date.c:63
 msgid "Monday"
 msgstr "Понедельник"
 
-#: src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:64
 msgid "Tuesday"
 msgstr "Вторник"
 
-#: src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:65
 msgid "Wednesday"
 msgstr "Среда"
 
-#: src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:66
 msgid "Thursday"
 msgstr "Четверг"
 
-#: src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:67
 msgid "Friday"
 msgstr "Пятница"
 
-#: src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:68
 msgid "Saturday"
 msgstr "Суббота"
 
-#: src/buoh-comic-manager-date.c:63
+#: src/buoh-comic-manager-date.c:69
 msgid "Sunday"
 msgstr "Воскресенье"
 
 #. It's a range of days
-#: src/buoh-comic-manager-date.c:510
+#: src/buoh-comic-manager-date.c:516
 msgid " to "
 msgstr " по "
 
-#: src/buoh-comic-manager-date.c:525
+#: src/buoh-comic-manager-date.c:531
 msgid "Every day"
 msgstr "Каждый день"
 
-#: src/buoh-comic.c:412
+#: src/buoh-comic.c:392
 #, c-format
 msgid "Cannot create file “%s”: %s"
 msgstr "Не удалось создать файл “%s“: %s"
 
-#: src/buoh-comic.c:420 src/buoh-comic.c:429
+#: src/buoh-comic.c:400 src/buoh-comic.c:409
 #, c-format
 msgid "Error writing to file “%s”: %s"
 msgstr "Ошибка записи в файл “%s“: %s"
 
-#: src/buoh-view-comic.c:638
+#: src/buoh-view-comic.c:664
 msgid "Error Loading Comic"
 msgstr "Ошибка загрузки комикса"
 
-#: src/buoh-view.c:87
+#: src/buoh-view.c:93
 msgid "Buoh online comic strips reader"
 msgstr "Приложение для чтения комиксов онлайн"
 
-#: src/buoh-view.c:89
+#: src/buoh-view.c:95
 msgid ""
 "Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
 "The list on the left panel contains your favorite comic strips to add or "
@@ -362,33 +370,33 @@ msgstr ""
 "комикс, щёлкните \"Комикс\" → \"Добавить\". Выберите комикс из списка и он "
 "будет показан с правой стороны. Спасибо, что используете Buoh."
 
-#: src/buoh-window.c:415
+#: src/buoh-window.c:417
 msgid "Images"
 msgstr "Изображения"
 
-#: src/buoh-window.c:418
+#: src/buoh-window.c:420
 msgid "Save Comic"
 msgstr "Сохранить комикс"
 
-#: src/buoh-window.c:421
+#: src/buoh-window.c:423
 msgid "_Cancel"
 msgstr "_Отменить"
 
-#: src/buoh-window.c:422
+#: src/buoh-window.c:424
 msgid "_Save"
 msgstr "_Сохранить"
 
-#: src/buoh-window.c:461
+#: src/buoh-window.c:463
 msgid "Unable to save comic"
 msgstr "Не удалось сохранить комикс"
 
-#: src/buoh-window.c:692
+#: src/buoh-window.c:694
 msgid "translator-credits"
 msgstr ""
 "Юрий Мясоедов <omerta13@yandex.ru>, 2011\n"
 "Ser82-png <sw@atrus.ru>, 2022"
 
-#: src/buoh-window.c:815
+#: src/buoh-window.c:817
 msgid "Getting comic…"
 msgstr "Получение комикса…"
 
