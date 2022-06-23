@@ -21,6 +21,10 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
+#ifdef ENABLE_INTROSPECTION
+#  include <girepository.h>
+#endif
+
 #include <gtk/gtk.h>
 
 #include "buoh-application.h"
@@ -28,6 +32,20 @@
 int
 main (int argc, char *argv[])
 {
+#ifdef ENABLE_INTROSPECTION
+        const char *introspect_dump_prefix = "--introspect-dump=";
+
+        if (argc == 2 && g_str_has_prefix (argv[1], introspect_dump_prefix)) {
+                g_autoptr (GError) error = NULL;
+                if (!g_irepository_dump (argv[1] + strlen(introspect_dump_prefix), &error)) {
+                        g_critical ("Failed to dump introspection data: %s", error->message);
+                        return EXIT_FAILURE;
+                }
+
+                return EXIT_SUCCESS;
+        }
+#endif
+
         g_autoptr (BuohApplication) buoh;
 
         bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);

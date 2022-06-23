@@ -101,13 +101,6 @@ in (if shell then pkgs.mkShell else pkgs.stdenv.mkDerivation) rec {
 
   inherit doCheck;
 
-  preBuild = ''
-    # Generating introspection needed for building docs runs BuohApplication,
-    # which tries to create config file in XDG_CONFIG_DIR,
-    # so we need to point HOME to an existing directory.
-    export HOME="$TMPDIR"
-  '';
-
   # Hardening does not work in debug mode
   hardeningDisable = lib.optionals shell [ "all" ];
 
