@@ -1,0 +1,369 @@
+# Georgian translation for buoh.
+# Copyright (C) 2022 buoh's COPYRIGHT HOLDER
+# This file is distributed under the same license as the buoh package.
+# Ekaterine Papava <papava.e@gtu.ge>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: buoh master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2022-09-29 20:55+0000\n"
+"PO-Revision-Date: 2022-12-03 17:43+0100\n"
+"Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
+msgid "Buoh"
+msgstr "Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:691
+msgid "Online comic strips reader"
+msgstr "ონლაინ კომიქსის ზოლების კითხვა"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+
+#: data/org.gnome.buoh.appdata.xml.in:139
+msgid "General view of Buoh"
+msgstr "Buoh-ის ზოგადი ხედი"
+
+#: data/org.gnome.buoh.appdata.xml.in:143
+msgid "First execution of Buoh"
+msgstr "Buoh-ის პირველი გაშვება"
+
+#: data/org.gnome.buoh.appdata.xml.in:147
+msgid "Add comic dialog"
+msgstr "კომიქსის დამატების ფანჯარა"
+
+#: data/org.gnome.buoh.appdata.xml.in:151
+msgid "Comic properties dialog"
+msgstr "კომიქსის თვისებების ფანჯარა"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "კომიქსების წამკითხველი"
+
+#: data/org.gnome.buoh.desktop.in:5
+msgid "Read your favorite comic strips"
+msgstr "წაიკითხეთ თქვენი საყვარელი კომიქსების ზოლები"
+
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "comics;webcomics;comic strips;"
+
+#: data/org.gnome.buoh.gschema.xml:6
+msgid "Show toolbar by default"
+msgstr "პანელის ნაგულისხმევად ჩვენება"
+
+#: data/org.gnome.buoh.gschema.xml:7
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "სტატუსის ზოლის ნაგულისხმევად ჩვენება"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "აირჩიეთ დამთვალიერებლის გადიდების რეჟიმი"
+
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+
+#: data/ui/add-comic-dialog.ui:7
+msgid "Add Comic"
+msgstr "კომიქსის დამატება"
+
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "_დახურვა"
+
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
+msgid "Title"
+msgstr "სათაური"
+
+#: data/ui/add-comic-dialog.ui:95
+msgid "Author"
+msgstr "ავტორი"
+
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "აირჩიეთ კომიქსები"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_კომიქსი"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "_დამატება…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "წაშლა"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+msgid "_Save a Copy…"
+msgstr "ასლის შენახვა…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "_მდებარეობის კოპირება"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+msgid "_Properties…"
+msgstr "_თვისებები…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "_გასვლა"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "_ხედი"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "_ხელსაწყოთა ზოლი"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "_სტატუსის ზოლი"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "_გადიდება"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "_დაპატარავება"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "_ნორმალური ზომა"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "საუკეთესოდ _ჩატევა"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "_კომიქსის სიგანეში ჩატევა"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "გადასვლა"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "_წინა კომიქსი"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "_შემდეგი კომიქსი"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "_პირველი კომიქსი"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "_ბოლო კომიქსი"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "_დახმარება"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "_შესახებ"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "კომიქსის თვისებები"
+
+#: data/ui/properties-dialog.ui:57
+msgid "Title:"
+msgstr "სათაური:"
+
+#: data/ui/properties-dialog.ui:71
+msgid "Author:"
+msgstr "ავტორი:"
+
+#: data/ui/properties-dialog.ui:85
+msgid "Link:"
+msgstr "ბმული:"
+
+#: data/ui/properties-dialog.ui:99
+msgid "Date of publication:"
+msgstr "გამოცემის თარიღი:"
+
+#: data/ui/properties-dialog.ui:113
+msgid "Language:"
+msgstr "ენა:"
+
+#: data/ui/properties-dialog.ui:127
+msgid "Publication days:"
+msgstr "გამოცემის დღეები:"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "წინა კომიქსზე გადასვლა"
+
+#: data/ui/window.ui:22
+msgid "_Previous"
+msgstr "_წინა"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "შემდეგ კომიქსზე გადასვლა"
+
+#: data/ui/window.ui:35
+msgid "_Next"
+msgstr "_შემდეგი"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "კომიქსის ზომის გაზრდა"
+
+#: data/ui/window.ui:56
+msgid "Zoom _in"
+msgstr "_გადიდება"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "კომიქსის ზომის შემცირება"
+
+#: data/ui/window.ui:69
+msgid "Zoom ou_t"
+msgstr "_დაპატარავება"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "ნორმალური ზომა"
+
+#: data/ui/window.ui:82
+msgid "N_ormal Size"
+msgstr "_ნორმალური ზომა"
+
+#: src/buoh-add-comic-dialog.c:103
+#, c-format
+msgid "Comics selected: %d"
+msgstr "მონიშნული კომიქსები: %d"
+
+#: src/buoh-comic-manager-date.c:63
+msgid "Monday"
+msgstr "ორშაბათი"
+
+#: src/buoh-comic-manager-date.c:64
+msgid "Tuesday"
+msgstr "სამშაბათი"
+
+#: src/buoh-comic-manager-date.c:65
+msgid "Wednesday"
+msgstr "ოთხშაბათი"
+
+#: src/buoh-comic-manager-date.c:66
+msgid "Thursday"
+msgstr "ხუთშაბათი"
+
+#: src/buoh-comic-manager-date.c:67
+msgid "Friday"
+msgstr "პარასკევი"
+
+#: src/buoh-comic-manager-date.c:68
+msgid "Saturday"
+msgstr "შაბათი"
+
+#: src/buoh-comic-manager-date.c:69
+msgid "Sunday"
+msgstr "კვირა"
+
+#. It's a range of days
+#: src/buoh-comic-manager-date.c:516
+msgid " to "
+msgstr "  სადამდე "
+
+#: src/buoh-comic-manager-date.c:531
+msgid "Every day"
+msgstr "ყოველდღე"
+
+#: src/buoh-comic.c:392
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "ფაილის \"%s\" შექმნის შეცდომა: %s"
+
+#: src/buoh-comic.c:400 src/buoh-comic.c:409
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "ფაილში (%s) ჩაწერის შეცდომა: %s"
+
+#: src/buoh-view-comic.c:663
+msgid "Error Loading Comic"
+msgstr "კომიქსის ჩატვირთვის შეცდომა"
+
+#: src/buoh-view.c:93
+msgid "Buoh online comic strips reader"
+msgstr "ონლაინ კომიქსის ზოლების მკითხველი"
+
+#: src/buoh-view.c:95
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+
+#: src/buoh-window.c:417
+msgid "Images"
+msgstr "ასლები"
+
+#: src/buoh-window.c:420
+msgid "Save Comic"
+msgstr "კომიქსის შენახვა"
+
+#: src/buoh-window.c:423
+msgid "_Cancel"
+msgstr "_გაუქმება"
+
+#: src/buoh-window.c:424
+msgid "_Save"
+msgstr "_შენახვა"
+
+#: src/buoh-window.c:463
+msgid "Unable to save comic"
+msgstr "კომიქსის შენახვის შეცდომა"
+
+#: src/buoh-window.c:694
+msgid "translator-credits"
+msgstr "ეკატერინე პაპავა"
+
+#: src/buoh-window.c:817
+msgid "Getting comic…"
+msgstr "კომიქსის მიღება…"
