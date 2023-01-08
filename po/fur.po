@@ -1,0 +1,386 @@
+# Friulian translation for buoh.
+# Copyright (C) 2023 buoh's COPYRIGHT HOLDER
+# This file is distributed under the same license as the buoh package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: buoh master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2022-12-03 16:44+0000\n"
+"PO-Revision-Date: 2023-01-08 13:39+0000\n"
+"Last-Translator: Fabio T. <f.t.public@gmail.com>\n"
+"Language-Team: Friulian <f.t.public@gmail.com>\n"
+"Language: fur\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Editor: HaiPO 1.4 beta\n"
+
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
+msgid "Buoh"
+msgstr "Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:691
+msgid "Online comic strips reader"
+msgstr "Letôr di fumets in rêt"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite"
+" comic from a list of more than 130 comics and read them in a simple, clean,"
+" and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Buoh e je une aplicazion par viodi fumets in rêt e sul web, progjetât par "
+"viodi e lavorâ ben sot dal scritori GNOME. Selezione il to fumet preferît di"
+" une liste di plui di 130 fumets e leiju intune interface semplice, nete e "
+"facile di doprâ. In plui tu puedis sgarfâ tra i archivis dal fumet o salvâ "
+"il fumet sul disc."
+
+#: data/org.gnome.buoh.appdata.xml.in:139
+msgid "General view of Buoh"
+msgstr "Viodude gjenerâl di Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:143
+msgid "First execution of Buoh"
+msgstr "Prime esecuzion di Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:147
+msgid "Add comic dialog"
+msgstr "Dialic par zontâ fuments"
+
+#: data/org.gnome.buoh.appdata.xml.in:151
+msgid "Comic properties dialog"
+msgstr "Dialic des proprietâts dal fumet"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Letôr di fumets"
+
+#: data/org.gnome.buoh.desktop.in:5
+msgid "Read your favorite comic strips"
+msgstr "Lei i tiei fumets preferîts"
+
+#. Translators: These are desktop search terms. Do not translate semicolons,
+#. end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "fumets;fumets su web;comics;"
+
+#: data/org.gnome.buoh.gschema.xml:6
+msgid "Show toolbar by default"
+msgstr "Come predefinît mostre sbare dai struments"
+
+#: data/org.gnome.buoh.gschema.xml:7
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+"La sbare dai struments e je la sbare superiôr che e conten i controi pe "
+"navigazion e pal ingrandiment. Dôs opzions booleanis, true (vêr) al rint "
+"visibile la sbare dai struments tant che impostazion predefinite, invezit "
+"false (fals) le rint invisibile tant che impostazion predefinide."
+
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "Come predefinît mostre la sbare di stât"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"La sbare di stât e je la sbare inferiôr che e conten i messaçs di jutori e "
+"di stât. Dôs opzions booleanis, true (vêr) al rint visibile in maniere "
+"predefinide la sbare di stât, invezit false (fals) le rint invisibile in "
+"maniere predefinide."
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "Selezione modalitât ingrandiment visualizadôr"
+
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"A son diponibilis dôs modalitâts di ingrandiment, 'best-fit' al fâs in mût "
+"che il fumet atuâl al jempli il barcon, 'fit-width' al fâs in mût che il "
+"fumet atuâl al jempli la largjece dal barcon."
+
+#: data/ui/add-comic-dialog.ui:7
+msgid "Add Comic"
+msgstr "Zonte fumet"
+
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "_Siere"
+
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
+msgid "Title"
+msgstr "Titul"
+
+#: data/ui/add-comic-dialog.ui:95
+msgid "Author"
+msgstr "Autôr"
+
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "Selezione fumets"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_Fumet"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "_Zonte…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "_Gjave"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+msgid "_Save a Copy…"
+msgstr "_Salve une copie…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "_Copie posizion"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+msgid "_Properties…"
+msgstr "_Proprietâts…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "_Jes"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "_Viodude"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "Sbare dai s_truments"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "Sb_are di stât"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "_Ingrandìs"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "_Rimpiçulis"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "Dimension _normâl"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "_Adate as dimensions"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "Adate fumet ae _largjece"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "_Va"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "Fumet _precedent"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "Fumet _sucessîf"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "_Prin fumet"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "_Ultin fumet"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "_Jutori"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "_Informazions"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "Proprietâts fumet"
+
+#: data/ui/properties-dialog.ui:57
+msgid "Title:"
+msgstr "Titul:"
+
+#: data/ui/properties-dialog.ui:71
+msgid "Author:"
+msgstr "Autôr:"
+
+#: data/ui/properties-dialog.ui:85
+msgid "Link:"
+msgstr "Colegament:"
+
+#: data/ui/properties-dialog.ui:99
+msgid "Date of publication:"
+msgstr "Date di publicazion:"
+
+#: data/ui/properties-dialog.ui:113
+msgid "Language:"
+msgstr "Lenghe:"
+
+#: data/ui/properties-dialog.ui:127
+msgid "Publication days:"
+msgstr "Dîs di publicazion:"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "Va al fumet precedent"
+
+#: data/ui/window.ui:22
+msgid "_Previous"
+msgstr "_Precedent"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "Va al fumet sucessîf"
+
+#: data/ui/window.ui:35
+msgid "_Next"
+msgstr "_Sucessîf"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "Aumente la dimension dal fumet"
+
+#: data/ui/window.ui:56
+msgid "Zoom _in"
+msgstr "Aumente _ingrandiment"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "Diminuìs la dimension dal fumet"
+
+#: data/ui/window.ui:69
+msgid "Zoom ou_t"
+msgstr "Ridûs ingrandimen_t"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "Dopre la dimension normâl dal fumet"
+
+#: data/ui/window.ui:82
+msgid "N_ormal Size"
+msgstr "Dimension n_ormâl"
+
+#: src/buoh-add-comic-dialog.c:103
+#, c-format
+msgid "Comics selected: %d"
+msgstr "Fumets selezionâts: %d"
+
+#: src/buoh-comic-manager-date.c:63
+msgid "Monday"
+msgstr "Lunis"
+
+#: src/buoh-comic-manager-date.c:64
+msgid "Tuesday"
+msgstr "Martars"
+
+#: src/buoh-comic-manager-date.c:65
+msgid "Wednesday"
+msgstr "Miercus"
+
+#: src/buoh-comic-manager-date.c:66
+msgid "Thursday"
+msgstr "Joibe"
+
+#: src/buoh-comic-manager-date.c:67
+msgid "Friday"
+msgstr "Vinars"
+
+#: src/buoh-comic-manager-date.c:68
+msgid "Saturday"
+msgstr "Sabide"
+
+#: src/buoh-comic-manager-date.c:69
+msgid "Sunday"
+msgstr "Domenie"
+
+#. It's a range of days
+#: src/buoh-comic-manager-date.c:516
+msgid " to "
+msgstr " a "
+
+#: src/buoh-comic-manager-date.c:531
+msgid "Every day"
+msgstr "Ogni dì"
+
+#: src/buoh-comic.c:392
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "Impussibil creâ il file “%s”: %s"
+
+#: src/buoh-comic.c:400 src/buoh-comic.c:409
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "Erôr tal scrivi sul file “%s”: %s"
+
+#: src/buoh-view-comic.c:663
+msgid "Error Loading Comic"
+msgstr "Erôr tal cjariâ il fumet"
+
+#: src/buoh-view.c:93
+msgid "Buoh online comic strips reader"
+msgstr "Letôr di fumets in rêt Buoh"
+
+#: src/buoh-view.c:95
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or remove comics to the list click on Comic → Add. Just select a comic from the list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Benvignûts su <b>Buoh</b>, il letôr di fumets in rêt pal scritori GNOME.\n"
+"La liste sul panel di çampe e conten i tiei fumets preferîts, par zontâ o gjavâ fumets ae liste fâs clic su Fumet → Zonte. Selezione un fumet de liste e al vignarà fûr te bande diestre. Graciis di doprâ Buoh."
+
+#: src/buoh-window.c:417
+msgid "Images"
+msgstr "Figuris"
+
+#: src/buoh-window.c:420
+msgid "Save Comic"
+msgstr "Salve fumet"
+
+#: src/buoh-window.c:423
+msgid "_Cancel"
+msgstr "_Anule"
+
+#: src/buoh-window.c:424
+msgid "_Save"
+msgstr "_Salve"
+
+#: src/buoh-window.c:463
+msgid "Unable to save comic"
+msgstr "Impussibil salvâ il fumet"
+
+#: src/buoh-window.c:694
+msgid "translator-credits"
+msgstr "Fabio Tomat <f.t.public@gmail.com>"
+
+#: src/buoh-window.c:817
+msgid "Getting comic…"
+msgstr "Daûr a otignî il fumet…"
