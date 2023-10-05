@@ -1,0 +1,388 @@
+# Belarusian translation for buoh.
+# Copyright (C) 2023 buoh's COPYRIGHT HOLDER
+# This file is distributed under the same license as the buoh package.
+# Vasil Pupkin Yuras Shumovich <shumovichy@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: buoh master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2023-01-25 15:58+0000\n"
+"PO-Revision-Date: 2023-10-05 17:07+0300\n"
+"Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
+"Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
+msgid "Buoh"
+msgstr "Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:691
+msgid "Online comic strips reader"
+msgstr "Праграма для чытання коміксаў з інтэрнэту"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Buoh – праграма для прагляду коміксаў з інтэрнэту, распрацаваная для "
+"працоўнага асяроддзя GNOME. Выбірайце ўлюбёныя сярод 130 коміксаў і чытайце "
+"іх праз просты, чысты і зручны інтэрфейс. Апроч таго, вы можаце праглядаць "
+"коміксы з архіву або захоўваць іх на дыск."
+
+#: data/org.gnome.buoh.appdata.xml.in:139
+msgid "General view of Buoh"
+msgstr "Галоўнае акно Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:143
+msgid "First execution of Buoh"
+msgstr "Першы запуск Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:147
+msgid "Add comic dialog"
+msgstr "Акно «Дадаць комікс»"
+
+#: data/org.gnome.buoh.appdata.xml.in:151
+msgid "Comic properties dialog"
+msgstr "Акно «Уласцівасці комікса»"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Праграма для чытання коміксаў"
+
+#: data/org.gnome.buoh.desktop.in:5
+msgid "Read your favorite comic strips"
+msgstr "Чытанне выбраных коміксаў"
+
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "comics;webcomics;comic strips;коміксы;вэб-коміксы;"
+
+#: data/org.gnome.buoh.gschema.xml:6
+msgid "Show toolbar by default"
+msgstr "Паказваць панэль інструментаў"
+
+#: data/org.gnome.buoh.gschema.xml:7
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+"Панэль інструментаў – гэта панэль зверху, якая змяшчае элементы кіравання "
+"для навігацыі і маштабавання. Два булевы значэнні: true – робіць панэль "
+"інструментаў бачнай, false – нябачнай."
+
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "Паказваць радок стану"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"Радок стану – гэта панэль знізу, якая змяшчае даведачныя паведамленні. Два "
+"булевы значэнні: true – робіць радок стану бачным, false – нябачным."
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "Выбар рэжыму маштабавання падчас прагляду"
+
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"Даступна два рэжымы: «best-fit» (найлепшае запаўненне) дапасуе бягучы комікс "
+"да вышыні або шырыні акна, каб лепш яго запоўніць, «fit-width» (дапасаваць "
+"па шырыні) дапасуе бягучы комікс да шырыні акна."
+
+#: data/ui/add-comic-dialog.ui:7
+msgid "Add Comic"
+msgstr "Дадаць комікс"
+
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "_Закрыць"
+
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
+msgid "Title"
+msgstr "Назва"
+
+#: data/ui/add-comic-dialog.ui:95
+msgid "Author"
+msgstr "Аўтар"
+
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "Выберыце коміксы"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_Комікс"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "_Дадаць…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "_Выдаліць"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+msgid "_Save a Copy…"
+msgstr "_Захаваць копію…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "_Скапіяваць размяшчэнне"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+msgid "_Properties…"
+msgstr "_Уласцівасці…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "_Выйсці"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "_Выгляд"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "Панэль _інструментаў"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "Радок _стану"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "Па_вялічыць"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "Па_меншыць"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "_Звычайны памер"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "_Найлепшае запаўненне"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "Дапасаваць да _шырыні комікса"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "Пера_ход"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "_Папярэдні комікс"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "_Наступны комікс"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "П_ершы комікс"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "Апошні комікс"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "_Даведка"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "_Аб праграме"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "Уласцівасці комікса"
+
+#: data/ui/properties-dialog.ui:57
+msgid "Title:"
+msgstr "Назва:"
+
+#: data/ui/properties-dialog.ui:71
+msgid "Author:"
+msgstr "Аўтар:"
+
+#: data/ui/properties-dialog.ui:85
+msgid "Link:"
+msgstr "Спасылка:"
+
+#: data/ui/properties-dialog.ui:99
+msgid "Date of publication:"
+msgstr "Дата публікацыі:"
+
+#: data/ui/properties-dialog.ui:113
+msgid "Language:"
+msgstr "Мова:"
+
+#: data/ui/properties-dialog.ui:127
+msgid "Publication days:"
+msgstr "Дні публікацыі:"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "Перайсці да папярэдняга комікса"
+
+#: data/ui/window.ui:22
+msgid "_Previous"
+msgstr "_Папярэдні"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "Перайсці да наступнага комікса"
+
+#: data/ui/window.ui:35
+msgid "_Next"
+msgstr "_Наступны"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "Павялічыць памер комікса"
+
+#: data/ui/window.ui:56
+msgid "Zoom _in"
+msgstr "Па_вялічыць"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "Паменшыць памер комікса"
+
+#: data/ui/window.ui:69
+msgid "Zoom ou_t"
+msgstr "Па_меншыць"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "Выкарыстоўваць звычайны памер комікса"
+
+#: data/ui/window.ui:82
+msgid "N_ormal Size"
+msgstr "_Звычайны памер"
+
+#: src/buoh-add-comic-dialog.c:103
+#, c-format
+msgid "Comics selected: %d"
+msgstr "Выбрана коміксаў: %d"
+
+#: src/buoh-comic-manager-date.c:63
+msgid "Monday"
+msgstr "Панядзелак"
+
+#: src/buoh-comic-manager-date.c:64
+msgid "Tuesday"
+msgstr "Аўторак"
+
+#: src/buoh-comic-manager-date.c:65
+msgid "Wednesday"
+msgstr "Серада"
+
+#: src/buoh-comic-manager-date.c:66
+msgid "Thursday"
+msgstr "Чацвер"
+
+#: src/buoh-comic-manager-date.c:67
+msgid "Friday"
+msgstr "Пятніца"
+
+#: src/buoh-comic-manager-date.c:68
+msgid "Saturday"
+msgstr "Субота"
+
+#: src/buoh-comic-manager-date.c:69
+msgid "Sunday"
+msgstr "Нядзеля"
+
+#. It's a range of days
+#: src/buoh-comic-manager-date.c:516
+msgid " to "
+msgstr " да "
+
+#: src/buoh-comic-manager-date.c:531
+msgid "Every day"
+msgstr "Штодзень"
+
+#: src/buoh-comic.c:392
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "Немагчыма стварыць файл «%s»: %s"
+
+#: src/buoh-comic.c:400 src/buoh-comic.c:409
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "Памылка запісу ў файл «%s»: %s"
+
+#: src/buoh-view-comic.c:663
+msgid "Error Loading Comic"
+msgstr "Памылка загрузкі комікса"
+
+#: src/buoh-view.c:93
+msgid "Buoh online comic strips reader"
+msgstr "Buoh – праграма для чытання коміксаў з інтэрнэту"
+
+#: src/buoh-view.c:95
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"Вітаем у <b>Buoh</b> – праграме асяроддзя GNOME для чытання коміксаў з "
+"інтэрнэту.\n"
+"Спіс на панэлі злева змяшчае выбраныя вамі коміксы, каб дадаць комікс у спіс "
+"або выдаліць яго, націсніце Комікс → Дадаць. Проста выберыце комікс у спісе "
+"і ён будзе паказаны на правым баку. Дзякуем, што карыстаецеся Buoh."
+
+#: src/buoh-window.c:417
+msgid "Images"
+msgstr "Выявы"
+
+#: src/buoh-window.c:420
+msgid "Save Comic"
+msgstr "Захаваць комікс"
+
+#: src/buoh-window.c:423
+msgid "_Cancel"
+msgstr "_Скасаваць"
+
+#: src/buoh-window.c:424
+msgid "_Save"
+msgstr "_Захаваць"
+
+#: src/buoh-window.c:463
+msgid "Unable to save comic"
+msgstr "Не ўдалося захаваць комікс"
+
+#: src/buoh-window.c:694
+msgid "translator-credits"
+msgstr "Юрась Шумовіч <shumovichy@gmail.com>"
+
+#: src/buoh-window.c:817
+msgid "Getting comic…"
+msgstr "Атрыманне комікса…"
