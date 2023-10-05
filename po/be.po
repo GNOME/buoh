@@ -1,7 +1,7 @@
 # Belarusian translation for buoh.
 # Copyright (C) 2023 buoh's COPYRIGHT HOLDER
 # This file is distributed under the same license as the buoh package.
-# Vasil Pupkin Yuras Shumovich <shumovichy@gmail.com>, 2023.
+# Yuras Shumovich <shumovichy@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
