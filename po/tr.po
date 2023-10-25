@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
-"POT-Creation-Date: 2022-09-29 20:55+0000\n"
-"PO-Revision-Date: 2023-10-17 00:34+0300\n"
+"POT-Creation-Date: 2023-10-18 18:21+0000\n"
+"PO-Revision-Date: 2023-10-24 02:27+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr "Buoh"
 
 #: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:691
 msgid "Online comic strips reader"
-msgstr "Çevrimiçi çizgi roman okuyucu"
+msgstr "Çevrim içi çizgi roman okuyucu"
 
 #: data/org.gnome.buoh.appdata.xml.in:9
 msgid ""
@@ -356,8 +356,8 @@ msgid ""
 "remove comics to the list click on Comic → Add. Just select a comic from the "
 "list, and it will be displayed on the right side. Thanks for using Buoh."
 msgstr ""
-"GNOME Masaüstü için çevrimiçi çizgi roman okuyucusu <b>Buoh</b> uygulamasına "
-"hoş geldiniz.\n"
+"GNOME Masaüstü için çevrim içi çizgi roman okuyucusu <b>Buoh</b> "
+"uygulamasına hoş geldiniz.\n"
 "Sol bölmedeki liste, çizgi roman ekleyip çıkarabileceğiniz sık kullanılan "
 "çizgi romanlar listesini içerir. Listeden çizgi roman seçtiğinizde sağ "
 "bölmede gösterilecektir. Buohʼu kullandığınız için teşekkür ederiz."
@@ -391,51 +391,3 @@ msgstr ""
 #: src/buoh-window.c:817
 msgid "Getting comic…"
 msgstr "Çizgi roman indiriliyor…"
-
-#~ msgid "buoh"
-#~ msgstr "buoh"
-
-#~ msgid "Add a comic to the comic list"
-#~ msgstr "Çizgi roman listesine çizgi roman ekle"
-
-#~ msgid "Remove this comic from the comic list"
-#~ msgstr "Çizgi romanı çizgi roman listesinden kaldır"
-
-#~ msgid "Save the current comic with a new filename"
-#~ msgstr "Geçerli çizgi romanı yeni bir isimle kaydet"
-
-#~ msgid "Copy the location of this comic to clipboard"
-#~ msgstr "Bu çizgi romanın konumunu panoya kopyala"
-
-#~ msgid "View the properties of this comic"
-#~ msgstr "Bu çizgi romanın özelliklerini göster"
-
-#~ msgid "Quit application"
-#~ msgstr "Uygulamadan çık"
-
-#~ msgid "Go to the first comic"
-#~ msgstr "İlk çizgi romana git"
-
-#~ msgid "Go to the last comic"
-#~ msgstr "Son çizgi romana git"
-
-#~ msgid "Display credits for the Buoh online comic reader creators"
-#~ msgstr "Buoh çevirimiçi çizgi roman okuyucu için sanatçı bilgilerini göster"
-
-#~ msgid "Changes the visibility of the toolbar"
-#~ msgstr "Araç çubuğunun görünürlüğünü değiştirir"
-
-#~ msgid "Changes the visibility of the statusbar"
-#~ msgstr "Durum çubuğunun görünürlüğünü değiştirir"
-
-#~ msgid "Make the current comic fill the window"
-#~ msgstr "Geçerli çizgi roman pencereyi doldursun"
-
-#~ msgid "Make the current comic fill the window width"
-#~ msgstr "Geçerli çizgi roman pencere genişliğini doldursun"
-
-#~ msgid "_Add..."
-#~ msgstr "_Ekle..."
-
-#~ msgid "_Contents"
-#~ msgstr "_İçindekiler"
