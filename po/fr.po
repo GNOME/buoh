@@ -8,10 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: buoh master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=buoh&component=General\n"
-"POT-Creation-Date: 2010-08-26 15:16+0000\n"
-"PO-Revision-Date: 2010-08-27 16:14+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2022-06-23 00:38+0000\n"
+"PO-Revision-Date: 2022-06-19 16:10+0200\n"
 "Last-Translator: Bruno Brouard <annoa.b@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -19,365 +18,381 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: ../data/buoh.desktop.in.h:1 ../src/main.c:46
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
 msgid "Buoh"
 msgstr "Buoh"
 
-#: ../data/buoh.desktop.in.h:2
-msgid "Read your favourite comic strips"
-msgstr "Lire vos bandes dessinées préférées"
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:691
+msgid "Online comic strips reader"
+msgstr "Lecteur de bandes dessinées en ligne"
 
-#: ../data/buoh.schemas.in.h:1
-msgid "Select viewer zoom mode"
-msgstr "Sélectionner le mode zoom du lecteur"
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Buoh est une application permettant de visualiser des bandes dessinées et "
+"des webcomics en ligne, conçue pour s’afficher et fonctionner correctement "
+"sous le bureau GNOME. Sélectionnez votre bande dessinée préférée dans une "
+"liste de plus de 130 bandes dessinées et lisez-les dans une interface "
+"simple, propre et facile à utiliser. En outre, vous pouvez parcourir les "
+"archives de bandes dessinées ou enregistrer une bande dessinée sur le disque."
 
-#: ../data/buoh.schemas.in.h:2
-msgid "Show statusbar by default"
-msgstr "Afficher la barre d'état par défaut"
+#: data/org.gnome.buoh.appdata.xml.in:139
+msgid "General view of Buoh"
+msgstr "Vue générale de Buoh"
 
-#: ../data/buoh.schemas.in.h:3
+#: data/org.gnome.buoh.appdata.xml.in:143
+msgid "First execution of Buoh"
+msgstr "Première exécution de Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:147
+msgid "Add comic dialog"
+msgstr "Boîte de dialogue d’ajout d’une bande dessinée"
+
+#: data/org.gnome.buoh.appdata.xml.in:151
+msgid "Comic properties dialog"
+msgstr "Boîte de dialogue des propriétés de la bande dessinée"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "Lecteur de bandes dessinées"
+
+#: data/org.gnome.buoh.desktop.in:5
+msgid "Read your favorite comic strips"
+msgstr "Lisez vos bandes dessinées préférées"
+
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "comics;webcomics;comic strips;bande dessinée;BD;"
+
+#: data/org.gnome.buoh.gschema.xml:6
 msgid "Show toolbar by default"
-msgstr "Afficher la barre d'outils par défaut"
+msgstr "Afficher la barre d’outils par défaut"
 
-#: ../data/buoh.schemas.in.h:4
-msgid ""
-"Statusbar is the bottom bar that contains help and status messages. Two "
-"boolean options, true makes statusbar visible by default while false makes "
-"statusbar not visible by default."
-msgstr ""
-"La barre d'état est la barre en bas, qui contient l'aide et les messages "
-"d'information. Deux valeurs possibles, « true » (vrai) rend la barre visible "
-"par défaut, « false » (faux) la rend invisible."
-
-#: ../data/buoh.schemas.in.h:5
-msgid ""
-"There are two zoom modes available, 1 makes the current comic fill the "
-"window, 2 makes the current comic fill the window width."
-msgstr ""
-"Il y a deux modes de zoom disponibles, 1 ajuste la taille de la bande "
-"dessinée actuelle à la taille de la fenêtre, 2 l'ajuste à la largeur de la "
-"fenêtre."
-
-#: ../data/buoh.schemas.in.h:6
+#: data/org.gnome.buoh.gschema.xml:7
 msgid ""
 "Toolbar is the top bar that contains navigation and zoom controls. Two "
 "boolean options, true makes toolbar visible by default while false makes "
 "toolbar not visible by default."
 msgstr ""
-"La barre d'outils est la barre en haut qui contient les contrôles de "
+"La barre d’outils est la barre en haut qui contient les contrôles de "
 "navigation et de zoom. Deux valeurs possibles, « true » (vrai) rend la barre "
 "visible par défaut, « false » (faux) la rend invisible."
 
-#: ../src/buoh-add-comic-dialog.c:67
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "Afficher la barre d’état par défaut"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"La barre d’état est la barre en bas qui contient l’aide et les messages "
+"d’information. Deux valeurs possibles, « true » (vrai) rend la barre visible "
+"par défaut, « false » (faux) la rend invisible."
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "Sélectionner le mode zoom du lecteur"
+
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"Deux modes de zoom sont disponibles : le mode \"best-fit\" permet à la BD "
+"actuelle de remplir la fenêtre, le mode \"fit-width\" permet à la BD "
+"actuelle de remplir la largeur de la fenêtre."
+
+#: data/ui/add-comic-dialog.ui:7
 msgid "Add Comic"
-msgstr "Ajout d'une bande dessinée"
+msgstr "Ajouter une bande dessinée"
 
-#: ../src/buoh-add-comic-dialog.c:79
-msgid "Select Comics"
-msgstr "Sélectionner les bandes dessinées"
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "_Fermer"
 
-#: ../src/buoh-add-comic-dialog.c:120 ../src/buoh-comic-list.c:119
-#: ../src/buoh-properties-dialog.c:104
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
 msgid "Title"
 msgstr "Titre"
 
-#: ../src/buoh-add-comic-dialog.c:133 ../src/buoh-properties-dialog.c:110
+#: data/ui/add-comic-dialog.ui:95
 msgid "Author"
 msgstr "Auteur"
 
-#: ../src/buoh-add-comic-dialog.c:202
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "Sélectionner les bandes dessinées"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "_Bande dessinée"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "_Ajouter…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "_Supprimer"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+msgid "_Save a Copy…"
+msgstr "_Enregistrer une copie…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "_Copier l’emplacement"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+msgid "_Properties…"
+msgstr "_Propriétés…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "_Quitter"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "_Affichage"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "Barre d’_outils"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "Barre d’é_tat"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "Zoom a_vant"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "_Zoom arrière"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "Taille _Normale"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "_Meilleur ajustement"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "Ajuster à la _largeur de la bande dessinée"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "A_ller à"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "Bande dessinée _précédente"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "Bande dessinée _suivante"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "Pre_mière bande dessinée"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "_Dernière bande dessinée"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "Ai_de"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "À _propos"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "Propriétés de la bande dessinée"
+
+#: data/ui/properties-dialog.ui:57
+msgid "Title:"
+msgstr "Titre :"
+
+#: data/ui/properties-dialog.ui:71
+msgid "Author:"
+msgstr "Auteur :"
+
+#: data/ui/properties-dialog.ui:85
+msgid "Link:"
+msgstr "Lien :"
+
+#: data/ui/properties-dialog.ui:99
+msgid "Date of publication:"
+msgstr "Date de parution :"
+
+#: data/ui/properties-dialog.ui:113
+msgid "Language:"
+msgstr "Langage :"
+
+#: data/ui/properties-dialog.ui:127
+msgid "Publication days:"
+msgstr "Jours de parution :"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "Aller à la bande dessinée précédente"
+
+#: data/ui/window.ui:22
+msgid "_Previous"
+msgstr "_Précédente"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "Aller à la bande dessinée suivante"
+
+#: data/ui/window.ui:35
+msgid "_Next"
+msgstr "_Suivante"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "Augmente la taille de la bande dessinée"
+
+#: data/ui/window.ui:56
+msgid "Zoom _in"
+msgstr "Zoom a_vant"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "Diminue la taille de la bande dessinée"
+
+#: data/ui/window.ui:69
+msgid "Zoom ou_t"
+msgstr "Zoom a_rrière"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "Utiliser la taille normale de la bande dessinée"
+
+#: data/ui/window.ui:82
+msgid "N_ormal Size"
+msgstr "Taille N_ormale"
+
+#: src/buoh-add-comic-dialog.c:103
 #, c-format
 msgid "Comics selected: %d"
 msgstr "Bande dessinée sélectionnée : %d"
 
-#: ../src/buoh-comic.c:435
-#, c-format
-msgid "Cannot create file '%s': %s"
-msgstr "Impossible de créer le fichier « %s » : %s"
-
-#: ../src/buoh-comic.c:443 ../src/buoh-comic.c:452
-#, c-format
-msgid "Error writting to file '%s': %s"
-msgstr "Erreur d'écriture dans le fichier « %s » : %s"
-
-#: ../src/buoh-comic-manager-date.c:56
+#: src/buoh-comic-manager-date.c:63
 msgid "Monday"
 msgstr "Lundi"
 
-#: ../src/buoh-comic-manager-date.c:57
+#: src/buoh-comic-manager-date.c:64
 msgid "Tuesday"
 msgstr "Mardi"
 
-#: ../src/buoh-comic-manager-date.c:58
+#: src/buoh-comic-manager-date.c:65
 msgid "Wednesday"
 msgstr "Mercredi"
 
-#: ../src/buoh-comic-manager-date.c:59
+#: src/buoh-comic-manager-date.c:66
 msgid "Thursday"
 msgstr "Jeudi"
 
-#: ../src/buoh-comic-manager-date.c:60
+#: src/buoh-comic-manager-date.c:67
 msgid "Friday"
 msgstr "Vendredi"
 
-#: ../src/buoh-comic-manager-date.c:61
+#: src/buoh-comic-manager-date.c:68
 msgid "Saturday"
 msgstr "Samedi"
 
-#: ../src/buoh-comic-manager-date.c:62
+#: src/buoh-comic-manager-date.c:69
 msgid "Sunday"
 msgstr "Dimanche"
 
 #. It's a range of days
-#: ../src/buoh-comic-manager-date.c:496
+#: src/buoh-comic-manager-date.c:516
 msgid " to "
 msgstr " au "
 
-#: ../src/buoh-comic-manager-date.c:511
+#: src/buoh-comic-manager-date.c:531
 msgid "Every day"
 msgstr "Tous les jours"
 
-#: ../src/buoh-properties-dialog.c:48
-msgid "Comic Properties"
-msgstr "Propriétés de la bande dessinée"
+#: src/buoh-comic.c:392
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "Impossible de créer le fichier « %s » : %s"
 
-#: ../src/buoh-properties-dialog.c:116
-msgid "Link"
-msgstr "Lien"
+#: src/buoh-comic.c:400 src/buoh-comic.c:409
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "Erreur d’écriture dans le fichier « %s » : %s"
 
-#: ../src/buoh-properties-dialog.c:122
-msgid "Language"
-msgstr "Langage"
+#: src/buoh-view-comic.c:663
+msgid "Error Loading Comic"
+msgstr "Erreur de chargement de la bande dessinée"
 
-#: ../src/buoh-properties-dialog.c:128
-msgid "Date of publication"
-msgstr "Date de parution"
-
-#: ../src/buoh-properties-dialog.c:186
-msgid "Publication days"
-msgstr "Jours de parution"
-
-#: ../src/buoh-view.c:155
+#: src/buoh-view.c:93
 msgid "Buoh online comic strips reader"
 msgstr "Lecteur de bandes dessinées en ligne Buoh"
 
-#: ../src/buoh-view.c:157
+#: src/buoh-view.c:95
 msgid ""
 "Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
-"The list on the left panel contains your favourite comic strips to add or "
-"remove comics to the list click on Comic -> Add. Just select a comic from "
-"the list, and it will be displayed on the right side. Thanks for using Buoh."
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
 msgstr ""
 "Bienvenue sur <b>Buoh</b>, le lecteur de bandes dessinées en ligne pour le "
 "bureau GNOME.\n"
 "La liste dans le panneau de gauche contient vos bandes dessinées favorites. "
-"Pour ajouter ou supprimer une bande dessinée de la liste, cliquez sur « Bande "
-"dessinée » -> Ajouter. Sélectionnez juste une bande dessinée dans la liste, "
-"et elle apparaîtra sur la côté droite. Merci d'utiliser Buoh."
+"Pour ajouter ou supprimer une bande dessinée de la liste, cliquez sur "
+"« Bande dessinée » puis « Ajouter ». Sélectionnez simplement une bande dessinée "
+"dans la liste, et elle apparaîtra sur le côté droit. Merci d’avoir choisi "
+"Buoh."
 
-#: ../src/buoh-view-comic.c:638
-msgid "Error Loading Comic"
-msgstr "Erreur de chargement de la bande dessinée"
-
-#. Top Level
-#: ../src/buoh-window.c:158
-msgid "_Comic"
-msgstr "_Bande dessinée"
-
-#: ../src/buoh-window.c:159
-msgid "_View"
-msgstr "_Affichage"
-
-#: ../src/buoh-window.c:160
-msgid "_Go"
-msgstr "A_ller à"
-
-#: ../src/buoh-window.c:161
-msgid "_Help"
-msgstr "Ai_de"
-
-#. Comic menu
-#: ../src/buoh-window.c:164
-msgid "_Add..."
-msgstr "_Ajouter..."
-
-#: ../src/buoh-window.c:165
-msgid "Add a comic to the comic list"
-msgstr "Ajoute une bande dessinée à la liste"
-
-#: ../src/buoh-window.c:167
-msgid "_Remove"
-msgstr "_Supprimer"
-
-#: ../src/buoh-window.c:168
-msgid "Remove this comic from the comic list"
-msgstr "Supprime cette bande dessinée de la liste"
-
-#: ../src/buoh-window.c:170
-msgid "_Save A Copy..."
-msgstr "_Enregistrer une copie..."
-
-#: ../src/buoh-window.c:171
-msgid "Save the current comic with a new filename"
-msgstr "Enregistre la bande dessinée actuelle avec un nouveau nom de fichier"
-
-#: ../src/buoh-window.c:173
-msgid "_Copy Location"
-msgstr "_Copier l'emplacement"
-
-#: ../src/buoh-window.c:174
-msgid "Copy the location of this comic to clipboard"
-msgstr "Copie l'emplacement de cette bande dessinée dans le presse-papiers"
-
-#: ../src/buoh-window.c:176
-msgid "_Properties..."
-msgstr "_Propriétés..."
-
-#: ../src/buoh-window.c:177
-msgid "View the properties of this comic"
-msgstr "Affiche les propriétés de cette bande dessinée"
-
-#: ../src/buoh-window.c:179
-msgid "_Quit"
-msgstr "_Quitter"
-
-#: ../src/buoh-window.c:180
-msgid "Quit application"
-msgstr "Quitte l'application"
-
-#. View menu
-#: ../src/buoh-window.c:184
-msgid "Zoom _In"
-msgstr "Zoom a_vant"
-
-#: ../src/buoh-window.c:185
-msgid "Increase the comic size"
-msgstr "Augmente la taille de la bande dessinée"
-
-#: ../src/buoh-window.c:187
-msgid "Zoom _Out"
-msgstr "_Zoom arrière"
-
-#: ../src/buoh-window.c:188
-msgid "Decrease the comic size"
-msgstr "Diminue la taille de la bande dessinée"
-
-#: ../src/buoh-window.c:190
-msgid "_Normal Size"
-msgstr "Taille _Normale"
-
-#: ../src/buoh-window.c:191
-msgid "Use the normal comic size"
-msgstr "Utilise la taille normale de la bande dessinée"
-
-#. Go menu
-#: ../src/buoh-window.c:195
-msgid "_Previous Comic"
-msgstr "Bande dessinée _précédente"
-
-#: ../src/buoh-window.c:196
-msgid "Go to the previous comic"
-msgstr "Va à la bande dessinée précédente"
-
-#: ../src/buoh-window.c:198
-msgid "_Next Comic"
-msgstr "Bande dessinée _suivante"
-
-#: ../src/buoh-window.c:199
-msgid "Go to the next comic"
-msgstr "Va à la bande dessinée suivante"
-
-#: ../src/buoh-window.c:201
-msgid "_First Comic"
-msgstr "Pre_mière bande dessinée"
-
-#: ../src/buoh-window.c:202
-msgid "Go to the first comic"
-msgstr "Va à la première bande dessinée"
-
-#: ../src/buoh-window.c:204
-msgid "_Last Comic"
-msgstr "_Dernière bande dessinée"
-
-#: ../src/buoh-window.c:205
-msgid "Go to the last comic"
-msgstr "Va à la dernière bande dessinée"
-
-#. Help menu
-#: ../src/buoh-window.c:209
-msgid "_Contents"
-msgstr "_Sommaire"
-
-#: ../src/buoh-window.c:210
-msgid "Display help for the Buoh online comic reader"
-msgstr "Affiche l'aide pour le lecteur de bandes dessinées en ligne Buoh"
-
-#: ../src/buoh-window.c:212
-msgid "_About"
-msgstr "À _propos"
-
-#: ../src/buoh-window.c:213
-msgid "Display credits for the Buoh online comic reader creators"
-msgstr ""
-"Affiche les crédits pour les créateurs du lecteur de bandes dessinées en "
-"ligne Buoh"
-
-#. View menu
-#: ../src/buoh-window.c:220
-msgid "_Toolbar"
-msgstr "Barre d'_outils"
-
-#: ../src/buoh-window.c:221
-msgid "Changes the visibility of the toolbar"
-msgstr "Modifie la visibilité de la barre d'outils"
-
-#: ../src/buoh-window.c:223
-msgid "St_atusbar"
-msgstr "Barre d'é_tat"
-
-#: ../src/buoh-window.c:224
-msgid "Changes the visibility of the statusbar"
-msgstr "Modifie la visibilité de la barre d'état"
-
-#: ../src/buoh-window.c:226
-msgid "_Best Fit"
-msgstr "_Meilleur ajustement"
-
-#: ../src/buoh-window.c:227
-msgid "Make the current comic fill the window"
-msgstr "Ajuste la bande dessinée actuelle à la taille de la fenêtre"
-
-#: ../src/buoh-window.c:229
-msgid "Fit Comic _Width"
-msgstr "Ajuster à la _largeur de la bande dessinée"
-
-#: ../src/buoh-window.c:230
-msgid "Make the current comic fill the window width"
-msgstr "Ajuste la bande dessinée actuelle à la largeur de la fenêtre"
-
-#: ../src/buoh-window.c:537
+#: src/buoh-window.c:417
 msgid "Images"
 msgstr "Images"
 
-#: ../src/buoh-window.c:540
+#: src/buoh-window.c:420
 msgid "Save Comic"
-msgstr "Enregistrement de la bande dessinée"
+msgstr "Enregistrer la bande dessinée"
 
-#: ../src/buoh-window.c:582
+#: src/buoh-window.c:423
+msgid "_Cancel"
+msgstr "A_nnuler"
+
+#: src/buoh-window.c:424
+msgid "_Save"
+msgstr "_Enregistrer"
+
+#: src/buoh-window.c:463
 msgid "Unable to save comic"
-msgstr "Impossible d'enregistrer la bande dessinée"
+msgstr "Impossible d’enregistrer la bande dessinée"
 
-#: ../src/buoh-window.c:844
-msgid "Online comic strips reader"
-msgstr "Lecteur de bandes dessinées en ligne"
-
-#: ../src/buoh-window.c:847
+#: src/buoh-window.c:694
 msgid "translator-credits"
 msgstr ""
 "Nicolas Repentin <nicolas@shivaserv.fr>, 2010\n"
-"Bruno Brouard <annoa.b@gmail.com>, 2010"
+"Bruno Brouard <annoa.b@gmail.com>, 2010\n"
+"Irénée Thirion <irenee.thirion@e.email>, 2022"
 
-#: ../src/buoh-window.c:1026
-msgid "Getting comic ..."
-msgstr "Obtention de la bande dessinée..."
+#: src/buoh-window.c:817
+msgid "Getting comic…"
+msgstr "Obtention de la bande dessinée…"
+
