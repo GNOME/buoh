@@ -1,0 +1,387 @@
+# Hindi translation for buoh.
+# Copyright (C) 2024 buoh's COPYRIGHT HOLDER
+# This file is distributed under the same license as the buoh package.
+# Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: buoh master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/buoh/issues\n"
+"POT-Creation-Date: 2024-03-18 07:31+0000\n"
+"PO-Revision-Date: 2024-04-25 12:03+0530\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Gtranslator 46.1\n"
+
+#: data/org.gnome.buoh.appdata.xml.in:6 data/org.gnome.buoh.desktop.in:3
+#: data/ui/window.ui:8
+msgid "Buoh"
+msgstr "Buoh"
+
+#: data/org.gnome.buoh.appdata.xml.in:7 src/buoh-window.c:691
+msgid "Online comic strips reader"
+msgstr "ऑनलाइन कॉमिक स्ट्रिप का पाठक"
+
+#: data/org.gnome.buoh.appdata.xml.in:9
+msgid ""
+"Buoh is an application for viewing online comic strips and webcomics, "
+"designed to look and work well under the GNOME desktop. Select your favorite "
+"comic from a list of more than 130 comics and read them in a simple, clean, "
+"and easy to use interface. Additionally, you can browse through the comic "
+"strip archives or save a comic to disk."
+msgstr ""
+"Buoh ऑनलाइन कॉमिक स्ट्रिप्स और वेबकॉमिक्स देखने के लिए एक अनुप्रयोग है, जिसे GNOME "
+"डेस्कटॉप के तहत अच्छी तरह से देखने और काम करने के लिए डिज़ाइन किया गया है। 130 से अधिक "
+"कॉमिक्स की सूची में से अपनी पसंदीदा कॉमिक चुनें और उन्हें सरल, स्वच्छ और उपयोग में आसान "
+"इंटरफ़ेस में पढ़ें। इसके अतिरिक्त, आप कॉमिक स्ट्रिप अभिलेखागार देख सकते हैं या कॉमिक को डिस्क "
+"पर सहेज सकते हैं।"
+
+#: data/org.gnome.buoh.appdata.xml.in:139
+msgid "General view of Buoh"
+msgstr "Buoh का सामान्य दृश्य"
+
+#: data/org.gnome.buoh.appdata.xml.in:143
+msgid "First execution of Buoh"
+msgstr "Buoh का पहला निष्पादन"
+
+#: data/org.gnome.buoh.appdata.xml.in:147
+msgid "Add comic dialog"
+msgstr "कॉमिक संवाद जोड़ें"
+
+#: data/org.gnome.buoh.appdata.xml.in:151
+msgid "Comic properties dialog"
+msgstr "कॉमिक गुण संवाद"
+
+#: data/org.gnome.buoh.desktop.in:4
+msgid "Comics Reader"
+msgstr "कॉमिक्स पाठक"
+
+#: data/org.gnome.buoh.desktop.in:5
+msgid "Read your favorite comic strips"
+msgstr "अपनी पसंदीदा कॉमिक स्ट्रिप्स पढ़ें"
+
+#. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
+#: data/org.gnome.buoh.desktop.in:7
+msgid "comics;webcomics;comic strips;"
+msgstr "कॉमिक्स;वेबकॉमिक्स;कॉमिक स्ट्रिप्स;"
+
+#: data/org.gnome.buoh.gschema.xml:6
+msgid "Show toolbar by default"
+msgstr "तयशुदा रूप से टूलबार दिखाएं"
+
+#: data/org.gnome.buoh.gschema.xml:7
+msgid ""
+"Toolbar is the top bar that contains navigation and zoom controls. Two "
+"boolean options, true makes toolbar visible by default while false makes "
+"toolbar not visible by default."
+msgstr ""
+"टूलबार शीर्ष पट्टी है जिसमें नेविगेशन और ज़ूम नियंत्रण होते हैं। दो बूलियन विकल्प, 'सत्य' "
+"टूलबार को तयशुदा रूप से दृश्यमान बनाता है जबकि 'गलत' टूलबार को तयशुदा रूप से दृश्यमान नहीं "
+"बनाता है।"
+
+#: data/org.gnome.buoh.gschema.xml:11
+msgid "Show statusbar by default"
+msgstr "तयशुदा रूप से स्टेटसबार दिखाएं"
+
+#: data/org.gnome.buoh.gschema.xml:12
+msgid ""
+"Statusbar is the bottom bar that contains help and status messages. Two "
+"boolean options, true makes statusbar visible by default while false makes "
+"statusbar not visible by default."
+msgstr ""
+"स्टेटसबार निचली पट्टी है जिसमें सहायता और स्थिति संदेश होते हैं। दो बूलियन विकल्प, 'सत्य' "
+"स्टेटसबार को तयशुदा रूप से दृश्यमान बनाता है जबकि 'गलत' स्टेटसबार को तयशुदा रूप से दृश्यमान "
+"नहीं बनाता है।"
+
+#: data/org.gnome.buoh.gschema.xml:16
+msgid "Select viewer zoom mode"
+msgstr "दर्शक का ज़ूम मोड चुनें"
+
+#: data/org.gnome.buoh.gschema.xml:17
+msgid ""
+"There are two zoom modes available, 'best-fit' makes the current comic fill "
+"the window, 'fit-width' makes the current comic fill the window width."
+msgstr ""
+"दो ज़ूम मोड उपलब्ध हैं, 'सर्वोत्तम-फिट' वर्तमान कॉमिक को विंडो में भर देता है, 'चौड़ाई-में-"
+"फिट' वर्तमान कॉमिक को विंडो की चौड़ाई में भर देता है।"
+
+#: data/ui/add-comic-dialog.ui:7
+msgid "Add Comic"
+msgstr "कॉमिक जोड़ें"
+
+#: data/ui/add-comic-dialog.ui:22 data/ui/properties-dialog.ui:20
+msgid "_Close"
+msgstr "बंद (_C)"
+
+#: data/ui/add-comic-dialog.ui:80 data/ui/comic-list.ui:23
+msgid "Title"
+msgstr "शीर्षक"
+
+#: data/ui/add-comic-dialog.ui:95
+msgid "Author"
+msgstr "लेखक"
+
+#: data/ui/add-comic-dialog.ui:129
+msgid "Select Comics"
+msgstr "कॉमिक्स चुनें"
+
+#: data/ui/menus.ui:5
+msgid "_Comic"
+msgstr "कॉमिक (_C)"
+
+#: data/ui/menus.ui:8 data/ui/menus.ui:169
+msgid "_Add…"
+msgstr "जोड़ें (_A)…"
+
+#: data/ui/menus.ui:13 data/ui/menus.ui:174
+msgid "_Remove"
+msgstr "हटाएं (_R)"
+
+#: data/ui/menus.ui:21 data/ui/menus.ui:153
+msgid "_Save a Copy…"
+msgstr "एक प्रतिलिपि सहेजें (_S)…"
+
+#: data/ui/menus.ui:24 data/ui/menus.ui:156
+msgid "_Copy Location"
+msgstr "स्थान कॉपी करें (_C)"
+
+#: data/ui/menus.ui:30 data/ui/menus.ui:162
+msgid "_Properties…"
+msgstr "गुण (_P)…"
+
+#: data/ui/menus.ui:35
+msgid "_Quit"
+msgstr "छोड़ें (_Q)"
+
+#: data/ui/menus.ui:42
+msgid "_View"
+msgstr "देखें (_V)"
+
+#: data/ui/menus.ui:45
+msgid "_Toolbar"
+msgstr "टूलबार (_T)"
+
+#: data/ui/menus.ui:49
+msgid "St_atusbar"
+msgstr "स्टेटसबार (_a)"
+
+#: data/ui/menus.ui:55 data/ui/menus.ui:135
+msgid "Zoom _In"
+msgstr "ज़ूम इन (_I)"
+
+#: data/ui/menus.ui:60 data/ui/menus.ui:140
+msgid "Zoom _Out"
+msgstr "ज़ूम आउट (_O)"
+
+#: data/ui/menus.ui:67 data/ui/menus.ui:147
+msgid "_Normal Size"
+msgstr "सामान्य आकार (_N)"
+
+#: data/ui/menus.ui:73
+msgid "_Best Fit"
+msgstr "सर्वोत्तम फिट (_B)"
+
+#: data/ui/menus.ui:78
+msgid "Fit Comic _Width"
+msgstr "कॉमिक्स चौड़ाई में फिट (_W)"
+
+#: data/ui/menus.ui:83
+msgid "_Go"
+msgstr "जायें (_G)"
+
+#: data/ui/menus.ui:86 data/ui/menus.ui:123
+msgid "_Previous Comic"
+msgstr "पिछला कॉमिक (_P)"
+
+#: data/ui/menus.ui:91 data/ui/menus.ui:128
+msgid "_Next Comic"
+msgstr "अगली कॉमिक (_N)"
+
+#: data/ui/menus.ui:98
+msgid "_First Comic"
+msgstr "पहली कॉमिक (_F)"
+
+#: data/ui/menus.ui:103
+msgid "_Last Comic"
+msgstr "आखिरी कॉमिक (_L)"
+
+#: data/ui/menus.ui:110
+msgid "_Help"
+msgstr "सहायता (_H)"
+
+#: data/ui/menus.ui:113
+msgid "_About"
+msgstr "Buoh के बारे में (_A)"
+
+#: data/ui/properties-dialog.ui:7
+msgid "Comic Properties"
+msgstr "कॉमिक के गुण"
+
+#: data/ui/properties-dialog.ui:57
+msgid "Title:"
+msgstr "शीर्षक:"
+
+#: data/ui/properties-dialog.ui:71
+msgid "Author:"
+msgstr "लेखक:"
+
+#: data/ui/properties-dialog.ui:85
+msgid "Link:"
+msgstr "लिंक:"
+
+#: data/ui/properties-dialog.ui:99
+msgid "Date of publication:"
+msgstr "प्रकाशन की तिथि:"
+
+#: data/ui/properties-dialog.ui:113
+msgid "Language:"
+msgstr "भाषा:"
+
+#: data/ui/properties-dialog.ui:127
+msgid "Publication days:"
+msgstr "प्रकाशन दिवस:"
+
+#: data/ui/window.ui:20
+msgid "Go to the previous comic"
+msgstr "पिछली कॉमिक पर जाएं"
+
+#: data/ui/window.ui:22
+msgid "_Previous"
+msgstr "पिछला (_P)"
+
+#: data/ui/window.ui:33
+msgid "Go to the next comic"
+msgstr "अगली कॉमिक पर जाएं"
+
+#: data/ui/window.ui:35
+msgid "_Next"
+msgstr "अगला (_N)"
+
+#: data/ui/window.ui:54
+msgid "Increase the comic size"
+msgstr "कॉमिक आकार बढ़ाएं"
+
+#: data/ui/window.ui:56
+msgid "Zoom _in"
+msgstr "ज़ूम इन (_i)"
+
+#: data/ui/window.ui:67
+msgid "Decrease the comic size"
+msgstr "कॉमिक का आकार घटाएं"
+
+#: data/ui/window.ui:69
+msgid "Zoom ou_t"
+msgstr "ज़ूम आउट (_t)"
+
+#: data/ui/window.ui:80
+msgid "Use the normal comic size"
+msgstr "सामान्य कॉमिक आकार का प्रयोग करें"
+
+#: data/ui/window.ui:82
+msgid "N_ormal Size"
+msgstr "सामान्य आकार (_o)"
+
+#: src/buoh-add-comic-dialog.c:103
+#, c-format
+msgid "Comics selected: %d"
+msgstr "कॉमिक्स चयनित: %d"
+
+#: src/buoh-comic-manager-date.c:63
+msgid "Monday"
+msgstr "सोमवार"
+
+#: src/buoh-comic-manager-date.c:64
+msgid "Tuesday"
+msgstr "मंगलवार"
+
+#: src/buoh-comic-manager-date.c:65
+msgid "Wednesday"
+msgstr "बुधवार"
+
+#: src/buoh-comic-manager-date.c:66
+msgid "Thursday"
+msgstr "गुरुवार"
+
+#: src/buoh-comic-manager-date.c:67
+msgid "Friday"
+msgstr "शुक्रवार"
+
+#: src/buoh-comic-manager-date.c:68
+msgid "Saturday"
+msgstr "शनिवार"
+
+#: src/buoh-comic-manager-date.c:69
+msgid "Sunday"
+msgstr "रविवार"
+
+#. It's a range of days
+#: src/buoh-comic-manager-date.c:516
+msgid " to "
+msgstr " से "
+
+#: src/buoh-comic-manager-date.c:531
+msgid "Every day"
+msgstr "हर दिन"
+
+#: src/buoh-comic.c:392
+#, c-format
+msgid "Cannot create file “%s”: %s"
+msgstr "फाइल “%s” नहीं बना सकते: %s"
+
+#: src/buoh-comic.c:400 src/buoh-comic.c:409
+#, c-format
+msgid "Error writing to file “%s”: %s"
+msgstr "फाइल “%s” में लिखने में त्रुटि: %s"
+
+#: src/buoh-view-comic.c:663
+msgid "Error Loading Comic"
+msgstr "कॉमिक लोड करने में त्रुटि"
+
+#: src/buoh-view.c:93
+msgid "Buoh online comic strips reader"
+msgstr "Buoh ऑनलाइन कॉमिक स्ट्रिप्स का पाठक"
+
+#: src/buoh-view.c:95
+msgid ""
+"Welcome to <b>Buoh</b>, the online comics reader for GNOME Desktop.\n"
+"The list on the left panel contains your favorite comic strips to add or "
+"remove comics to the list click on Comic → Add. Just select a comic from the "
+"list, and it will be displayed on the right side. Thanks for using Buoh."
+msgstr ""
+"GNOME डेस्कटॉप के ऑनलाइन कॉमिक्स के पाठक <b>Buoh</b> में आपका स्वागत है।\n"
+"बाएं पैनल की सूची में आपकी पसंदीदा कॉमिक स्ट्रिप्स हैं, सूची में कॉमिक्स जोड़ने या हटाने के लिए "
+"कॉमिक → जोड़ें पर क्लिक करें। बस सूची से एक कॉमिक चुनें, और यह दाईं ओर प्रदर्शित होगी। "
+"Buoh का उपयोग करने के लिए धन्यवाद।"
+
+#: src/buoh-window.c:417
+msgid "Images"
+msgstr "छवियां"
+
+#: src/buoh-window.c:420
+msgid "Save Comic"
+msgstr "कॉमिक सहेजें"
+
+#: src/buoh-window.c:423
+msgid "_Cancel"
+msgstr "रद्द (_C)"
+
+#: src/buoh-window.c:424
+msgid "_Save"
+msgstr "सहेजें (_S)"
+
+#: src/buoh-window.c:463
+msgid "Unable to save comic"
+msgstr "कॉमिक सहेजने में असमर्थ"
+
+#: src/buoh-window.c:694
+msgid "translator-credits"
+msgstr "Scrambled777 <weblate.scrambled777@simplelogin.com>"
+
+#: src/buoh-window.c:817
+msgid "Getting comic…"
+msgstr "कॉमिक प्राप्त कर रहें है…"
